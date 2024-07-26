@@ -1,31 +1,19 @@
-import { StyleSheet } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+import { useAppTheme } from '@/contexts/ThemeContext';
+import useThemedStyles from '@/hooks/useThemedStyles';
 
 export default function TabOneScreen() {
+  const { toggleTheme } = useAppTheme();
+  const styles = useThemedStyles();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <Text style={styles.text}>Tab One 1</Text>
+      <View style={styles.container} />
       <EditScreenInfo path="app/(tabs)/index.tsx" />
+      <Button title="Toggle Theme" onPress={toggleTheme} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
