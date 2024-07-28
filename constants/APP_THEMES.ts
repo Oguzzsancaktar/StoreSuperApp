@@ -44,7 +44,8 @@ const DARK_MODE_GRAYSCALE: IGrayScaleColours = {
 const APP_THEMES: IAppThemes = {
   light: {
     ...COMMON_COLOURS,
-    ...LIGHT_MODE_GRAYSCALE
+    ...LIGHT_MODE_GRAYSCALE,
+
   },
   dark: {
     ...COMMON_COLOURS,

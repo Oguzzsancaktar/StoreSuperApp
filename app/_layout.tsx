@@ -21,7 +21,10 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    BRShapeBold: require('../assets/fonts/BR_Shape_Bold.otf'),
+    BRShapeSemibold: require('../assets/fonts/BR_Shape_Semibold.otf'),
+    BRShapeMedium: require('../assets/fonts/BR_Shape_Medium.otf'),
+    BRShapeRegular: require('../assets/fonts/BR_Shape_Regular.otf'),
     ...FontAwesome.font,
   });
 
