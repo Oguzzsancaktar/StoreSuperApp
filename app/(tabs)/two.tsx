@@ -1,10 +1,21 @@
+import { useSession } from '@/contexts/AuthContext';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function TabTwoScreen() {
+  const { signOut } = useSession();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab Two</Text>
       <View style={styles.separator} />
+      <Text
+        onPress={() => {
+          // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
+          signOut();
+        }}
+      >
+        Sign Out
+      </Text>
     </View>
   );
 }
