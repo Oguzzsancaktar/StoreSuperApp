@@ -1,4 +1,4 @@
-import { IAppThemes, ICommonColours, IGrayScaleColours } from "@/interfaces/theme";
+import { IAppColourNames, IAppThemeTypes, ICommonColours, IGrayScaleColours } from "@/interfaces/theme";
 
 const COMMON_COLOURS: ICommonColours = {
   // Branding
@@ -41,15 +41,25 @@ const DARK_MODE_GRAYSCALE: IGrayScaleColours = {
   grayScale900: "#FAFAFA",
 }
 
-const APP_THEMES: IAppThemes = {
+const LIGHT_MODE_COLOURS: IAppColourNames = {
+  appBackground: COMMON_COLOURS.white
+}
+
+const DARK_MODE_COLOURS: IAppColourNames = {
+  appBackground: "#1E1E1E"
+}
+
+const APP_THEMES: IAppThemeTypes = {
   light: {
     ...COMMON_COLOURS,
     ...LIGHT_MODE_GRAYSCALE,
+    ...LIGHT_MODE_COLOURS,
 
   },
   dark: {
     ...COMMON_COLOURS,
-    ...DARK_MODE_GRAYSCALE
+    ...DARK_MODE_GRAYSCALE,
+    ...DARK_MODE_COLOURS
   },
 };
 

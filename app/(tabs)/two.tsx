@@ -1,3 +1,4 @@
+import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { useSession } from '@/contexts/AuthContext';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -5,7 +6,7 @@ export default function TabTwoScreen() {
   const { signOut } = useSession();
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapperContainer>
       <Text style={styles.title}>Tab Two</Text>
       <View style={styles.separator} />
       <Text
@@ -16,7 +17,7 @@ export default function TabTwoScreen() {
       >
         Sign Out
       </Text>
-    </View>
+    </ScreenWrapperContainer>
   );
 }
 

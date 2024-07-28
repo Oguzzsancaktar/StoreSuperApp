@@ -1,6 +1,6 @@
 import IAppTheme from "./IAppTheme";
 
-export default interface IAppThemes {
+export default interface IAppThemeTypes {
   light: IAppTheme
   dark: IAppTheme
 }

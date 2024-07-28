@@ -5,6 +5,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
 import { Slot, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
@@ -54,11 +55,6 @@ function RootLayoutNav() {
       <SessionProvider>
         <SafeAreaContainer>
           <Slot />
-          {/* <Stack initialRouteName="(tabs)">
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="(public)" options={{ headerShown: false }} />
-            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-          </Stack> */}
         </SafeAreaContainer>
       </SessionProvider>
     </ThemeProvider>

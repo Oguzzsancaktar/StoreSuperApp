@@ -1,3 +1,4 @@
+import APP_STORAGE_KEYS from '@/constants/APP_STORAGE_KEYS';
 import { useStorageState } from '@/hooks/useStorageState';
 import { useContext, createContext, type PropsWithChildren } from 'react';
 
@@ -26,7 +27,9 @@ export function useSession() {
 }
 
 export function SessionProvider({ children }: PropsWithChildren) {
-  const [[isLoading, session], setSession] = useStorageState('session');
+  const [[isLoading, session], setSession] = useStorageState(
+    APP_STORAGE_KEYS.AUTH_SESSION
+  );
 
   return (
     <AuthContext.Provider

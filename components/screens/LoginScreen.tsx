@@ -2,12 +2,13 @@ import React from 'react';
 import { router } from 'expo-router';
 import { View, Text } from 'react-native';
 import { useSession } from '@/contexts/AuthContext';
+import ScreenWrapperContainer from '../containers/ScreenWrapperContainer';
 
 const LoginScreen = () => {
   const { signIn } = useSession();
 
   return (
-    <View style={{ paddingHorizontal: 20 }}>
+    <ScreenWrapperContainer>
       <Text>LoginScreensss</Text>
       <Text
         onPress={() => {
@@ -19,7 +20,7 @@ const LoginScreen = () => {
       >
         Sign In
       </Text>
-    </View>
+    </ScreenWrapperContainer>
   );
 };
 

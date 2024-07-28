@@ -1,6 +1,14 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useMemo,
+} from 'react';
 import APP_THEMES from '@/constants/APP_THEMES';
 import { IAppTheme } from '@/interfaces/theme';
+import APP_STORAGE_KEYS from '@/constants/APP_STORAGE_KEYS';
+import { useStorageState } from '@/hooks/useStorageState';
 
 interface ThemeContextType {
   theme: IAppTheme;
@@ -12,13 +20,20 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [[isLoading, session], setSession] = useStorageState(
+    APP_STORAGE_KEYS.APP_THEME
+  );
+
+  const oppositeTheme = session === 'dark' ? 'light' : 'dark';
 
   const toggleTheme = () => {
-    setIsDarkMode((prevMode) => !prevMode);
+    setSession(oppositeTheme);
   };
 
-  const theme = APP_THEMES[isDarkMode ? 'dark' : 'light'];
+  const theme = useMemo(
+    () => APP_THEMES[(session as typeof oppositeTheme) || 'dark'],
+    [session]
+  );
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

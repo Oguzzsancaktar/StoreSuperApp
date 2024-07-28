@@ -23,6 +23,10 @@ const useThemedStyles = () => {
     },
 
     // Containers
+    screenWrapperContainer: {
+      flex: 1,
+      backgroundColor: theme.appBackground,
+    },
     container: {
       flex: 1,
       justifyContent: 'center',
