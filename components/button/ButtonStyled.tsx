@@ -7,16 +7,23 @@ import { IButtonStylesheet } from '@/interfaces/theme';
 
 interface IProps {
   disabled?: boolean;
-  variant: keyof IButtonStylesheet;
+  onPress?: () => void;
   text: string;
+  variant: keyof IButtonStylesheet;
 }
 
-const ButtonStyled: React.FC<IProps> = ({ disabled, variant, text }) => {
+const ButtonStyled: React.FC<IProps> = ({
+  disabled,
+  onPress,
+  text,
+  variant,
+}) => {
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
 
   return (
     <Pressable
+      onPress={onPress}
       disabled={disabled}
       style={({ pressed }) => [
         themedStyles.buttonStyles[

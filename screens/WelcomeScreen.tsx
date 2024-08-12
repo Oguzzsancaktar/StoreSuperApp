@@ -9,10 +9,16 @@ import { TextScanEffect } from '@/components/typography';
 import { ButtonStyled } from '@/components/button';
 import { InnerCommonContainer } from '@/components/containers';
 import useCommonStyles from '@/hooks/useCommonStyles';
+import { router } from 'expo-router';
+import APP_ROUTES from '@/constants/APP_ROUTES';
 
 const WelcomeScreen = () => {
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
+
+  const handleSignButtonClick = (type: 'SIGNIN' | 'SIGNUP') => {
+    router.push(APP_ROUTES.PUBLIC[type]);
+  };
 
   return (
     <ScreenWrapperContainer>
@@ -73,9 +79,17 @@ const WelcomeScreen = () => {
           </View>
 
           <View style={[commonStyles.spacingStyles.g3]}>
-            <ButtonStyled text={'Giriş Yap'} variant="buttonPrimarySolid" />
+            <ButtonStyled
+              onPress={() => handleSignButtonClick('SIGNIN')}
+              text={'Giriş Yap'}
+              variant="buttonPrimarySolid"
+            />
 
-            <ButtonStyled text="Kayıt Ol" variant={'buttonPrimaryOutlined'} />
+            <ButtonStyled
+              onPress={() => handleSignButtonClick('SIGNUP')}
+              text="Kayıt Ol"
+              variant={'buttonPrimaryOutlined'}
+            />
           </View>
         </View>
       </InnerCommonContainer>
