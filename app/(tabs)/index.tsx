@@ -1,7 +1,7 @@
 import { Button, View } from 'react-native';
 import { useAppTheme } from '@/contexts/ThemeContext';
 
-import StyledText from '@/components/typography/StyledText';
+import TextStyled from '@/components/typography/TextStyled';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 
 export default function TabOneScreen() {
@@ -9,12 +9,12 @@ export default function TabOneScreen() {
 
   return (
     <ScreenWrapperContainer>
-      <StyledText fontWeight="bold" fontSize="h1">
+      <TextStyled fontWeight="bold" fontSize="h1">
         Tab One 1 Stled
-      </StyledText>
-      <StyledText fontWeight="medium" fontSize="xl">
+      </TextStyled>
+      <TextStyled fontWeight="medium" fontSize="xl">
         Tab One 1 Stled
-      </StyledText>
+      </TextStyled>
       <Button title="Toggle Theme" onPress={toggleTheme} />
     </ScreenWrapperContainer>
   );

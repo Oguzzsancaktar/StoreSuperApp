@@ -1,13 +1,11 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-
-import { Redirect, Stack, Link, Tabs } from 'expo-router';
+import { Redirect, Link, Tabs } from 'expo-router';
 import { Pressable, Text } from 'react-native';
-
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useSession } from '@/contexts/AuthContext';
+import APP_ROUTES from '@/constants/APP_ROUTES';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -30,7 +28,7 @@ export default function TabLayout() {
   // Only require authentication within the (app) group's layout as users
   // need to be able to access the (auth) group and sign in again.
   if (!session) {
-    return <Redirect href="/(public)/login" />;
+    return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;
   }
 
   return (

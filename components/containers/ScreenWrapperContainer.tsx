@@ -6,9 +6,13 @@ interface IProps {
   children: React.ReactNode;
 }
 const ScreenWrapperContainer: React.FC<IProps> = ({ children }) => {
-  const styles = useThemedStyles();
+  const themedStyles = useThemedStyles();
 
-  return <View style={styles.screenWrapperContainer}>{children}</View>;
+  return (
+    <View style={themedStyles.containerStyles.screenWrapperContainer}>
+      {children}
+    </View>
+  );
 };
 
 export default ScreenWrapperContainer;

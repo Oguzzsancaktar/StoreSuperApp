@@ -1,7 +1,10 @@
 const APP_ROUTES = {
-  HOME: '/',
-  ABOUT: '/about',
-  CONTACT: '/contact',
+  PUBLIC: {
+    WELCOME: "/(public)/welcome"
+  },
+  TABS: {
+
+  }
 };
 
 export default APP_ROUTES;

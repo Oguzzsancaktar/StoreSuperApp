@@ -1,9 +1,10 @@
 import { IAppColourNames, IAppThemeTypes, ICommonColours, IGrayScaleColours } from "@/interfaces/theme";
 
-const COMMON_COLOURS: ICommonColours = {
+export const COMMON_COLOURS: ICommonColours = {
   // Branding
   primary: "#FFB800",
   primaryLight: "#FFD66C",
+  primaryDarken10: "#deb853",
   // Alert & Status
   success: "#00C247",
   info: "#004CE8",

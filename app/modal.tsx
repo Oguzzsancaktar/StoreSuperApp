@@ -3,7 +3,7 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 
 export default function ModalScreen() {
   return (
-    <View style={styles.container}>
+    <View style={[]}>
       <Text style={styles.title}>Modal</Text>
       <View style={styles.separator} />
 
