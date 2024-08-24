@@ -26,8 +26,6 @@ const TextStyled: React.FC<IProps> = ({
   const { theme } = useAppTheme();
   const { shadowStyles } = useThemedStyles();
 
-  console.log('shadowStyles', shadowStyles);
-
   const textStyles = useMemo(() => {
     const { fontSizes, fontWeights } = APP_TYPOGRAPHY;
 
@@ -44,7 +42,6 @@ const TextStyled: React.FC<IProps> = ({
     };
 
     if (textShadow) {
-      console.log('----', shadowStyles[textShadow]);
       tempStyles = {
         ...tempStyles,
         ...shadowStyles[textShadow],

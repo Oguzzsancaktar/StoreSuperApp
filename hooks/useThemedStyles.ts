@@ -47,8 +47,9 @@ const useThemedStyles = () => {
     },
     buttonPrimarySolidPressed: {
       ...COMMON_BUTTON_STYLES,
-      backgroundColor: theme.primary + "DD",
+      backgroundColor: theme.primary,
       borderColor: COMMON_COLOURS.primaryDarken10,
+      opacity: 0.8,
       ...shadowStyles.dropShadowSm
     },
     buttonPrimarySolidDisabled: {

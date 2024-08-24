@@ -1,9 +1,8 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { WelcomeBackgroundPattern } from '@/components/svg/background';
-import { IconTaratLogoPrimary } from '@/components/svg/icon';
 import TextStyled from '@/components/typography/TextStyled';
 import { TextScanEffect } from '@/components/typography';
 import { ButtonStyled } from '@/components/button';
@@ -11,6 +10,7 @@ import { InnerCommonContainer } from '@/components/containers';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
+import { getIconWithProps } from '@/components/svg/icon';
 
 const WelcomeScreen = () => {
   const { theme } = useAppTheme();
@@ -45,10 +45,10 @@ const WelcomeScreen = () => {
               commonStyles.spacingStyles.g7,
             ]}
           >
-            <IconTaratLogoPrimary
-              textColor={theme.grayScale800}
-              showText={true}
-            />
+            {getIconWithProps('IconTaratLogoPrimary', {
+              textColor: theme.grayScale800,
+            })}
+
             <View
               style={[
                 commonStyles.flexStyles.selfCenter,
