@@ -1,7 +1,7 @@
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { StyleSheet } from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { IButtonStylesheet, IShadowStylesheet } from '@/interfaces/theme';
+import { IBorderStylesheet, IButtonStylesheet, IShadowStylesheet } from '@/interfaces/theme';
 import { COMMON_COLOURS } from '@/constants/APP_THEMES';
 
 
@@ -21,6 +21,16 @@ const useThemedStyles = () => {
   const { theme } = useAppTheme();
 
 
+  const borderStyles: StyleSheet.NamedStyles<IBorderStylesheet> = StyleSheet.create({
+    default: {
+      borderWidth: 1,
+      borderColor: theme.grayScale200,
+    },
+    primary: {
+      borderWidth: 1,
+      borderColor: theme.primary,
+    },
+  })
 
   const shadowStyles: StyleSheet.NamedStyles<IShadowStylesheet> = StyleSheet.create({
     textShadowSm: {
@@ -86,7 +96,7 @@ const useThemedStyles = () => {
     },
   })
 
-  return { buttonStyles, containerStyles, shadowStyles }
+  return { borderStyles, buttonStyles, containerStyles, shadowStyles }
 };
 
 export default useThemedStyles;
