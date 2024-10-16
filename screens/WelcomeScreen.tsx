@@ -45,7 +45,7 @@ const WelcomeScreen = () => {
               commonStyles.spacingStyles.g7,
             ]}
           >
-            {getIconWithProps('IconTaratLogoPrimary', {
+            {getIconWithProps('IconLogoPrimary', {
               textColor: theme.grayScale800,
             })}
 
@@ -61,7 +61,7 @@ const WelcomeScreen = () => {
                 fontWeight="regular"
                 customColor="grayScale600"
               >
-                Hadi sen de
+                Ticaretin güvenli yolu
               </TextStyled>
               <View
                 style={[commonStyles.spacingStyles.m1, { marginBottom: 0 }]}
@@ -73,7 +73,7 @@ const WelcomeScreen = () => {
                 fontWeight="regular"
                 customColor="grayScale600"
               >
-                ile aracının kimliğini oluştur!
+                ile her şey bir arada.
               </TextStyled>
             </View>
           </View>

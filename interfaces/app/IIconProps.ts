@@ -1,6 +1,6 @@
-import { ITaratLogoProps } from "@/components/svg/icon/IconTaratLogoPrimary";
+import { ILogoProps } from "@/components/svg/icon/IconLogoPrimary";
 
-interface IIconProps extends ITaratLogoProps {
+interface IIconProps extends ILogoProps {
 
 }
 

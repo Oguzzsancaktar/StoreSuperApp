@@ -39,7 +39,7 @@ const WelcomeBackgroundPattern = () => {
           gradientUnits="userSpaceOnUse"
         >
           <Stop stopColor="#FFB800" stopOpacity="0.01" />
-          <Stop offset="1" stopColor="#FFDA7B" stopOpacity="0.6" />
+          <Stop offset="1" stopColor="#ec572c" stopOpacity="0.6" />
         </LinearGradient>
         <LinearGradient
           id="paint1_linear_16_355"
@@ -50,7 +50,7 @@ const WelcomeBackgroundPattern = () => {
           gradientUnits="userSpaceOnUse"
         >
           <Stop stopColor="#FFB800" stopOpacity="0.01" />
-          <Stop offset="1" stopColor="#FFDA7B" stopOpacity="0.6" />
+          <Stop offset="1" stopColor="#ec572c" stopOpacity="0.6" />
         </LinearGradient>
         <LinearGradient
           id="paint2_linear_16_355"
@@ -61,7 +61,7 @@ const WelcomeBackgroundPattern = () => {
           gradientUnits="userSpaceOnUse"
         >
           <Stop stopColor="#FFB800" stopOpacity="0.01" />
-          <Stop offset="1" stopColor="#FFDA7B" stopOpacity="0.6" />
+          <Stop offset="1" stopColor="#ec572c" stopOpacity="0.6" />
         </LinearGradient>
         <LinearGradient
           id="paint3_linear_16_355"
@@ -72,7 +72,7 @@ const WelcomeBackgroundPattern = () => {
           gradientUnits="userSpaceOnUse"
         >
           <Stop stopColor="#FFB800" stopOpacity="0.01" />
-          <Stop offset="1" stopColor="#FFDA7B" stopOpacity="0.6" />
+          <Stop offset="1" stopColor="#ec572c" stopOpacity="0.6" />
         </LinearGradient>
         <LinearGradient
           id="paint4_linear_16_355"
@@ -83,7 +83,7 @@ const WelcomeBackgroundPattern = () => {
           gradientUnits="userSpaceOnUse"
         >
           <Stop stopColor="#FFB800" stopOpacity="0.01" />
-          <Stop offset="1" stopColor="#FFDA7B" stopOpacity="0.6" />
+          <Stop offset="1" stopColor="#ec572c" stopOpacity="0.6" />
         </LinearGradient>
         <LinearGradient
           id="paint5_linear_16_355"
@@ -94,7 +94,7 @@ const WelcomeBackgroundPattern = () => {
           gradientUnits="userSpaceOnUse"
         >
           <Stop stopColor="#FFB800" stopOpacity="0.01" />
-          <Stop offset="1" stopColor="#FFDA7B" stopOpacity="0.6" />
+          <Stop offset="1" stopColor="#ec572c" stopOpacity="0.6" />
         </LinearGradient>
       </Defs>
     </Svg>

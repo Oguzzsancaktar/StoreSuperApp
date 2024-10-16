@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TaratApp",
-    "slug": "TaratApp",
+    "name": "StoreSuperApp",
+    "slug": "StoreSuperApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.oguzsancaktar.taratApp"
+      "bundleIdentifier": "com.oguzsancaktar.storeSuperApp"
     },
     "android": {
       "adaptiveIcon": {

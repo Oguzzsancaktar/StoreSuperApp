@@ -17,7 +17,7 @@ const TextScanEffect = () => {
       ]}
     >
       <TextStyled fontSize="xl" fontWeight="regular" customColor="grayScale600">
-        TARAT
+        STORE
       </TextStyled>
       <View
         style={[

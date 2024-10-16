@@ -66,7 +66,7 @@ import IconSortList from "./IconSortList";
 import IconStore from "./IconStore";
 import IconSwitchCamera from "./IconSwitchCamera";
 import IconTag from "./IconTag";
-import IconTaratLogoPrimary from "./IconTaratLogoPrimary";
+import IconLogoPrimary from "./IconLogoPrimary";
 import IconTechnical from "./IconTechnical";
 import IconTheme from "./IconTheme";
 import IconThumbsUp from "./IconThumbsUp";
@@ -149,7 +149,7 @@ const ICONS = {
   IconStore,
   IconSwitchCamera,
   IconTag,
-  IconTaratLogoPrimary,
+  IconLogoPrimary,
   IconTechnical,
   IconTheme,
   IconThumbsUp,
