@@ -1,6 +1,6 @@
 import useThemedStyles from '@/hooks/useThemedStyles';
 import React from 'react';
-import { Pressable, TouchableOpacity } from 'react-native';
+import { Pressable } from 'react-native';
 import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { IButtonStylesheet } from '@/interfaces/theme';

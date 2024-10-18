@@ -1,32 +1,60 @@
 import React from 'react';
-import { View } from 'react-native';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import TextStyled from '@/components/typography/TextStyled';
 import { InnerCommonContainer } from '@/components/containers';
 import useCommonStyles from '@/hooks/useCommonStyles';
+import { SignupForm } from '@/components/form';
+import { SignupFormStepProps } from '@/components/form/SignupForm';
+import { TextStyled } from '@/components/typography';
+import { View } from 'react-native';
+import SLoginIllustration from '@/components/svg/illustrations/SLoginIllustration';
 
 const SigninScreen = () => {
   const commonStyles = useCommonStyles();
 
+  const steps: SignupFormStepProps[] = [
+    {
+      id: 'STEP_1',
+      fields: [
+        {
+          label: 'First name',
+          name: 'firstname',
+          placeholder: 'Your email address',
+          type: 'text',
+        },
+        {
+          label: 'Password',
+          name: 'password',
+          placeholder: 'Your password',
+          type: 'password',
+        },
+      ],
+    },
+  ];
+  const defaultValues = { COUNTRY: 'Estonia' };
+
+  const handleSubmit = (values: Record<string, any>) => {
+    console.log(values);
+  };
+
   return (
-    <ScreenWrapperContainer>
+    <ScreenWrapperContainer showGoBack={true}>
+      <View>
+        <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
+          Welcome to Marketplace
+        </TextStyled>
+        <TextStyled fontSize="md" fontWeight="semibold">
+          Login into your account, to find cool things in your area or sell your
+          own stuff.
+        </TextStyled>
+        <SLoginIllustration />
+      </View>
+
       <InnerCommonContainer>
-        <View
-          style={[
-            commonStyles.maxWidthStyles.maxWidthXl,
-            commonStyles.flexStyles.selfCenter,
-            commonStyles.flexStyles.colBetween,
-            { flex: 1, width: '100%' },
-          ]}
-        >
-          <TextStyled
-            fontSize="xl"
-            fontWeight="regular"
-            customColor="grayScale600"
-          >
-            Signin
-          </TextStyled>
-        </View>
+        <SignupForm
+          steps={steps}
+          defaultValues={defaultValues}
+          onSubmit={handleSubmit}
+        />
       </InnerCommonContainer>
     </ScreenWrapperContainer>
   );

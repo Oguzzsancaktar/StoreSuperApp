@@ -1,14 +1,17 @@
 
-const HEIGHT_SIZES = {
+const WH_SIZES = {
+  xl: 80,
   lg: 56,
   md: 48,
   sm: 40,
+  xs: 32,
 }
 
 const RADIUS_SIZES = {
   lg: 16,
   md: 12,
   sm: 8,
+  full: 9999,
 }
 
 const MAX_WIDTH = {
@@ -35,7 +38,7 @@ const SPACE_SIZES = {
 
 
 const APP_STYLE_VALUES = {
-  HEIGHT_SIZES,
+  WH_SIZES,
   RADIUS_SIZES,
   MAX_WIDTH,
   SPACE_SIZES,

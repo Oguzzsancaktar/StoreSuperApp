@@ -1,19 +1,21 @@
 import { useMemo, useState } from 'react';
 import FormStyled from './FormStyled';
+
+import { IInputProps } from '@/interfaces/app';
 import { View } from 'react-native';
 
-export interface FormWizardStepProps {
+export interface SignupFormStepProps {
   id: string;
-  fields: Array<{ name: string }>;
+  fields: Array<IInputProps>;
 }
 
-export interface FormWizardProps {
-  steps: FormWizardStepProps[];
+export interface SignupFormProps {
+  steps: SignupFormStepProps[];
   defaultValues: Record<string, any>;
   onSubmit(values: Record<string, any>): void;
 }
 
-const FormWizard: React.FC<Readonly<FormWizardProps>> = (props) => {
+const SignupForm: React.FC<Readonly<SignupFormProps>> = (props) => {
   const { steps, defaultValues, onSubmit } = props;
   const [values, setValues] = useState<Record<string, any>>({});
   const [activeStepIndex, setActiveStepIndex] = useState(0);
@@ -56,17 +58,15 @@ const FormWizard: React.FC<Readonly<FormWizardProps>> = (props) => {
   }
 
   return (
-    <View>
-      <FormStyled
-        showBackButton={!!activeStepIndex}
-        onBack={handleBackStep}
-        key={activeStep.id} // IMPORTANT! Keep each form instance separate
-        fields={activeStep.fields}
-        defaultValues={{ ...defaultValues, ...values }}
-        onSubmit={handleNextStep}
-      />
-    </View>
+    <FormStyled
+      showBackButton={!!activeStepIndex}
+      onBack={handleBackStep}
+      key={activeStep.id} // IMPORTANT! Keep each form instance separate
+      fields={activeStep.fields}
+      defaultValues={{ ...defaultValues, ...values }}
+      onSubmit={handleNextStep}
+    />
   );
 };
 
-export default FormWizard;
+export default SignupForm;

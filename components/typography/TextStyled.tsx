@@ -51,11 +51,7 @@ const TextStyled: React.FC<IProps> = ({
     return tempStyles;
   }, [theme, textShadow, fontSize, fontWeight]);
 
-  return (
-    <View>
-      <Text style={textStyles}>{children}</Text>
-    </View>
-  );
+  return <Text style={textStyles}>{children}</Text>;
 };
 
 export default TextStyled;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text, Touchable, TouchableOpacity, View } from 'react-native';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { WelcomeBackgroundPattern } from '@/components/svg/background';
@@ -11,10 +11,11 @@ import useCommonStyles from '@/hooks/useCommonStyles';
 import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { getIconWithProps } from '@/components/svg/icon';
+import IconTheme from '@/components/svg/icon/IconTheme';
 
 const WelcomeScreen = () => {
-  const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
+  const { theme, toggleTheme } = useAppTheme();
 
   const handleSignButtonClick = (type: 'SIGNIN' | 'SIGNUP') => {
     router.push(APP_ROUTES.PUBLIC[type]);
@@ -30,6 +31,10 @@ const WelcomeScreen = () => {
       >
         <WelcomeBackgroundPattern />
       </View>
+
+      <TouchableOpacity onPress={toggleTheme}>
+        <IconTheme />
+      </TouchableOpacity>
       <InnerCommonContainer>
         <View
           style={[

@@ -5,10 +5,10 @@ import { IBorderStylesheet, IButtonStylesheet, IShadowStylesheet } from '@/inter
 import { COMMON_COLOURS } from '@/constants/APP_THEMES';
 
 
-const { HEIGHT_SIZES, RADIUS_SIZES, SPACE_SIZES } = APP_STYLE_VALUES;
+const { WH_SIZES, RADIUS_SIZES, SPACE_SIZES } = APP_STYLE_VALUES;
 
 const COMMON_BUTTON_STYLES = {
-  height: HEIGHT_SIZES.lg,
+  height: WH_SIZES.lg,
   borderRadius: RADIUS_SIZES.lg,
   padding: SPACE_SIZES.sp4,
   paddingVertical: SPACE_SIZES.sp0,
@@ -45,6 +45,22 @@ const useThemedStyles = () => {
       shadowOpacity: 0.1,
       shadowRadius: 12,
       elevation: 0,
+    },
+  })
+
+  const inputStyles = StyleSheet.create({
+    default: {
+      height: WH_SIZES.lg,
+      borderRadius: RADIUS_SIZES.lg,
+      padding: SPACE_SIZES.sp4,
+      color: theme.grayScale900,
+      ...borderStyles.default
+    },
+    inputFocused: {
+      ...borderStyles.primary
+    },
+    inputError: {
+      borderColor: theme.error,
     },
   })
 
@@ -91,12 +107,13 @@ const useThemedStyles = () => {
 
   const containerStyles = StyleSheet.create({
     screenWrapperContainer: {
+      position: 'relative',
       flex: 1,
       backgroundColor: theme.appBackground,
     },
   })
 
-  return { borderStyles, buttonStyles, containerStyles, shadowStyles }
+  return { borderStyles, buttonStyles, inputStyles, containerStyles, shadowStyles }
 };
 
 export default useThemedStyles;
