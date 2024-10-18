@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import FormStyled from './FormStyled';
 
 import { IInputProps } from '@/interfaces/app';
-import { View } from 'react-native';
 
 export interface SignupFormStepProps {
   id: string;

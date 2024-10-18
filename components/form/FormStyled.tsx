@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useMemo } from 'react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { ButtonStyled } from '../button';
 import { InputStyled } from '../input';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { map } from 'lodash';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { IInputProps } from '@/interfaces/app';

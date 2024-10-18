@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "StoreSuperApp",
-    "slug": "StoreSuperApp",
+    "name": "Setuka24",
+    "slug": "Setuka24",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -14,13 +14,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.oguzsancaktar.storeSuperApp"
+      "bundleIdentifier": "com.ngxmarketplace.setuka24"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ngxmarketplace.setuka24"
     },
     "web": {
       "bundler": "metro",
