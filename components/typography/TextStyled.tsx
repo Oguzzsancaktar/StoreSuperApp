@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { View, Text, StyleProp, TextStyle } from 'react-native';
+import { useMemo } from 'react';
+import { Text, StyleProp, TextStyle } from 'react-native';
 import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
 import { IAppTheme, IShadowStylesheet } from '@/interfaces/theme';
 import { useAppTheme } from '@/contexts/ThemeContext';
@@ -12,7 +12,7 @@ interface IProps {
   fontSize: keyof typeof APP_TYPOGRAPHY.fontSizes;
   fontWeight: keyof typeof APP_TYPOGRAPHY.fontWeights;
   customColor?: keyof IAppTheme;
-  children: string;
+  children: string | string[];
 }
 
 const TextStyled: React.FC<IProps> = ({

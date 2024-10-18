@@ -1,5 +1,4 @@
 import { IIconProps } from '@/interfaces/app';
-import React from 'react';
 import { Path, Svg } from 'react-native-svg';
 
 const IconChevronLeft: React.FC<IIconProps> = ({ color }) => {

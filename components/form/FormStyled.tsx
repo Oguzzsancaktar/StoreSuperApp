@@ -1,11 +1,12 @@
-import React, { Fragment, useEffect, useMemo } from 'react';
+import { Fragment, useEffect, useMemo } from 'react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { ButtonStyled } from '../button';
 import { InputStyled } from '../input';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { map } from 'lodash';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { IInputProps } from '@/interfaces/app';
+import { TextStyled } from '../typography';
 
 export interface IProps {
   fields: Array<IInputProps>;
@@ -67,7 +68,7 @@ const FormStyled: React.FC<Readonly<IProps>> = (props) => {
                   name={name}
                   type={type}
                   label={label}
-                  style={{ borderWidth: 1, padding: 10, marginBottom: 10 }}
+                  style={{ borderWidth: 1, padding: 10 }}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
@@ -76,7 +77,23 @@ const FormStyled: React.FC<Readonly<IProps>> = (props) => {
               )}
             />
 
-            {errors.email && <Text>Email is invalid.</Text>}
+            {errors.email && (
+              <View
+                style={{
+                  marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                  marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                }}
+              >
+                <TextStyled
+                  customColor="grayScale400"
+                  textAlignment="left"
+                  fontSize="md"
+                  fontWeight="regular"
+                >
+                  {label || ''} is invalid.
+                </TextStyled>
+              </View>
+            )}
           </Fragment>
         ))}
 

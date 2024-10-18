@@ -107,6 +107,7 @@ const useThemedStyles = () => {
 
   const containerStyles = StyleSheet.create({
     screenWrapperContainer: {
+      height: '100%',
       position: 'relative',
       flex: 1,
       backgroundColor: theme.appBackground,

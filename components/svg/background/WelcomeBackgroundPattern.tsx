@@ -1,5 +1,3 @@
-import { View, Text } from 'react-native';
-import React from 'react';
 import { Defs, LinearGradient, Path, Stop, Svg } from 'react-native-svg';
 
 const WelcomeBackgroundPattern = () => {

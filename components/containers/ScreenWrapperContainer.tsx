@@ -1,5 +1,4 @@
-import { View } from 'react-native';
-import React from 'react';
+import { ScrollView, View } from 'react-native';
 import useThemedStyles from '@/hooks/useThemedStyles';
 import { ButtonGoBack } from '../button';
 
@@ -14,10 +13,14 @@ const ScreenWrapperContainer: React.FC<IProps> = ({
   const themedStyles = useThemedStyles();
 
   return (
-    <View style={themedStyles.containerStyles.screenWrapperContainer}>
+    <ScrollView
+      contentContainerStyle={
+        themedStyles.containerStyles.screenWrapperContainer
+      }
+    >
       {showGoBack && <ButtonGoBack variant="buttonPrimaryOutlined" />}
       {children}
-    </View>
+    </ScrollView>
   );
 };
 

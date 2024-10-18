@@ -1,4 +1,3 @@
-import React from 'react';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { InnerCommonContainer } from '@/components/containers';
 import useCommonStyles from '@/hooks/useCommonStyles';
@@ -7,6 +6,7 @@ import { SignupFormStepProps } from '@/components/form/SignupForm';
 import SRegisterIllustration from '@/components/svg/illustrations/SRegisterIllustration';
 import { TextStyled } from '@/components/typography';
 import { View } from 'react-native';
+import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 const SignupScreen = () => {
   const commonStyles = useCommonStyles();
@@ -44,7 +44,7 @@ const SignupScreen = () => {
 
   return (
     <ScreenWrapperContainer showGoBack={true}>
-      <View>
+      <View style={{ paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp5 }}>
         <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
           Create your account
         </TextStyled>

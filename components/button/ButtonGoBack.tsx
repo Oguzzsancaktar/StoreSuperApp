@@ -1,5 +1,4 @@
 import useThemedStyles from '@/hooks/useThemedStyles';
-import React from 'react';
 import { Pressable } from 'react-native';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { IButtonStylesheet } from '@/interfaces/theme';

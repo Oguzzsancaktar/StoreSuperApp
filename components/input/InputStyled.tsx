@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IIconOptions, IInputProps } from '@/interfaces/app';
 import { View, TextInput } from 'react-native';
 import useThemedStyles from '@/hooks/useThemedStyles';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 interface IProps extends React.ComponentProps<typeof TextInput>, IInputProps {

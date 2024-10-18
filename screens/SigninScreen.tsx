@@ -1,4 +1,3 @@
-import React from 'react';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { InnerCommonContainer } from '@/components/containers';
 import useCommonStyles from '@/hooks/useCommonStyles';
@@ -7,6 +6,7 @@ import { SignupFormStepProps } from '@/components/form/SignupForm';
 import { TextStyled } from '@/components/typography';
 import { View } from 'react-native';
 import SLoginIllustration from '@/components/svg/illustrations/SLoginIllustration';
+import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 const SigninScreen = () => {
   const commonStyles = useCommonStyles();
@@ -38,14 +38,19 @@ const SigninScreen = () => {
 
   return (
     <ScreenWrapperContainer showGoBack={true}>
-      <View>
-        <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
-          Welcome to Marketplace
-        </TextStyled>
-        <TextStyled fontSize="md" fontWeight="semibold">
-          Login into your account, to find cool things in your area or sell your
-          own stuff.
-        </TextStyled>
+      <View style={{ paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp5 }}>
+        <View
+          style={{ maxWidth: APP_STYLE_VALUES.MAX_WIDTH.lg, margin: 'auto' }}
+        >
+          <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
+            With Setuka24 you list with Ease & find with purpose
+          </TextStyled>
+          <TextStyled fontSize="md" fontWeight="semibold">
+            Login into your account, to find cool things in your area or sell
+            your own stuff.
+          </TextStyled>
+        </View>
+
         <SLoginIllustration />
       </View>
 

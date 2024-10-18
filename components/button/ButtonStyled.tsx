@@ -1,5 +1,4 @@
 import useThemedStyles from '@/hooks/useThemedStyles';
-import React from 'react';
 import { Pressable } from 'react-native';
 import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
@@ -39,7 +38,7 @@ const ButtonStyled: React.FC<IProps> = ({
       <TextStyled
         // @todo handle for other scenarios where the color is not white
         customColor={
-          variant === 'buttonPrimarySolid' ? 'grayScale100' : 'grayScale900'
+          variant === 'buttonPrimarySolid' ? 'white' : 'grayScale900'
         }
         textShadow="textShadowSm"
         fontSize="lg"

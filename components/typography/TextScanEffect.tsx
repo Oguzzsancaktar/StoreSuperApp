@@ -1,5 +1,4 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { View } from 'react-native';
 import TextStyled from '@/components/typography/TextStyled';
 import { ScanTextPattern } from '../svg/background';
 import useCommonStyles from '@/hooks/useCommonStyles';
@@ -17,7 +16,7 @@ const TextScanEffect = () => {
       ]}
     >
       <TextStyled fontSize="xl" fontWeight="regular" customColor="grayScale600">
-        STORE
+        DISCOVER
       </TextStyled>
       <View
         style={[

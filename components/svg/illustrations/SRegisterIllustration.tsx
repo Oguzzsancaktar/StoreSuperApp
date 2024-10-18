@@ -1,4 +1,3 @@
-import React from 'react';
 import Svg, { G, Path, Rect } from 'react-native-svg';
 
 const SRegisterIllustration = () => {
