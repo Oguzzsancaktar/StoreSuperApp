@@ -5,6 +5,8 @@ const WH_SIZES = {
   md: 48,
   sm: 40,
   xs: 32,
+  xxs: 24,
+
 }
 
 const RADIUS_SIZES = {

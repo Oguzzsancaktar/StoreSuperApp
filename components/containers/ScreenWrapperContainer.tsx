@@ -13,14 +13,16 @@ const ScreenWrapperContainer: React.FC<IProps> = ({
   const themedStyles = useThemedStyles();
 
   return (
-    <ScrollView
-      contentContainerStyle={
-        themedStyles.containerStyles.screenWrapperContainer
-      }
-    >
+    <View style={[themedStyles.containerStyles.screenWrapperContainer]}>
       {showGoBack && <ButtonGoBack variant="buttonPrimaryOutlined" />}
-      {children}
-    </ScrollView>
+      <ScrollView
+        contentContainerStyle={[
+          themedStyles.containerStyles.screenWrapperContainer,
+        ]}
+      >
+        {children}
+      </ScrollView>
+    </View>
   );
 };
 

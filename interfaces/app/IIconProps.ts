@@ -1,6 +1,6 @@
-import { ILogoProps } from "@/components/svg/icon/IconLogoPrimary";
 
-interface IIconProps extends ILogoProps {
+
+interface IIconProps {
   color?: string;
 }
 

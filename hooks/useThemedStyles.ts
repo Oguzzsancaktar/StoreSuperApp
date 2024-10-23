@@ -1,7 +1,7 @@
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { StyleSheet } from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { IBorderStylesheet, IButtonStylesheet, IShadowStylesheet } from '@/interfaces/theme';
+import { IBorderStylesheet, IButtonStylesheet, ICardStylesheet, IShadowStylesheet } from '@/interfaces/theme';
 import { COMMON_COLOURS } from '@/constants/APP_THEMES';
 
 
@@ -12,6 +12,12 @@ const COMMON_BUTTON_STYLES = {
   borderRadius: RADIUS_SIZES.lg,
   padding: SPACE_SIZES.sp4,
   paddingVertical: SPACE_SIZES.sp0,
+  borderWidth: 1,
+}
+
+const COMMON_CARD_STYLES = {
+  borderRadius: RADIUS_SIZES.lg,
+  padding: SPACE_SIZES.sp4,
   borderWidth: 1,
 }
 
@@ -29,6 +35,18 @@ const useThemedStyles = () => {
     primary: {
       borderWidth: 1,
       borderColor: theme.primary,
+    },
+  })
+
+  const cardStyles: StyleSheet.NamedStyles<ICardStylesheet> = StyleSheet.create({
+    default: {
+      ...COMMON_CARD_STYLES,
+      overflow: "hidden",
+      borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
+      position: "relative",
+      borderColor: theme.grayScale400,
+      backgroundColor: theme.grayScale100,
+      paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp6
     },
   })
 
@@ -71,6 +89,17 @@ const useThemedStyles = () => {
       borderColor: COMMON_COLOURS.primaryDarken10,
       ...shadowStyles.dropShadowSm
     },
+    badgePrimarySolid: {
+      ...COMMON_BUTTON_STYLES,
+
+      backgroundColor: theme.primary,
+      borderColor: COMMON_COLOURS.primary,
+      height: APP_STYLE_VALUES.WH_SIZES.xxs,
+      padding: APP_STYLE_VALUES.SPACE_SIZES.sp0,
+      display: "flex",
+      alignItems: "center",
+      ...shadowStyles.dropShadowSm
+    },
     buttonPrimarySolidPressed: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.primary,
@@ -86,6 +115,28 @@ const useThemedStyles = () => {
       ...shadowStyles.dropShadowSm
     },
 
+    badgeOutlined: {
+      ...COMMON_BUTTON_STYLES,
+      minWidth: WH_SIZES.xl,
+      height: WH_SIZES.sm,
+      borderRadius: RADIUS_SIZES.lg,
+      padding: SPACE_SIZES.sp2,
+      paddingVertical: SPACE_SIZES.sp1,
+      borderWidth: 1,
+      backgroundColor: theme.appBackground,
+      borderColor: theme.grayScale400,
+    },
+    badgeOutlinedPressed: {
+      ...COMMON_BUTTON_STYLES,
+      minWidth: WH_SIZES.xl,
+      height: WH_SIZES.sm,
+      borderRadius: RADIUS_SIZES.lg,
+      padding: SPACE_SIZES.sp2,
+      paddingVertical: SPACE_SIZES.sp1,
+      borderWidth: 1,
+      backgroundColor: theme.primary,
+      borderColor: theme.primary,
+    },
 
     buttonPrimaryOutlined: {
       ...COMMON_BUTTON_STYLES,
@@ -114,7 +165,7 @@ const useThemedStyles = () => {
     },
   })
 
-  return { borderStyles, buttonStyles, inputStyles, containerStyles, shadowStyles }
+  return { borderStyles, buttonStyles, cardStyles, inputStyles, containerStyles, shadowStyles }
 };
 
 export default useThemedStyles;

@@ -1,6 +1,7 @@
 import { IAppColourNames, IAppThemeTypes, ICommonColours, IGrayScaleColours } from "@/interfaces/theme";
 
 export const COMMON_COLOURS: ICommonColours = {
+  transparent: "transparent",
   // Branding
   primary: "#ec572c",
   primaryLight: "#f5643b",

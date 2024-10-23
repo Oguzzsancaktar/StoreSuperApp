@@ -1,11 +1,13 @@
-import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Redirect, Link, Tabs } from 'expo-router';
-import { Pressable, Text } from 'react-native';
+import { Text, useWindowDimensions } from 'react-native';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useSession } from '@/contexts/AuthContext';
-import APP_ROUTES from '@/constants/APP_ROUTES';
+import IconHome from '@/components/svg/icon/IconHome';
+import IconBell from '@/components/svg/icon/IconBell';
+import ButtonActiveTab from '@/components/button/ButtonActiveTab';
+import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -17,6 +19,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const { session, isLoading } = useSession();
+  const { width } = useWindowDimensions();
 
   const { theme } = useAppTheme();
 
@@ -27,9 +30,10 @@ export default function TabLayout() {
 
   // Only require authentication within the (app) group's layout as users
   // need to be able to access the (auth) group and sign in again.
-  if (!session) {
-    return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;
-  }
+
+  // if (!session) {
+  //   return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;
+  // }
 
   return (
     <SafeAreaProvider>
@@ -39,33 +43,54 @@ export default function TabLayout() {
           // Disable the static render of the header on web
           // to prevent a hydration error in React Navigation v6.
           headerShown: false, // useClientOnlyValue(false, false),
+          tabBarStyle: {
+            backgroundColor: theme.grayScale100,
+            height: APP_STYLE_VALUES.WH_SIZES.xl,
+            width: width - 2 * APP_STYLE_VALUES.SPACE_SIZES.sp6,
+            display: 'flex',
+            flexDirection: 'row',
+            margin: 'auto',
+            gap: 20,
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            marginVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            borderRadius: 15,
+          },
+          tabBarButton: ({ accessibilityState: { selected }, to, ...rest }) => {
+            let label = 'home';
+            let Icon = IconHome;
+
+            switch (true) {
+              case to.includes('Home'):
+                label = 'home';
+                Icon = IconHome;
+                break;
+              case to.includes('information'):
+                label = 'information';
+                Icon = IconBell;
+                break;
+            }
+
+            return (
+              <ButtonActiveTab
+                to={to}
+                isActive={selected}
+                icon={Icon}
+                text={label}
+              />
+            );
+          },
+          tabBarBadgeStyle: {
+            color: 'white',
+            borderRadius: 10,
+          },
         }}
       >
         <Tabs.Screen
           name="index"
           options={{
-            title: 'Tab One',
-            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-            headerRight: () => (
-              <Link href="/modal" asChild>
-                <Pressable>
-                  {({ pressed }) => (
-                    <FontAwesome
-                      name="info-circle"
-                      size={25}
-                      color={theme.grayScale100}
-                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                    />
-                  )}
-                </Pressable>
-              </Link>
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="two"
-          options={{
-            title: 'Tab Two',
+            title: 'Timeline',
             tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           }}
         />

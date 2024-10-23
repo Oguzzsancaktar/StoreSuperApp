@@ -9,6 +9,9 @@ const useCommonStyles = () => {
     absoluteFill: {
       ...StyleSheet.absoluteFillObject,
     },
+    relative: {
+      position: "relative"
+    }
   })
 
   const flexStyles = StyleSheet.create({
@@ -23,6 +26,19 @@ const useCommonStyles = () => {
     colBetween: {
       flexDirection: 'column',
       justifyContent: 'space-between',
+    },
+    colStart: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: "flex-start"
+    },
+    rowWrap: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: "flex-start",
+      flexWrap: 'wrap',
     },
     rowCenterWrap: {
       display: 'flex',

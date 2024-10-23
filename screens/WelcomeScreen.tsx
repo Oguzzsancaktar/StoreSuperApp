@@ -7,10 +7,11 @@ import { TextScanEffect } from '@/components/typography';
 import { ButtonStyled } from '@/components/button';
 import { InnerCommonContainer } from '@/components/containers';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { Href, router } from 'expo-router';
+import { Href, Link, router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { getIconWithProps } from '@/components/svg/icon';
 import IconTheme from '@/components/svg/icon/IconTheme';
+import { ExternalLink } from '@/components/ExternalLink';
 
 const WelcomeScreen = () => {
   const commonStyles = useCommonStyles();
@@ -83,15 +84,29 @@ const WelcomeScreen = () => {
           <View style={[commonStyles.spacingStyles.g3]}>
             <ButtonStyled
               onPress={() => handleSignButtonClick('SIGNIN')}
-              text={'Giriş Yap'}
+              text={'Login'}
               variant="buttonPrimarySolid"
             />
 
             <ButtonStyled
               onPress={() => handleSignButtonClick('SIGNUP')}
-              text="Kayıt Ol"
+              text="Register"
               variant={'buttonPrimaryOutlined'}
             />
+
+            <TextStyled fontSize="xl" fontWeight="regular">
+              or
+            </TextStyled>
+
+            <Link href={APP_ROUTES.TABS.TIMELINE}>
+              <TextStyled
+                fontSize="xl"
+                fontWeight="regular"
+                customColor="grayScale600"
+              >
+                Continue without signin
+              </TextStyled>
+            </Link>
           </View>
         </View>
       </InnerCommonContainer>
