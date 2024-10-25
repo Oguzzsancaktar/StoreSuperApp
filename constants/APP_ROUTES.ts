@@ -6,7 +6,6 @@ interface IAppRoutes {
   [key: string]: {
     [subkey: string]: Href<string | object>
   }
-
 }
 
 const APP_ROUTES: IAppRoutes = {
@@ -16,7 +15,7 @@ const APP_ROUTES: IAppRoutes = {
     WELCOME: "/(public)/welcome",
   },
   TABS: {
-    TIMELINE: "/(tabs)/timeline"
+    TIMELINE: "/(tabs)/"
   }
 };
 

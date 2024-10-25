@@ -1,15 +1,23 @@
 import useThemedStyles from '@/hooks/useThemedStyles';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import ImageCover from '../images/ImageCover';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import { router } from 'expo-router';
 
 const CardPostItem = () => {
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
+
+  const handlePress = () => {
+    router.push('/(private)/post/x');
+  };
   return (
-    <View style={themedStyles.cardStyles.default}>
+    <TouchableOpacity
+      onPress={handlePress}
+      style={themedStyles.cardStyles.default}
+    >
       <View
         style={[
           commonStyles.absolutePositionStyles.absoluteFill,
@@ -52,7 +60,7 @@ const CardPostItem = () => {
           { marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
         ]}
       >
-        <View style={{ width: 100 }}>
+        <View style={{ width: 100, height: 100 }}>
           <ImageCover />
         </View>
 
@@ -111,7 +119,7 @@ const CardPostItem = () => {
       <TextStyled fontSize="md" fontWeight="semibold" textAlignment="left">
         Description
       </TextStyled>
-    </View>
+    </TouchableOpacity>
   );
 };
 

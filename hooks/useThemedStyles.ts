@@ -36,11 +36,17 @@ const useThemedStyles = () => {
       borderWidth: 1,
       borderColor: theme.primary,
     },
+    bottomUnderline: {
+      borderBottomWidth: 2,
+      borderColor: theme.grayScale200,
+    }
+
   })
 
   const cardStyles: StyleSheet.NamedStyles<ICardStylesheet> = StyleSheet.create({
     default: {
       ...COMMON_CARD_STYLES,
+      width: "100%",
       overflow: "hidden",
       borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
       position: "relative",
