@@ -2,6 +2,9 @@ import { Href, useRouter } from 'expo-router';
 import { TouchableOpacity, useWindowDimensions } from 'react-native';
 import { TextStyled } from '../typography';
 import { useAppTheme } from '@/contexts/ThemeContext';
+import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import useCommonStyles from '@/hooks/useCommonStyles';
+import APP_ROUTES from '@/constants/APP_ROUTES';
 
 interface IProps {
   icon: any;
@@ -10,31 +13,45 @@ interface IProps {
   to: Href<string | object>;
 }
 const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
-  const { theme } = useAppTheme();
+  const { theme, setUseSafeArea } = useAppTheme();
+  const commonStyles = useCommonStyles();
   const { height, width } = useWindowDimensions();
 
   const router = useRouter();
+
+  const handlePress = () => {
+    // if (to === '/profile') {
+    //   setUseSafeArea(false);
+    // } else {
+    //   setUseSafeArea(true);
+    // }
+    router.push(to);
+  };
+
   return (
     <TouchableOpacity
-      onPress={() => router.push(to)}
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: isActive ? theme.primary : 'transparent',
-        width: isActive ? 190 : (width - 190 - 40) / 3,
-        height: 50,
-        borderRadius: 30,
-        paddingHorizontal: isActive ? 30 : 10,
-      }}
+      onPress={handlePress}
+      style={[
+        commonStyles.flexStyles.colCenter,
+        {
+          width:
+            (width -
+              APP_STYLE_VALUES.SPACE_SIZES.sp4 * 2 -
+              APP_STYLE_VALUES.SPACE_SIZES.sp2 * 2) /
+            5,
+          padding: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+          borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
+        },
+      ]}
     >
-      {icon(isActive ? theme.white : theme.primary)}
-      {isActive && (
-        <TextStyled fontSize="md" fontWeight="semibold">
-          text
-        </TextStyled>
-      )}
+      {icon({ color: isActive ? theme.primary : theme.grayScale900 })}
+      <TextStyled
+        fontSize="sm"
+        fontWeight="medium"
+        customColor={isActive ? 'white' : 'grayScale900'}
+      >
+        {text}
+      </TextStyled>
     </TouchableOpacity>
   );
 };

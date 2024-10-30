@@ -7,9 +7,8 @@ import { useSafeAreaFrame } from 'react-native-safe-area-context';
 
 const CardNewestPostings = () => {
   const commonStyles = useCommonStyles();
-  const { height } = useSafeAreaFrame();
   return (
-    <View style={{ height: height - 300 }}>
+    <View style={{ height: '100%' }}>
       <View
         style={[
           commonStyles.flexStyles.rowWrap,
@@ -19,7 +18,7 @@ const CardNewestPostings = () => {
         ]}
       >
         <TextStyled fontSize="h4" fontWeight="bold">
-          Newest Postings On
+          Newest Postings On{' '}
         </TextStyled>
 
         <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
@@ -28,6 +27,7 @@ const CardNewestPostings = () => {
       </View>
 
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
           paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,

@@ -1,4 +1,13 @@
-import { createContext, useContext, useState, ReactNode, useMemo } from 'react';
+// contexts/ThemeContext.tsx
+
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useMemo,
+  useCallback,
+} from 'react';
 import APP_THEMES from '@/constants/APP_THEMES';
 import { IAppTheme } from '@/interfaces/theme';
 import APP_STORAGE_KEYS from '@/constants/APP_STORAGE_KEYS';
@@ -7,6 +16,8 @@ import { useStorageState } from '@/hooks/useStorageState';
 interface ThemeContextType {
   theme: IAppTheme;
   toggleTheme: () => void;
+  useSafeAreaState: boolean;
+  setUseSafeArea: (value: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -14,10 +25,15 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  const [useSafeAreaState, setUseSafeAreaState] = useState<boolean>(true);
+
+  const setUseSafeArea = useCallback((value: boolean) => {
+    setUseSafeAreaState(value);
+  }, []);
+
   const [[isLoading, session], setSession] = useStorageState(
     APP_STORAGE_KEYS.APP_THEME
   );
-
   const oppositeTheme = session === 'dark' ? 'light' : 'dark';
 
   const toggleTheme = () => {
@@ -30,7 +46,9 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   );
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, toggleTheme, useSafeAreaState, setUseSafeArea }}
+    >
       {children}
     </ThemeContext.Provider>
   );

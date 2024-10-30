@@ -18,14 +18,14 @@ const TextScanEffect = () => {
       <TextStyled fontSize="xl" fontWeight="regular" customColor="grayScale600">
         DISCOVER
       </TextStyled>
-      <View
+      {/* <View
         style={[
           commonStyles.absolutePositionStyles.absoluteFill,
           commonStyles.flexStyles.flexCenter,
         ]}
       >
         <ScanTextPattern />
-      </View>
+      </View> */}
     </View>
   );
 };

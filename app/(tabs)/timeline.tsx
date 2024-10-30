@@ -9,11 +9,15 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { InnerCommonContainer } from '@/components/containers';
 import useThemedStyles from '@/hooks/useThemedStyles';
+import { useState } from 'react';
+import { Dropdown } from 'react-native-element-dropdown';
 
 export default function TimelineScreen() {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
+
+  const [showMostSearched, setShowMostSearched] = useState(false);
 
   return (
     <ScreenWrapperContainer>
@@ -22,27 +26,30 @@ export default function TimelineScreen() {
           <View
             style={[
               commonStyles.flexStyles.rowWrap,
-              themedStyles.borderStyles.primary,
-
               {
-                borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
-                padding: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
                 gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
                 borderColor: theme.primary,
               },
             ]}
           >
             <View style={{ flex: 1 }}>
-              <FilterSearchbar />
+              <FilterSearchbar handleMostSearched={setShowMostSearched} />
             </View>
-            <View style={{ width: 150 }}>
+            <View
+              style={{
+                width: 150,
+              }}
+            >
               <FilterStuffType />
             </View>
           </View>
 
-          <View style={{ marginVertical: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
-            <CardMostSearchedWords />
-          </View>
+          {showMostSearched && (
+            <View style={{ marginVertical: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
+              <CardMostSearchedWords />
+            </View>
+          )}
 
           <CardNewestPostings />
         </View>

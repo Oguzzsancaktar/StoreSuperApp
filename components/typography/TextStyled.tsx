@@ -49,7 +49,7 @@ const TextStyled: React.FC<IProps> = ({
     }
 
     return tempStyles;
-  }, [theme, textShadow, fontSize, fontWeight]);
+  }, [theme, customColor, textShadow, fontSize, fontWeight]);
 
   return <Text style={textStyles}>{children}</Text>;
 };

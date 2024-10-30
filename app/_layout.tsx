@@ -1,9 +1,9 @@
 import SafeAreaContainer from '@/components/containers/SafeAreaContainer';
 import { SessionProvider } from '@/contexts/AuthContext';
-import { ThemeProvider } from '@/contexts/ThemeContext';
+import { ThemeProvider, useAppTheme } from '@/contexts/ThemeContext';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
-import { Slot } from 'expo-router';
+import { router, Slot, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
@@ -49,11 +49,19 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const segments = useSegments();
+
+  useEffect(() => {
+    if (segments?.includes('+not-found')) {
+      router.push('/(public)/welcome');
+    }
+  }, []);
+
   return (
     <ThemeProvider>
       <SessionProvider>
         <SafeAreaContainer>
-          <Slot initialRouteName="/(public)" />
+          <Slot />
         </SafeAreaContainer>
       </SessionProvider>
     </ThemeProvider>

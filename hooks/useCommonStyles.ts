@@ -38,6 +38,13 @@ const useCommonStyles = () => {
       alignItems: "flex-start"
     },
 
+    colCenter: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: "center"
+    },
+
     rowWrap: {
       display: 'flex',
       flexDirection: 'row',
@@ -51,6 +58,13 @@ const useCommonStyles = () => {
       flexDirection: 'row',
       alignItems: 'flex-start',
       justifyContent: "flex-start",
+      flexWrap: "nowrap"
+    },
+    rowBetween: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: "space-between",
       flexWrap: "nowrap"
     },
     rowCenterWrap: {

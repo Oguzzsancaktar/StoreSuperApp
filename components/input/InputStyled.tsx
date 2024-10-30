@@ -8,6 +8,8 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 interface IProps extends React.ComponentProps<typeof TextInput>, IInputProps {
   leftIcon?: IIconOptions;
+  handleFocus: (val: boolean) => void;
+  handleBlur: (val: boolean) => void;
 }
 
 const InputStyled: React.FC<IProps> = ({
@@ -15,11 +17,24 @@ const InputStyled: React.FC<IProps> = ({
   placeholder,
   label,
   type,
+  handleFocus,
+  handleBlur,
   ...props
 }) => {
   const { theme } = useAppTheme();
   const themedStyles = useThemedStyles();
   const [isFocused, setIsFocused] = useState<boolean>(false);
+
+  const handleOnFocus = () => {
+    handleFocus(true);
+    setIsFocused(() => true);
+  };
+
+  const handleOnBlur = () => {
+    handleBlur(false);
+
+    setIsFocused(() => false);
+  };
 
   return (
     <View>
@@ -43,8 +58,8 @@ const InputStyled: React.FC<IProps> = ({
         ]}
         placeholderTextColor={theme.grayScale500}
         placeholder={placeholder}
-        onFocus={() => setIsFocused(() => true)}
-        onBlur={() => setIsFocused(() => false)}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
       />
     </View>
   );

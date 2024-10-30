@@ -14,7 +14,7 @@ const Signin = () => {
   const commonStyles = useCommonStyles();
   const { theme } = useAppTheme();
   return (
-    <ScreenWrapperContainer>
+    <ScreenWrapperContainer showGoBack={true}>
       <InnerCommonContainer>
         <View style={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp6 }}>
           <View

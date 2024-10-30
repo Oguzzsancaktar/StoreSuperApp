@@ -52,7 +52,7 @@ const useThemedStyles = () => {
       position: "relative",
       borderColor: theme.grayScale400,
       backgroundColor: theme.grayScale100,
-      paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp6
+      paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp6
     },
   })
 
@@ -106,11 +106,24 @@ const useThemedStyles = () => {
       alignItems: "center",
       ...shadowStyles.dropShadowSm
     },
+
+
     buttonPrimarySolidPressed: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.primary,
       borderColor: COMMON_COLOURS.primaryDarken10,
       opacity: 0.8,
+      ...shadowStyles.dropShadowSm
+    },
+
+    badgeGrayscale600Solid: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale600,
+      borderColor: theme.grayScale600,
+      height: APP_STYLE_VALUES.WH_SIZES.xxs,
+      padding: APP_STYLE_VALUES.SPACE_SIZES.sp0,
+      display: "flex",
+      alignItems: "center",
       ...shadowStyles.dropShadowSm
     },
     buttonPrimarySolidDisabled: {

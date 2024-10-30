@@ -7,6 +7,7 @@ import { map } from 'lodash';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { IInputProps } from '@/interfaces/app';
 import { TextStyled } from '../typography';
+import { useAppTheme } from '@/contexts/ThemeContext';
 
 export interface IProps {
   fields: Array<IInputProps>;
@@ -17,6 +18,8 @@ export interface IProps {
 }
 
 const FormStyled: React.FC<Readonly<IProps>> = (props) => {
+  const { theme, toggleTheme } = useAppTheme();
+
   const { fields, defaultValues, onSubmit } = props;
   const { showBackButton, onBack } = props;
 

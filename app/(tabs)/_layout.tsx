@@ -1,13 +1,18 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Redirect, Link, Tabs } from 'expo-router';
+import { Redirect, Link, Tabs, Href } from 'expo-router';
 import { Text, useWindowDimensions } from 'react-native';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useSession } from '@/contexts/AuthContext';
 import IconHome from '@/components/svg/icon/IconHome';
-import IconBell from '@/components/svg/icon/IconBell';
+
 import ButtonActiveTab from '@/components/button/ButtonActiveTab';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import IconUpload from '@/components/svg/icon/IconUpload';
+import APP_ROUTES from '@/constants/APP_ROUTES';
+import IconProfileFilled from '@/components/svg/icon/filled/IconProfileFilled';
+import IconMessageFilled from '@/components/svg/icon/filled/IconMessageFilled';
+import IconFAQ from '@/components/svg/icon/IconFAQ';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -43,39 +48,52 @@ export default function TabLayout() {
           // Disable the static render of the header on web
           // to prevent a hydration error in React Navigation v6.
           headerShown: false, // useClientOnlyValue(false, false),
+
           tabBarStyle: {
             backgroundColor: theme.grayScale100,
             height: APP_STYLE_VALUES.WH_SIZES.xl,
-            width: width - 2 * APP_STYLE_VALUES.SPACE_SIZES.sp6,
+            width: width - 2 * APP_STYLE_VALUES.SPACE_SIZES.sp4,
             display: 'flex',
             flexDirection: 'row',
             margin: 'auto',
-            gap: 20,
             justifyContent: 'center',
             alignItems: 'center',
+            borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
             paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-            marginVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-            borderRadius: 15,
           },
-          tabBarButton: ({ accessibilityState: { selected }, to, ...rest }) => {
+          tabBarButton: ({ accessibilityState, to, ...rest }) => {
+            const isSelected = accessibilityState?.selected || false;
+
             let label = 'home';
             let Icon = IconHome;
 
             switch (true) {
-              case to.includes('Home'):
-                label = 'home';
+              case to?.includes('timeline'):
+                label = 'Home';
                 Icon = IconHome;
                 break;
-              case to.includes('information'):
-                label = 'information';
-                Icon = IconBell;
+              case to?.includes('addPost'):
+                label = 'New';
+                Icon = IconUpload;
+                break;
+              case to?.includes('profile'):
+                label = 'Profile';
+                Icon = IconProfileFilled;
+                break;
+              case to?.includes('messages'):
+                label = 'Messages';
+                Icon = IconMessageFilled;
+                break;
+              case to?.includes('postList'):
+                label = 'Posts';
+                Icon = IconFAQ;
                 break;
             }
 
             return (
               <ButtonActiveTab
-                to={to}
-                isActive={selected}
+                to={(to || APP_ROUTES.TABS.TIMELINE) as Href<string | object>}
+                isActive={isSelected}
                 icon={Icon}
                 text={label}
               />
@@ -88,9 +106,37 @@ export default function TabLayout() {
         }}
       >
         <Tabs.Screen
-          name="index"
+          name="timeline"
           options={{
             title: 'Timeline',
+            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="postList"
+          options={{
+            title: 'Post List',
+            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="addPost"
+          options={{
+            title: 'Add Post',
+            tabBarIcon: ({ color }) => <TabBarIcon name="plus" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="messages"
+          options={{
+            title: 'Messages',
+            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: 'Profile',
             tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           }}
         />

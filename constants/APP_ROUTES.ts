@@ -15,7 +15,8 @@ const APP_ROUTES: IAppRoutes = {
     WELCOME: "/(public)/welcome",
   },
   TABS: {
-    TIMELINE: "/(tabs)/"
+    TIMELINE: "/(tabs)/timeline",
+    PROFILE: "/(tabs)/profile"
   }
 };
 

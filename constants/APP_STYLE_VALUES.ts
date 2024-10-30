@@ -1,6 +1,8 @@
 
 const WH_SIZES = {
-  xl: 80,
+  xl3: 200,
+  xl2: 130,
+  xl: 64,
   lg: 56,
   md: 48,
   sm: 40,
@@ -35,6 +37,8 @@ const SPACE_SIZES = {
   sp7: 35,
   sp8: 40,
   sp9: 45,
+  sp10: 50,
+  sp15: 75,
   sp20: 100,
 }
 

@@ -5,6 +5,7 @@ import useCommonStyles from '@/hooks/useCommonStyles';
 import ImageCover from '../images/ImageCover';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { router } from 'expo-router';
+import { COMMON_COLOURS } from '@/constants/APP_THEMES';
 
 const CardPostItem = () => {
   const themedStyles = useThemedStyles();
@@ -30,7 +31,7 @@ const CardPostItem = () => {
           },
         ]}
       >
-        <TextStyled fontSize="md" fontWeight="semibold">
+        <TextStyled fontSize="md" fontWeight="semibold" customColor="white">
           12 Jun 2023
         </TextStyled>
       </View>
@@ -38,7 +39,7 @@ const CardPostItem = () => {
       <View
         style={[
           commonStyles.absolutePositionStyles.absoluteFill,
-          themedStyles.buttonStyles.badgePrimarySolid,
+          themedStyles.buttonStyles.badgeGrayscale600Solid,
 
           {
             width: 140,
@@ -49,7 +50,11 @@ const CardPostItem = () => {
           },
         ]}
       >
-        <TextStyled fontSize="md" fontWeight="semibold">
+        <TextStyled
+          fontSize="md"
+          fontWeight="semibold"
+          customColor="grayScale100"
+        >
           Apartment
         </TextStyled>
       </View>

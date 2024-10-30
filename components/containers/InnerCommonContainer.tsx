@@ -11,7 +11,6 @@ const InnerCommonContainer: React.FC<IProps> = ({ children }) => {
   return (
     <View
       style={[
-        commonStyles.maxWidthStyles.maxWidthXl,
         commonStyles.flexStyles.selfCenter,
         commonStyles.flexStyles.colBetween,
         commonStyles.spacingStyles.p4,

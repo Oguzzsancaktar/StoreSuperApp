@@ -3,7 +3,7 @@ import { IIconOptions, IIconProps } from "@/interfaces/app";
 import IconBell from "./IconBell";
 import IconBlock from "./IconBlock";
 import IconBookmark from "./IconBookmark";
-import IconBookmarkFilled from "./IconBookmarkFilled";
+import IconBookmarkFilled from "./filled/IconBookmarkFilled";
 import IconCalendar from "./IconCalendar";
 import IconCamera from "./IconCamera";
 import IconChatSupport from "./IconChatSupport";
@@ -23,27 +23,28 @@ import IconEmail from "./IconEmail";
 import IconEmpty from "./IconEmpty";
 import IconEyeHide from "./IconEyeHide";
 import IconEyeShow from "./IconEyeShow";
-import IconEyeShowFilled from "./IconEyeShowFilled";
+import IconEyeShowFilled from "./filled/IconEyeShowFilled";
 import IconFAQ from "./IconFAQ";
 import IconFilter from "./IconFilter";
 import IconFlash from "./IconFlash";
 import IconGallery from "./IconGallery";
 import IconHeart from "./IconHeart";
-import IconHeartFilled from "./IconHeartFilled";
+import IconHeartFilled from "./filled/IconHeartFilled";
+import IconProfileFilled from "./filled/IconProfileFilled";
 import IconHome from "./IconHome";
 import IconKey from "./IconKey";
 import IconLocation from "./IconLocation";
 import IconLock from "./IconLock";
 import IconLogout from "./IconLogout";
-import IconMailFill from "./IconMailFill";
+import IconMailFill from "./filled/IconMailFilled";
 import IconMegaphone from "./IconMegaphone";
 import IconMenu from "./IconMenu";
-import IconMessageFilled from "./IconMessageFilled";
+import IconMessageFilled from "./filled/IconMessageFilled";
 import IconNoFlash from "./IconNoFlash";
 import IconOptions from "./IconOptions";
 import IconPen from "./IconPen";
 import IconPhone from "./IconPhone";
-import IconPhoneFilled from "./IconPhoneFilled";
+import IconPhoneFilled from "./filled/IconPhoneFilled";
 import IconPrivacy from "./IconPrivacy";
 import IconQR from "./IconQR";
 import IconSearch from "./IconSearch";
@@ -70,7 +71,7 @@ import IconLogoPrimary from "./IconLogoPrimary";
 import IconTechnical from "./IconTechnical";
 import IconTheme from "./IconTheme";
 import IconThumbsUp from "./IconThumbsUp";
-import IconThumbsUpFill from "./IconThumbsUpFill";
+import IconThumbsUpFill from "./filled/IconThumbsUpFilled";
 import IconTrash from "./IconTrash";
 import IconUnfollow from "./IconUnfollow";
 import IconUpload from "./IconUpload";
@@ -163,6 +164,8 @@ const ICONS = {
   IconVehicle,
   IconWeb,
   IconWorld,
+
+  IconProfileFilled
 }
 
 export const getIconWithProps = (iconName: IIconOptions, props: IIconProps = {}) => {
