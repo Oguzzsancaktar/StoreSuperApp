@@ -13,6 +13,8 @@ import APP_ROUTES from '@/constants/APP_ROUTES';
 import IconProfileFilled from '@/components/svg/icon/filled/IconProfileFilled';
 import IconMessageFilled from '@/components/svg/icon/filled/IconMessageFilled';
 import IconFAQ from '@/components/svg/icon/IconFAQ';
+import IconPlusCircle from '@/components/svg/icon/circle/IconPlusCircle';
+import IconSearch from '@/components/svg/icon/IconSearch';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -72,21 +74,22 @@ export default function TabLayout() {
                 label = 'Home';
                 Icon = IconHome;
                 break;
+              case to?.includes('postList'):
+                label = 'Search';
+                Icon = IconSearch;
+                break;
               case to?.includes('addPost'):
-                label = 'New';
-                Icon = IconUpload;
+                label = '';
+                Icon = IconPlusCircle;
                 break;
-              case to?.includes('profile'):
-                label = 'Profile';
-                Icon = IconProfileFilled;
-                break;
+
               case to?.includes('messages'):
                 label = 'Messages';
                 Icon = IconMessageFilled;
                 break;
-              case to?.includes('postList'):
-                label = 'Posts';
-                Icon = IconFAQ;
+              case to?.includes('profile'):
+                label = 'Profile';
+                Icon = IconProfileFilled;
                 break;
             }
 

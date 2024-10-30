@@ -40,7 +40,9 @@ const ProfileScreen = () => {
             { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
           ]}
         >
-          <ButtonStyled text="Profile Informations" variant="badgeOutlined" />
+          <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xl3 }}>
+            <ButtonStyled text="Profile Informations" variant="badgeOutlined" />
+          </View>
           <View
             style={[
               commonStyles.flexStyles.rowWrap,

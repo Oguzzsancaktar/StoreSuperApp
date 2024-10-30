@@ -8,6 +8,7 @@ import { COMMON_COLOURS } from '@/constants/APP_THEMES';
 const { WH_SIZES, RADIUS_SIZES, SPACE_SIZES } = APP_STYLE_VALUES;
 
 const COMMON_BUTTON_STYLES = {
+  width: "auto" as any,
   height: WH_SIZES.lg,
   borderRadius: RADIUS_SIZES.lg,
   padding: SPACE_SIZES.sp4,
@@ -89,6 +90,7 @@ const useThemedStyles = () => {
   })
 
   const buttonStyles: StyleSheet.NamedStyles<IButtonStylesheet> = StyleSheet.create({
+
     buttonPrimarySolid: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.primary,
@@ -159,7 +161,7 @@ const useThemedStyles = () => {
 
     buttonPrimaryOutlined: {
       ...COMMON_BUTTON_STYLES,
-      backgroundColor: theme.appBackground,
+      backgroundColor: COMMON_COLOURS.transparent,
       borderColor: theme.primary,
     },
     buttonPrimaryOutlinedPressed: {

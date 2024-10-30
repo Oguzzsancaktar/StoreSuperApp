@@ -10,7 +10,6 @@ import useCommonStyles from '@/hooks/useCommonStyles';
 import { Href, Link, router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { getIconWithProps } from '@/components/svg/icon';
-import IconTheme from '@/components/svg/icon/IconTheme';
 
 const WelcomeScreen = () => {
   const commonStyles = useCommonStyles();
