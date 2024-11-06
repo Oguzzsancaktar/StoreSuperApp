@@ -1,11 +1,15 @@
-import { View, Text, Image } from 'react-native';
+import { Image } from 'react-native';
 import advertImage from '../../assets/images/advert-image.jpg';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
-const ImageCover = () => {
+interface IProps {
+  url?: string;
+}
+const ImageCover: React.FC<IProps> = ({ url }) => {
+  let Image_Http_URL = { uri: url };
   return (
     <Image
-      source={advertImage}
+      source={url ? Image_Http_URL : advertImage}
       resizeMode="cover"
       style={{
         width: '100%',

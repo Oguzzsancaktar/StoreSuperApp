@@ -8,8 +8,8 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 interface IProps extends React.ComponentProps<typeof TextInput>, IInputProps {
   leftIcon?: IIconOptions;
-  handleFocus: (val: boolean) => void;
-  handleBlur: (val: boolean) => void;
+  handleFocus?: (val: boolean) => void;
+  handleBlur?: (val: boolean) => void;
 }
 
 const InputStyled: React.FC<IProps> = ({
@@ -26,12 +26,12 @@ const InputStyled: React.FC<IProps> = ({
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleOnFocus = () => {
-    handleFocus(true);
+    handleFocus && handleFocus(true);
     setIsFocused(() => true);
   };
 
   const handleOnBlur = () => {
-    handleBlur(false);
+    handleBlur && handleBlur(false);
 
     setIsFocused(() => false);
   };

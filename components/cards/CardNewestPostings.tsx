@@ -3,10 +3,34 @@ import CardPostItem from './CardPostItem';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { useSafeAreaFrame } from 'react-native-safe-area-context';
+import {
+  useGetListingCategoriesQuery,
+  useGetNewestPostsQuery,
+} from '@/services/listingFilterServices';
+import { find, map } from 'lodash';
+import FilterStuffType from '../filters/FilterStuffType';
+import { useMemo, useState } from 'react';
+import ISelectOption from '@/interfaces/theme/ISelectOption';
 
 const CardNewestPostings = () => {
   const commonStyles = useCommonStyles();
+
+  const { data: listingCategoriesData } = useGetListingCategoriesQuery();
+
+  const listingCategoryOptions = useMemo<ISelectOption[]>(() => {
+    return map(listingCategoriesData, (l) => {
+      return { label: l.name, value: l.id };
+    });
+  }, [listingCategoriesData]);
+
+  const [newestCategory, setNewestCategory] = useState(
+    listingCategoryOptions[0].value
+  );
+
+  const { data: newestPostData } = useGetNewestPostsQuery({
+    categoryId: newestCategory,
+  });
+
   return (
     <View style={{ height: '100%' }}>
       <View
@@ -17,32 +41,40 @@ const CardNewestPostings = () => {
           },
         ]}
       >
-        <TextStyled fontSize="h4" fontWeight="bold">
-          Newest Postings On{' '}
+        <TextStyled fontSize="h5" fontWeight="semibold">
+          Newest Postings On
         </TextStyled>
 
-        <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
-          Real estate
-        </TextStyled>
+        <View
+          style={{
+            width: APP_STYLE_VALUES.WH_SIZES.xl3,
+            marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+          }}
+        >
+          <FilterStuffType
+            variant="transparent"
+            value={find(
+              listingCategoryOptions,
+              (category) => category.value === newestCategory
+            )}
+            onChange={(option: ISelectOption) =>
+              setNewestCategory(option.value)
+            }
+            options={listingCategoryOptions}
+          />
+        </View>
       </View>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-          paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+          paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp2,
         }}
       >
-        <CardPostItem />
-        <CardPostItem />
-        <CardPostItem />
-
-        <CardPostItem />
-        <CardPostItem />
-        <CardPostItem />
-        <CardPostItem />
-        <CardPostItem />
-        <CardPostItem />
+        {map(newestPostData, (post, index) => {
+          return <CardPostItem post={post} key={index} />;
+        })}
       </ScrollView>
     </View>
   );

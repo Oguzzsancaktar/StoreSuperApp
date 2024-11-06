@@ -1,13 +1,13 @@
+import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import { TextStyled } from '@/components/typography';
-import { View, Text } from 'react-native';
+import WizardListingCreate from '@/components/wizard/listing-create/WizardListingCreate';
 
 const AddPostScreen = () => {
   return (
     <ScreenWrapperContainer>
-      <TextStyled fontSize="h5" fontWeight="bold">
-        Create Post
-      </TextStyled>
+      <InnerCommonContainer>
+        <WizardListingCreate />
+      </InnerCommonContainer>
     </ScreenWrapperContainer>
   );
 };

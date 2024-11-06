@@ -3,9 +3,22 @@ import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import ButtonBadge from '../button/ButtonBadge';
+import { useGetMostSearchedKeysQuery } from '@/services/listingFilterServices';
+import { useListingFilter } from '@/contexts/ListingFilterContext';
+import { map } from 'lodash';
 
 const CardMostSearchedWords = () => {
   const commonStyles = useCommonStyles();
+
+  const { selectedCategory } = useListingFilter();
+
+  const { data: mostSearchedKeysData } = useGetMostSearchedKeysQuery(
+    {
+      categoryId: selectedCategory || '',
+    },
+    { skip: !selectedCategory }
+  );
+
   return (
     <View>
       <View
@@ -31,9 +44,9 @@ const CardMostSearchedWords = () => {
           { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
         ]}
       >
-        <ButtonBadge text={'Bmw'} />
-        <ButtonBadge text={'Audi'} />
-        <ButtonBadge text={'Rental'} />
+        {map(mostSearchedKeysData, (key, index) => (
+          <ButtonBadge text={key.keyword} key={index} />
+        ))}
       </View>
     </View>
   );

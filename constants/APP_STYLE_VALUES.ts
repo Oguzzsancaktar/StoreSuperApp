@@ -1,7 +1,7 @@
 
 const WH_SIZES = {
-  xl3: 200,
-  xl2: 130,
+  xl4: 200,
+  xl3: 150,
   xl: 64,
   lg: 56,
   md: 48,

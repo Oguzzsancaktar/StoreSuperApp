@@ -5,9 +5,18 @@ import useCommonStyles from '@/hooks/useCommonStyles';
 import ImageCover from '../images/ImageCover';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { router } from 'expo-router';
-import { COMMON_COLOURS } from '@/constants/APP_THEMES';
+import moment from 'moment';
+import IListingPost from '@/interfaces/listing/IListingPost';
+import APP_FORMATS from '@/constants/APP_FORMATS';
+import dateUtils from '@/utils/dateUtils';
+import { find } from 'lodash';
+import stringUtils from '@/utils/stringUtils';
 
-const CardPostItem = () => {
+interface IProps {
+  post: IListingPost;
+}
+
+const CardPostItem: React.FC<IProps> = ({ post }) => {
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
 
@@ -32,7 +41,10 @@ const CardPostItem = () => {
         ]}
       >
         <TextStyled fontSize="md" fontWeight="semibold" customColor="white">
-          12 Jun 2023
+          {dateUtils.formatDateForMoment(
+            post?.created ?? '',
+            'DATE_NAME_MOMENT'
+          )}
         </TextStyled>
       </View>
 
@@ -55,7 +67,7 @@ const CardPostItem = () => {
           fontWeight="semibold"
           customColor="grayScale100"
         >
-          Apartment
+          {post?.tags[0]}
         </TextStyled>
       </View>
 
@@ -66,13 +78,13 @@ const CardPostItem = () => {
         ]}
       >
         <View style={{ width: 100, height: 100 }}>
-          <ImageCover />
+          <ImageCover url={post?.media[0]?.url} />
         </View>
 
         <View style={[commonStyles.flexStyles.colStart, { flex: 1 }]}>
           <View
             style={[
-              commonStyles.flexStyles.rowWrap,
+              commonStyles.flexStyles.colStart,
               {
                 flex: 1,
                 paddingLeft: APP_STYLE_VALUES.SPACE_SIZES.sp2,
@@ -85,7 +97,7 @@ const CardPostItem = () => {
               fontWeight="semibold"
               textAlignment="left"
             >
-              Perfect Land House
+              {post?.name}
             </TextStyled>
 
             <TextStyled fontSize="sm" fontWeight="regular" textAlignment="left">
@@ -100,7 +112,7 @@ const CardPostItem = () => {
               </TextStyled>
 
               <TextStyled fontSize="sm" fontWeight="bold" customColor="primary">
-                1.190,00€
+                {post?.formattedPrice}
               </TextStyled>
             </View>
 
@@ -114,7 +126,8 @@ const CardPostItem = () => {
                 fontWeight="bold"
                 customColor="grayScale900"
               >
-                119
+                {find(post?.options, (option) => option.name === 'Surface')
+                  ?.value || ''}
               </TextStyled>
             </View>
           </View>
@@ -122,7 +135,7 @@ const CardPostItem = () => {
       </View>
 
       <TextStyled fontSize="md" fontWeight="semibold" textAlignment="left">
-        Description
+        {stringUtils.truncateString(post?.description)}
       </TextStyled>
     </TouchableOpacity>
   );

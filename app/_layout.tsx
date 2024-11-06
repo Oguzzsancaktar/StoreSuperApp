@@ -1,12 +1,14 @@
 import SafeAreaContainer from '@/components/containers/SafeAreaContainer';
 import { SessionProvider } from '@/contexts/AuthContext';
 import { ThemeProvider, useAppTheme } from '@/contexts/ThemeContext';
+import { store } from '@/store/store';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
 import { router, Slot, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { Provider } from 'react-redux';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -58,12 +60,14 @@ function RootLayoutNav() {
   }, []);
 
   return (
-    <ThemeProvider>
-      <SessionProvider>
-        <SafeAreaContainer>
-          <Slot />
-        </SafeAreaContainer>
-      </SessionProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <SessionProvider>
+          <SafeAreaContainer>
+            <Slot />
+          </SafeAreaContainer>
+        </SessionProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }

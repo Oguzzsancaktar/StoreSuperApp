@@ -30,7 +30,7 @@ const ProfileScreen = () => {
           themedStyles.cardStyles.default,
           {
             borderWidth: 0,
-            height: APP_STYLE_VALUES.WH_SIZES.xl3,
+            height: APP_STYLE_VALUES.WH_SIZES.xl4,
           },
         ]}
       >
@@ -40,7 +40,7 @@ const ProfileScreen = () => {
             { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
           ]}
         >
-          <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xl3 }}>
+          <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xl4 }}>
             <ButtonStyled text="Profile Informations" variant="badgeOutlined" />
           </View>
           <View

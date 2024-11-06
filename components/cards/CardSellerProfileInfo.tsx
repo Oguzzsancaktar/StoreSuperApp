@@ -31,7 +31,7 @@ const CardSellerProfileInfo = () => {
           commonStyles.flexStyles.colCenter,
           {
             marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp10,
-            height: APP_STYLE_VALUES.WH_SIZES.xl2,
+            height: APP_STYLE_VALUES.WH_SIZES.xl3,
             overflow: 'visible',
             width: '100%',
           },
@@ -43,10 +43,10 @@ const CardSellerProfileInfo = () => {
               borderWidth: 1,
               overflow: 'hidden',
               backgroundColor: 'blue',
-              marginTop: -APP_STYLE_VALUES.WH_SIZES.xl2 / 2,
+              marginTop: -APP_STYLE_VALUES.WH_SIZES.xl3 / 2,
               borderColor: theme.grayScale100,
-              width: APP_STYLE_VALUES.WH_SIZES.xl2,
-              height: APP_STYLE_VALUES.WH_SIZES.xl2,
+              width: APP_STYLE_VALUES.WH_SIZES.xl3,
+              height: APP_STYLE_VALUES.WH_SIZES.xl3,
               borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
             },
           ]}

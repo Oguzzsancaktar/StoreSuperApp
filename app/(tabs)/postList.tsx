@@ -1,13 +1,43 @@
+import CardListingCategories from '@/components/cards/listing/CardListingCategories';
+import CardListingItems from '@/components/cards/listing/CardListingItems';
+import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { TextStyled } from '@/components/typography';
-import { View, Text } from 'react-native';
+import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import {
+  ListingFilterProvider,
+  useListingFilter,
+} from '@/contexts/ListingFilterContext';
+import IListingCategory from '@/interfaces/listing/IListingCategory';
+import { useMemo, useState } from 'react';
+import { View } from 'react-native';
+
+const PostScreenActiveComponent = () => {
+  const { selectedCategory } = useListingFilter();
+  const activeTab = useMemo(() => {
+    let tab = <CardListingCategories />;
+    if (selectedCategory) {
+      tab = <CardListingItems />;
+    } else {
+      tab = <CardListingCategories />;
+    }
+
+    return tab;
+  }, [selectedCategory]);
+
+  return (
+    <InnerCommonContainer>
+      <View style={{ flex: 1, marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
+        {activeTab}
+      </View>
+    </InnerCommonContainer>
+  );
+};
 
 const PostListScreen = () => {
   return (
     <ScreenWrapperContainer>
-      <TextStyled fontSize="h5" fontWeight="bold">
-        Post List
-      </TextStyled>
+      <PostScreenActiveComponent />
     </ScreenWrapperContainer>
   );
 };

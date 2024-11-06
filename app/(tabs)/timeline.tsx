@@ -22,37 +22,7 @@ export default function TimelineScreen() {
   return (
     <ScreenWrapperContainer>
       <InnerCommonContainer>
-        <View>
-          <View
-            style={[
-              commonStyles.flexStyles.rowWrap,
-              {
-                marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-                gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                borderColor: theme.primary,
-              },
-            ]}
-          >
-            <View style={{ flex: 1 }}>
-              <FilterSearchbar handleMostSearched={setShowMostSearched} />
-            </View>
-            <View
-              style={{
-                width: 150,
-              }}
-            >
-              <FilterStuffType />
-            </View>
-          </View>
-
-          {showMostSearched && (
-            <View style={{ marginVertical: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
-              <CardMostSearchedWords />
-            </View>
-          )}
-
-          <CardNewestPostings />
-        </View>
+        <CardNewestPostings />
       </InnerCommonContainer>
     </ScreenWrapperContainer>
   );

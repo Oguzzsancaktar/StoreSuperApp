@@ -18,8 +18,6 @@ export interface IProps {
 }
 
 const FormStyled: React.FC<Readonly<IProps>> = (props) => {
-  const { theme, toggleTheme } = useAppTheme();
-
   const { fields, defaultValues, onSubmit } = props;
   const { showBackButton, onBack } = props;
 
@@ -31,6 +29,7 @@ const FormStyled: React.FC<Readonly<IProps>> = (props) => {
   const formInstance = useForm({
     defaultValues: useMemo(() => defaultValues, [defaultValues]),
   });
+
   const {
     control,
     formState: { errors },
