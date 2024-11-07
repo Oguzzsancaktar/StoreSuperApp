@@ -7,7 +7,8 @@ import { map } from 'lodash';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { IInputProps } from '@/interfaces/app';
 import { TextStyled } from '../typography';
-import { useAppTheme } from '@/contexts/ThemeContext';
+import APP_VALIDATION_PATTERNS from '@/constants/APP_VALIDATION_PATTERNS';
+import useCommonStyles from '@/hooks/useCommonStyles';
 
 export interface IProps {
   fields: Array<IInputProps>;
@@ -15,11 +16,20 @@ export interface IProps {
   onSubmit(values: Record<string, any>): void;
   showBackButton?: boolean;
   onBack(values: Record<string, any>): void;
+  isLastStep: boolean;
+  isCurrentCustom: boolean;
 }
 
-const FormStyled: React.FC<Readonly<IProps>> = (props) => {
-  const { fields, defaultValues, onSubmit } = props;
-  const { showBackButton, onBack } = props;
+const FormStyled: React.FC<Readonly<IProps>> = ({
+  fields,
+  defaultValues,
+  onSubmit,
+  showBackButton,
+  onBack,
+  isLastStep,
+  isCurrentCustom,
+}) => {
+  const commonStyles = useCommonStyles();
 
   const handleBack = () => {
     const values = formInstance.getValues();
@@ -41,69 +51,112 @@ const FormStyled: React.FC<Readonly<IProps>> = (props) => {
     reset(defaultValues);
   }, [defaultValues]);
 
+  console.log('isCurrentCustom', isCurrentCustom);
   return (
     <FormProvider {...formInstance}>
-      {showBackButton && (
-        <ButtonStyled
-          variant="buttonPrimaryOutlined"
-          text="Back"
-          onPress={handleBack}
-        />
-      )}
-
       <View
         style={{
-          gap: APP_STYLE_VALUES.SPACE_SIZES.sp3,
+          flex: isCurrentCustom ? undefined : 1,
+          height: isCurrentCustom
+            ? showBackButton
+              ? APP_STYLE_VALUES.WH_SIZES.lg * 2 +
+                APP_STYLE_VALUES.SPACE_SIZES.sp2
+              : APP_STYLE_VALUES.WH_SIZES.lg
+            : undefined,
         }}
       >
-        {map(fields, ({ name, type, label, placeholder }) => (
-          <Fragment key={name}>
-            <Controller
-              control={control}
-              name="email"
-              rules={{
-                required: true,
-                pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <InputStyled
+        <View style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 }}>
+          {map(fields, ({ name, type, label, placeholder }) => {
+            let tempRegexPattern: RegExp = /^.+$/;
+
+            switch (name) {
+              case 'firstname':
+                tempRegexPattern = APP_VALIDATION_PATTERNS.USERNAME_PATTERN;
+                break;
+              case 'email':
+                tempRegexPattern = APP_VALIDATION_PATTERNS.EMAIL_PATTERN;
+                break;
+              case 'password':
+                tempRegexPattern = APP_VALIDATION_PATTERNS.PASSWORD_PATTERN;
+                break;
+              case 'password_confirm':
+                tempRegexPattern = APP_VALIDATION_PATTERNS.PASSWORD_PATTERN;
+                break;
+              default:
+                tempRegexPattern = APP_VALIDATION_PATTERNS.EMAIL_PATTERN;
+                break;
+            }
+
+            return (
+              <Fragment key={name}>
+                <Controller
+                  control={control}
                   name={name}
-                  type={type}
-                  label={label}
-                  style={{ borderWidth: 1, padding: 10 }}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  placeholder={placeholder}
+                  rules={{
+                    required: true,
+                    pattern: tempRegexPattern,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <InputStyled
+                      name={name}
+                      type={type}
+                      label={label}
+                      style={{ borderWidth: 1, padding: 10 }}
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      placeholder={placeholder}
+                    />
+                  )}
                 />
-              )}
+
+                {errors[name] && (
+                  <View
+                    style={{
+                      marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                      marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                    }}
+                  >
+                    <TextStyled
+                      customColor="error"
+                      textAlignment="left"
+                      fontSize="md"
+                      fontWeight="regular"
+                    >
+                      {label || ''} is invalid.
+                    </TextStyled>
+                  </View>
+                )}
+              </Fragment>
+            );
+          })}
+        </View>
+
+        <View
+          style={[
+            commonStyles.flexStyles.colCenter,
+            {
+              gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+              height: showBackButton
+                ? APP_STYLE_VALUES.WH_SIZES.lg * 2 +
+                  APP_STYLE_VALUES.SPACE_SIZES.sp2
+                : APP_STYLE_VALUES.WH_SIZES.lg,
+            },
+          ]}
+        >
+          {showBackButton && (
+            <ButtonStyled
+              variant="buttonPrimaryOutlined"
+              text="Back"
+              onPress={handleBack}
             />
-
-            {errors.email && (
-              <View
-                style={{
-                  marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                  marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                }}
-              >
-                <TextStyled
-                  customColor="grayScale400"
-                  textAlignment="left"
-                  fontSize="md"
-                  fontWeight="regular"
-                >
-                  {label || ''} is invalid.
-                </TextStyled>
-              </View>
-            )}
-          </Fragment>
-        ))}
-
-        <ButtonStyled
-          onPress={handleSubmit(onSubmit)}
-          variant="buttonPrimarySolid"
-          text="Submit"
-        />
+          )}
+          <ButtonStyled
+            onPress={handleSubmit(onSubmit)}
+            variant="buttonPrimarySolid"
+            text={isLastStep ? 'Submit' : 'Next'}
+          />
+        </View>
       </View>
     </FormProvider>
   );

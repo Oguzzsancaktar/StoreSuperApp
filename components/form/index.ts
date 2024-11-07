@@ -1,2 +1,2 @@
 export { default as FormStyled } from './FormStyled';
-export { default as SignupForm } from './SignupForm';
+export { default as FormWizard } from './FormWizard';

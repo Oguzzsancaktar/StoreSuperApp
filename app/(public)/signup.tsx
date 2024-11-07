@@ -1,8 +1,8 @@
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { InnerCommonContainer } from '@/components/containers';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { SignupForm } from '@/components/form';
-import { SignupFormStepProps } from '@/components/form/SignupForm';
+import { FormWizard } from '@/components/form';
+import { IFormWizardStepProps } from '@/components/form/FormWizard';
 import SRegisterIllustration from '@/components/svg/illustrations/SRegisterIllustration';
 import { TextStyled } from '@/components/typography';
 import { View } from 'react-native';
@@ -11,7 +11,7 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 const SignupScreen = () => {
   const commonStyles = useCommonStyles();
 
-  const steps: SignupFormStepProps[] = [
+  const steps: IFormWizardStepProps[] = [
     {
       id: 'STEP_1',
       fields: [
@@ -56,7 +56,7 @@ const SignupScreen = () => {
       </View>
 
       <InnerCommonContainer>
-        <SignupForm
+        <FormWizard
           steps={steps}
           defaultValues={defaultValues}
           onSubmit={handleSubmit}

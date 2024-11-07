@@ -5,6 +5,7 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { TextStyled } from '../typography';
 import { IAppTheme } from '@/interfaces/theme';
+import { BlurView } from '@react-native-community/blur';
 
 interface IProps {
   icon: JSX.Element;
@@ -13,25 +14,41 @@ interface IProps {
 }
 const ImageIconCircle: React.FC<IProps> = ({
   icon,
-  bgColor = 'grayScale400',
+  bgColor,
   size = APP_STYLE_VALUES.WH_SIZES.sm,
 }) => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
-  const { theme } = useAppTheme();
+  const { theme, isDark } = useAppTheme();
+
   return (
     <View
       style={[
         commonStyles.flexStyles.flexCenter,
+        bgColor && { backgroundColor: theme[bgColor] },
         {
           width: size,
           height: size,
           borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
-          backgroundColor: theme[bgColor],
+          overflow: 'hidden',
         },
       ]}
     >
-      {icon}
+      {!bgColor ? (
+        <BlurView
+          style={[
+            commonStyles.flexStyles.colCenter,
+            { flex: 1, width: '100%', height: '100%' },
+          ]}
+          blurType={'dark'}
+          blurAmount={2}
+          reducedTransparencyFallbackColor="white"
+        >
+          {icon}
+        </BlurView>
+      ) : (
+        icon
+      )}
     </View>
   );
 };

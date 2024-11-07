@@ -6,18 +6,51 @@ import { View, Text } from 'react-native';
 import CardListingCategoryItem from './CardListingCategoryItem';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useGetListingCategoriesQuery } from '@/services/listingFilterServices';
+import IListingCategory from '@/interfaces/listing/IListingCategory';
+import { TextStyled } from '@/components/typography';
 
-const CardListingCategories = () => {
+interface IProps {
+  showDescriptions?: boolean;
+  selectedCategory: IListingCategory['id'];
+  handleSelectCategory(categoryId: IListingCategory['id']): void;
+}
+const CardListingCategories: React.FC<IProps> = ({
+  showDescriptions = false,
+  handleSelectCategory,
+  selectedCategory,
+}) => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
 
   return (
-    <View style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
-      {map(listingCategoriesData, (item, index) => {
-        return <CardListingCategoryItem category={item} key={index} />;
-      })}
+    <View>
+      <View
+        style={[
+          commonStyles.flexStyles.rowWrap,
+          { flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+        ]}
+      >
+        {map(listingCategoriesData, (item, index) => {
+          return (
+            <View
+              key={index}
+              style={{
+                flex: 1,
+                height: APP_STYLE_VALUES.WH_SIZES.xl4,
+                minWidth: APP_STYLE_VALUES.WH_SIZES.xl3,
+              }}
+            >
+              <CardListingCategoryItem
+                onPress={handleSelectCategory}
+                isSelected={selectedCategory === item.id}
+                category={item}
+              />
+            </View>
+          );
+        })}
+      </View>
     </View>
   );
 };

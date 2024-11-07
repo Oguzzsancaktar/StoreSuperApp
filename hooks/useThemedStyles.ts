@@ -1,5 +1,5 @@
 import { useAppTheme } from '@/contexts/ThemeContext';
-import { StyleSheet } from 'react-native';
+import { DimensionValue, StyleSheet } from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { IBorderStylesheet, IButtonStylesheet, ICardStylesheet, IShadowStylesheet } from '@/interfaces/theme';
 import { COMMON_COLOURS } from '@/constants/APP_THEMES';
@@ -20,6 +20,9 @@ const COMMON_CARD_STYLES = {
   borderRadius: RADIUS_SIZES.lg,
   padding: SPACE_SIZES.sp4,
   borderWidth: 1,
+  overflow: "hidden" as "hidden" | "visible" | undefined,
+  position: "relative" as "relative" | "absolute" | "static" | undefined,
+  width: "100%" as DimensionValue | undefined,
 }
 
 
@@ -47,12 +50,16 @@ const useThemedStyles = () => {
   const cardStyles: StyleSheet.NamedStyles<ICardStylesheet> = StyleSheet.create({
     default: {
       ...COMMON_CARD_STYLES,
-      width: "100%",
-      overflow: "hidden",
       borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
-      position: "relative",
       borderColor: theme.grayScale400,
-      backgroundColor: theme.grayScale100,
+      backgroundColor: theme.grayScale50,
+      paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp6
+    },
+    primary: {
+      ...COMMON_CARD_STYLES,
+      borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
+      borderColor: theme.primary,
+      backgroundColor: "transparent",
       paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp6
     },
   })

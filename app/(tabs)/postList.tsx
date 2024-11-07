@@ -13,13 +13,26 @@ import { useMemo, useState } from 'react';
 import { View } from 'react-native';
 
 const PostScreenActiveComponent = () => {
+  const { setSelectedCategory } = useListingFilter();
+
   const { selectedCategory } = useListingFilter();
+
   const activeTab = useMemo(() => {
-    let tab = <CardListingCategories />;
+    let tab = (
+      <CardListingCategories
+        selectedCategory={selectedCategory || ''}
+        handleSelectCategory={(categoryId) => setSelectedCategory(categoryId)}
+      />
+    );
     if (selectedCategory) {
       tab = <CardListingItems />;
     } else {
-      tab = <CardListingCategories />;
+      tab = (
+        <CardListingCategories
+          selectedCategory={selectedCategory || ''}
+          handleSelectCategory={(categoryId) => setSelectedCategory(categoryId)}
+        />
+      );
     }
 
     return tab;

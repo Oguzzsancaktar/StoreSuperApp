@@ -7,19 +7,30 @@ import IListingCategory from '@/interfaces/listing/IListingCategory';
 import ImageCover from '../../images/ImageCover';
 import { BlurView } from '@react-native-community/blur';
 import { useListingFilter } from '@/contexts/ListingFilterContext';
+import { useAppTheme } from '@/contexts/ThemeContext';
+import { useMemo } from 'react';
+import APP_THEMES, { COMMON_COLOURS } from '@/constants/APP_THEMES';
+import { GradientBackground } from '@/components/svg/background';
 
 interface IProps {
   category: IListingCategory;
+  onPress(categoryId: IListingCategory['id']): void;
+  isSelected?: boolean;
 }
-const CardListingCategoryItem: React.FC<IProps> = ({ category }) => {
+const CardListingCategoryItem: React.FC<IProps> = ({
+  onPress,
+  category,
+  isSelected,
+}) => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
-  const { setSelectedCategory } = useListingFilter();
+  const { isDark } = useAppTheme();
+
   return (
     <TouchableOpacity
-      onPress={() => setSelectedCategory(category.id)}
+      onPress={() => onPress(category.id)}
       style={[
-        themedStyles.cardStyles.default,
+        themedStyles.cardStyles[isSelected ? 'primary' : 'default'],
         commonStyles.flexStyles.colCenter,
         {
           flex: 1,
@@ -32,10 +43,12 @@ const CardListingCategoryItem: React.FC<IProps> = ({ category }) => {
     >
       <ImageCover url={category.banner} />
 
+      {isSelected && <GradientBackground />}
+
       <BlurView
         style={commonStyles.absolutePositionStyles.absoluteFill}
-        blurType="dark"
-        blurAmount={1}
+        blurType={isDark ? 'dark' : 'xlight'}
+        blurAmount={2}
         reducedTransparencyFallbackColor="white"
       />
 
@@ -49,7 +62,7 @@ const CardListingCategoryItem: React.FC<IProps> = ({ category }) => {
           },
         ]}
       >
-        <TextStyled fontSize="h3" fontWeight="bold">
+        <TextStyled fontSize="h5" fontWeight="medium">
           {category.name}
         </TextStyled>
       </View>

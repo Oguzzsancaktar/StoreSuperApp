@@ -1,14 +1,19 @@
+import { ButtonStyled } from '@/components/button';
 import CardPostCategory from '@/components/cards/CardPostCategory';
 import CardSellerInfo from '@/components/cards/CardSellerInfo';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import ImageCover from '@/components/images/ImageCover';
+import { getIconWithProps } from '@/components/svg/icon';
+import IconBell from '@/components/svg/icon/IconBell';
 import IconLocation from '@/components/svg/icon/IconLocation';
+import IconSendMessage from '@/components/svg/icon/IconSendMessage';
+import IconUser from '@/components/svg/icon/IconUser';
 import { TextStyled } from '@/components/typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 const Signin = () => {
   const commonStyles = useCommonStyles();
@@ -16,7 +21,9 @@ const Signin = () => {
   return (
     <ScreenWrapperContainer showGoBack={true}>
       <InnerCommonContainer>
-        <View style={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp6 }}>
+        <ScrollView
+          contentContainerStyle={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp6 }}
+        >
           <View
             style={[
               commonStyles.flexStyles.colStart,
@@ -75,6 +82,51 @@ const Signin = () => {
             <View style={{ width: '100%' }}>
               <CardSellerInfo />
             </View>
+          </View>
+        </ScrollView>
+
+        <View
+          style={[
+            commonStyles.flexStyles.rowWrap,
+            {
+              gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+              marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+            },
+          ]}
+        >
+          <View>
+            <ButtonStyled variant="buttonPrimaryOutlined">
+              <IconUser color={theme.grayScale500} />
+            </ButtonStyled>
+          </View>
+
+          <View style={{ flex: 1 }}>
+            <ButtonStyled variant="buttonPrimarySolid">
+              <View
+                style={[
+                  commonStyles.flexStyles.rowCenterWrap,
+                  { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+                ]}
+              >
+                <View
+                  style={[
+                    commonStyles.flexStyles.rowStart,
+                    { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+                  ]}
+                >
+                  <IconSendMessage color={theme.white} />
+
+                  <TextStyled
+                    textAlignment="left"
+                    fontSize="lg"
+                    fontWeight="semibold"
+                    customColor="grayScale900"
+                  >
+                    Send Message
+                  </TextStyled>
+                </View>
+              </View>
+            </ButtonStyled>
           </View>
         </View>
       </InnerCommonContainer>

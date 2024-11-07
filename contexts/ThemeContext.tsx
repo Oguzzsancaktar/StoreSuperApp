@@ -17,6 +17,7 @@ interface ThemeContextType {
   theme: IAppTheme;
   toggleTheme: () => void;
   useSafeAreaState: boolean;
+  isDark: boolean;
   setUseSafeArea: (value: boolean) => void;
 }
 
@@ -45,9 +46,13 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
     [session]
   );
 
+  const isDark = useMemo(() => {
+    return theme.grayScale100 === APP_THEMES.dark.grayScale100;
+  }, [theme, APP_THEMES]);
+
   return (
     <ThemeContext.Provider
-      value={{ theme, toggleTheme, useSafeAreaState, setUseSafeArea }}
+      value={{ theme, toggleTheme, useSafeAreaState, setUseSafeArea, isDark }}
     >
       {children}
     </ThemeContext.Provider>

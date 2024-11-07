@@ -1,5 +1,5 @@
 import { Href, useRouter } from 'expo-router';
-import { TouchableOpacity, useWindowDimensions } from 'react-native';
+import { TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { TextStyled } from '../typography';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
@@ -53,15 +53,30 @@ const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
         },
       ]}
     >
-      {icon({
-        color:
-          isActive && to !== '/addPost' ? theme.primary : theme.grayScale900,
-      })}
+      <View
+        style={[
+          commonStyles.flexStyles.flexCenter,
+          {
+            width: APP_STYLE_VALUES.WH_SIZES.xs,
+            height: APP_STYLE_VALUES.WH_SIZES.xs,
+          },
+        ]}
+      >
+        {icon({
+          color:
+            isActive && to !== '/addPost'
+              ? theme.primary
+              : to === '/addPost'
+              ? theme.white
+              : theme.grayScale900,
+        })}
+      </View>
+
       {text !== '' && (
         <TextStyled
           fontSize="sm"
           fontWeight="medium"
-          customColor={isActive ? 'white' : 'grayScale900'}
+          customColor={isActive ? 'primary' : 'grayScale900'}
         >
           {text}
         </TextStyled>

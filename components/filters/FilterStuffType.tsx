@@ -20,6 +20,7 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import APP_COMMONS from '@/constants/APP_COMMONS';
 import { useGetListingCategoriesQuery } from '@/services/listingFilterServices';
 import { useListingFilter } from '@/contexts/ListingFilterContext';
+import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
 
 interface IProps {
   variant?: 'transparent' | 'primary';
@@ -77,6 +78,7 @@ const FilterStuffType: React.FC<IProps> = ({
         itemTextStyle={{ color: theme.grayScale900 }}
         fontFamily="BRShapeMedium"
         selectedTextStyle={{
+          fontSize: APP_TYPOGRAPHY.fontSizes.h6,
           color: variant === 'transparent' ? theme.primary : theme.white,
         }}
         onChange={handleSelect}

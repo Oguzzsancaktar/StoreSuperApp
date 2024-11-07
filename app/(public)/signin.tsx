@@ -1,35 +1,36 @@
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { InnerCommonContainer } from '@/components/containers';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { SignupForm } from '@/components/form';
-import { SignupFormStepProps } from '@/components/form/SignupForm';
+import { FormWizard } from '@/components/form';
+import { IFormWizardStepProps } from '@/components/form/FormWizard';
 import { TextStyled } from '@/components/typography';
 import { View } from 'react-native';
 import SLoginIllustration from '@/components/svg/illustrations/SLoginIllustration';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
+const steps: IFormWizardStepProps[] = [
+  {
+    id: 'STEP_1',
+    fields: [
+      {
+        label: 'First name',
+        name: 'firstname',
+        placeholder: 'Your email address',
+        type: 'text',
+      },
+      {
+        label: 'Password',
+        name: 'password',
+        placeholder: 'Your password',
+        type: 'password',
+      },
+    ],
+  },
+];
+
 const SigninScreen = () => {
   const commonStyles = useCommonStyles();
 
-  const steps: SignupFormStepProps[] = [
-    {
-      id: 'STEP_1',
-      fields: [
-        {
-          label: 'First name',
-          name: 'firstname',
-          placeholder: 'Your email address',
-          type: 'text',
-        },
-        {
-          label: 'Password',
-          name: 'password',
-          placeholder: 'Your password',
-          type: 'password',
-        },
-      ],
-    },
-  ];
   const defaultValues = { COUNTRY: 'Estonia' };
 
   const handleSubmit = (values: Record<string, any>) => {
@@ -55,7 +56,7 @@ const SigninScreen = () => {
       </View>
 
       <InnerCommonContainer>
-        <SignupForm
+        <FormWizard
           steps={steps}
           defaultValues={defaultValues}
           onSubmit={handleSubmit}

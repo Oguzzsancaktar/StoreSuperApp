@@ -15,6 +15,7 @@ const InnerCommonContainer: React.FC<IProps> = ({ children }) => {
         commonStyles.flexStyles.colBetween,
         commonStyles.spacingStyles.p4,
         {
+          backgroundColor: 'transparent',
           flex: 1,
           width: '100%',
           height: '100%',

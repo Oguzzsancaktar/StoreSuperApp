@@ -42,7 +42,6 @@ const CardSellerProfileInfo = () => {
             {
               borderWidth: 1,
               overflow: 'hidden',
-              backgroundColor: 'blue',
               marginTop: -APP_STYLE_VALUES.WH_SIZES.xl3 / 2,
               borderColor: theme.grayScale100,
               width: APP_STYLE_VALUES.WH_SIZES.xl3,
@@ -58,7 +57,9 @@ const CardSellerProfileInfo = () => {
       <View
         style={[
           commonStyles.flexStyles.colCenter,
-          { marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp4 },
+          {
+            marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp4,
+          },
         ]}
       >
         <TextStyled fontSize="h6" fontWeight="semibold">

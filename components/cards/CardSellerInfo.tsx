@@ -81,19 +81,6 @@ const CardSellerInfo = () => {
           <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
             +90 (543) 334 44 55
           </TextStyled>
-
-          <View
-            style={{
-              gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-              marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-            }}
-          >
-            <ButtonStyled
-              text="Visit Profile"
-              variant="buttonPrimaryOutlined"
-            />
-            <ButtonStyled text="Message" variant="buttonPrimarySolid" />
-          </View>
         </View>
       </View>
     </View>

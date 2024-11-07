@@ -63,6 +63,7 @@ export default function TabLayout() {
               justifyContent: 'center',
               alignItems: 'center',
               borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
+              borderWidth: 0,
               paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp2,
             },
             tabBarButton: ({ accessibilityState, to, ...rest }) => {

@@ -24,12 +24,13 @@ const CardNewestPostings = () => {
   }, [listingCategoriesData]);
 
   const [newestCategory, setNewestCategory] = useState(
-    listingCategoryOptions[0].value
+    listingCategoryOptions[0]?.value
   );
 
-  const { data: newestPostData } = useGetNewestPostsQuery({
-    categoryId: newestCategory,
-  });
+  const { data: newestPostData, isLoading: newestPostDataIsLoading } =
+    useGetNewestPostsQuery({
+      categoryId: newestCategory,
+    });
 
   return (
     <View style={{ height: '100%' }}>
@@ -41,7 +42,7 @@ const CardNewestPostings = () => {
           },
         ]}
       >
-        <TextStyled fontSize="h5" fontWeight="semibold">
+        <TextStyled fontSize="h6" fontWeight="semibold">
           Newest Postings On
         </TextStyled>
 
