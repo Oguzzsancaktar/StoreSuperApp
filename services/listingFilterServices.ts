@@ -5,7 +5,9 @@ import { createApi, EndpointBuilder } from '@reduxjs/toolkit/query/react'
 import IQueryParams from '@/interfaces/app/IQueryParams';
 import IListingQueryParams from '@/interfaces/listing/IListingQueryParams';
 import IListingMostSearchedKey from '@/interfaces/listing/IListingMostSearchedKey';
-import IListingPost from '@/interfaces/listing/IListingPost';
+import IListingCategorySub from '@/interfaces/listing/IListingCategorySub';
+import ICountry from '@/interfaces/common/address/ICountry';
+import ICity from '@/interfaces/common/address/ICity';
 
 const LISTING_FILTER_API_REDUCER_PATH = 'listingFilterAPI'
 const LISTING_FILTER_API_TAG = "listingFilterTag"
@@ -15,6 +17,32 @@ type IBuilder = EndpointBuilder<
   typeof LISTING_FILTER_API_TAG,
   typeof LISTING_FILTER_API_REDUCER_PATH
 >
+
+const getCountries = (builder: IBuilder) => {
+  return builder.query<ICountry[], void>({
+    query() {
+      return {
+        url: `/countries`,
+        method: 'GET',
+      }
+    },
+    providesTags: [LISTING_FILTER_API_TAG],
+  })
+}
+
+const getCities = (builder: IBuilder) => {
+  return builder.query<ICity[], number>({
+    query(countryId) {
+      return {
+        url: `/city`,
+        method: 'GET',
+        params: { countryId }
+      }
+    },
+    providesTags: [LISTING_FILTER_API_TAG],
+  })
+}
+
 
 const getListingCategories = (builder: IBuilder) => {
   return builder.query<IListingCategory[], IQueryParams | void>({
@@ -28,6 +56,19 @@ const getListingCategories = (builder: IBuilder) => {
     providesTags: [LISTING_FILTER_API_TAG],
   })
 }
+
+const getListingCategorySubs = (builder: IBuilder) => {
+  return builder.query<IListingCategory[], IListingCategory["id"]>({
+    query(categoryId) {
+      return {
+        url: `/categories/${categoryId}/sub`,
+        method: 'GET',
+      }
+    },
+    providesTags: [LISTING_FILTER_API_TAG],
+  })
+}
+
 
 const getMostSearchedKeys = (builder: IBuilder) => {
   return builder.query<IListingMostSearchedKey[], IListingQueryParams>({
@@ -46,7 +87,7 @@ const getMostSearchedKeys = (builder: IBuilder) => {
 
 
 const getNewestPosts = (builder: IBuilder) => {
-  return builder.query<IListingPost[], IListingQueryParams | void>({
+  return builder.query<IListingCategorySub[], IListingQueryParams | void>({
     query(params) {
       return {
         url: `/listings/newest`,
@@ -79,15 +120,35 @@ const listingFilterApiSlice = createApi({
   tagTypes: [LISTING_FILTER_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
+    getCountries: getCountries(builder),
+    getCities: getCities(builder),
     getListingCategories: getListingCategories(builder),
     getMostSearchedKeys: getMostSearchedKeys(builder),
-    getNewestPosts: getNewestPosts(builder)
+    getListingCategorySubs: getListingCategorySubs(builder),
+    getNewestPosts: getNewestPosts(builder),
+
   }),
 })
 
-const { useGetListingCategoriesQuery, useGetMostSearchedKeysQuery, useGetNewestPostsQuery } = listingFilterApiSlice
+const {
+  useGetCountriesQuery,
+  useGetCitiesQuery,
+  useGetListingCategoriesQuery,
+  useGetMostSearchedKeysQuery,
+  useGetNewestPostsQuery,
+  useGetListingCategorySubsQuery,
 
-export { listingFilterApiSlice, useGetListingCategoriesQuery, useGetMostSearchedKeysQuery, useGetNewestPostsQuery }
+} = listingFilterApiSlice
+
+export {
+  listingFilterApiSlice,
+  useGetCountriesQuery,
+  useGetCitiesQuery,
+  useGetListingCategoriesQuery,
+  useGetMostSearchedKeysQuery,
+  useGetNewestPostsQuery,
+  useGetListingCategorySubsQuery
+}
 
 
 

@@ -36,6 +36,11 @@ const useThemedStyles = () => {
       borderWidth: 1,
       borderColor: theme.grayScale200,
     },
+    dashedGray: {
+      borderStyle: "dashed",
+      borderWidth: 2,
+      borderColor: theme.grayScale300,
+    },
     primary: {
       borderWidth: 1,
       borderColor: theme.primary,

@@ -1,14 +1,14 @@
 import { Fragment, useEffect, useMemo } from 'react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { ButtonStyled } from '../button';
-import { InputStyled } from '../input';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { map } from 'lodash';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { IInputProps } from '@/interfaces/app';
 import { TextStyled } from '../typography';
 import APP_VALIDATION_PATTERNS from '@/constants/APP_VALIDATION_PATTERNS';
 import useCommonStyles from '@/hooks/useCommonStyles';
+import FormInputComponents from './FormInputComponents';
 
 export interface IProps {
   fields: Array<IInputProps>;
@@ -18,6 +18,7 @@ export interface IProps {
   onBack(values: Record<string, any>): void;
   isLastStep: boolean;
   isCurrentCustom: boolean;
+  isNextDisabled?: boolean;
 }
 
 const FormStyled: React.FC<Readonly<IProps>> = ({
@@ -28,6 +29,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   onBack,
   isLastStep,
   isCurrentCustom,
+  isNextDisabled,
 }) => {
   const commonStyles = useCommonStyles();
 
@@ -51,7 +53,6 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
     reset(defaultValues);
   }, [defaultValues]);
 
-  console.log('isCurrentCustom', isCurrentCustom);
   return (
     <FormProvider {...formInstance}>
       <View
@@ -65,72 +66,88 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
             : undefined,
         }}
       >
-        <View style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 }}>
-          {map(fields, ({ name, type, label, placeholder }) => {
-            let tempRegexPattern: RegExp = /^.+$/;
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+            gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+          }}
+        >
+          {map(
+            fields,
+            ({ name, type, label, placeholder, options, maxMedia }) => {
+              let tempRegexPattern: RegExp = /^.+$/;
 
-            switch (name) {
-              case 'firstname':
-                tempRegexPattern = APP_VALIDATION_PATTERNS.USERNAME_PATTERN;
-                break;
-              case 'email':
-                tempRegexPattern = APP_VALIDATION_PATTERNS.EMAIL_PATTERN;
-                break;
-              case 'password':
-                tempRegexPattern = APP_VALIDATION_PATTERNS.PASSWORD_PATTERN;
-                break;
-              case 'password_confirm':
-                tempRegexPattern = APP_VALIDATION_PATTERNS.PASSWORD_PATTERN;
-                break;
-              default:
-                tempRegexPattern = APP_VALIDATION_PATTERNS.EMAIL_PATTERN;
-                break;
-            }
+              switch (name) {
+                case 'firstname':
+                  tempRegexPattern = APP_VALIDATION_PATTERNS.USERNAME_PATTERN;
+                  break;
+                case 'email':
+                  tempRegexPattern = APP_VALIDATION_PATTERNS.EMAIL_PATTERN;
+                  break;
+                case 'password':
+                  tempRegexPattern = APP_VALIDATION_PATTERNS.PASSWORD_PATTERN;
+                  break;
+                case 'password_confirm':
+                  tempRegexPattern = APP_VALIDATION_PATTERNS.PASSWORD_PATTERN;
+                  break;
+                case 'price':
+                  tempRegexPattern = APP_VALIDATION_PATTERNS.NUMERIC_PATTERN;
+                  break;
 
-            return (
-              <Fragment key={name}>
-                <Controller
-                  control={control}
-                  name={name}
-                  rules={{
-                    required: true,
-                    pattern: tempRegexPattern,
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <InputStyled
-                      name={name}
-                      type={type}
-                      label={label}
-                      style={{ borderWidth: 1, padding: 10 }}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      placeholder={placeholder}
-                    />
-                  )}
-                />
+                default:
+                  break;
+              }
 
-                {errors[name] && (
-                  <View
-                    style={{
-                      marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                      marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+              return (
+                <Fragment key={name}>
+                  <Controller
+                    control={control}
+                    name={name}
+                    rules={{
+                      required: true,
+                      pattern: tempRegexPattern,
                     }}
-                  >
-                    <TextStyled
-                      customColor="error"
-                      textAlignment="left"
-                      fontSize="md"
-                      fontWeight="regular"
+                    render={({ field: { onChange, onBlur, value } }) => {
+                      return (
+                        <FormInputComponents
+                          formInstance={formInstance}
+                          name={name}
+                          type={type}
+                          value={value}
+                          label={label}
+                          options={options}
+                          maxMedia={maxMedia}
+                          placeholder={placeholder}
+                          onChange={onChange}
+                          onBlur={onBlur}
+                        />
+                      );
+                    }}
+                  />
+
+                  {errors[name] && (
+                    <View
+                      style={{
+                        marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                        marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                      }}
                     >
-                      {label || ''} is invalid.
-                    </TextStyled>
-                  </View>
-                )}
-              </Fragment>
-            );
-          })}
-        </View>
+                      <TextStyled
+                        customColor="error"
+                        textAlignment="left"
+                        fontSize="md"
+                        fontWeight="regular"
+                      >
+                        {label || ''} is invalid.
+                      </TextStyled>
+                    </View>
+                  )}
+                </Fragment>
+              );
+            }
+          )}
+        </ScrollView>
 
         <View
           style={[
@@ -152,6 +169,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
             />
           )}
           <ButtonStyled
+            disabled={isNextDisabled}
             onPress={handleSubmit(onSubmit)}
             variant="buttonPrimarySolid"
             text={isLastStep ? 'Submit' : 'Next'}

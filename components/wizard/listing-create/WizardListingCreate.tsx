@@ -7,15 +7,33 @@ import { TextStyled } from '@/components/typography';
 import { View } from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import CardListingCategories from '@/components/cards/listing/CardListingCategories';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import IListingCategory from '@/interfaces/listing/IListingCategory';
+import { useGetListingCategorySubsQuery } from '@/services/listingFilterServices';
+import ISelectOption from '@/interfaces/theme/ISelectOption';
+import { map } from 'lodash';
 
 const WizardListingCreate = () => {
   const [values, setValues] = useState<Record<string, any>>({});
 
+  console.log('values', values);
+
+  const { data: listingCategorySubData } = useGetListingCategorySubsQuery(
+    values?.categoryId
+  );
+
+  const subCategoryOptions: ISelectOption[] = useMemo(() => {
+    return map(listingCategorySubData, (subCat) => {
+      return {
+        label: subCat.name,
+        value: subCat.id,
+      };
+    });
+  }, [listingCategorySubData]);
+
   const handleCategorySelect = (categoryId: IListingCategory['id']) => {
     setValues((prev) => {
-      return { ...prev, categoryId };
+      return { ...prev, estate_type: undefined, categoryId };
     });
   };
 
@@ -38,15 +56,16 @@ const WizardListingCreate = () => {
     },
     {
       id: 'STEP_1',
-      stepTitle: 'Estate Type',
+      stepTitle: 'Listing Category Sub',
       stepDescription:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque iure corporis rem quasi consequuntur ipsum ab sequi explicabo ',
       fields: [
         {
-          label: 'Estate Type',
+          label: 'Listing Category Sub',
           name: 'estate_type',
           placeholder: 'Select estate type...',
           type: 'select',
+          options: subCategoryOptions,
         },
       ],
     },
@@ -56,6 +75,13 @@ const WizardListingCreate = () => {
       stepDescription:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque iure corporis rem quasi consequuntur ipsum ab sequi explicabo ',
       fields: [
+        {
+          label: 'Post Photos',
+          name: 'media',
+          placeholder: 'Add Media...',
+          type: 'upload',
+          maxMedia: 6,
+        },
         {
           label: 'Title',
           name: 'title',
@@ -95,16 +121,16 @@ const WizardListingCreate = () => {
           type: 'select',
         },
         {
-          label: 'Title',
-          name: 'title',
-          placeholder: 'Enter Listing Title...',
-          type: 'text',
+          label: 'Zip Code',
+          name: 'zipcode',
+          placeholder: 'Enter Listing Zip Code...',
+          type: 'number',
         },
         {
           label: 'Full Address',
           name: 'fulladdress',
           placeholder: 'Enter Full Address...',
-          type: 'text',
+          type: 'textarea',
         },
         {
           label: 'Show Full Address In Post Details',
@@ -139,7 +165,7 @@ const WizardListingCreate = () => {
       ],
     },
   ];
-  const defaultValues = { COUNTRY: 'Estonia' };
+  const defaultValues = {};
 
   const handleSubmit = (values: Record<string, any>) => {
     console.log(values);
@@ -148,6 +174,7 @@ const WizardListingCreate = () => {
   return (
     <ScreenWrapperContainer>
       <FormWizard
+        isNextDisabled={!values?.categoryId}
         values={values}
         setValues={setValues}
         steps={steps}

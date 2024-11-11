@@ -6,9 +6,6 @@ import { View } from 'react-native';
 import { TextStyled } from '../typography';
 import { InnerCommonContainer } from '../containers';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import CardListingCategoryItem from '../cards/listing/CardListingCategoryItem';
-import CardListingCategories from '../cards/listing/CardListingCategories';
-import IListingCategory from '@/interfaces/listing/IListingCategory';
 import useCommonStyles from '@/hooks/useCommonStyles';
 
 export interface IFormWizardStepProps {
@@ -21,6 +18,7 @@ export interface IFormWizardStepProps {
 
 export interface IFormWizardProps {
   steps: IFormWizardStepProps[];
+  isNextDisabled: boolean;
   defaultValues: Record<string, any>;
   values: Record<string, any>;
   setValues: React.Dispatch<React.SetStateAction<Record<string, any>>>;
@@ -28,6 +26,7 @@ export interface IFormWizardProps {
 }
 
 const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
+  isNextDisabled,
   steps,
   defaultValues,
   onSubmit,
@@ -115,10 +114,18 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
 
         {(activeStep?.stepTitle || activeStep?.stepDescription) && (
           <View style={{ marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp5 }}>
-            <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
+            <TextStyled
+              fontSize="h4"
+              fontWeight="bold"
+              customColor="grayScale900"
+            >
               {activeStep?.stepTitle as string}
             </TextStyled>
-            <TextStyled fontSize="md" fontWeight="semibold">
+            <TextStyled
+              fontSize="lg"
+              fontWeight="regular"
+              customColor="grayScale600"
+            >
               {activeStep?.stepDescription as string}
             </TextStyled>
           </View>
@@ -127,6 +134,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
         {activeStep?.customStep && activeStep.customStep}
 
         <FormStyled
+          isNextDisabled={isNextDisabled}
           showBackButton={!!activeStepIndex}
           onBack={handleBackStep}
           key={activeStep.id} // IMPORTANT! Keep each form instance separate

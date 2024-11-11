@@ -3,7 +3,6 @@ import useThemedStyles from '@/hooks/useThemedStyles';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { TextStyled } from '../typography';
 import { IAppTheme } from '@/interfaces/theme';
 import { BlurView } from '@react-native-community/blur';
 
@@ -18,7 +17,6 @@ const ImageIconCircle: React.FC<IProps> = ({
   size = APP_STYLE_VALUES.WH_SIZES.sm,
 }) => {
   const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
   const { theme, isDark } = useAppTheme();
 
   return (

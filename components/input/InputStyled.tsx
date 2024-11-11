@@ -52,14 +52,19 @@ const InputStyled: React.FC<IProps> = ({
       )}
       <TextInput
         {...props}
+        multiline={type === 'textarea'}
         style={[
           themedStyles.inputStyles.default,
           isFocused && themedStyles.inputStyles.inputFocused,
+          type === 'textarea' && {
+            height: APP_STYLE_VALUES.WH_SIZES.xl2,
+          },
         ]}
         placeholderTextColor={theme.grayScale500}
         placeholder={placeholder}
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
+        keyboardType={type === 'number' ? 'numeric' : 'default'}
       />
     </View>
   );

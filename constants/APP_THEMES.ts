@@ -4,6 +4,8 @@ export const COMMON_COLOURS: ICommonColours = {
   transparent: "transparent",
   // Branding
   primary: "#ec572c",
+  primaryOpacity05: "#ec572c05",
+  primaryOpacity10: "#ec572c10",
   primaryLight: "#f5643b",
   primaryDarken10: "#c94822",
   // Alert & Status
