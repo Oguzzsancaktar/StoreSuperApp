@@ -1,32 +1,14 @@
 import useCommonStyles from '@/hooks/useCommonStyles';
 import useThemedStyles from '@/hooks/useThemedStyles';
-import React, { useMemo, useState } from 'react';
-import {
-  View,
-  Button,
-  Image,
-  Alert,
-  StyleSheet,
-  Pressable,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { View, Alert, Pressable, TouchableOpacity } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import IconUpload from '../svg/icon/IconUpload';
 import { TextStyled } from '../typography';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { COMMON_COLOURS } from '@/constants/APP_THEMES';
-import {
-  map,
-  filter,
-  head,
-  tail,
-  find,
-  findIndex,
-  slice,
-  forEach,
-} from 'lodash';
+import { map, filter, findIndex, forEach } from 'lodash';
 import ImageCover from '../images/ImageCover';
 import ImageIconCircle from '../images/ImageIconCircle';
 import IconTrash from '../svg/icon/IconTrash';
@@ -38,16 +20,23 @@ interface ImagePickerResponse {
 }
 
 interface IProps {
+  value?: (ImagePickerResponse | undefined)[];
   maxMedia?: number;
+  onChange(selectedImages: (ImagePickerResponse | undefined)[]): void;
 }
-const InputImageUploader: React.FC<IProps> = ({ maxMedia = 1 }) => {
+
+const InputImageUploader: React.FC<IProps> = ({
+  maxMedia = 1,
+  value,
+  onChange,
+}) => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
 
   const [selectedImages, setSelectedImages] = useState<
     (ImagePickerResponse | undefined)[]
-  >(Array(maxMedia));
+  >(value || Array(maxMedia));
 
   const avaliableSelectionCount = useMemo(() => {
     const definedSelections = filter(selectedImages, (s) => s);
@@ -95,6 +84,10 @@ const InputImageUploader: React.FC<IProps> = ({ maxMedia = 1 }) => {
 
     setSelectedImages([...oldImages]);
   };
+
+  useEffect(() => {
+    onChange(selectedImages);
+  }, [selectedImages]);
 
   return selectedImages.length === 0 ? (
     <Pressable

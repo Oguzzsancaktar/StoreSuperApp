@@ -16,8 +16,7 @@ import { map } from 'lodash';
 const WizardListingCreate = () => {
   const [values, setValues] = useState<Record<string, any>>({});
 
-  console.log('values', values);
-
+  console.log('Wizard listing values', values);
   const { data: listingCategorySubData } = useGetListingCategorySubsQuery(
     values?.categoryId
   );
@@ -61,6 +60,7 @@ const WizardListingCreate = () => {
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque iure corporis rem quasi consequuntur ipsum ab sequi explicabo ',
       fields: [
         {
+          required: true,
           label: 'Listing Category Sub',
           name: 'estate_type',
           placeholder: 'Select estate type...',
@@ -76,6 +76,7 @@ const WizardListingCreate = () => {
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque iure corporis rem quasi consequuntur ipsum ab sequi explicabo ',
       fields: [
         {
+          required: true,
           label: 'Post Photos',
           name: 'media',
           placeholder: 'Add Media...',
@@ -83,18 +84,21 @@ const WizardListingCreate = () => {
           maxMedia: 6,
         },
         {
+          required: true,
           label: 'Title',
           name: 'title',
           placeholder: 'Enter Listing Title...',
           type: 'text',
         },
         {
+          required: true,
           label: 'Description',
           name: 'description',
           placeholder: 'Enter listing description...',
           type: 'textarea',
         },
         {
+          required: true,
           label: 'Price',
           name: 'price',
           placeholder: '0-100',
@@ -109,30 +113,35 @@ const WizardListingCreate = () => {
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque iure corporis rem quasi consequuntur ipsum ab sequi explicabo ',
       fields: [
         {
+          required: true,
           label: 'Country',
           name: 'country',
           placeholder: 'Select Country',
           type: 'select',
         },
         {
+          required: true,
           label: 'City',
           name: 'city',
           placeholder: 'Select city',
           type: 'select',
         },
         {
+          required: true,
           label: 'Zip Code',
           name: 'zipcode',
           placeholder: 'Enter Listing Zip Code...',
           type: 'number',
         },
         {
+          required: true,
           label: 'Full Address',
           name: 'fulladdress',
           placeholder: 'Enter Full Address...',
           type: 'textarea',
         },
         {
+          required: false,
           label: 'Show Full Address In Post Details',
           name: 'show_full_address',
           type: 'checkbox',
@@ -146,16 +155,19 @@ const WizardListingCreate = () => {
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque iure corporis rem quasi consequuntur ipsum ab sequi explicabo ',
       fields: [
         {
+          required: false,
           label: 'Allow messaging',
           name: 'allow_messaging',
           type: 'checkbox',
         },
         {
+          required: false,
           label: 'Allow Phone Calls',
           name: 'allow_phone_calls',
           type: 'checkbox',
         },
         {
+          required: true,
           label: 'Terms',
           name: 'terms',
           placeholder:

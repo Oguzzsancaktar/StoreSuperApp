@@ -9,6 +9,7 @@ import { TextStyled } from '../typography';
 import APP_VALIDATION_PATTERNS from '@/constants/APP_VALIDATION_PATTERNS';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import FormInputComponents from './FormInputComponents';
+import validationUtils from '@/utils/validationUtils';
 
 export interface IProps {
   fields: Array<IInputProps>;
@@ -75,38 +76,25 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
         >
           {map(
             fields,
-            ({ name, type, label, placeholder, options, maxMedia }) => {
-              let tempRegexPattern: RegExp = /^.+$/;
-
-              switch (name) {
-                case 'firstname':
-                  tempRegexPattern = APP_VALIDATION_PATTERNS.USERNAME_PATTERN;
-                  break;
-                case 'email':
-                  tempRegexPattern = APP_VALIDATION_PATTERNS.EMAIL_PATTERN;
-                  break;
-                case 'password':
-                  tempRegexPattern = APP_VALIDATION_PATTERNS.PASSWORD_PATTERN;
-                  break;
-                case 'password_confirm':
-                  tempRegexPattern = APP_VALIDATION_PATTERNS.PASSWORD_PATTERN;
-                  break;
-                case 'price':
-                  tempRegexPattern = APP_VALIDATION_PATTERNS.NUMERIC_PATTERN;
-                  break;
-
-                default:
-                  break;
-              }
-
+            ({
+              name,
+              type,
+              required,
+              label,
+              placeholder,
+              options,
+              maxMedia,
+            }) => {
+              const validationRules =
+                validationUtils.getFormRulesFromField(name);
               return (
                 <Fragment key={name}>
                   <Controller
                     control={control}
                     name={name}
                     rules={{
-                      required: true,
-                      pattern: tempRegexPattern,
+                      ...validationRules,
+                      required,
                     }}
                     render={({ field: { onChange, onBlur, value } }) => {
                       return (

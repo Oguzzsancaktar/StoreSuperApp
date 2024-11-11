@@ -6,7 +6,9 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
-interface IProps extends React.ComponentProps<typeof TextInput>, IInputProps {
+interface IProps
+  extends React.ComponentProps<typeof TextInput>,
+    Omit<IInputProps, 'required'> {
   leftIcon?: IIconOptions;
   handleFocus?: (val: boolean) => void;
   handleBlur?: (val: boolean) => void;

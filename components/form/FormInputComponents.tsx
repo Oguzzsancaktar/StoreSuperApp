@@ -8,7 +8,7 @@ import InputCheckboxStyled from '../input/InputCheckboxStyled';
 import { InputStyled } from '../input';
 import { UseFormReturn } from 'react-hook-form';
 
-interface IProps extends IInputProps {
+interface IProps extends Omit<IInputProps, 'required'> {
   onChange(): void;
   onBlur(): void;
   value: any;
@@ -46,7 +46,13 @@ const FormInputComponents: React.FC<IProps> = ({
 
     switch (type) {
       case 'upload':
-        component = <InputImageUploader maxMedia={maxMedia} />;
+        component = (
+          <InputImageUploader
+            value={value}
+            onChange={onChange}
+            maxMedia={maxMedia}
+          />
+        );
         break;
       case 'checkbox':
         component = (
