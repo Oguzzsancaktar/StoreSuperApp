@@ -8,6 +8,7 @@ import IListingMostSearchedKey from '@/interfaces/listing/IListingMostSearchedKe
 import IListingCategorySub from '@/interfaces/listing/IListingCategorySub';
 import ICountry from '@/interfaces/common/address/ICountry';
 import ICity from '@/interfaces/common/address/ICity';
+import IListingCategoryOption from '@/interfaces/listing/IListingCategoryOption';
 
 const LISTING_FILTER_API_REDUCER_PATH = 'listingFilterAPI'
 const LISTING_FILTER_API_TAG = "listingFilterTag"
@@ -69,6 +70,18 @@ const getListingCategorySubs = (builder: IBuilder) => {
   })
 }
 
+const getListingCategoryOptions = (builder: IBuilder) => {
+  return builder.query<IListingCategoryOption[], IListingCategory["id"]>({
+    query(categoryId) {
+      return {
+        url: `/categories/${categoryId}/options`,
+        method: 'GET',
+      }
+    },
+    providesTags: [LISTING_FILTER_API_TAG],
+  })
+}
+
 
 const getMostSearchedKeys = (builder: IBuilder) => {
   return builder.query<IListingMostSearchedKey[], IListingQueryParams>({
@@ -86,19 +99,6 @@ const getMostSearchedKeys = (builder: IBuilder) => {
 
 
 
-const getNewestPosts = (builder: IBuilder) => {
-  return builder.query<IListingCategorySub[], IListingQueryParams | void>({
-    query(params) {
-      return {
-        url: `/listings/newest`,
-        method: 'GET',
-        params: params ?? {
-        },
-      }
-    },
-    providesTags: [LISTING_FILTER_API_TAG],
-  })
-}
 
 
 const createFavorite = (builder: IBuilder) => {
@@ -125,7 +125,7 @@ const listingFilterApiSlice = createApi({
     getListingCategories: getListingCategories(builder),
     getMostSearchedKeys: getMostSearchedKeys(builder),
     getListingCategorySubs: getListingCategorySubs(builder),
-    getNewestPosts: getNewestPosts(builder),
+    getListingCategoryOptions: getListingCategoryOptions(builder)
 
   }),
 })
@@ -135,9 +135,8 @@ const {
   useGetCitiesQuery,
   useGetListingCategoriesQuery,
   useGetMostSearchedKeysQuery,
-  useGetNewestPostsQuery,
   useGetListingCategorySubsQuery,
-
+  useGetListingCategoryOptionsQuery
 } = listingFilterApiSlice
 
 export {
@@ -146,8 +145,8 @@ export {
   useGetCitiesQuery,
   useGetListingCategoriesQuery,
   useGetMostSearchedKeysQuery,
-  useGetNewestPostsQuery,
-  useGetListingCategorySubsQuery
+  useGetListingCategorySubsQuery,
+  useGetListingCategoryOptionsQuery
 }
 
 

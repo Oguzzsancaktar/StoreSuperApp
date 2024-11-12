@@ -1,9 +1,11 @@
-import { TextInput } from "react-native"
+import EListingOptionComponentType from '@/interfaces/enums/EListingOptionComponentType';
+import { TextInput, ViewProps } from "react-native"
 import ISelectOption from "../theme/ISelectOption"
 
 export default interface IInputProps {
   name: string
-  type: 'text' | 'password' | 'number' | "textarea" | "select" | "upload" | "checkbox"
+  type: keyof typeof EListingOptionComponentType
+  customStyle?: ViewProps
   required: boolean
   label?: string
   options?: ISelectOption[]

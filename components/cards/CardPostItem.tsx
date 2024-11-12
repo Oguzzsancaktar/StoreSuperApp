@@ -20,6 +20,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
 
+  console.log('111post', post);
   const handlePress = () => {
     router.push('/(private)/post/x');
   };

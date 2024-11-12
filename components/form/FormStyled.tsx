@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useMemo } from 'react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
-import { ButtonStyled } from '../button';
+import { ButtonGoBack, ButtonStyled } from '../button';
 import { ScrollView, View } from 'react-native';
 import { map } from 'lodash';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
@@ -15,7 +15,6 @@ export interface IProps {
   fields: Array<IInputProps>;
   defaultValues: Record<string, any>;
   onSubmit(values: Record<string, any>): void;
-  showBackButton?: boolean;
   onBack(values: Record<string, any>): void;
   isLastStep: boolean;
   isCurrentCustom: boolean;
@@ -26,18 +25,11 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   fields,
   defaultValues,
   onSubmit,
-  showBackButton,
-  onBack,
   isLastStep,
   isCurrentCustom,
   isNextDisabled,
 }) => {
   const commonStyles = useCommonStyles();
-
-  const handleBack = () => {
-    const values = formInstance.getValues();
-    onBack(values);
-  };
 
   const formInstance = useForm({
     defaultValues: useMemo(() => defaultValues, [defaultValues]),
@@ -59,12 +51,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
       <View
         style={{
           flex: isCurrentCustom ? undefined : 1,
-          height: isCurrentCustom
-            ? showBackButton
-              ? APP_STYLE_VALUES.WH_SIZES.lg * 2 +
-                APP_STYLE_VALUES.SPACE_SIZES.sp2
-              : APP_STYLE_VALUES.WH_SIZES.lg
-            : undefined,
+          height: isCurrentCustom ? APP_STYLE_VALUES.WH_SIZES.lg : undefined,
         }}
       >
         <ScrollView
@@ -84,6 +71,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
               placeholder,
               options,
               maxMedia,
+              customStyle,
             }) => {
               const validationRules =
                 validationUtils.getFormRulesFromField(name);
@@ -98,18 +86,20 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                     }}
                     render={({ field: { onChange, onBlur, value } }) => {
                       return (
-                        <FormInputComponents
-                          formInstance={formInstance}
-                          name={name}
-                          type={type}
-                          value={value}
-                          label={label}
-                          options={options}
-                          maxMedia={maxMedia}
-                          placeholder={placeholder}
-                          onChange={onChange}
-                          onBlur={onBlur}
-                        />
+                        <View style={customStyle || {}}>
+                          <FormInputComponents
+                            formInstance={formInstance}
+                            name={name}
+                            type={type}
+                            value={value}
+                            label={label}
+                            options={options}
+                            maxMedia={maxMedia}
+                            placeholder={placeholder}
+                            onChange={onChange}
+                            onBlur={onBlur}
+                          />
+                        </View>
                       );
                     }}
                   />
@@ -142,20 +132,15 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
             commonStyles.flexStyles.colCenter,
             {
               gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-              height: showBackButton
-                ? APP_STYLE_VALUES.WH_SIZES.lg * 2 +
-                  APP_STYLE_VALUES.SPACE_SIZES.sp2
-                : APP_STYLE_VALUES.WH_SIZES.lg,
+              height: APP_STYLE_VALUES.WH_SIZES.lg,
+
+              // showBackButton
+              //   ? APP_STYLE_VALUES.WH_SIZES.lg * 2 +
+              //     APP_STYLE_VALUES.SPACE_SIZES.sp2
+              //   : APP_STYLE_VALUES.WH_SIZES.lg,
             },
           ]}
         >
-          {showBackButton && (
-            <ButtonStyled
-              variant="buttonPrimaryOutlined"
-              text="Back"
-              onPress={handleBack}
-            />
-          )}
           <ButtonStyled
             disabled={isNextDisabled}
             onPress={handleSubmit(onSubmit)}

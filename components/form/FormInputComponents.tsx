@@ -7,6 +7,7 @@ import { IInputProps } from '@/interfaces/app';
 import InputCheckboxStyled from '../input/InputCheckboxStyled';
 import { InputStyled } from '../input';
 import { UseFormReturn } from 'react-hook-form';
+import InputCheckboxMultipleStyled from '../input/InputCheckboxMultipleStyled';
 
 interface IProps extends Omit<IInputProps, 'required'> {
   onChange(): void;
@@ -45,9 +46,20 @@ const FormInputComponents: React.FC<IProps> = ({
     );
 
     switch (type) {
+      case 'multiple-checkbox':
+        component = (
+          <InputCheckboxMultipleStyled
+            value={value}
+            onChange={onChange}
+            options={options}
+            label={label}
+          />
+        );
+        break;
       case 'upload':
         component = (
           <InputImageUploader
+            label={label}
             value={value}
             onChange={onChange}
             maxMedia={maxMedia}
@@ -58,6 +70,7 @@ const FormInputComponents: React.FC<IProps> = ({
         component = (
           <InputCheckboxStyled
             label={label}
+            placeholder={placeholder}
             onToggle={onChange}
             isChecked={value}
           />

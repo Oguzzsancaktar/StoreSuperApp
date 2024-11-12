@@ -43,9 +43,10 @@ const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
             to === '/addPost'
               ? APP_STYLE_VALUES.WH_SIZES.lg
               : (width -
+                  APP_STYLE_VALUES.WH_SIZES.lg -
                   APP_STYLE_VALUES.SPACE_SIZES.sp4 * 2 -
                   APP_STYLE_VALUES.SPACE_SIZES.sp2 * 2) /
-                5,
+                4,
           marginTop: to === '/addPost' ? -APP_STYLE_VALUES.SPACE_SIZES.sp2 : 0,
           height: to === '/addPost' ? APP_STYLE_VALUES.WH_SIZES.lg : '100%',
           padding: APP_STYLE_VALUES.SPACE_SIZES.sp1,

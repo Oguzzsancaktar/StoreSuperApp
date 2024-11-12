@@ -38,21 +38,25 @@ const Signin = () => {
               <View
                 style={[
                   commonStyles.flexStyles.rowStart,
-                  { gap: APP_STYLE_VALUES.SPACE_SIZES.sp1 },
+                  {
+                    width: '100%',
+                    gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                    alignItems: 'center',
+                  },
                 ]}
               >
                 <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xxs }}>
                   <IconLocation color={theme.grayScale400} />
                 </View>
-                <View style={{ flex: 1 }}>
-                  <TextStyled
-                    fontSize="md"
-                    fontWeight="bold"
-                    customColor={'grayScale400'}
-                  >
-                    Centar Župa Municipality, North Macedonia
-                  </TextStyled>
-                </View>
+
+                <TextStyled
+                  textAlignment="center"
+                  fontSize="md"
+                  fontWeight="bold"
+                  customColor={'grayScale400'}
+                >
+                  Centar Župa Municipality, North Macedonia
+                </TextStyled>
               </View>
             </View>
 
@@ -100,6 +104,8 @@ const Signin = () => {
             </ButtonStyled>
           </View>
 
+          {/* @todo add it to button compoennt for icon */}
+
           <View style={{ flex: 1 }}>
             <ButtonStyled variant="buttonPrimarySolid">
               <View
@@ -120,7 +126,7 @@ const Signin = () => {
                     textAlignment="left"
                     fontSize="lg"
                     fontWeight="semibold"
-                    customColor="grayScale900"
+                    customColor="white"
                   >
                     Send Message
                   </TextStyled>

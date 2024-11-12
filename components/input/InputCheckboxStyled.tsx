@@ -15,10 +15,12 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 interface IProps {
   label?: string;
   isChecked: boolean;
+  placeholder?: string;
   onToggle(value: boolean): void;
 }
 const InputCheckboxStyled: React.FC<IProps> = ({
   label,
+  placeholder,
   isChecked,
   onToggle,
 }) => {
@@ -51,36 +53,56 @@ const InputCheckboxStyled: React.FC<IProps> = ({
     <Pressable
       onPress={handleToggle}
       style={[
-        commonStyles.flexStyles.rowStart,
-        { marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1 },
+        {
+          marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+        },
       ]}
     >
-      <Animated.View
+      <View
         style={[
+          commonStyles.flexStyles.rowStart,
           {
-            width: APP_STYLE_VALUES.WH_SIZES.xxs,
-            height: APP_STYLE_VALUES.WH_SIZES.xxs,
-            borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.sm,
-            borderWidth: 2,
+            alignItems: 'center',
+            marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
           },
-          commonStyles.flexStyles.colCenter,
-          animatedStyle,
         ]}
       >
-        {checked && <IconCheck color={theme.white} />}
-      </Animated.View>
-
-      {label && (
-        <View
-          style={{
-            marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-            marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-          }}
+        <Animated.View
+          style={[
+            {
+              width: APP_STYLE_VALUES.WH_SIZES.xxs,
+              height: APP_STYLE_VALUES.WH_SIZES.xxs,
+              borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.sm,
+              borderWidth: 2,
+            },
+            commonStyles.flexStyles.colCenter,
+            animatedStyle,
+          ]}
         >
-          <TextStyled textAlignment="left" fontSize="md" fontWeight="regular">
-            {label}
-          </TextStyled>
-        </View>
+          {checked && <IconCheck color={theme.white} />}
+        </Animated.View>
+
+        {label && (
+          <View
+            style={{
+              marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            }}
+          >
+            <TextStyled
+              textAlignment="left"
+              fontSize="md"
+              fontWeight="semibold"
+            >
+              {label}
+            </TextStyled>
+          </View>
+        )}
+      </View>
+
+      {placeholder && (
+        <TextStyled textAlignment="left" fontSize="md" fontWeight="regular">
+          {placeholder}
+        </TextStyled>
       )}
     </Pressable>
   );

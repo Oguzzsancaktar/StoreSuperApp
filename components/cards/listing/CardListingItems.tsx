@@ -64,7 +64,7 @@ const CardListingItems = () => {
               (category) => category.value === selectedCategory
             )}
             onChange={(option: ISelectOption) =>
-              setSelectedCategory(option.value)
+              setSelectedCategory(option.value as string)
             }
             options={listingCategoryOptions}
           />
@@ -102,6 +102,7 @@ const CardListingItems = () => {
         }}
       >
         {map(listingItemsData?.items, (post, index) => {
+          console.log('222', post);
           return <CardPostItem post={post} key={index} />;
         })}
       </ScrollView>

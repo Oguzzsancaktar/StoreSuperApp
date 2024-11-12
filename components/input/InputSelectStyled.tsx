@@ -60,6 +60,7 @@ const InputSelectStyled: React.FC<IProps> = ({
         ]}
         containerStyle={[
           {
+            overflow: 'hidden',
             borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
             padding: 0,
             paddingVertical: 0,
@@ -76,6 +77,7 @@ const InputSelectStyled: React.FC<IProps> = ({
         }}
         iconColor={theme.white}
         activeColor={theme.grayScale300}
+        itemContainerStyle={{}}
         itemTextStyle={{ color: theme.grayScale900 }}
         fontFamily="BRShapeMedium"
       />

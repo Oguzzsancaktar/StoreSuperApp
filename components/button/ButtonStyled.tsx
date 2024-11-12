@@ -51,6 +51,7 @@ const ButtonStyled: React.FC<IProps> = ({
             customColor={
               variant === 'buttonPrimarySolid' ? 'white' : 'grayScale900'
             }
+            textAlignment="center"
             textShadow="textShadowSm"
             fontSize="lg"
             fontWeight="semibold"

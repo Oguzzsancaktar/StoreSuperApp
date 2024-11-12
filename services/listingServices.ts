@@ -29,18 +29,34 @@ const getListingItems = (builder: IBuilder) => {
   })
 }
 
+
+const getNewestPosts = (builder: IBuilder) => {
+  return builder.query<IListingPost[], IListingQueryParams | void>({
+    query(params) {
+      return {
+        url: `/listings/newest`,
+        method: 'GET',
+        params: params ?? {
+        },
+      }
+    },
+    providesTags: [LISTING_API_TAG],
+  })
+}
+
 const listingApiSlice = createApi({
   reducerPath: LISTING_API_REDUCER_PATH,
   tagTypes: [LISTING_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getListingItems: getListingItems(builder),
+    getNewestPosts: getNewestPosts(builder),
   }),
 })
 
-const { useGetListingItemsQuery } = listingApiSlice
+const { useGetListingItemsQuery, useGetNewestPostsQuery } = listingApiSlice
 
-export { listingApiSlice, useGetListingItemsQuery }
+export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery }
 
 
 

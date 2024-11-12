@@ -22,12 +22,14 @@ interface ImagePickerResponse {
 interface IProps {
   value?: (ImagePickerResponse | undefined)[];
   maxMedia?: number;
+  label?: string;
   onChange(selectedImages: (ImagePickerResponse | undefined)[]): void;
 }
 
 const InputImageUploader: React.FC<IProps> = ({
   maxMedia = 1,
   value,
+  label,
   onChange,
 }) => {
   const commonStyles = useCommonStyles();
@@ -121,7 +123,7 @@ const InputImageUploader: React.FC<IProps> = ({
 
       <View>
         <TextStyled fontSize="sm" fontWeight="medium">
-          You can continue without upload...
+          {label || 'You can continue without upload...'}
         </TextStyled>
         <TextStyled fontSize="xs" fontWeight="regular">
           Maximum: {maxMedia + ''}
@@ -136,9 +138,19 @@ const InputImageUploader: React.FC<IProps> = ({
           { marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
         ]}
       >
-        <TextStyled fontSize="sm" fontWeight="medium">
-          You can continue without upload...
-        </TextStyled>
+        {label && (
+          <View
+            style={{
+              marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+              marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+            }}
+          >
+            <TextStyled textAlignment="left" fontSize="md" fontWeight="regular">
+              {label || 'You can continue without upload...'}
+            </TextStyled>
+          </View>
+        )}
+
         <TextStyled fontSize="xs" fontWeight="regular">
           Maximum: {maxMedia + ''}
         </TextStyled>

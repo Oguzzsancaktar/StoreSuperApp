@@ -1,16 +1,14 @@
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import CardPostItem from './CardPostItem';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import {
-  useGetListingCategoriesQuery,
-  useGetNewestPostsQuery,
-} from '@/services/listingFilterServices';
+import { useGetListingCategoriesQuery } from '@/services/listingFilterServices';
 import { find, map } from 'lodash';
 import FilterStuffType from '../filters/FilterStuffType';
 import { useMemo, useState } from 'react';
 import ISelectOption from '@/interfaces/theme/ISelectOption';
+import { useGetNewestPostsQuery } from '@/services/listingServices';
 
 const CardNewestPostings = () => {
   const commonStyles = useCommonStyles();
@@ -29,7 +27,7 @@ const CardNewestPostings = () => {
 
   const { data: newestPostData, isLoading: newestPostDataIsLoading } =
     useGetNewestPostsQuery({
-      categoryId: newestCategory,
+      categoryId: newestCategory as string,
     });
 
   return (

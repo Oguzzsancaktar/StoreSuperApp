@@ -1,0 +1,79 @@
+{
+  "options": [
+    {
+      "categoryOptionId": "eccf7345-33bc-48c1-ed73-08dbdfc3c894",
+      "value": "true"
+    },
+    {
+      "categoryOptionId": "79ddcb45-8d3b-4902-f7ac-08dbe4d885f8",
+      "categoryOptionValueId": "dcfc9be2-a09e-44ab-e415-08dbe4d88601"
+    },
+    {
+      "categoryOptionId": "0c53a7ae-5279-4148-ed72-08dbdfc3c894",
+      "value": "1234"
+    },
+    {
+      "categoryOptionId": "f5429d3d-9f6f-4a10-ed74-08dbdfc3c894",
+      "categoryOptionValueId": "eb83a2dd-9f41-48fb-3377-08dbdfc3c899"
+    },
+    {
+      "categoryOptionId": "18edd6f5-df93-485c-f7ad-08dbe4d885f8",
+      "categoryOptionValueId": "a577f98d-0dbe-4534-e418-08dbe4d88601"
+    },
+    {
+      "categoryOptionId": "634e8806-a26c-42ce-f7ae-08dbe4d885f8",
+      "value": "1234"
+    },
+    {
+      "categoryOptionId": "a46ffc4e-844c-46b6-f7af-08dbe4d885f8",
+      "value": "1234"
+    },
+    {
+      "categoryOptionId": "d859330f-71b6-4734-f7b0-08dbe4d885f8",
+      "categoryOptionValueIds": [
+        "91cfb8a2-938c-49d4-e421-08dbe4d88601",
+        "87b4390d-01ec-4fe0-e41d-08dbe4d88601",
+        "b1fc5175-6621-4a8c-e41c-08dbe4d88601",
+        "3742fa4c-498b-4424-e420-08dbe4d88601"
+      ]
+    }
+  ],
+  "categoryId": "fa867b2e-9b3c-4169-2ea2-08dbe4841286",
+  "price": {
+    "amount": "123",
+    "currency": "EUR"
+  },
+  "isActive": true,
+  "isDraft": true,
+  "allowPhoneCalls": true,
+  "allowMessaging": true,
+  "translations": [
+    {
+      "language": "en-US",
+      "title": "qwe",
+      "description": "adfadsf"
+    }
+  ],
+  "tags": [
+    "Real Estate",
+    "Apartment"
+  ],
+  "negotiable": true,
+  "media": [
+    "https://stmarketplacedev.blob.core.windows.net/listing-images/4fc50afc-04b7-4f7f-8d08-2cb8dca78f28_Screenshot 2024-11-12 at 11.23.33.png"
+  ],
+  "address": {
+    "districtId": 52,
+    "fullAddress": "1234",
+    "zipCode": "123",
+    "districtName": "Ashkāsham",
+    "cityName": "Badakhshan",
+    "countryName": "Afghanistan",
+    "cityId": 3901,
+    "countryId": 1,
+    "longitude": "71.5767799",
+    "latitude": "36.7090116",
+    "showFullAddress": true
+  },
+  "coverImage": "https://stmarketplacedev.blob.core.windows.net/listing-images/4fc50afc-04b7-4f7f-8d08-2cb8dca78f28_Screenshot 2024-11-12 at 11.23.33.png"
+}

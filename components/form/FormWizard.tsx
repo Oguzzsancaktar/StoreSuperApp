@@ -7,6 +7,8 @@ import { TextStyled } from '../typography';
 import { InnerCommonContainer } from '../containers';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import useCommonStyles from '@/hooks/useCommonStyles';
+import { ButtonGoBack } from '../button';
+import { router } from 'expo-router';
 
 export interface IFormWizardStepProps {
   id: string;
@@ -45,6 +47,9 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   );
 
   const goPrevStep = () => {
+    if (activeStepIndex === 0) {
+      return router.back();
+    }
     setActiveStepIndex((index) => (index -= 1));
   };
 
@@ -58,6 +63,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
     setActiveStepIndex((index) => (index += 1));
   };
 
+  // @todo need to use this for go back but instance not here
   const handleNextStep = (stepValues: Record<string, any>) => {
     const newValues = { ...values, ...stepValues };
     setValues(newValues);
@@ -93,7 +99,8 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
             },
           ]}
         >
-          <View></View>
+          <ButtonGoBack customEvent={goPrevStep} />
+
           <View style={[commonStyles.flexStyles.rowStart, {}]}>
             <TextStyled
               fontSize="lg"
@@ -122,7 +129,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
               {activeStep?.stepTitle as string}
             </TextStyled>
             <TextStyled
-              fontSize="lg"
+              fontSize="md"
               fontWeight="regular"
               customColor="grayScale600"
             >
@@ -135,7 +142,6 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
 
         <FormStyled
           isNextDisabled={isNextDisabled}
-          showBackButton={!!activeStepIndex}
           onBack={handleBackStep}
           key={activeStep.id} // IMPORTANT! Keep each form instance separate
           fields={activeStep.fields}
