@@ -7,6 +7,7 @@ enum EListingOptionComponentType {
   "multiple-checkbox" = 6,
   "textarea",
   "upload",
+  "switch",
 }
 
 export default EListingOptionComponentType

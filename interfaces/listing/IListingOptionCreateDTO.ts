@@ -2,7 +2,7 @@ import IListingCategoryOption from "./IListingCategoryOption";
 
 export default interface IListingOptionCreateDTO {
   categoryOptionId: IListingCategoryOption["id"],
-  value: number
-  categoryOptionValueId: string,
-  categoryOptionValueIds: any[]
+  value?: string | boolean  // @TODO number - boolean
+  categoryOptionValueId?: string,
+  categoryOptionValueIds?: string[]
 }

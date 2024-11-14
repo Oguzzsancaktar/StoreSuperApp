@@ -90,34 +90,36 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
           },
         ]}
       >
-        <View
-          style={[
-            commonStyles.flexStyles.rowBetween,
-            {
-              width: '100%',
-              marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-            },
-          ]}
-        >
-          <ButtonGoBack customEvent={goPrevStep} />
+        {steps.length > 1 && (
+          <View
+            style={[
+              commonStyles.flexStyles.rowBetween,
+              {
+                width: '100%',
+                marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+              },
+            ]}
+          >
+            <ButtonGoBack customEvent={goPrevStep} />
 
-          <View style={[commonStyles.flexStyles.rowStart, {}]}>
-            <TextStyled
-              fontSize="lg"
-              fontWeight="medium"
-              customColor="grayScale900"
-            >
-              {activeStepIndex + 1 + ''}
-            </TextStyled>
-            <TextStyled
-              fontSize="lg"
-              fontWeight="medium"
-              customColor="grayScale400"
-            >
-              /{steps.length + ''}
-            </TextStyled>
+            <View style={[commonStyles.flexStyles.rowStart, {}]}>
+              <TextStyled
+                fontSize="lg"
+                fontWeight="medium"
+                customColor="grayScale900"
+              >
+                {activeStepIndex + 1 + ''}
+              </TextStyled>
+              <TextStyled
+                fontSize="lg"
+                fontWeight="medium"
+                customColor="grayScale400"
+              >
+                /{steps.length + ''}
+              </TextStyled>
+            </View>
           </View>
-        </View>
+        )}
 
         {(activeStep?.stepTitle || activeStep?.stepDescription) && (
           <View style={{ marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp5 }}>

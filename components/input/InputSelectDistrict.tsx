@@ -1,40 +1,43 @@
 import InputSelectStyled from './InputSelectStyled';
-import { useGetCitiesQuery } from '@/services/listingFilterServices';
+import {
+  useGetCitiesQuery,
+  useGetDistrictsQuery,
+} from '@/services/listingFilterServices';
 import ISelectOption from '@/interfaces/theme/ISelectOption';
 import { useMemo } from 'react';
 import { map } from 'lodash';
-import ICountry from '@/interfaces/common/address/ICountry';
+import ICity from '@/interfaces/common/address/ICity';
 
 interface IProps {
-  countryId: ICountry['id'];
+  cityId: ICity['id'];
   value?: ISelectOption;
   handleSelect(selected: ISelectOption): void;
 }
-const InputSelectCity: React.FC<IProps> = ({
-  countryId,
+const InputSelectDistrict: React.FC<IProps> = ({
+  cityId,
   handleSelect,
   value,
 }) => {
-  const { data: citiesData } = useGetCitiesQuery(countryId);
+  const { data: districtData } = useGetDistrictsQuery(cityId);
 
-  const cityOptions: ISelectOption[] = useMemo(() => {
-    return map(citiesData, (c) => {
+  const districtOptions: ISelectOption[] = useMemo(() => {
+    return map(districtData, (c) => {
       return {
         label: c.name,
         value: c.id,
       };
     });
-  }, [citiesData]);
+  }, [districtData]);
 
   return (
     <InputSelectStyled
-      label="Cities"
+      label="Districts"
       variant="transparent"
-      options={cityOptions}
+      options={districtOptions}
       handleSelect={handleSelect}
       value={value}
     />
   );
 };
 
-export default InputSelectCity;
+export default InputSelectDistrict;

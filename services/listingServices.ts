@@ -6,6 +6,7 @@ import { createApi, EndpointBuilder } from '@reduxjs/toolkit/query/react'
 import IListingPost from '@/interfaces/listing/IListingPost';
 import IListingQueryParams from '@/interfaces/listing/IListingQueryParams';
 import IPaginationResult from '@/interfaces/app/IPaginationResult';
+import IListingCreateDTO from '@/interfaces/listing/IListingCreateDTO';
 
 const LISTING_API_REDUCER_PATH = 'listingAPI'
 const LISTING_API_TAG = "listingTag"
@@ -44,6 +45,18 @@ const getNewestPosts = (builder: IBuilder) => {
   })
 }
 
+const createListing = (builder: IBuilder) => {
+  return builder.mutation<IListingPost[], IListingCreateDTO>({
+    query(data) {
+      return {
+        url: `/listings`,
+        method: 'POST',
+        data
+      }
+    },
+    invalidatesTags: [LISTING_API_TAG],
+  })
+}
 const listingApiSlice = createApi({
   reducerPath: LISTING_API_REDUCER_PATH,
   tagTypes: [LISTING_API_TAG],
@@ -51,12 +64,13 @@ const listingApiSlice = createApi({
   endpoints: (builder) => ({
     getListingItems: getListingItems(builder),
     getNewestPosts: getNewestPosts(builder),
+    createListing: createListing(builder)
   }),
 })
 
-const { useGetListingItemsQuery, useGetNewestPostsQuery } = listingApiSlice
+const { useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation } = listingApiSlice
 
-export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery }
+export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation }
 
 
 

@@ -5,9 +5,7 @@ import useCommonStyles from '@/hooks/useCommonStyles';
 import ImageCover from '../images/ImageCover';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { router } from 'expo-router';
-import moment from 'moment';
 import IListingPost from '@/interfaces/listing/IListingPost';
-import APP_FORMATS from '@/constants/APP_FORMATS';
 import dateUtils from '@/utils/dateUtils';
 import { find } from 'lodash';
 import stringUtils from '@/utils/stringUtils';
@@ -20,7 +18,6 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
 
-  console.log('111post', post);
   const handlePress = () => {
     router.push('/(private)/post/x');
   };

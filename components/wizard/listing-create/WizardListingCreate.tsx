@@ -16,9 +16,14 @@ import EListingOptionComponentType from '@/interfaces/enums/EListingOptionCompon
 import useThemedStyles from '@/hooks/useThemedStyles';
 import { IInputProps } from '@/interfaces/app';
 import IListingCreateDTO from '@/interfaces/listing/IListingCreateDTO';
+import ETranslationLanguages from '@/interfaces/enums/ELanguages';
+import IListingOptionCreateDTO from '@/interfaces/listing/IListingOptionCreateDTO';
+import { useCreateListingMutation } from '@/services/listingServices';
 
 const WizardListingCreate = () => {
   const [values, setValues] = useState<Record<string, any>>({});
+
+  const [createListing] = useCreateListingMutation();
 
   const { data: listingCategorySubData } = useGetListingCategorySubsQuery(
     values?.categoryId
@@ -99,6 +104,23 @@ const WizardListingCreate = () => {
             placeholder: 'Enter price...',
             type: 'number',
           },
+          {
+            required: true,
+            label: 'Price Currency',
+            name: 'currency',
+            placeholder: 'Enter price...',
+            options: [
+              { label: 'MKD', value: 'MKD' },
+              { label: 'EUR', value: 'EUR' },
+            ],
+            type: 'select',
+          },
+          {
+            required: false,
+            label: 'Negotiable',
+            name: 'negotiable',
+            type: 'switch',
+          },
         ],
       },
       {
@@ -109,7 +131,7 @@ const WizardListingCreate = () => {
           {
             required: true,
             label: 'Listing Category Sub',
-            name: 'estate_type',
+            name: 'estateType',
             placeholder: 'Select estate type...',
             type: 'select',
             options: subCategoryOptions,
@@ -154,22 +176,29 @@ const WizardListingCreate = () => {
           },
           {
             required: true,
+            label: 'District',
+            name: 'district',
+            placeholder: 'Select district',
+            type: 'select',
+          },
+          {
+            required: true,
             label: 'Zip Code',
-            name: 'zipcode',
+            name: 'zipCode',
             placeholder: 'Enter Listing Zip Code...',
             type: 'number',
           },
           {
             required: true,
             label: 'Full Address',
-            name: 'fulladdress',
+            name: 'fullAddress',
             placeholder: 'Enter Full Address...',
             type: 'textarea',
           },
           {
             required: false,
             label: 'Show Full Address In Post Details',
-            name: 'show_full_address',
+            name: 'showFullAddress',
             type: 'checkbox',
           },
         ],
@@ -183,7 +212,7 @@ const WizardListingCreate = () => {
           {
             required: false,
             label: 'Allow messaging',
-            name: 'allow_messaging',
+            name: 'allowMessaging',
             type: 'checkbox',
           },
           {
@@ -194,7 +223,7 @@ const WizardListingCreate = () => {
             } as ViewStyle,
             required: false,
             label: 'Allow Phone Calls',
-            name: 'allow_phone_calls',
+            name: 'allowPhoneCalls',
             type: 'checkbox',
           },
           {
@@ -213,7 +242,7 @@ const WizardListingCreate = () => {
 
   const defaultValues = {
     categoryId: '38374e8d-7944-45d7-5d36-08dbdea8608d',
-    estate_type: {
+    estateType: {
       label: 'Building land',
       value: '072d80df-32a7-464b-2eaa-08dbe4841286',
       _index: 1,
@@ -304,20 +333,116 @@ const WizardListingCreate = () => {
       value: 3901,
       _index: 0,
     },
-    zipcode: '43333',
-    fulladdress: 'Addreass',
-    show_full_address: true,
-    allow_messaging: true,
-    allow_phone_calls: true,
+    district: { label: 'Fayzabad', value: 68, _index: 1 },
+    zipCode: '43333',
+    fullAddress: 'Addreass',
+    showFullAddress: true,
+    allowMessaging: true,
+    allowPhoneCalls: true,
     terms: true,
   };
 
-  const handleSubmit = (values: Record<string, any>) => {
+  const handleSubmit = async (values: Record<string, any>) => {
     console.log('Submitted', values);
 
-    // const listingCreateDTO:IListingCreateDTO = {
+    const {
+      categoryId = '',
+      allowMessaging = false,
+      allowPhoneCalls = false,
+      isActive = true,
+      isDraft = true,
+      city = {},
+      country = {},
+      district = {},
+      fullAddress = '',
+      showFullAddress = false,
+      zipCode = '',
+      tags = [],
+      translations = [],
+      currency = {},
+      description = '',
+      title = '',
+      media = [],
+      options = [],
+      price = {},
+      negotiable = false,
+      coverImage = '',
+      terms,
+      estateType,
+      ...others
+    } = values || {};
 
-    // }
+    const keys = Object.keys(others);
+
+    const tempOptions: IListingOptionCreateDTO[] = map(keys, (k) => {
+      const val = others[k];
+
+      const tempOption: IListingOptionCreateDTO = {
+        categoryOptionId: k,
+      };
+      switch (typeof val) {
+        case 'object':
+          if (Array.isArray(val)) {
+            tempOption.categoryOptionValueIds = val;
+          } else {
+            tempOption.categoryOptionValueId = val;
+          }
+          break;
+        case 'boolean':
+          tempOption.value = val;
+          break;
+        case 'string':
+          tempOption.value = val;
+          break;
+        default:
+          break;
+      }
+      return tempOption;
+    });
+
+    // @todo add lat long api
+    const listingCreateDTO: IListingCreateDTO = {
+      categoryId,
+      allowMessaging,
+      allowPhoneCalls,
+      isActive,
+      isDraft,
+      price: {
+        amount: price,
+        currency: currency.value,
+      },
+      negotiable,
+      translations: [
+        {
+          language: 'en-US', // @todo
+          description,
+          title,
+        },
+      ],
+      tags, // @todo implement tags from api
+      // @todo upload photos to blobstorage and add url
+
+      options: tempOptions,
+      media,
+      coverImage: media[0]?.url,
+
+      address: {
+        cityId: city?.value,
+        cityName: city?.label,
+        countryId: country?.value,
+        countryName: country?.label,
+        districtId: district?.value,
+        districtName: district?.label,
+        fullAddress,
+        latitude: 0,
+        longitude: 0,
+        showFullAddress: showFullAddress,
+        zipCode,
+      },
+    };
+
+    const result = await createListing(listingCreateDTO);
+    console.log('result', result);
   };
 
   return (

@@ -6,7 +6,7 @@ export default interface IAddress {
   countryId: ICountry["id"],
   cityId: ICity["id"],
   fullAddress: string,
-  zipCode: number,
+  zipCode: string,
   districtName: string,
   cityName: string,
   countryName: string,

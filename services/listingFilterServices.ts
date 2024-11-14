@@ -9,6 +9,7 @@ import IListingCategorySub from '@/interfaces/listing/IListingCategorySub';
 import ICountry from '@/interfaces/common/address/ICountry';
 import ICity from '@/interfaces/common/address/ICity';
 import IListingCategoryOption from '@/interfaces/listing/IListingCategoryOption';
+import IDistrict from '@/interfaces/common/address/IDistrict';
 
 const LISTING_FILTER_API_REDUCER_PATH = 'listingFilterAPI'
 const LISTING_FILTER_API_TAG = "listingFilterTag"
@@ -38,6 +39,18 @@ const getCities = (builder: IBuilder) => {
         url: `/city`,
         method: 'GET',
         params: { countryId }
+      }
+    },
+    providesTags: [LISTING_FILTER_API_TAG],
+  })
+}
+const getDistricts = (builder: IBuilder) => {
+  return builder.query<IDistrict[], number>({
+    query(cityId) {
+      return {
+        url: `/districts`,
+        method: 'GET',
+        params: { cityId }
       }
     },
     providesTags: [LISTING_FILTER_API_TAG],
@@ -122,6 +135,7 @@ const listingFilterApiSlice = createApi({
   endpoints: (builder) => ({
     getCountries: getCountries(builder),
     getCities: getCities(builder),
+    getDistricts: getDistricts(builder),
     getListingCategories: getListingCategories(builder),
     getMostSearchedKeys: getMostSearchedKeys(builder),
     getListingCategorySubs: getListingCategorySubs(builder),
@@ -133,6 +147,7 @@ const listingFilterApiSlice = createApi({
 const {
   useGetCountriesQuery,
   useGetCitiesQuery,
+  useGetDistrictsQuery,
   useGetListingCategoriesQuery,
   useGetMostSearchedKeysQuery,
   useGetListingCategorySubsQuery,
@@ -143,6 +158,7 @@ export {
   listingFilterApiSlice,
   useGetCountriesQuery,
   useGetCitiesQuery,
+  useGetDistrictsQuery,
   useGetListingCategoriesQuery,
   useGetMostSearchedKeysQuery,
   useGetListingCategorySubsQuery,

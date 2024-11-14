@@ -1,13 +1,13 @@
 import IAddress from "../common/address/IAddress";
 import ITranslationItem from "../common/localization/ITranslationItem";
 import IListingCategory from "./IListingCategory";
-import IListingCategoryOption from "./IListingCategoryOption";
+import IListingOptionCreateDTO from "./IListingOptionCreateDTO";
 import IListingPrice from "./IListingPrice";
 
 export default interface IListingCreateDTO {
   categoryId: IListingCategory["id"]
   price: IListingPrice
-  options: IListingCategoryOption[]
+  options: IListingOptionCreateDTO[]
   isActive: boolean
   isDraft: boolean
   allowPhoneCalls: boolean

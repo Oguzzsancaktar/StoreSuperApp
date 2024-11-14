@@ -3,28 +3,60 @@ import React from 'react';
 import { COMMON_COLOURS } from '@/constants/APP_THEMES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import useCommonStyles from '@/hooks/useCommonStyles';
+import { TextStyled } from '../typography';
 
 interface IProps {
+  label?: string;
+  placeholder?: string;
   isOn: boolean;
   onToggle: () => void;
 }
-const InputSwitchStyled: React.FC<IProps> = ({ isOn, onToggle }) => {
+const InputSwitchStyled: React.FC<IProps> = ({
+  label,
+  placeholder,
+  isOn,
+  onToggle,
+}) => {
   const { theme } = useAppTheme();
+  const commonStyles = useCommonStyles();
   return (
-    <TouchableOpacity
+    <View
       style={[
-        styles.switchContainer,
-        { backgroundColor: isOn ? theme.primary : theme.grayScale400 },
+        commonStyles.flexStyles.rowStart,
+        {
+          alignItems: 'center',
+          marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+        },
       ]}
-      onPress={onToggle}
     >
-      <View
+      <TouchableOpacity
         style={[
-          styles.switchCircle,
-          isOn ? styles.onPosition : styles.offPosition,
+          styles.switchContainer,
+          { backgroundColor: isOn ? theme.primary : theme.grayScale400 },
         ]}
-      />
-    </TouchableOpacity>
+        onPress={onToggle}
+      >
+        <View
+          style={[
+            styles.switchCircle,
+            isOn ? styles.onPosition : styles.offPosition,
+          ]}
+        />
+      </TouchableOpacity>
+
+      {label && (
+        <View
+          style={{
+            marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+          }}
+        >
+          <TextStyled textAlignment="left" fontSize="md" fontWeight="semibold">
+            {label}
+          </TextStyled>
+        </View>
+      )}
+    </View>
   );
 };
 
