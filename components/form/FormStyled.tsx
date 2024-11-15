@@ -19,6 +19,7 @@ export interface IProps {
   isLastStep: boolean;
   isCurrentCustom: boolean;
   isNextDisabled?: boolean;
+  isLoading?: boolean;
 }
 
 const FormStyled: React.FC<Readonly<IProps>> = ({
@@ -28,6 +29,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   isLastStep,
   isCurrentCustom,
   isNextDisabled,
+  isLoading,
 }) => {
   const commonStyles = useCommonStyles();
 
@@ -142,6 +144,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
           ]}
         >
           <ButtonStyled
+            isLoading={isLoading}
             disabled={isNextDisabled}
             onPress={handleSubmit(onSubmit)}
             variant="buttonPrimarySolid"

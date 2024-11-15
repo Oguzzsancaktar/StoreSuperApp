@@ -23,6 +23,7 @@ export default function PublicLayout() {
           headerShown: false,
         }}
       />
+
       <Stack.Screen
         name="welcome"
         options={{

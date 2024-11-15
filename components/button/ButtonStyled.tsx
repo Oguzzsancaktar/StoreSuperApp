@@ -6,6 +6,9 @@ import { IButtonStylesheet } from '@/interfaces/theme';
 import React, { ReactNode } from 'react';
 import { GradientBackground } from '../svg/background';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import IconBell from '../svg/icon/IconBell';
+import { useAppTheme } from '@/contexts/ThemeContext';
+import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
 
 interface IProps {
   disabled?: boolean;
@@ -14,6 +17,7 @@ interface IProps {
   gradientBg?: boolean;
   variant: keyof IButtonStylesheet;
   children?: ReactNode;
+  isLoading?: boolean;
 }
 
 const ButtonStyled: React.FC<IProps> = ({
@@ -23,7 +27,9 @@ const ButtonStyled: React.FC<IProps> = ({
   text,
   variant,
   children,
+  isLoading,
 }) => {
+  const { theme } = useAppTheme();
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
 
@@ -33,34 +39,51 @@ const ButtonStyled: React.FC<IProps> = ({
 
       <Pressable
         onPress={onPress}
-        disabled={disabled}
+        disabled={disabled || isLoading}
         style={({ pressed }) => [
           themedStyles.buttonStyles[
-            disabled
+            disabled || isLoading
               ? ((variant + 'Disabled') as keyof IButtonStylesheet)
               : pressed
               ? ((variant + 'Pressed') as keyof IButtonStylesheet)
               : variant
           ],
-          commonStyles.flexStyles.flexCenter,
+          commonStyles.flexStyles.rowCenterWrap,
+          { alignContent: 'center' },
         ]}
       >
-        {text && (
-          <TextStyled
-            // @todo handle for other scenarios where the color is not white
-            customColor={
-              variant === 'buttonPrimarySolid' ? 'white' : 'grayScale900'
-            }
-            textAlignment="center"
-            textShadow="textShadowSm"
-            fontSize="lg"
-            fontWeight="semibold"
-          >
-            {text}
-          </TextStyled>
-        )}
+        <View style={[commonStyles.flexStyles.flexCenter, { flex: 1 }]}>
+          {text && (
+            <TextStyled
+              // @todo handle for other scenarios where the color is not white
+              customColor={
+                variant === 'buttonPrimarySolid' ? 'white' : 'grayScale900'
+              }
+              textAlignment="center"
+              textShadow="textShadowSm"
+              fontSize="lg"
+              fontWeight="semibold"
+            >
+              {text}
+            </TextStyled>
+          )}
 
-        {children && children}
+          {children && children}
+
+          {isLoading && (
+            <View
+              style={[
+                commonStyles.absolutePositionStyles.absoluteFill,
+                commonStyles.flexStyles.flexCenter,
+                {
+                  left: 'auto',
+                },
+              ]}
+            >
+              <SvgAnimLoadingSpinner color={theme.white} />
+            </View>
+          )}
+        </View>
       </Pressable>
     </View>
   );

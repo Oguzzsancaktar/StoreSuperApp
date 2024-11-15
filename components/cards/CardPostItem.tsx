@@ -9,6 +9,7 @@ import IListingPost from '@/interfaces/listing/IListingPost';
 import dateUtils from '@/utils/dateUtils';
 import { find } from 'lodash';
 import stringUtils from '@/utils/stringUtils';
+import APP_ROUTES from '@/constants/APP_ROUTES';
 
 interface IProps {
   post: IListingPost;

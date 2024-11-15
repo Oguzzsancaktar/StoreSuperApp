@@ -1,12 +1,17 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
+
   baseURL: 'https://ngx-marketplace-api-dev.azurewebsites.net/api/v1',
   timeout: 10000,
+  headers: {
+    'Accept-Language': "en-US"
+  }
 });
 
 apiClient.interceptors.request.use(
   config => {
+
     // Add authorization token or other headers if needed
     // const token = 'your-auth-token'; // Fetch from a secure source
     // if (token) {

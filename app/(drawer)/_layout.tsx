@@ -9,6 +9,13 @@ export default function PublicLayout() {
           headerShown: false,
         }}
       />
+
+      <Stack.Screen
+        name="success"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }

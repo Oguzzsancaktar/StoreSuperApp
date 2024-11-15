@@ -102,7 +102,6 @@ const CardListingItems = () => {
         }}
       >
         {map(listingItemsData?.items, (post, index) => {
-          console.log('222', post);
           return <CardPostItem post={post} key={index} />;
         })}
       </ScrollView>

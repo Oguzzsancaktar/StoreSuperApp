@@ -15,7 +15,7 @@ import IconTrash from '../svg/icon/IconTrash';
 
 interface ImagePickerResponse {
   uri: string;
-  fileName: string;
+  name: string;
   type: string;
 }
 
@@ -64,7 +64,7 @@ const InputImageUploader: React.FC<IProps> = ({
 
           const newImages = map(response.assets, (asset) => ({
             uri: asset.uri || '',
-            fileName: asset.fileName || 'image.jpg',
+            name: asset.fileName || 'image.jpg',
             type: asset.type || 'image/jpeg',
           }));
 

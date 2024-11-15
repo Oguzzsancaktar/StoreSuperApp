@@ -23,6 +23,7 @@ export interface IFormWizardProps {
   isNextDisabled?: boolean;
   defaultValues: Record<string, any>;
   values: Record<string, any>;
+  isLoading?: boolean;
   setValues: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   onSubmit(values: Record<string, any>): void;
 }
@@ -31,6 +32,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   isNextDisabled = false,
   steps,
   defaultValues,
+  isLoading,
   onSubmit,
   setValues,
   values,
@@ -143,6 +145,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
         {activeStep?.customStep && activeStep.customStep}
 
         <FormStyled
+          isLoading={isLoading}
           isNextDisabled={isNextDisabled}
           onBack={handleBackStep}
           key={activeStep.id} // IMPORTANT! Keep each form instance separate

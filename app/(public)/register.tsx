@@ -12,7 +12,8 @@ import IRegisterDTO from '@/interfaces/account/IRegisterDTO';
 import APP_INPUT_FIELDS from '@/constants/APP_INPUT_FIELDS';
 
 const SignupScreen = () => {
-  const [createAccount] = useRegisterAccountMutation();
+  const [createAccount, { isLoading: registerIsLoading }] =
+    useRegisterAccountMutation();
 
   const [values, setValues] = useState<IRegisterDTO>();
 
@@ -29,8 +30,6 @@ const SignupScreen = () => {
   const defaultValues = {};
 
   const handleSubmit = async (values: IRegisterDTO) => {
-    values.language = 'en-US';
-
     try {
       const result = await createAccount(values);
       console.log('result111', result.data);
@@ -60,6 +59,7 @@ const SignupScreen = () => {
               React.SetStateAction<Record<string, any>>
             >
           }
+          isLoading={registerIsLoading}
           steps={steps}
           defaultValues={defaultValues}
           onSubmit={handleSubmit}

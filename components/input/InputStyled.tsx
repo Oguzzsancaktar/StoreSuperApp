@@ -105,7 +105,13 @@ const InputStyled: React.FC<IProps> = ({
           {...props}
           style={[
             themedStyles.inputStyles.default,
-            { borderWidth: 0, padding: 0, flex: 1 },
+            {
+              borderWidth: 0,
+              padding: !leftIconName
+                ? themedStyles.inputStyles.default.padding
+                : 0,
+              flex: 1,
+            },
             type === 'textarea' && {
               padding: themedStyles.inputStyles.default.padding,
               height: APP_STYLE_VALUES.WH_SIZES.xl2,

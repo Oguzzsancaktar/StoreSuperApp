@@ -30,6 +30,18 @@ const InputSwitchStyled: React.FC<IProps> = ({
         },
       ]}
     >
+      {label && (
+        <View
+          style={{
+            marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+          }}
+        >
+          <TextStyled textAlignment="left" fontSize="md" fontWeight="semibold">
+            {label}
+          </TextStyled>
+        </View>
+      )}
+
       <TouchableOpacity
         style={[
           styles.switchContainer,
@@ -44,18 +56,6 @@ const InputSwitchStyled: React.FC<IProps> = ({
           ]}
         />
       </TouchableOpacity>
-
-      {label && (
-        <View
-          style={{
-            marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-          }}
-        >
-          <TextStyled textAlignment="left" fontSize="md" fontWeight="semibold">
-            {label}
-          </TextStyled>
-        </View>
-      )}
     </View>
   );
 };

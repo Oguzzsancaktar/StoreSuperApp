@@ -7,6 +7,7 @@ import IListingPost from '@/interfaces/listing/IListingPost';
 import IListingQueryParams from '@/interfaces/listing/IListingQueryParams';
 import IPaginationResult from '@/interfaces/app/IPaginationResult';
 import IListingCreateDTO from '@/interfaces/listing/IListingCreateDTO';
+import { map } from 'lodash';
 
 const LISTING_API_REDUCER_PATH = 'listingAPI'
 const LISTING_API_TAG = "listingTag"
@@ -51,7 +52,34 @@ const createListing = (builder: IBuilder) => {
       return {
         url: `/listings`,
         method: 'POST',
-        data
+        data: {
+          ...data,
+          options: map(data.options, (d) => {
+            if (typeof d.value === "boolean") {
+              return { ...d, value: d.value.toString() }
+            }
+            return d
+          })
+        }
+      }
+    },
+    invalidatesTags: [LISTING_API_TAG],
+  })
+}
+
+
+const uploadListingMedia = (builder: IBuilder) => {
+  return builder.mutation<string[], IListingCreateDTO["media"]>({
+    query(formData) {
+      return {
+        url: `/listings/add-media`,
+        method: 'POST',
+        data: formData,
+        headers: {
+          'Authorization': undefined,
+          'Accept': 'application/json',
+          'Accept-Language': 'en-US',
+        }
       }
     },
     invalidatesTags: [LISTING_API_TAG],
@@ -78,13 +106,14 @@ const listingApiSlice = createApi({
     getListingItems: getListingItems(builder),
     getNewestPosts: getNewestPosts(builder),
     createListing: createListing(builder),
-    getListingItemDetails: getListingItemDetails(builder)
+    getListingItemDetails: getListingItemDetails(builder),
+    uploadListingMedia: uploadListingMedia(builder)
   }),
 })
 
-const { useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery } = listingApiSlice
+const { useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation } = listingApiSlice
 
-export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery }
+export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation }
 
 
 

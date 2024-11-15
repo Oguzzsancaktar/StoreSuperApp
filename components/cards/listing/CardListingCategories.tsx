@@ -24,6 +24,7 @@ const CardListingCategories: React.FC<IProps> = ({
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
 
+  console.log('38374e8d-7944-45d7-5d36-08dbdea8608d', selectedCategory);
   return (
     <View>
       <View

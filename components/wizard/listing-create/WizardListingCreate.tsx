@@ -11,19 +11,28 @@ import {
   useGetListingCategorySubsQuery,
 } from '@/services/listingFilterServices';
 import ISelectOption from '@/interfaces/theme/ISelectOption';
-import { map } from 'lodash';
+import { each, forEach, map, reduce } from 'lodash';
 import EListingOptionComponentType from '@/interfaces/enums/EListingOptionComponentType';
 import useThemedStyles from '@/hooks/useThemedStyles';
 import { IInputProps } from '@/interfaces/app';
 import IListingCreateDTO from '@/interfaces/listing/IListingCreateDTO';
 import ETranslationLanguages from '@/interfaces/enums/ELanguages';
 import IListingOptionCreateDTO from '@/interfaces/listing/IListingOptionCreateDTO';
-import { useCreateListingMutation } from '@/services/listingServices';
+import {
+  useUploadListingMediaMutation,
+  useCreateListingMutation,
+} from '@/services/listingServices';
+import { Href, router, useNavigation } from 'expo-router';
+import APP_ROUTES from '@/constants/APP_ROUTES';
 
 const WizardListingCreate = () => {
   const [values, setValues] = useState<Record<string, any>>({});
 
-  const [createListing] = useCreateListingMutation();
+  const navigation = useNavigation();
+  const [createListing, { isLoading: createListingIsLoading }] =
+    useCreateListingMutation();
+  const [uploadListingMedia, { isLoading: uploadListingMediaIsLoading }] =
+    useUploadListingMediaMutation();
 
   const { data: listingCategorySubData } = useGetListingCategorySubsQuery(
     values?.categoryId
@@ -237,7 +246,7 @@ const WizardListingCreate = () => {
         ],
       },
     ],
-    [listingCategoryOptionsData]
+    [listingCategoryOptionsData, values]
   );
 
   const defaultValues = {
@@ -311,7 +320,7 @@ const WizardListingCreate = () => {
     media: [
       {
         uri: 'file:///Users/oguzsancaktar/Library/Developer/CoreSimulator/Devices/4091198B-8330-4F62-B6DB-ED668694579E/data/Containers/Data/Application/CA53D63D-4D18-49E5-821B-E553691B3D8B/tmp/7016ED43-E9F0-4B3A-B837-B469C871DB86.jpg',
-        fileName: '7016ED43-E9F0-4B3A-B837-B469C871DB86.jpg',
+        name: '7016ED43-E9F0-4B3A-B837-B469C871DB86.jpg',
         type: 'image/jpg',
       },
       null,
@@ -323,6 +332,12 @@ const WizardListingCreate = () => {
     title: 'Test T’le Mob’le',
     description: 'Teas description',
     price: '333',
+    currency: {
+      label: 'EUR',
+      value: 'EUR',
+      _index: 0,
+    },
+    negotiable: true,
     country: {
       label: 'Afghanistan',
       value: 1,
@@ -343,8 +358,6 @@ const WizardListingCreate = () => {
   };
 
   const handleSubmit = async (values: Record<string, any>) => {
-    console.log('Submitted', values);
-
     const {
       categoryId = '',
       allowMessaging = false,
@@ -383,16 +396,25 @@ const WizardListingCreate = () => {
       switch (typeof val) {
         case 'object':
           if (Array.isArray(val)) {
-            tempOption.categoryOptionValueIds = val;
+            tempOption.categoryOptionValueIds = map(val, (v) => v.value);
+            tempOption.categoryOptionValueId = null;
+            tempOption.value = null;
           } else {
-            tempOption.categoryOptionValueId = val;
+            tempOption.value = null;
+            tempOption.categoryOptionValueId = val.value;
+            tempOption.categoryOptionValueIds = [];
           }
           break;
         case 'boolean':
           tempOption.value = val;
+          tempOption.categoryOptionValueIds = [];
+          tempOption.categoryOptionValueId = null;
+
           break;
         case 'string':
           tempOption.value = val;
+          tempOption.categoryOptionValueIds = [];
+          tempOption.categoryOptionValueId = null;
           break;
         default:
           break;
@@ -441,13 +463,43 @@ const WizardListingCreate = () => {
       },
     };
 
-    const result = await createListing(listingCreateDTO);
-    console.log('result', result);
+    if (media.length > 0) {
+      const formDataForMedia = new FormData();
+
+      forEach(media, (file) => {
+        if (file) {
+          formDataForMedia.append('files', file, file.name); // `files` API'deki alan adıyla eşleşmeli
+        }
+      });
+
+      try {
+        const uploadedMediaUrls = await uploadListingMedia(
+          formDataForMedia as any
+        ).unwrap();
+
+        listingCreateDTO.media = uploadedMediaUrls;
+        listingCreateDTO.coverImage = uploadedMediaUrls[0];
+
+        const result = await createListing(listingCreateDTO).unwrap();
+        router.push({
+          // @todo fix find best practice for constant all routes
+          pathname: APP_ROUTES.DRAWER.SUCCESS as any,
+          params: {
+            title: 'Listing Created',
+            description: 'New Listing Created Successfully',
+            href: APP_ROUTES.TABS.TIMELINE as string,
+          },
+        });
+      } catch (error) {
+        console.error('Error submit--> listing form wizard:', error);
+      }
+    }
   };
 
   return (
     <ScreenWrapperContainer>
       <FormWizard
+        isLoading={uploadListingMediaIsLoading || createListingIsLoading}
         isNextDisabled={!values?.categoryId}
         values={values}
         setValues={setValues}

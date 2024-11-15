@@ -2,13 +2,18 @@
 
 import { Href } from "expo-router";
 
-interface IAppRoutes {
+export interface IAppRoutes {
   [key: string]: {
     [subkey: string]: Href<string | object>
   }
 }
 
 const APP_ROUTES: IAppRoutes = {
+  DRAWER: {
+    SETTINGS: "/(drawer)/settings",
+    SUCCESS: "/(drawer)/success",
+  },
+
   PUBLIC: {
     LOGIN: "/(public)/login",
     REGISTER: "/(public)/register",
