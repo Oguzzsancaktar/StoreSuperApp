@@ -26,7 +26,7 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-  const { session, isLoading } = useSession();
+  const { isLoading } = useSession();
   const { width } = useWindowDimensions();
 
   const { theme } = useAppTheme();
@@ -38,6 +38,7 @@ export default function TabLayout() {
 
   // Only require authentication within the (app) group's layout as users
   // need to be able to access the (auth) group and sign in again.
+  // const {  session } = useSession();
 
   // if (!session) {
   //   return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;

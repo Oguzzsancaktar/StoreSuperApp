@@ -7,33 +7,46 @@ import { TextStyled } from '@/components/typography';
 import { View } from 'react-native';
 import SLoginIllustration from '@/components/svg/illustrations/SLoginIllustration';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import APP_INPUT_FIELDS from '@/constants/APP_INPUT_FIELDS';
+import { useState } from 'react';
+import ILoginDTO from '@/interfaces/account/ILoginDTO';
+import { useLoginAccountMutation } from '@/services/accountServices';
+import { useSession } from '@/contexts/AuthContext';
 
 const steps: IFormWizardStepProps[] = [
   {
     id: 'STEP_1',
     fields: [
-      {
-        label: 'First name',
-        name: 'firstname',
-        placeholder: 'Your email address',
-        type: 'text',
-      },
-      {
-        label: 'Password',
-        name: 'password',
-        placeholder: 'Your password',
-        type: 'password',
-      },
+      { ...APP_INPUT_FIELDS.INPUT_EMAIL },
+      { ...APP_INPUT_FIELDS.INPUT_PASSWORD },
     ],
   },
 ];
 
-const SigninScreen = () => {
-  const commonStyles = useCommonStyles();
+const LoginScreen = () => {
+  const [createAccount] = useLoginAccountMutation();
+  const { signIn } = useSession();
 
-  const defaultValues = { COUNTRY: 'Estonia' };
+  const [values, setValues] = useState<ILoginDTO>();
 
-  const handleSubmit = (values: Record<string, any>) => {
+  const defaultValues = {
+    email: 'sipsebatra@gufum.com',
+    password: 'Dotnet123.',
+  };
+
+  const handleSubmit = async (values: ILoginDTO) => {
+    console.log(values);
+
+    try {
+      const result = await createAccount(values);
+      if (result?.data) {
+        signIn(result.data);
+      } else {
+        console.log('xxxxxx----- create account ------ error');
+      }
+    } catch (error) {
+      console.log('Error when create account');
+    }
     console.log(values);
   };
 
@@ -57,6 +70,12 @@ const SigninScreen = () => {
 
       <InnerCommonContainer>
         <FormWizard
+          values={values as Record<string, any>}
+          setValues={
+            setValues as React.Dispatch<
+              React.SetStateAction<Record<string, any>>
+            >
+          }
           steps={steps}
           defaultValues={defaultValues}
           onSubmit={handleSubmit}
@@ -66,4 +85,4 @@ const SigninScreen = () => {
   );
 };
 
-export default SigninScreen;
+export default LoginScreen;

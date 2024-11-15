@@ -7,15 +7,16 @@ import { TextScanEffect } from '@/components/typography';
 import { ButtonStyled } from '@/components/button';
 import { InnerCommonContainer } from '@/components/containers';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { Href, Link, router } from 'expo-router';
+import { Href, Link, Redirect, router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { getIconWithProps } from '@/components/svg/icon';
+import { useSession } from '@/contexts/AuthContext';
 
 const WelcomeScreen = () => {
   const commonStyles = useCommonStyles();
   const { theme, toggleTheme } = useAppTheme();
 
-  const handleSignButtonClick = (type: 'SIGNIN' | 'SIGNUP') => {
+  const handleSignButtonClick = (type: 'REGISTER' | 'LOGIN') => {
     router.push(APP_ROUTES.PUBLIC[type] as Href<string | object>);
   };
 
@@ -78,13 +79,13 @@ const WelcomeScreen = () => {
 
           <View style={[commonStyles.spacingStyles.g3]}>
             <ButtonStyled
-              onPress={() => handleSignButtonClick('SIGNIN')}
+              onPress={() => handleSignButtonClick('LOGIN')}
               text={'Login'}
               variant="buttonPrimarySolid"
             />
 
             <ButtonStyled
-              onPress={() => handleSignButtonClick('SIGNUP')}
+              onPress={() => handleSignButtonClick('REGISTER')}
               text="Register"
               variant={'buttonPrimaryOutlined'}
             />

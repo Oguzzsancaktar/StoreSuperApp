@@ -10,8 +10,8 @@ interface IAppRoutes {
 
 const APP_ROUTES: IAppRoutes = {
   PUBLIC: {
-    SIGNIN: "/(public)/signin",
-    SIGNUP: "/(public)/signup",
+    LOGIN: "/(public)/login",
+    REGISTER: "/(public)/register",
     WELCOME: "/(public)/welcome",
   },
   TABS: {

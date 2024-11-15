@@ -20,7 +20,7 @@ export interface IFormWizardStepProps {
 
 export interface IFormWizardProps {
   steps: IFormWizardStepProps[];
-  isNextDisabled: boolean;
+  isNextDisabled?: boolean;
   defaultValues: Record<string, any>;
   values: Record<string, any>;
   setValues: React.Dispatch<React.SetStateAction<Record<string, any>>>;
@@ -28,7 +28,7 @@ export interface IFormWizardProps {
 }
 
 const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
-  isNextDisabled,
+  isNextDisabled = false,
   steps,
   defaultValues,
   onSubmit,

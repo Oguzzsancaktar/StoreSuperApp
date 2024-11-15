@@ -4,11 +4,18 @@ import { View } from 'react-native';
 import ImageIconCircle from '../images/ImageIconCircle';
 import { TextStyled } from '../typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { ButtonStyled } from '../button';
 import IconUser from '../svg/icon/IconUser';
 import IconChatSupport from '../svg/icon/IconChatSupport';
+import IUser from '@/interfaces/account/IUser';
+import moment from 'moment';
+import APP_FORMATS from '@/constants/APP_FORMATS';
+import { useAppTheme } from '@/contexts/ThemeContext';
 
-const CardSellerInfo = () => {
+interface IProps {
+  user: IUser;
+}
+const CardSellerInfo: React.FC<IProps> = ({ user = {} as IUser }) => {
+  const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
 
@@ -25,7 +32,7 @@ const CardSellerInfo = () => {
         ]}
       >
         <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
-          <ImageIconCircle icon={<IconUser />} />
+          <ImageIconCircle icon={<IconUser color={theme.grayScale300} />} />
         </View>
 
         <View style={commonStyles.flexStyles.colStart}>
@@ -37,14 +44,15 @@ const CardSellerInfo = () => {
             Seller
           </TextStyled>
           <TextStyled fontSize="h4" fontWeight="bold">
-            Seller Name
+            {user?.firstName + ' ' + user?.lastName}
           </TextStyled>
           <TextStyled
             fontSize="sm"
             fontWeight="medium"
             customColor="grayScale500"
           >
-            Member since, 20.02.2024
+            Member since,{' '}
+            {moment(user.created).format(APP_FORMATS.DATE_NAME_MOMENT)}
           </TextStyled>
         </View>
       </View>
@@ -64,7 +72,9 @@ const CardSellerInfo = () => {
             { width: APP_STYLE_VALUES.WH_SIZES.sm },
           ]}
         >
-          <ImageIconCircle icon={<IconChatSupport />} />
+          <ImageIconCircle
+            icon={<IconChatSupport color={theme.grayScale300} />}
+          />
         </View>
 
         <View
@@ -79,7 +89,7 @@ const CardSellerInfo = () => {
             Contact Information
           </TextStyled>
           <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
-            +90 (543) 334 44 55
+            {user?.phoneNumber}
           </TextStyled>
         </View>
       </View>

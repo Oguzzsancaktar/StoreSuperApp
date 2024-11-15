@@ -10,12 +10,12 @@ import IconSettingCog from '@/components/svg/icon/IconSettingCog';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import CardLinkItem from '@/components/cards/CardLinkItem';
 import { map } from 'lodash';
-import { IIconOptions } from '@/interfaces/app';
+import { IIconNames } from '@/interfaces/app';
 import { useMemo } from 'react';
 import ButtonLogout from '@/components/button/ButtonLogout';
 
 export interface ISettingItemProps {
-  icon: IIconOptions;
+  icon: IIconNames;
   text: string;
   right: 'chevron' | 'switch';
   onPress: () => void;

@@ -4,7 +4,7 @@ import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import ImageCover from '../images/ImageCover';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { router } from 'expo-router';
+import { Href, router } from 'expo-router';
 import IListingPost from '@/interfaces/listing/IListingPost';
 import dateUtils from '@/utils/dateUtils';
 import { find } from 'lodash';
@@ -19,8 +19,9 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
   const commonStyles = useCommonStyles();
 
   const handlePress = () => {
-    router.push('/(private)/post/x');
+    router.push(('/(private)/post/' + post.id) as Href);
   };
+
   return (
     <TouchableOpacity
       onPress={handlePress}

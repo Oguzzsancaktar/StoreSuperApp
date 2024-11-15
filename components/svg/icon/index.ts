@@ -1,4 +1,4 @@
-import { IIconOptions, IIconProps } from "@/interfaces/app";
+import { IIconNames, IIconProps } from "@/interfaces/app";
 
 import IconBell from "./IconBell";
 import IconBlock from "./IconBlock";
@@ -182,7 +182,7 @@ const ICONS = {
   IconPlusCircle,
 }
 
-export const getIconWithProps = (iconName: IIconOptions, props: IIconProps = {}) => {
+export const getIconWithProps = (iconName: IIconNames, props: IIconProps = {}) => {
   const Icon = ICONS[iconName];
 
   return Icon(props);

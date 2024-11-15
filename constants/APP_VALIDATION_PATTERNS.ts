@@ -22,7 +22,8 @@ const ALPHA_PATTERN = /^[A-Za-z]+$/;
 const ALPHANUMERIC_PATTERN = /^[A-Za-z0-9]+$/;
 
 // 8. Şifre (en az bir büyük harf, bir küçük harf ve bir rakam içermeli, 8-20 karakter)
-const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/;
+const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+{}\[\]:;"'<>,.?\/\\|`~\-]{8,20}$/
+
 
 // 9. Hex color Code (# starts 3 or 6 character)
 const HEX_COLOR_PATTERN = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;

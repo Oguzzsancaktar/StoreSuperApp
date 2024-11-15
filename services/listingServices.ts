@@ -57,6 +57,19 @@ const createListing = (builder: IBuilder) => {
     invalidatesTags: [LISTING_API_TAG],
   })
 }
+
+const getListingItemDetails = (builder: IBuilder) => {
+  return builder.query<IListingPost, IListingPost["id"]>({
+    query(listingId) {
+      return {
+        url: `/listings/${listingId}`,
+        method: 'GET',
+      }
+    },
+    providesTags: [LISTING_API_TAG],
+  })
+}
+
 const listingApiSlice = createApi({
   reducerPath: LISTING_API_REDUCER_PATH,
   tagTypes: [LISTING_API_TAG],
@@ -64,13 +77,14 @@ const listingApiSlice = createApi({
   endpoints: (builder) => ({
     getListingItems: getListingItems(builder),
     getNewestPosts: getNewestPosts(builder),
-    createListing: createListing(builder)
+    createListing: createListing(builder),
+    getListingItemDetails: getListingItemDetails(builder)
   }),
 })
 
-const { useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation } = listingApiSlice
+const { useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery } = listingApiSlice
 
-export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation }
+export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery }
 
 
 

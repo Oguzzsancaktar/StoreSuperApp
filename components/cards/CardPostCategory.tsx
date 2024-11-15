@@ -4,16 +4,25 @@ import { View } from 'react-native';
 import ImageIconCircle from '../images/ImageIconCircle';
 import { TextStyled } from '../typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { ButtonStyled } from '../button';
-import IconUser from '../svg/icon/IconUser';
-import IconChatSupport from '../svg/icon/IconChatSupport';
-import IconFAQ from '../svg/icon/IconFAQ';
-import IconOptions from '../svg/icon/IconOptions';
 import IconWorld from '../svg/icon/IconWorld';
+import IListingCategory from '@/interfaces/listing/IListingCategory';
+import { useMemo } from 'react';
+import { find, map } from 'lodash';
+import ImageCover from '../images/ImageCover';
+import { SvgUri } from 'react-native-svg';
 
-const CardPostCategory = () => {
+interface IProps {
+  categories: IListingCategory[];
+}
+const CardPostCategory: React.FC<IProps> = ({ categories }) => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
+
+  console.log('categories', categories);
+
+  const parentCategory = useMemo(() => {
+    return find(categories, (c) => c.parentCategoryId === null);
+  }, [categories]);
 
   return (
     <View
@@ -35,19 +44,24 @@ const CardPostCategory = () => {
         ]}
       >
         <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
-          <ImageIconCircle icon={<IconWorld />} />
+          <ImageIconCircle icon={<SvgUri uri={parentCategory?.icon || ''} />} />
         </View>
 
         <View style={commonStyles.flexStyles.colStart}>
           <TextStyled fontSize="h4" fontWeight="bold">
-            Real Estate
+            {parentCategory?.name || ''}
           </TextStyled>
           <TextStyled
             fontSize="sm"
             fontWeight="medium"
             customColor="grayScale500"
           >
-            Single Family Home
+            {map(categories, (cat) => {
+              if (cat.parentCategoryId) {
+                return cat.name;
+              }
+              return '';
+            })}
           </TextStyled>
         </View>
       </View>

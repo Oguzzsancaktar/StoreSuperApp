@@ -13,11 +13,35 @@ import { TextStyled } from '@/components/typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
+import IUser from '@/interfaces/account/IUser';
+import { useGetListingItemDetailsQuery } from '@/services/listingServices';
+import { useLocalSearchParams } from 'expo-router';
+import { find } from 'lodash';
+import { useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
 
-const Signin = () => {
+const ListingDetailPage = () => {
   const commonStyles = useCommonStyles();
   const { theme } = useAppTheme();
+
+  const { listingId } = useLocalSearchParams();
+
+  const { data: listingItemDetailData, isLoading } =
+    useGetListingItemDetailsQuery(listingId as string);
+
+  console.log('listingItemDetailData', listingItemDetailData);
+
+  const coverImageUrl = useMemo(() => {
+    return (
+      find(listingItemDetailData?.media, (med) => med.isCoverImage) ||
+      listingItemDetailData?.media[0]
+    )?.url;
+  }, [listingItemDetailData]);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <ScreenWrapperContainer showGoBack={true}>
       <InnerCommonContainer>
@@ -30,9 +54,9 @@ const Signin = () => {
               { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 },
             ]}
           >
-            <View>
-              <TextStyled fontSize="h3" fontWeight="bold">
-                Perfect Land House
+            <View style={[commonStyles.flexStyles.colStart, { width: '100%' }]}>
+              <TextStyled fontSize="h3" fontWeight="bold" textAlignment="left">
+                {listingItemDetailData?.name || ''}
               </TextStyled>
 
               <View
@@ -55,17 +79,21 @@ const Signin = () => {
                   fontWeight="bold"
                   customColor={'grayScale400'}
                 >
-                  Centar Župa Municipality, North Macedonia
+                  {(listingItemDetailData?.listingAddress?.countryName || '') +
+                    ', ' +
+                    (listingItemDetailData?.listingAddress?.cityName + '')}
                 </TextStyled>
               </View>
             </View>
 
             <View style={{ width: '100%', height: 200 }}>
-              <ImageCover />
+              <ImageCover url={coverImageUrl} />
             </View>
 
             <View style={{ width: '100%' }}>
-              <CardPostCategory />
+              <CardPostCategory
+                categories={listingItemDetailData?.categories || []}
+              />
             </View>
 
             <View style={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 }}>
@@ -77,14 +105,14 @@ const Signin = () => {
                 fontWeight="medium"
                 textAlignment="left"
               >
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Debitis, doloremque odit corporis delectus libero sapiente odio!
-                Atque facilis cum odio.
+                {listingItemDetailData?.description || ''}
               </TextStyled>
             </View>
 
             <View style={{ width: '100%' }}>
-              <CardSellerInfo />
+              <CardSellerInfo
+                user={listingItemDetailData?.user || ({} as IUser)}
+              />
             </View>
           </View>
         </ScrollView>
@@ -140,4 +168,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default ListingDetailPage;

@@ -5,13 +5,20 @@ import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
+import { useSession } from '@/contexts/AuthContext';
 
 interface IProps {}
 const ButtonLogout: React.FC<IProps> = () => {
   const commonStyles = useCommonStyles();
   const { theme } = useAppTheme();
+  const { signOut } = useSession();
+
   return (
-    <ButtonStyled gradientBg={true} variant="buttonPrimaryOutlined">
+    <ButtonStyled
+      onPress={signOut}
+      gradientBg={true}
+      variant="buttonPrimaryOutlined"
+    >
       <View
         style={[
           commonStyles.flexStyles.rowCenterWrap,

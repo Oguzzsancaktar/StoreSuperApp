@@ -1,16 +1,24 @@
-import { Stack } from 'expo-router';
+import APP_ROUTES from '@/constants/APP_ROUTES';
+import { useSession } from '@/contexts/AuthContext';
+import { Redirect, Stack } from 'expo-router';
 
 export default function PublicLayout() {
+  const { session } = useSession();
+
+  if (session) {
+    return <Redirect href={APP_ROUTES.TABS.TIMELINE} />;
+  }
+
   return (
     <Stack>
       <Stack.Screen
-        name="signin"
+        name="login"
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="signup"
+        name="register"
         options={{
           headerShown: false,
         }}
