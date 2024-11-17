@@ -52,7 +52,13 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <ThemeContext.Provider
-      value={{ theme, toggleTheme, useSafeAreaState, setUseSafeArea, isDark }}
+      value={{
+        theme,
+        toggleTheme,
+        useSafeAreaState,
+        setUseSafeArea,
+        isDark,
+      }}
     >
       {children}
     </ThemeContext.Provider>

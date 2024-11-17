@@ -5,8 +5,6 @@ import useCommonStyles from '@/hooks/useCommonStyles';
 import { IButtonStylesheet } from '@/interfaces/theme';
 import React, { ReactNode } from 'react';
 import { GradientBackground } from '../svg/background';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconBell from '../svg/icon/IconBell';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
 

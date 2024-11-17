@@ -1,20 +1,26 @@
 import { View, Text } from 'react-native';
-import useThemedStyles from '@/hooks/useThemedStyles';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { IAppTheme } from '@/interfaces/theme';
 import { BlurView } from '@react-native-community/blur';
+import { GradientBackground } from '../svg/background';
 
 interface IProps {
   icon: JSX.Element;
+  gradientBg?: boolean;
+  borderColor?: keyof IAppTheme;
   bgColor?: keyof IAppTheme;
   size?: number;
+  radius?: number;
 }
 const ImageIconCircle: React.FC<IProps> = ({
+  borderColor,
   icon,
   bgColor,
   size = APP_STYLE_VALUES.WH_SIZES.sm,
+  radius = APP_STYLE_VALUES.RADIUS_SIZES.full,
+  gradientBg,
 }) => {
   const commonStyles = useCommonStyles();
   const { theme, isDark } = useAppTheme();
@@ -27,11 +33,17 @@ const ImageIconCircle: React.FC<IProps> = ({
         {
           width: size,
           height: size,
-          borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
+          borderRadius: radius,
           overflow: 'hidden',
+        },
+        borderColor && {
+          borderWidth: 1,
+          borderColor: theme[borderColor],
         },
       ]}
     >
+      {gradientBg && <GradientBackground />}
+
       {!bgColor ? (
         <BlurView
           style={[

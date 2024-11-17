@@ -4,14 +4,20 @@ import { FormWizard } from '@/components/form';
 import { IFormWizardStepProps } from '@/components/form/FormWizard';
 import SRegisterIllustration from '@/components/svg/illustrations/SRegisterIllustration';
 import { TextStyled } from '@/components/typography';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useState } from 'react';
 import { useRegisterAccountMutation } from '@/services/accountServices';
 import IRegisterDTO from '@/interfaces/account/IRegisterDTO';
 import APP_INPUT_FIELDS from '@/constants/APP_INPUT_FIELDS';
+import { useAppTheme } from '@/contexts/ThemeContext';
+import useCommonStyles from '@/hooks/useCommonStyles';
+import CardAlternativeAuth from '@/components/cards/auth/CardAlternativeAuth';
 
 const SignupScreen = () => {
+  const { theme } = useAppTheme();
+  const commonStyles = useCommonStyles();
+
   const [createAccount, { isLoading: registerIsLoading }] =
     useRegisterAccountMutation();
 
@@ -48,7 +54,7 @@ const SignupScreen = () => {
           Create an account to find cool things in your area or sell your own
           stuff.
         </TextStyled>
-        <SRegisterIllustration />
+        {/* <SRegisterIllustration /> */}
       </View>
 
       <InnerCommonContainer>
@@ -64,6 +70,8 @@ const SignupScreen = () => {
           defaultValues={defaultValues}
           onSubmit={handleSubmit}
         />
+
+        <CardAlternativeAuth authType={'REGISTER'} />
       </InnerCommonContainer>
     </ScreenWrapperContainer>
   );

@@ -85,6 +85,7 @@ const WelcomeScreen = () => {
             />
 
             <ButtonStyled
+              gradientBg={true}
               onPress={() => handleSignButtonClick('REGISTER')}
               text="Register"
               variant={'buttonPrimaryOutlined'}

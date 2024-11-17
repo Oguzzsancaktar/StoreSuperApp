@@ -3,10 +3,8 @@ import { StyleSheet } from 'react-native';
 
 const { MAX_WIDTH, SPACE_SIZES } = APP_STYLE_VALUES;
 
+
 const useCommonStyles = () => {
-
-
-
   const absolutePositionStyles = StyleSheet.create({
     absoluteFill: {
       ...StyleSheet.absoluteFillObject,
@@ -190,7 +188,7 @@ const useCommonStyles = () => {
     g9: {
       gap: SPACE_SIZES.sp9,
     },
-  }
+  } as const
 
 
 
@@ -202,5 +200,8 @@ const useCommonStyles = () => {
   }
 
 }
+
+
+export type ICommonStyles = ReturnType<typeof useCommonStyles>;
 
 export default useCommonStyles;

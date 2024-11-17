@@ -23,6 +23,7 @@ const APP_ROUTES: IAppRoutes = {
     TIMELINE: "/(tabs)/timeline",
     PROFILE: "/(tabs)/profile"
   }
-};
+} as const
+
 
 export default APP_ROUTES;

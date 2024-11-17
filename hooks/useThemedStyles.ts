@@ -201,4 +201,7 @@ const useThemedStyles = () => {
   return { borderStyles, buttonStyles, cardStyles, inputStyles, containerStyles, shadowStyles }
 };
 
+export type IThemedStyles = ReturnType<typeof useThemedStyles>;
+
+
 export default useThemedStyles;

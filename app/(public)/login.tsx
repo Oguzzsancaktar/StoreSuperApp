@@ -12,6 +12,7 @@ import { useState } from 'react';
 import ILoginDTO from '@/interfaces/account/ILoginDTO';
 import { useLoginAccountMutation } from '@/services/accountServices';
 import { useSession } from '@/contexts/AuthContext';
+import CardAlternativeAuth from '@/components/cards/auth/CardAlternativeAuth';
 
 const steps: IFormWizardStepProps[] = [
   {
@@ -65,7 +66,7 @@ const LoginScreen = () => {
           </TextStyled>
         </View>
 
-        <SLoginIllustration />
+        {/* <SLoginIllustration /> */}
       </View>
 
       <InnerCommonContainer>
@@ -80,6 +81,8 @@ const LoginScreen = () => {
           defaultValues={defaultValues}
           onSubmit={handleSubmit}
         />
+
+        <CardAlternativeAuth authType={'LOGIN'} />
       </InnerCommonContainer>
     </ScreenWrapperContainer>
   );
