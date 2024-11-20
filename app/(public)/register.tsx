@@ -65,6 +65,7 @@ const SignupScreen = () => {
               React.SetStateAction<Record<string, any>>
             >
           }
+          submitKey="Register"
           isLoading={registerIsLoading}
           steps={steps}
           defaultValues={defaultValues}

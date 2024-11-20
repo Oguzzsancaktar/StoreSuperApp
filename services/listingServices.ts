@@ -47,7 +47,7 @@ const getNewestPosts = (builder: IBuilder) => {
 }
 
 const createListing = (builder: IBuilder) => {
-  return builder.mutation<IListingPost[], IListingCreateDTO>({
+  return builder.mutation<IListingPost["id"], IListingCreateDTO>({
     query(data) {
       return {
         url: `/listings`,

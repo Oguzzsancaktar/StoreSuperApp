@@ -24,7 +24,7 @@ const getFormRulesFromField = (field: string): Omit<RegisterOptions<Record<strin
       formFieldRule.pattern = APP_VALIDATION_PATTERNS.PASSWORD_PATTERN;
       break;
     case 'price':
-      formFieldRule.pattern = APP_VALIDATION_PATTERNS.NUMERIC_PATTERN;
+      formFieldRule.pattern = APP_VALIDATION_PATTERNS.PRICE_PATTERN;
       break;
 
     case 'zipcode':

@@ -61,6 +61,8 @@ const NEGATIVE_INTEGER_PATTERN = /^-[1-9]\d*$/;
 // 20. Başında ve sonunda boşluk olmayan metin
 const TRIMMED_PATTERN = /^\S(.*\S)?$/;
 
+const PRICE_PATTERN = /^\d+([.,]\d+)?$/;
+
 const APP_VALIDATION_PATTERNS = {
   EMAIL_PATTERN,
   URL_PATTERN,
@@ -83,6 +85,7 @@ const APP_VALIDATION_PATTERNS = {
   POSITIVE_INTEGER_PATTERN,
   NEGATIVE_INTEGER_PATTERN,
   TRIMMED_PATTERN,
+  PRICE_PATTERN
 };
 
 export default APP_VALIDATION_PATTERNS;

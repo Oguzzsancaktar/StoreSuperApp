@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { IIconNames, IInputProps } from '@/interfaces/app';
 import { View, TextInput, Pressable } from 'react-native';
 import useThemedStyles from '@/hooks/useThemedStyles';
@@ -10,6 +10,7 @@ import useCommonStyles from '@/hooks/useCommonStyles';
 import { getIconWithProps } from '../svg/icon';
 import IconEyeHide from '../svg/icon/IconEyeHide';
 import IconEyeShow from '../svg/icon/IconEyeShow';
+import { useInputFocus } from '@/contexts/InputFocusContext';
 
 interface IProps
   extends React.ComponentProps<typeof TextInput>,
@@ -27,6 +28,9 @@ const InputStyled: React.FC<IProps> = ({
   handleBlur,
   ...props
 }) => {
+  const inputRef = useRef<TextInput>(null);
+  const { registerInput, unregisterInput } = useInputFocus();
+
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
@@ -62,6 +66,17 @@ const InputStyled: React.FC<IProps> = ({
 
     return iconName;
   }, [name]);
+
+  useEffect(() => {
+    // Input'u context'e kaydet
+    if (inputRef.current) {
+      registerInput(inputRef);
+    }
+    return () => {
+      // Input'u context'ten çıkar
+      unregisterInput(inputRef);
+    };
+  }, [registerInput, unregisterInput]);
 
   return (
     <View>
@@ -103,6 +118,7 @@ const InputStyled: React.FC<IProps> = ({
         )}
         <TextInput
           {...props}
+          ref={inputRef}
           style={[
             themedStyles.inputStyles.default,
             {

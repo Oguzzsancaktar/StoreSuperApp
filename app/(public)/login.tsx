@@ -1,11 +1,9 @@
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { InnerCommonContainer } from '@/components/containers';
-import useCommonStyles from '@/hooks/useCommonStyles';
 import { FormWizard } from '@/components/form';
 import { IFormWizardStepProps } from '@/components/form/FormWizard';
 import { TextStyled } from '@/components/typography';
 import { View } from 'react-native';
-import SLoginIllustration from '@/components/svg/illustrations/SLoginIllustration';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import APP_INPUT_FIELDS from '@/constants/APP_INPUT_FIELDS';
 import { useState } from 'react';
@@ -13,6 +11,9 @@ import ILoginDTO from '@/interfaces/account/ILoginDTO';
 import { useLoginAccountMutation } from '@/services/accountServices';
 import { useSession } from '@/contexts/AuthContext';
 import CardAlternativeAuth from '@/components/cards/auth/CardAlternativeAuth';
+import { toastError, toastWarning } from '@/utils/toastUtils';
+import SLoginIllustration from '@/components/svg/illustrations/SLoginIllustration';
+import { router } from 'expo-router';
 
 const steps: IFormWizardStepProps[] = [
   {
@@ -25,30 +26,36 @@ const steps: IFormWizardStepProps[] = [
 ];
 
 const LoginScreen = () => {
-  const [createAccount] = useLoginAccountMutation();
+  const [loginAccount, { isLoading: loginAccountIsLoading }] =
+    useLoginAccountMutation();
   const { signIn } = useSession();
 
   const [values, setValues] = useState<ILoginDTO>();
 
-  const defaultValues = {
-    email: 'sipsebatra@gufum.com',
-    password: 'Dotnet123.',
-  };
+  const defaultValues =
+    process.env.NODE_ENV === 'development'
+      ? {
+          email: 'sipsebatra@gufum.com',
+          password: 'Dotnet123.',
+        }
+      : {
+          email: '',
+          password: '',
+        };
 
   const handleSubmit = async (values: ILoginDTO) => {
     console.log(values);
 
     try {
-      const result = await createAccount(values);
+      const result = await loginAccount(values);
       if (result?.data) {
         signIn(result.data);
       } else {
-        console.log('xxxxxx----- create account ------ error');
+        toastError((result?.error as any)?.data?.detail);
       }
     } catch (error) {
-      console.log('Error when create account');
+      console.log('Error when login account', error);
     }
-    console.log(values);
   };
 
   return (
@@ -65,12 +72,12 @@ const LoginScreen = () => {
             your own stuff.
           </TextStyled>
         </View>
-
-        {/* <SLoginIllustration /> */}
       </View>
 
       <InnerCommonContainer>
         <FormWizard
+          submitKey="Login"
+          isLoading={loginAccountIsLoading}
           values={values as Record<string, any>}
           setValues={
             setValues as React.Dispatch<

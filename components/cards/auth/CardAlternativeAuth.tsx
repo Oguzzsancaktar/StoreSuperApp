@@ -3,7 +3,7 @@ import ImageIconCircle from '@/components/images/ImageIconCircle';
 import IconSocialGoogle from '@/components/svg/icon/IconSocialGoogle';
 import IconSocialFacebook from '@/components/svg/icon/IconSocialFacebook';
 import IconSocialApple from '@/components/svg/icon/IconSocialApple';
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
@@ -101,17 +101,15 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
             : 'Dont Have Account yet?'}
         </TextStyled>
 
-        <Pressable
-          onPress={() =>
-            router.push(
-              APP_ROUTES.PUBLIC[authType === 'REGISTER' ? 'LOGIN' : 'REGISTER']
-            )
+        <Link
+          href={
+            APP_ROUTES.PUBLIC[authType === 'REGISTER' ? 'LOGIN' : 'REGISTER']
           }
         >
           <TextStyled customColor="primary" fontSize="md" fontWeight="semibold">
             {authType === 'REGISTER' ? 'Login' : 'Register'}
           </TextStyled>
-        </Pressable>
+        </Link>
       </View>
     </View>
   );

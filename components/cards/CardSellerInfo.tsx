@@ -32,7 +32,7 @@ const CardSellerInfo: React.FC<IProps> = ({ user = {} as IUser }) => {
         ]}
       >
         <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
-          <ImageIconCircle icon={<IconUser color={theme.grayScale300} />} />
+          <ImageIconCircle icon={<IconUser color={theme.grayScale900} />} />
         </View>
 
         <View style={commonStyles.flexStyles.colStart}>
@@ -73,7 +73,7 @@ const CardSellerInfo: React.FC<IProps> = ({ user = {} as IUser }) => {
           ]}
         >
           <ImageIconCircle
-            icon={<IconChatSupport color={theme.grayScale300} />}
+            icon={<IconChatSupport color={theme.grayScale900} />}
           />
         </View>
 

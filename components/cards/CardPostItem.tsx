@@ -10,12 +10,14 @@ import dateUtils from '@/utils/dateUtils';
 import { find } from 'lodash';
 import stringUtils from '@/utils/stringUtils';
 import APP_ROUTES from '@/constants/APP_ROUTES';
+import { useAppTheme } from '@/contexts/ThemeContext';
 
 interface IProps {
   post: IListingPost;
 }
 
 const CardPostItem: React.FC<IProps> = ({ post }) => {
+  const { theme } = useAppTheme();
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
 
@@ -74,10 +76,13 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
       <View
         style={[
           commonStyles.flexStyles.rowWrap,
-          { marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+          {
+            marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+          },
         ]}
       >
-        <View style={{ width: 100, height: 100 }}>
+        <View style={{ width: 70, height: 70 }}>
           <ImageCover url={post?.media[0]?.url} />
         </View>
 
@@ -87,27 +92,41 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
               commonStyles.flexStyles.colStart,
               {
                 flex: 1,
-                paddingLeft: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+                marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
               },
             ]}
           >
             <TextStyled
               fontSize="md"
-              fontWeight="semibold"
+              fontWeight="medium"
               textAlignment="left"
+              customColor="grayScale900"
             >
               {post?.name}
             </TextStyled>
-
-            <TextStyled fontSize="sm" fontWeight="regular" textAlignment="left">
-              Centar Župa Municipality, North Macedonia
-            </TextStyled>
           </View>
 
-          <View style={commonStyles.flexStyles.rowWrap}>
-            <View style={(commonStyles.flexStyles.rowWrap, { flex: 1 })}>
-              <TextStyled fontSize="md" fontWeight="semibold">
+          <View
+            style={[
+              commonStyles.flexStyles.rowWrap,
+              { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+            ]}
+          >
+            <View
+              style={[
+                commonStyles.flexStyles.colStart,
+                themedStyles.cardStyles.medium,
+                {
+                  paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                  width: 'auto',
+                },
+              ]}
+            >
+              <TextStyled
+                fontSize="md"
+                fontWeight="semibold"
+                customColor="grayScale900"
+              >
                 Price
               </TextStyled>
 
@@ -116,15 +135,28 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
               </TextStyled>
             </View>
 
-            <View style={(commonStyles.flexStyles.rowWrap, { flex: 1 })}>
-              <TextStyled fontSize="md" fontWeight="semibold">
+            <View
+              style={[
+                commonStyles.flexStyles.colStart,
+                themedStyles.cardStyles.medium,
+                {
+                  paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                  width: 'auto',
+                },
+              ]}
+            >
+              <TextStyled
+                fontSize="md"
+                fontWeight="semibold"
+                customColor="grayScale900"
+              >
                 Surface
               </TextStyled>
 
               <TextStyled
                 fontSize="sm"
                 fontWeight="bold"
-                customColor="grayScale900"
+                customColor="grayScale600"
               >
                 {find(post?.options, (option) => option.name === 'Surface')
                   ?.value || ''}
@@ -134,9 +166,30 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
         </View>
       </View>
 
-      <TextStyled fontSize="md" fontWeight="semibold" textAlignment="left">
-        {stringUtils.truncateString(post?.description)}
+      <TextStyled fontSize="sm" fontWeight="regular" textAlignment="left">
+        {post.listingAddress?.fullAddress || ''}
       </TextStyled>
+
+      <View
+        style={[
+          {
+            margin: APP_STYLE_VALUES.SPACE_SIZES.sp3,
+            height: 1,
+            backgroundColor: theme.grayScale100,
+          },
+        ]}
+      />
+
+      <View
+        style={[
+          themedStyles.cardStyles.dark,
+          { paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+        ]}
+      >
+        <TextStyled fontSize="md" fontWeight="semibold" textAlignment="left">
+          {stringUtils.truncateString(post?.description)}
+        </TextStyled>
+      </View>
     </TouchableOpacity>
   );
 };

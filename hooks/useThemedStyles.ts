@@ -23,6 +23,7 @@ const COMMON_CARD_STYLES = {
   overflow: "hidden" as "hidden" | "visible" | undefined,
   position: "relative" as "relative" | "absolute" | "static" | undefined,
   width: "100%" as DimensionValue | undefined,
+  paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp6
 }
 
 
@@ -55,17 +56,30 @@ const useThemedStyles = () => {
   const cardStyles: StyleSheet.NamedStyles<ICardStylesheet> = StyleSheet.create({
     default: {
       ...COMMON_CARD_STYLES,
-      borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
-      borderColor: theme.grayScale400,
+      borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
+      borderColor: theme.grayScale200,
       backgroundColor: theme.grayScale50,
-      paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp6
+
+    },
+    dark: {
+      ...COMMON_CARD_STYLES,
+      borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
+      borderColor: theme.grayScale200,
+      backgroundColor: theme.grayScale50,
+
+    },
+    medium: {
+      ...COMMON_CARD_STYLES,
+      borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
+      borderColor: theme.grayScale100,
+      backgroundColor: theme.grayScale100,
+
     },
     primary: {
       ...COMMON_CARD_STYLES,
       borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
       borderColor: theme.primary,
       backgroundColor: "transparent",
-      paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp6
     },
   })
 

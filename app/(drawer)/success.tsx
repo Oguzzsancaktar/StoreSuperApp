@@ -9,6 +9,7 @@ import { ButtonStyled } from '@/components/button';
 import { Href, router, useLocalSearchParams } from 'expo-router';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { WelcomeBackgroundPattern } from '@/components/svg/background';
+import APP_ROUTES from '@/constants/APP_ROUTES';
 
 interface IProps {}
 
@@ -19,7 +20,14 @@ interface ISuccessParamList {
 }
 
 const SuccessScreen: React.FC<IProps> = () => {
-  const { title, description, href } = useLocalSearchParams();
+  const {
+    title,
+    description,
+    href,
+    showExtraButton = false,
+    extraButtonText,
+    extraButtonHref,
+  } = useLocalSearchParams();
   const commonStyles = useCommonStyles();
   return (
     <ScreenWrapperContainer>
@@ -65,12 +73,25 @@ const SuccessScreen: React.FC<IProps> = () => {
             </TextStyled>
           </View>
 
-          <ButtonStyled
-            onPress={() => router.navigate(href as Href)}
-            variant="buttonPrimaryOutlined"
-            gradientBg={true}
-            text="Homepage"
-          />
+          <View
+            style={{ width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 }}
+          >
+            {showExtraButton && (
+              <ButtonStyled
+                onPress={() => router.navigate(extraButtonHref as Href)}
+                variant="buttonPrimaryOutlined"
+                gradientBg={true}
+                text={extraButtonText as string}
+              />
+            )}
+
+            <ButtonStyled
+              onPress={() => router.navigate(href as Href)}
+              variant="buttonPrimaryOutlined"
+              gradientBg={true}
+              text="Homepage"
+            />
+          </View>
         </View>
       </InnerCommonContainer>
     </ScreenWrapperContainer>

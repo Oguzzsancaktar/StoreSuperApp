@@ -1,5 +1,9 @@
+import { DismissKeyboardWrapper } from '@/components/containers';
 import SafeAreaContainer from '@/components/containers/SafeAreaContainer';
+import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
 import { SessionProvider } from '@/contexts/AuthContext';
+import { InputFocusProvider } from '@/contexts/InputFocusContext';
 import { ThemeProvider, useAppTheme } from '@/contexts/ThemeContext';
 import { store } from '@/store/store';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -9,6 +13,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { Provider } from 'react-redux';
+import ToastManager from 'toastify-react-native';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -54,7 +59,7 @@ function RootLayoutNav() {
   const segments = useSegments();
 
   useEffect(() => {
-    if (segments?.includes('+not-found')) {
+    if (segments?.includes('+not-found' as never)) {
       router.push('/(public)/welcome');
     }
   }, []);
@@ -62,11 +67,15 @@ function RootLayoutNav() {
   return (
     <Provider store={store}>
       <ThemeProvider>
-        <SessionProvider>
-          <SafeAreaContainer>
-            <Slot />
-          </SafeAreaContainer>
-        </SessionProvider>
+        <InputFocusProvider>
+          <DismissKeyboardWrapper>
+            <SessionProvider>
+              <SafeAreaContainer>
+                <Slot />
+              </SafeAreaContainer>
+            </SessionProvider>
+          </DismissKeyboardWrapper>
+        </InputFocusProvider>
       </ThemeProvider>
     </Provider>
   );

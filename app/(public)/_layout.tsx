@@ -1,6 +1,6 @@
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { useSession } from '@/contexts/AuthContext';
-import { Redirect, Stack } from 'expo-router';
+import { Redirect, router, Stack } from 'expo-router';
 
 export default function PublicLayout() {
   const { session } = useSession();

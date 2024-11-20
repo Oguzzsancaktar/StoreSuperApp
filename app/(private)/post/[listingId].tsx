@@ -1,11 +1,10 @@
 import { ButtonStyled } from '@/components/button';
 import CardPostCategory from '@/components/cards/CardPostCategory';
+import CardPostPrice from '@/components/cards/CardPostPrice';
 import CardSellerInfo from '@/components/cards/CardSellerInfo';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import ImageCover from '@/components/images/ImageCover';
-import { getIconWithProps } from '@/components/svg/icon';
-import IconBell from '@/components/svg/icon/IconBell';
 import IconLocation from '@/components/svg/icon/IconLocation';
 import IconSendMessage from '@/components/svg/icon/IconSendMessage';
 import IconUser from '@/components/svg/icon/IconUser';
@@ -14,6 +13,7 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import IUser from '@/interfaces/account/IUser';
+import IListingPrice from '@/interfaces/listing/IListingPrice';
 import { useGetListingItemDetailsQuery } from '@/services/listingServices';
 import { useLocalSearchParams } from 'expo-router';
 import { find } from 'lodash';
@@ -38,20 +38,29 @@ const ListingDetailPage = () => {
     )?.url;
   }, [listingItemDetailData]);
 
-  if (isLoading) {
-    return null;
+  if (isLoading || !listingItemDetailData) {
+    return <ScreenWrapperContainer>{null}</ScreenWrapperContainer>;
   }
 
   return (
     <ScreenWrapperContainer showGoBack={true}>
       <InnerCommonContainer>
         <ScrollView
-          contentContainerStyle={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp6 }}
+          nestedScrollEnabled
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{
+            flexGrow: 1,
+            gap: APP_STYLE_VALUES.SPACE_SIZES.sp6,
+          }}
         >
           <View
+            onStartShouldSetResponder={() => true} // @todo fix drag problem
             style={[
               commonStyles.flexStyles.colStart,
-              { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 },
+              {
+                width: '100%',
+                gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+              },
             ]}
           >
             <View style={[commonStyles.flexStyles.colStart, { width: '100%' }]}>
@@ -88,6 +97,13 @@ const ListingDetailPage = () => {
 
             <View style={{ width: '100%', height: 200 }}>
               <ImageCover url={coverImageUrl} />
+            </View>
+
+            <View style={{ width: '100%' }}>
+              <CardPostPrice
+                negotiable={listingItemDetailData?.negotiable}
+                price={listingItemDetailData?.price || ({} as IListingPrice)}
+              />
             </View>
 
             <View style={{ width: '100%' }}>

@@ -12,6 +12,7 @@ import FormInputComponents from './FormInputComponents';
 import validationUtils from '@/utils/validationUtils';
 
 export interface IProps {
+  submitKey: string;
   fields: Array<IInputProps>;
   defaultValues: Record<string, any>;
   onSubmit(values: Record<string, any>): void;
@@ -23,6 +24,7 @@ export interface IProps {
 }
 
 const FormStyled: React.FC<Readonly<IProps>> = ({
+  submitKey,
   fields,
   defaultValues,
   onSubmit,
@@ -148,7 +150,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
             disabled={isNextDisabled}
             onPress={handleSubmit(onSubmit)}
             variant="buttonPrimarySolid"
-            text={isLastStep ? 'Submit' : 'Next'}
+            text={isLastStep ? submitKey : 'Next'}
           />
         </View>
       </View>

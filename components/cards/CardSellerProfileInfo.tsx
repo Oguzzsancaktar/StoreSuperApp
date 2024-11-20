@@ -1,13 +1,10 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { View } from 'react-native';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import useThemedStyles from '@/hooks/useThemedStyles';
 import ImageCover from '../images/ImageCover';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
-import APP_ROUTES from '@/constants/APP_ROUTES';
-import CardNewestPostings from './CardNewestPostings';
 
 const CardSellerProfileInfo = () => {
   const commonStyles = useCommonStyles();

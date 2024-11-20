@@ -19,6 +19,7 @@ export interface IFormWizardStepProps {
 }
 
 export interface IFormWizardProps {
+  submitKey?: string;
   steps: IFormWizardStepProps[];
   isNextDisabled?: boolean;
   defaultValues: Record<string, any>;
@@ -29,6 +30,7 @@ export interface IFormWizardProps {
 }
 
 const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
+  submitKey = 'Submit',
   isNextDisabled = false,
   steps,
   defaultValues,
@@ -145,6 +147,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
         {activeStep?.customStep && activeStep.customStep}
 
         <FormStyled
+          submitKey={submitKey}
           isLoading={isLoading}
           isNextDisabled={isNextDisabled}
           onBack={handleBackStep}

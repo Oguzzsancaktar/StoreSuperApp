@@ -11,6 +11,7 @@ import { Href, Link, Redirect, router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { getIconWithProps } from '@/components/svg/icon';
 import { useSession } from '@/contexts/AuthContext';
+import { toastError } from '@/utils/toastUtils';
 
 const WelcomeScreen = () => {
   const commonStyles = useCommonStyles();
@@ -79,7 +80,9 @@ const WelcomeScreen = () => {
 
           <View style={[commonStyles.spacingStyles.g3]}>
             <ButtonStyled
-              onPress={() => handleSignButtonClick('LOGIN')}
+              onPress={() => {
+                handleSignButtonClick('LOGIN');
+              }}
               text={'Login'}
               variant="buttonPrimarySolid"
             />

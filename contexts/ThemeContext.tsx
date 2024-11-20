@@ -12,6 +12,9 @@ import APP_THEMES from '@/constants/APP_THEMES';
 import { IAppTheme } from '@/interfaces/theme';
 import APP_STORAGE_KEYS from '@/constants/APP_STORAGE_KEYS';
 import { useStorageState } from '@/hooks/useStorageState';
+import ToastManager from 'toastify-react-native';
+import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
+import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 interface ThemeContextType {
   theme: IAppTheme;
@@ -60,6 +63,22 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
         isDark,
       }}
     >
+      {/* @todo  seperate the provider for toasts. */}
+      <ToastManager
+        animationIn={'slideInLeft'}
+        animationOut={'slideOutRight'}
+        textStyle={{
+          marginBottom: -5,
+          fontFamily: 'BRShapeMedium',
+          fontSize: APP_TYPOGRAPHY.fontSizes.md,
+        }}
+        theme={session ?? 'light'}
+        height={APP_STYLE_VALUES.WH_SIZES.md}
+        style={{ paddingVertical: 0 }}
+        showProgressBar={false}
+        showCloseIcon={false}
+        duration={2000}
+      />
       {children}
     </ThemeContext.Provider>
   );

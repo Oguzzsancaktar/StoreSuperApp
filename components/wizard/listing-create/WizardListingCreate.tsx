@@ -29,8 +29,10 @@ const WizardListingCreate = () => {
   const [values, setValues] = useState<Record<string, any>>({});
 
   const navigation = useNavigation();
-  const [createListing, { isLoading: createListingIsLoading }] =
-    useCreateListingMutation();
+  const [
+    createListing,
+    { data: createdListingData, isLoading: createListingIsLoading },
+  ] = useCreateListingMutation();
   const [uploadListingMedia, { isLoading: uploadListingMediaIsLoading }] =
     useUploadListingMediaMutation();
 
@@ -480,7 +482,8 @@ const WizardListingCreate = () => {
         listingCreateDTO.media = uploadedMediaUrls;
         listingCreateDTO.coverImage = uploadedMediaUrls[0];
 
-        const result = await createListing(listingCreateDTO).unwrap();
+        const createdListingId = await createListing(listingCreateDTO).unwrap();
+
         router.push({
           // @todo fix find best practice for constant all routes
           pathname: APP_ROUTES.DRAWER.SUCCESS as any,
@@ -488,6 +491,9 @@ const WizardListingCreate = () => {
             title: 'Listing Created',
             description: 'New Listing Created Successfully',
             href: APP_ROUTES.TABS.TIMELINE as string,
+            showExtraButton: 'true',
+            extraButtonText: 'Go to listing',
+            extraButtonHref: ('/(private)/post/' + createdListingId) as string,
           },
         });
       } catch (error) {

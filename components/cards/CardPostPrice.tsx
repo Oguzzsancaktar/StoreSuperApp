@@ -4,25 +4,20 @@ import { View } from 'react-native';
 import ImageIconCircle from '../images/ImageIconCircle';
 import { TextStyled } from '../typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconWorld from '../svg/icon/IconWorld';
-import IListingCategory from '@/interfaces/listing/IListingCategory';
-import { useMemo } from 'react';
-import { find, map } from 'lodash';
-import ImageCover from '../images/ImageCover';
-import { SvgUri } from 'react-native-svg';
+import IListingPrice from '@/interfaces/listing/IListingPrice';
+import IconTag from '../svg/icon/IconTag';
+import { useAppTheme } from '@/contexts/ThemeContext';
 
 interface IProps {
-  categories: IListingCategory[];
+  negotiable: boolean;
+  price: IListingPrice;
 }
-const CardPostCategory: React.FC<IProps> = ({ categories }) => {
+const CardPostPrice: React.FC<IProps> = ({ price, negotiable }) => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
+  const { theme } = useAppTheme();
 
-  console.log('categories', categories);
-
-  const parentCategory = useMemo(() => {
-    return find(categories, (c) => c.parentCategoryId === null);
-  }, [categories]);
+  console.log('price', price);
 
   return (
     <View
@@ -44,24 +39,19 @@ const CardPostCategory: React.FC<IProps> = ({ categories }) => {
         ]}
       >
         <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
-          <ImageIconCircle icon={<SvgUri uri={parentCategory?.icon || ''} />} />
+          <ImageIconCircle icon={<IconTag color={theme.grayScale900} />} />
         </View>
 
         <View style={commonStyles.flexStyles.colStart}>
           <TextStyled fontSize="h4" fontWeight="bold">
-            {parentCategory?.name || ''}
+            {price?.amount + ' ' + (price?.currency as string) || ''}
           </TextStyled>
           <TextStyled
             fontSize="sm"
             fontWeight="medium"
             customColor="grayScale500"
           >
-            {map(categories, (cat) => {
-              if (cat.parentCategoryId) {
-                return cat.name + ' ';
-              }
-              return '';
-            })}
+            {negotiable ? 'Negotiable' : 'Not Negotiable'}
           </TextStyled>
         </View>
       </View>
@@ -69,4 +59,4 @@ const CardPostCategory: React.FC<IProps> = ({ categories }) => {
   );
 };
 
-export default CardPostCategory;
+export default CardPostPrice;

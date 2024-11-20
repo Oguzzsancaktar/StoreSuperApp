@@ -55,7 +55,7 @@ export default function TabLayout() {
             headerShown: false, // useClientOnlyValue(false, false),
 
             tabBarStyle: {
-              backgroundColor: theme.grayScale100,
+              backgroundColor: theme.grayScale50,
               height: APP_STYLE_VALUES.WH_SIZES.xl,
               width: width - 2 * APP_STYLE_VALUES.SPACE_SIZES.sp4,
               display: 'flex',
