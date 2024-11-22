@@ -18,6 +18,27 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
 
+  const config = {
+    issuer: 'https://yourtenant.b2clogin.com/yourtenant.onmicrosoft.com/v2.0/',
+    clientId: 'your-client-id',
+    redirectUrl: 'your-redirect-url',
+    scopes: ['openid', 'profile', 'email'],
+    additionalParameters: {
+      prompt: 'login',
+    },
+  };
+
+  const signIn = async () => {
+    try {
+      // const result = await authorize(config);
+      // console.log('DD App Authorization result:', result);
+      // Handle authentication success
+    } catch (error) {
+      console.error('Authorization error:', error);
+      // Handle authentication failure
+    }
+  };
+
   return (
     <View style={{ marginVertical: APP_STYLE_VALUES.SPACE_SIZES.sp5 }}>
       <View
@@ -57,16 +78,18 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           },
         ]}
       >
-        <ImageIconCircle
-          gradientBg={true}
-          radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
-          borderColor="primary"
-          bgColor="appBackground"
-          size={APP_STYLE_VALUES.WH_SIZES.lg}
-          icon={<IconSocialGoogle />}
-        />
+        <Pressable onPress={signIn}>
+          <ImageIconCircle
+            gradientBg={true}
+            radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
+            borderColor="primary"
+            bgColor="appBackground"
+            size={APP_STYLE_VALUES.WH_SIZES.lg}
+            icon={<IconSocialGoogle />}
+          />
+        </Pressable>
 
-        <ImageIconCircle
+        {/* <ImageIconCircle
           gradientBg={true}
           radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
           borderColor="primary"
@@ -82,7 +105,7 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           bgColor="appBackground"
           size={APP_STYLE_VALUES.WH_SIZES.lg}
           icon={<IconSocialApple color={theme.grayScale900} />}
-        />
+        /> */}
       </View>
 
       <View
