@@ -44,19 +44,36 @@ const loginAccount = (builder: IBuilder) => {
 }
 
 
+const loginWithGoogle = (builder: IBuilder) => {
+  return builder.mutation<ILoginResult, string>({
+    query(token) {
+      return {
+        url: `/account/login/google`,
+        method: 'POST',
+        data: {
+          accessToken: token,
+        }
+      }
+    },
+    invalidatesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
 const accountApiSlice = createApi({
   reducerPath: ACCOUNT_API_REDUCER_PATH,
   tagTypes: [ACCOUNT_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     registerAccount: registerAccount(builder),
-    loginAccount: loginAccount(builder)
+    loginAccount: loginAccount(builder),
+    loginWithGoogle: loginWithGoogle(builder)
   }),
 })
 
-const { useRegisterAccountMutation, useLoginAccountMutation } = accountApiSlice
+const { useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation } = accountApiSlice
 
-export { accountApiSlice, useRegisterAccountMutation, useLoginAccountMutation }
+export { accountApiSlice, useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation }
 
 
 

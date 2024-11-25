@@ -10,33 +10,83 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { TextStyled } from '@/components/typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
 
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import {
+  useLoginWithGoogleMutation,
+  useRegisterAccountMutation,
+} from '@/services/accountServices';
+import IRegisterDTO from '@/interfaces/account/IRegisterDTO';
+import { useSession } from '@/contexts/AuthContext';
+import { toastError, toastWarning } from '@/utils/toastUtils';
+
 interface IProps {
   authType: 'LOGIN' | 'REGISTER';
 }
 
+type ISocialLoginTypes = 'FACEBOOK' | 'APPLE' | 'GOOGLE';
+
 const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
+  const { signIn } = useSession();
 
-  const config = {
-    issuer: 'https://yourtenant.b2clogin.com/yourtenant.onmicrosoft.com/v2.0/',
-    clientId: 'your-client-id',
-    redirectUrl: 'your-redirect-url',
-    scopes: ['openid', 'profile', 'email'],
-    additionalParameters: {
-      prompt: 'login',
-    },
-  };
+  const [createAccount, { isLoading: registerIsLoading }] =
+    useRegisterAccountMutation();
 
-  const signIn = async () => {
-    try {
-      console.log('sign clcik');
-      // const result = await authorize(config);
-      // console.log('DD App Authorization result:', result);
-      // Handle authentication success
-    } catch (error) {
-      console.error('Authorization error:', error);
-      // Handle authentication failure
+  const [loginWithGoogle, { isLoading: loginWithGoogleIsLoading }] =
+    useLoginWithGoogleMutation();
+
+  const signInSocial = async (type: ISocialLoginTypes) => {
+    switch (type) {
+      case 'GOOGLE':
+        GoogleSignin.configure({
+          // androidClientId: 'ADD_YOUR_ANDROID_CLIENT_ID_HERE',
+          // @todo get it from env for secure
+          iosClientId:
+            '877906952522-4t2qllnb7doo0vg09fat26ha13t8lfsq.apps.googleusercontent.com',
+        });
+        GoogleSignin.hasPlayServices()
+          .then((hasPlayService) => {
+            if (hasPlayService) {
+              GoogleSignin.signIn()
+                .then(async (userInfo) => {
+                  const userInformation = userInfo?.data?.user;
+
+                  if (userInformation) {
+                    const loginWithGoogleResult = await loginWithGoogle(
+                      userInfo?.data?.idToken || ''
+                    ).unwrap();
+
+                    if (loginWithGoogleResult) {
+                      signIn(loginWithGoogleResult);
+                    }
+                  }
+                })
+                .catch((e) => {
+                  toastError(e?.data?.message || JSON.stringify(e));
+                  console.log('ERROR IS: ' + JSON.stringify(e));
+                });
+            }
+          })
+          .catch((e) => {
+            toastError(e?.data?.message || JSON.stringify(e));
+            console.log('ERROR IS: ' + JSON.stringify(e));
+          });
+        break;
+
+      case 'APPLE':
+        toastWarning('This option will be available soon');
+        break;
+
+      case 'FACEBOOK':
+        toastWarning('This option will be available soon');
+        break;
+
+      default:
+        break;
     }
   };
 
@@ -79,7 +129,7 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           },
         ]}
       >
-        <TouchableOpacity onPress={signIn}>
+        <TouchableOpacity onPress={() => signInSocial('GOOGLE')}>
           <ImageIconCircle
             gradientBg={true}
             radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
@@ -90,23 +140,26 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           />
         </TouchableOpacity>
 
-        {/* <ImageIconCircle
-          gradientBg={true}
-          radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
-          borderColor="primary"
-          bgColor="appBackground"
-          size={APP_STYLE_VALUES.WH_SIZES.lg}
-          icon={<IconSocialFacebook />}
-        />
-
-        <ImageIconCircle
-          gradientBg={true}
-          radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
-          borderColor="primary"
-          bgColor="appBackground"
-          size={APP_STYLE_VALUES.WH_SIZES.lg}
-          icon={<IconSocialApple color={theme.grayScale900} />}
-        /> */}
+        <TouchableOpacity onPress={() => signInSocial('FACEBOOK')}>
+          <ImageIconCircle
+            gradientBg={true}
+            radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
+            borderColor="primary"
+            bgColor="appBackground"
+            size={APP_STYLE_VALUES.WH_SIZES.lg}
+            icon={<IconSocialFacebook />}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => signInSocial('APPLE')}>
+          <ImageIconCircle
+            gradientBg={true}
+            radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
+            borderColor="primary"
+            bgColor="appBackground"
+            size={APP_STYLE_VALUES.WH_SIZES.lg}
+            icon={<IconSocialApple color={theme.grayScale900} />}
+          />
+        </TouchableOpacity>
       </View>
 
       <View
