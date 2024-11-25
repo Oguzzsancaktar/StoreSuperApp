@@ -15,6 +15,7 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import useAppImages from '@/hooks/useAppImages';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import useThemedStyles from '@/hooks/useThemedStyles';
+import { useGetCurrentUserInformationQuery } from '@/services/accountServices';
 import { router, usePathname } from 'expo-router';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
 
@@ -29,8 +30,13 @@ const ProfileScreen = () => {
 
   return (
     <ScreenWrapperContainer>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        nestedScrollEnabled
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
         <View
+          onStartShouldSetResponder={() => true} // @todo fix drag problem
           style={[
             themedStyles.cardStyles.default,
             {
@@ -108,7 +114,10 @@ const ProfileScreen = () => {
           </InnerCommonContainer>
         </View>
         <InnerCommonContainer>
-          <View style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
+          <View
+            onStartShouldSetResponder={() => true} // @todo fix drag problem
+            style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}
+          >
             <CardSellerProfileInfo />
 
             <View style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>

@@ -21,6 +21,7 @@ import APP_COMMONS from '@/constants/APP_COMMONS';
 import { useGetListingCategoriesQuery } from '@/services/listingFilterServices';
 import { useListingFilter } from '@/contexts/ListingFilterContext';
 import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
+import InputSelectStyled from '../input/InputSelectStyled';
 
 interface IProps {
   variant?: 'transparent' | 'primary';
@@ -45,43 +46,17 @@ const FilterStuffType: React.FC<IProps> = ({
   return (
     <View
       style={[
-        variant === 'transparent'
-          ? themedStyles.buttonStyles.badgeOutlined
-          : themedStyles.buttonStyles.buttonPrimarySolid,
         {
           paddingHorizontal: 0,
           width: '100%',
         },
       ]}
     >
-      <Dropdown
-        style={{
-          height: '100%',
-          width: '100%',
-          paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp3,
-        }}
+      <InputSelectStyled
+        handleSelect={handleSelect}
+        options={options}
+        variant="transparent"
         value={value ?? options[0]}
-        data={options}
-        labelField="label"
-        valueField="value"
-        iconColor={variant === 'transparent' ? theme.primary : theme.white}
-        containerStyle={[
-          themedStyles.cardStyles.default,
-          {
-            padding: 0,
-            paddingVertical: 0,
-            backgroundColor: theme.grayScale100,
-            width: APP_STYLE_VALUES.WH_SIZES.xl3,
-          },
-        ]}
-        activeColor={theme.grayScale300}
-        itemTextStyle={{ color: theme.grayScale900 }}
-        fontFamily="BRShapeMedium"
-        selectedTextStyle={{
-          fontSize: APP_TYPOGRAPHY.fontSizes.h6,
-          color: variant === 'transparent' ? theme.primary : theme.white,
-        }}
-        onChange={handleSelect}
       />
     </View>
   );

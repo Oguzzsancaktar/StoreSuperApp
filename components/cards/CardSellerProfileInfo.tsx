@@ -5,11 +5,16 @@ import ImageCover from '../images/ImageCover';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
+import { useGetCurrentUserInformationQuery } from '@/services/accountServices';
 
 const CardSellerProfileInfo = () => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
+
+  const { data: currentUserData } = useGetCurrentUserInformationQuery();
+
+  console.log('currentUserData', currentUserData);
   return (
     <View
       style={[
@@ -51,67 +56,75 @@ const CardSellerProfileInfo = () => {
         </View>
       </View>
 
-      <View
-        style={[
-          commonStyles.flexStyles.colCenter,
-          {
-            marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp4,
-          },
-        ]}
-      >
-        <TextStyled fontSize="h6" fontWeight="semibold">
-          Seller Name
+      {currentUserData ? (
+        <>
+          <View
+            style={[
+              commonStyles.flexStyles.colCenter,
+              {
+                marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp4,
+              },
+            ]}
+          >
+            <TextStyled fontSize="h6" fontWeight="semibold">
+              Seller Name
+            </TextStyled>
+            <View style={[{ marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp1 }]}>
+              <TextStyled fontSize="md" fontWeight="medium">
+                @sellerUserName
+              </TextStyled>
+            </View>
+          </View>
+
+          <View
+            style={[
+              commonStyles.flexStyles.rowBetween,
+              {
+                gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+                marginVertical: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+              },
+            ]}
+          >
+            <View style={[commonStyles.flexStyles.colCenter]}>
+              <TextStyled fontSize="sm" fontWeight="semibold">
+                Post Count
+              </TextStyled>
+              <TextStyled fontSize="xs" fontWeight="medium">
+                120
+              </TextStyled>
+            </View>
+
+            <View style={[commonStyles.flexStyles.colCenter]}>
+              <TextStyled fontSize="sm" fontWeight="semibold">
+                Register Date
+              </TextStyled>
+              <TextStyled fontSize="xs" fontWeight="medium">
+                13 Aug 2023
+              </TextStyled>
+            </View>
+
+            <View style={[commonStyles.flexStyles.colCenter]}>
+              <TextStyled fontSize="sm" fontWeight="semibold">
+                Seller Type
+              </TextStyled>
+              <TextStyled fontSize="xs" fontWeight="medium">
+                Business
+              </TextStyled>
+            </View>
+          </View>
+          <View style={[commonStyles.flexStyles.colCenter]}>
+            <TextStyled fontSize="sm" fontWeight="medium">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
+              expedita officia repellat! Placeat omnis nobis, vel dolorum fugiat
+              perspiciatis eius.
+            </TextStyled>
+          </View>
+        </>
+      ) : (
+        <TextStyled fontSize="h3" fontWeight="bold">
+          Login For Information
         </TextStyled>
-        <View style={[{ marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp1 }]}>
-          <TextStyled fontSize="md" fontWeight="medium">
-            @sellerUserName
-          </TextStyled>
-        </View>
-      </View>
-
-      <View
-        style={[
-          commonStyles.flexStyles.rowBetween,
-          {
-            gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-            marginVertical: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-          },
-        ]}
-      >
-        <View style={[commonStyles.flexStyles.colCenter]}>
-          <TextStyled fontSize="sm" fontWeight="semibold">
-            Post Count
-          </TextStyled>
-          <TextStyled fontSize="xs" fontWeight="medium">
-            120
-          </TextStyled>
-        </View>
-
-        <View style={[commonStyles.flexStyles.colCenter]}>
-          <TextStyled fontSize="sm" fontWeight="semibold">
-            Register Date
-          </TextStyled>
-          <TextStyled fontSize="xs" fontWeight="medium">
-            13 Aug 2023
-          </TextStyled>
-        </View>
-
-        <View style={[commonStyles.flexStyles.colCenter]}>
-          <TextStyled fontSize="sm" fontWeight="semibold">
-            Seller Type
-          </TextStyled>
-          <TextStyled fontSize="xs" fontWeight="medium">
-            Business
-          </TextStyled>
-        </View>
-      </View>
-      <View style={[commonStyles.flexStyles.colCenter]}>
-        <TextStyled fontSize="sm" fontWeight="medium">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-          expedita officia repellat! Placeat omnis nobis, vel dolorum fugiat
-          perspiciatis eius.
-        </TextStyled>
-      </View>
+      )}
     </View>
   );
 };

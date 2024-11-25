@@ -5,6 +5,7 @@ import { axiosBaseQuery, IAxiosBaseQueryFn } from '../config/axiosBaseQuery';
 import { createApi, EndpointBuilder } from '@reduxjs/toolkit/query/react'
 import ILoginDTO from '@/interfaces/account/ILoginDTO';
 import ILoginResult from '@/interfaces/account/ILoginResult';
+import IUser from '@/interfaces/account/IUser';
 
 
 const ACCOUNT_API_REDUCER_PATH = 'accountAPI'
@@ -60,6 +61,20 @@ const loginWithGoogle = (builder: IBuilder) => {
 }
 
 
+// User
+const getCurrentUserInformation = (builder: IBuilder) => {
+  return builder.query<IUser, void>({
+    query() {
+      return {
+        url: `/users/currentUser`,
+        method: 'GET',
+      }
+    },
+    providesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
 const accountApiSlice = createApi({
   reducerPath: ACCOUNT_API_REDUCER_PATH,
   tagTypes: [ACCOUNT_API_TAG],
@@ -67,13 +82,14 @@ const accountApiSlice = createApi({
   endpoints: (builder) => ({
     registerAccount: registerAccount(builder),
     loginAccount: loginAccount(builder),
-    loginWithGoogle: loginWithGoogle(builder)
+    loginWithGoogle: loginWithGoogle(builder),
+    getCurrentUserInformation: getCurrentUserInformation(builder)
   }),
 })
 
-const { useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation } = accountApiSlice
+const { useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery } = accountApiSlice
 
-export { accountApiSlice, useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation }
+export { accountApiSlice, useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery }
 
 
 
