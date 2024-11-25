@@ -1,4 +1,4 @@
-import { View, Pressable } from 'react-native';
+import { View, Pressable, TouchableOpacity } from 'react-native';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import IconSocialGoogle from '@/components/svg/icon/IconSocialGoogle';
 import IconSocialFacebook from '@/components/svg/icon/IconSocialFacebook';
@@ -30,6 +30,7 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
 
   const signIn = async () => {
     try {
+      console.log('sign clcik');
       // const result = await authorize(config);
       // console.log('DD App Authorization result:', result);
       // Handle authentication success
@@ -78,7 +79,7 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           },
         ]}
       >
-        <Pressable onPress={signIn}>
+        <TouchableOpacity onPress={signIn}>
           <ImageIconCircle
             gradientBg={true}
             radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
@@ -87,7 +88,7 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
             size={APP_STYLE_VALUES.WH_SIZES.lg}
             icon={<IconSocialGoogle />}
           />
-        </Pressable>
+        </TouchableOpacity>
 
         {/* <ImageIconCircle
           gradientBg={true}
