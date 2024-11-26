@@ -5,6 +5,7 @@ import CardSellerInfo from '@/components/cards/CardSellerInfo';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import ImageCover from '@/components/images/ImageCover';
+import ImageIconCircle from '@/components/images/ImageIconCircle';
 import IconLocation from '@/components/svg/icon/IconLocation';
 import IconSendMessage from '@/components/svg/icon/IconSendMessage';
 import IconUser from '@/components/svg/icon/IconUser';
@@ -142,11 +143,14 @@ const ListingDetailPage = () => {
             },
           ]}
         >
-          <View>
-            <ButtonStyled variant="buttonPrimaryOutlined">
-              <IconUser color={theme.grayScale500} />
-            </ButtonStyled>
-          </View>
+          <ImageIconCircle
+            gradientBg={true}
+            radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
+            borderColor="primary"
+            bgColor="appBackground"
+            icon={<IconUser color={theme.grayScale900} />}
+            size={APP_STYLE_VALUES.WH_SIZES.lg}
+          />
 
           {/* @todo add it to button compoennt for icon */}
 

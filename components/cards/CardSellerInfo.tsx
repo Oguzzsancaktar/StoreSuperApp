@@ -44,7 +44,9 @@ const CardSellerInfo: React.FC<IProps> = ({ user = {} as IUser }) => {
             Seller
           </TextStyled>
           <TextStyled fontSize="h4" fontWeight="bold">
-            {user?.firstName + ' ' + user?.lastName}
+            {user?.firstName && user?.lastName
+              ? user?.firstName + ' ' + user?.lastName
+              : ''}
           </TextStyled>
           <TextStyled
             fontSize="sm"
@@ -89,7 +91,7 @@ const CardSellerInfo: React.FC<IProps> = ({ user = {} as IUser }) => {
             Contact Information
           </TextStyled>
           <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
-            {user?.phoneNumber}
+            {user?.phoneNumber || user.email}
           </TextStyled>
         </View>
       </View>

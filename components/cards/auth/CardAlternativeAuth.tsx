@@ -129,37 +129,35 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           },
         ]}
       >
-        <TouchableOpacity onPress={() => signInSocial('GOOGLE')}>
-          <ImageIconCircle
-            gradientBg={true}
-            radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
-            borderColor="primary"
-            bgColor="appBackground"
-            size={APP_STYLE_VALUES.WH_SIZES.lg}
-            icon={<IconSocialGoogle />}
-          />
-        </TouchableOpacity>
+        <ImageIconCircle
+          onPress={() => signInSocial('GOOGLE')}
+          gradientBg={true}
+          radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
+          borderColor="primary"
+          bgColor="appBackground"
+          size={APP_STYLE_VALUES.WH_SIZES.lg}
+          icon={<IconSocialGoogle />}
+        />
 
-        <TouchableOpacity onPress={() => signInSocial('FACEBOOK')}>
-          <ImageIconCircle
-            gradientBg={true}
-            radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
-            borderColor="primary"
-            bgColor="appBackground"
-            size={APP_STYLE_VALUES.WH_SIZES.lg}
-            icon={<IconSocialFacebook />}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => signInSocial('APPLE')}>
-          <ImageIconCircle
-            gradientBg={true}
-            radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
-            borderColor="primary"
-            bgColor="appBackground"
-            size={APP_STYLE_VALUES.WH_SIZES.lg}
-            icon={<IconSocialApple color={theme.grayScale900} />}
-          />
-        </TouchableOpacity>
+        <ImageIconCircle
+          onPress={() => signInSocial('FACEBOOK')}
+          gradientBg={true}
+          radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
+          borderColor="primary"
+          bgColor="appBackground"
+          size={APP_STYLE_VALUES.WH_SIZES.lg}
+          icon={<IconSocialFacebook />}
+        />
+
+        <ImageIconCircle
+          onPress={() => signInSocial('APPLE')}
+          gradientBg={true}
+          radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
+          borderColor="primary"
+          bgColor="appBackground"
+          size={APP_STYLE_VALUES.WH_SIZES.lg}
+          icon={<IconSocialApple color={theme.grayScale900} />}
+        />
       </View>
 
       <View
