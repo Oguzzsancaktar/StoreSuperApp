@@ -24,34 +24,31 @@ const CardListingCategories: React.FC<IProps> = ({
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
 
-  console.log('38374e8d-7944-45d7-5d36-08dbdea8608d', selectedCategory);
   return (
-    <View>
-      <View
-        style={[
-          commonStyles.flexStyles.rowWrap,
-          { flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
-        ]}
-      >
-        {map(listingCategoriesData, (item, index) => {
-          return (
-            <View
-              key={index}
-              style={{
-                flex: 1,
-                height: APP_STYLE_VALUES.WH_SIZES.xl4,
-                minWidth: APP_STYLE_VALUES.WH_SIZES.xl3,
-              }}
-            >
-              <CardListingCategoryItem
-                onPress={handleSelectCategory}
-                isSelected={selectedCategory === item.id}
-                category={item}
-              />
-            </View>
-          );
-        })}
-      </View>
+    <View
+      style={[
+        commonStyles.flexStyles.rowWrap,
+        { flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+      ]}
+    >
+      {map(listingCategoriesData, (item, index) => {
+        return (
+          <View
+            key={index}
+            style={{
+              flex: 1,
+              height: APP_STYLE_VALUES.WH_SIZES.xl4,
+              minWidth: APP_STYLE_VALUES.WH_SIZES.xl3,
+            }}
+          >
+            <CardListingCategoryItem
+              onPress={handleSelectCategory}
+              isSelected={selectedCategory === item.id}
+              category={item}
+            />
+          </View>
+        );
+      })}
     </View>
   );
 };

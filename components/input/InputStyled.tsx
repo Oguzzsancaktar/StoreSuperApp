@@ -79,7 +79,7 @@ const InputStyled: React.FC<IProps> = ({
   }, [registerInput, unregisterInput]);
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       {label && (
         <View
           style={{
@@ -120,8 +120,8 @@ const InputStyled: React.FC<IProps> = ({
           {...props}
           ref={inputRef}
           style={[
-            themedStyles.inputStyles.default,
             {
+              color: theme.grayScale900,
               borderWidth: 0,
               padding: !leftIconName
                 ? themedStyles.inputStyles.default.padding

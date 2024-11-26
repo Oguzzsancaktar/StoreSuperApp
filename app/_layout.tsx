@@ -3,6 +3,7 @@ import SafeAreaContainer from '@/components/containers/SafeAreaContainer';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
 import { SessionProvider } from '@/contexts/AuthContext';
+import { DrawerProvider } from '@/contexts/DrawerContext';
 import { InputFocusProvider } from '@/contexts/InputFocusContext';
 import { ThemeProvider, useAppTheme } from '@/contexts/ThemeContext';
 import { store } from '@/store/store';
@@ -70,9 +71,11 @@ function RootLayoutNav() {
         <InputFocusProvider>
           <DismissKeyboardWrapper>
             <SessionProvider>
-              <SafeAreaContainer>
-                <Slot />
-              </SafeAreaContainer>
+              <DrawerProvider>
+                <SafeAreaContainer>
+                  <Slot />
+                </SafeAreaContainer>
+              </DrawerProvider>
             </SessionProvider>
           </DismissKeyboardWrapper>
         </InputFocusProvider>

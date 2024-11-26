@@ -4,7 +4,7 @@ enum EListingOptionComponentType {
   "checkbox" = 3,
   'password',
   "select" = 5,
-  "multiple-checkbox" = 6,
+  "checklist" = 6,
   "textarea",
   "upload",
   "switch",

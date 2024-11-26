@@ -2,12 +2,16 @@ import CardListingCategories from '@/components/cards/listing/CardListingCategor
 import CardListingItems from '@/components/cards/listing/CardListingItems';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
+import DrawerGlobal from '@/components/drawer/DrawerGlobal';
+import DrawerFilterOptions from '@/components/drawer/DrawerGlobal';
+import FilterListingOptionsByCategory from '@/components/form/FormListingFilter';
 import { TextStyled } from '@/components/typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import {
   ListingFilterProvider,
   useListingFilter,
 } from '@/contexts/ListingFilterContext';
+import useCommonStyles from '@/hooks/useCommonStyles';
 import IListingCategory from '@/interfaces/listing/IListingCategory';
 import { useMemo, useState } from 'react';
 import { View } from 'react-native';
@@ -48,8 +52,10 @@ const PostScreenActiveComponent = () => {
 };
 
 const PostListScreen = () => {
+  const commonStyles = useCommonStyles();
   return (
     <ScreenWrapperContainer>
+      <DrawerGlobal />
       <PostScreenActiveComponent />
     </ScreenWrapperContainer>
   );

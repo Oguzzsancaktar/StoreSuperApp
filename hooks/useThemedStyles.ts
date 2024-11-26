@@ -104,6 +104,7 @@ const useThemedStyles = () => {
       height: WH_SIZES.lg,
       borderRadius: RADIUS_SIZES.lg,
       padding: SPACE_SIZES.sp4,
+      backgroundColor: theme.appBackground,
       color: theme.grayScale900,
       ...borderStyles.default
     },

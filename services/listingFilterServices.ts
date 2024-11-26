@@ -10,6 +10,7 @@ import ICountry from '@/interfaces/common/address/ICountry';
 import ICity from '@/interfaces/common/address/ICity';
 import IListingCategoryOption from '@/interfaces/listing/IListingCategoryOption';
 import IDistrict from '@/interfaces/common/address/IDistrict';
+import IListingFilterOption from '@/interfaces/listing/IListingFilterOption';
 
 const LISTING_FILTER_API_REDUCER_PATH = 'listingFilterAPI'
 const LISTING_FILTER_API_TAG = "listingFilterTag"
@@ -112,20 +113,19 @@ const getMostSearchedKeys = (builder: IBuilder) => {
 
 
 
-
-
-const createFavorite = (builder: IBuilder) => {
-  return builder.mutation<unknown, any['kitchenId']>({
-    query(kitchenId) {
+const getListingFilters = (builder: IBuilder) => {
+  return builder.query<IListingFilterOption[], IListingCategory["id"]>({
+    query(categoryId) {
       return {
-        url: `/v1/favorites/${kitchenId}/add`,
-        method: 'POST',
-        data: { kitchenId },
+        url: `/categories/${categoryId}/filters`,
+        method: 'GET',
+
       }
     },
-    invalidatesTags: [LISTING_FILTER_API_TAG],
+    providesTags: [LISTING_FILTER_API_TAG],
   })
 }
+
 
 
 const listingFilterApiSlice = createApi({
@@ -139,8 +139,8 @@ const listingFilterApiSlice = createApi({
     getListingCategories: getListingCategories(builder),
     getMostSearchedKeys: getMostSearchedKeys(builder),
     getListingCategorySubs: getListingCategorySubs(builder),
-    getListingCategoryOptions: getListingCategoryOptions(builder)
-
+    getListingCategoryOptions: getListingCategoryOptions(builder),
+    getListingFilters: getListingFilters(builder)
   }),
 })
 
@@ -151,7 +151,8 @@ const {
   useGetListingCategoriesQuery,
   useGetMostSearchedKeysQuery,
   useGetListingCategorySubsQuery,
-  useGetListingCategoryOptionsQuery
+  useGetListingCategoryOptionsQuery,
+  useGetListingFiltersQuery
 } = listingFilterApiSlice
 
 export {
@@ -162,7 +163,8 @@ export {
   useGetListingCategoriesQuery,
   useGetMostSearchedKeysQuery,
   useGetListingCategorySubsQuery,
-  useGetListingCategoryOptionsQuery
+  useGetListingCategoryOptionsQuery,
+  useGetListingFiltersQuery
 }
 
 

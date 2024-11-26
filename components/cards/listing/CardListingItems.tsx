@@ -1,7 +1,7 @@
 import { TextStyled } from '@/components/typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import CardPostItem from '../CardPostItem';
 import { useGetListingItemsQuery } from '@/services/listingServices';
 import { find, map } from 'lodash';
@@ -13,10 +13,15 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import { useMemo, useState } from 'react';
 import { useGetListingCategoriesQuery } from '@/services/listingFilterServices';
 import ISelectOption from '@/interfaces/theme/ISelectOption';
+import IconFilter from '@/components/svg/icon/IconFilter';
+import ImageIconCircle from '@/components/images/ImageIconCircle';
+import { useDrawerState } from '@/contexts/DrawerContext';
 
 const CardListingItems = () => {
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
+
+  const { toggleDrawer } = useDrawerState();
 
   const { selectedCategory, setSelectedCategory } = useListingFilter();
 
@@ -38,6 +43,10 @@ const CardListingItems = () => {
     });
   }, [listingCategoriesData]);
 
+  const handleFilterClick = () => {
+    toggleDrawer();
+  };
+
   return (
     <View style={{ height: '100%' }}>
       <View
@@ -50,6 +59,16 @@ const CardListingItems = () => {
           },
         ]}
       >
+        <ImageIconCircle
+          onPress={handleFilterClick}
+          gradientBg={true}
+          radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
+          borderColor="primary"
+          bgColor="appBackground"
+          size={APP_STYLE_VALUES.WH_SIZES.lg}
+          icon={<IconFilter color={theme.grayScale900} />}
+        />
+
         <View style={{ flex: 1 }}>
           <FilterSearchbar handleMostSearched={setShowMostSearched} />
         </View>

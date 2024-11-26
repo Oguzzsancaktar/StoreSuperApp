@@ -10,6 +10,8 @@ import { UseFormReturn } from 'react-hook-form';
 import InputCheckboxMultipleStyled from '../input/InputCheckboxMultipleStyled';
 import InputSelectDistrict from '../input/InputSelectDistrict';
 import InputSwitchStyled from '../input/InputSwitchStyled';
+import InputMinMaxStyled from '../input/InputMinMaxStyled';
+import InputRangeStyled from '../input/InputRangeStyled';
 
 interface IProps extends Omit<IInputProps, 'required'> {
   onChange(...event: any[]): void;
@@ -49,7 +51,29 @@ const FormInputComponents: React.FC<IProps> = ({
     );
 
     switch (type) {
-      case 'multiple-checkbox':
+      case 'range':
+        component = (
+          <InputRangeStyled
+            label={label}
+            name={name}
+            value={value}
+            onChange={onChange}
+          />
+        );
+        break;
+
+      case 'input-min-max':
+        component = (
+          <InputMinMaxStyled
+            label={label}
+            name={name}
+            value={value}
+            onChange={onChange}
+          />
+        );
+        break;
+
+      case 'checklist':
         component = (
           <InputCheckboxMultipleStyled
             value={value}
@@ -90,6 +114,7 @@ const FormInputComponents: React.FC<IProps> = ({
         );
         break;
       case 'select':
+      case 'select2':
         component = (() => {
           let selectComponent = (
             <InputSelectStyled

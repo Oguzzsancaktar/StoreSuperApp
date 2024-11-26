@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, Pressable, TouchableOpacity } from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
@@ -13,6 +13,7 @@ interface IProps {
   bgColor?: keyof IAppTheme;
   size?: number;
   radius?: number;
+  onPress?: () => void;
 }
 const ImageIconCircle: React.FC<IProps> = ({
   borderColor,
@@ -21,12 +22,15 @@ const ImageIconCircle: React.FC<IProps> = ({
   size = APP_STYLE_VALUES.WH_SIZES.sm,
   radius = APP_STYLE_VALUES.RADIUS_SIZES.full,
   gradientBg,
+  onPress,
 }) => {
   const commonStyles = useCommonStyles();
   const { theme, isDark } = useAppTheme();
 
   return (
-    <View
+    <TouchableOpacity
+      disabled={!onPress}
+      onPress={onPress}
       style={[
         commonStyles.flexStyles.flexCenter,
         bgColor && { backgroundColor: theme[bgColor] },
@@ -59,7 +63,7 @@ const ImageIconCircle: React.FC<IProps> = ({
       ) : (
         icon
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 

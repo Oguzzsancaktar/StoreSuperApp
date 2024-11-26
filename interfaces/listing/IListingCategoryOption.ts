@@ -7,6 +7,17 @@ export default interface IListingCategoryOption {
   id: string
   isDefault: boolean
   name: string
+  propertyName: | 'price'
+  | 'address'
+  | 'subCategoryIds'
+  | 'purpose'
+  | 'surface'
+  | 'year'
+  | 'numberOfFloors'
+  | 'furnished'
+  | 'details'
+  | 'numberOfRooms'
+  | 'numberOfBathrooms';
   optionViewingType: number //@todo - enum
   propertyType: EListingOptionComponentType
   validation?: any
