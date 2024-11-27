@@ -10,14 +10,12 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 
 interface IProps {
   negotiable: boolean;
-  price: IListingPrice;
+  formattedPrice: string;
 }
-const CardPostPrice: React.FC<IProps> = ({ price, negotiable }) => {
+const CardPostPrice: React.FC<IProps> = ({ negotiable, formattedPrice }) => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
-
-  console.log('price', price);
 
   return (
     <View
@@ -44,7 +42,7 @@ const CardPostPrice: React.FC<IProps> = ({ price, negotiable }) => {
 
         <View style={commonStyles.flexStyles.colStart}>
           <TextStyled fontSize="h4" fontWeight="bold">
-            {price?.amount + ' ' + (price?.currency as string) || ''}
+            {formattedPrice}
           </TextStyled>
           <TextStyled
             fontSize="sm"

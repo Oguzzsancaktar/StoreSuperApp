@@ -84,14 +84,16 @@ const ProfileScreen = () => {
                     >
                       <IconHeart color={theme.white} />
 
-                      <TextStyled
-                        textAlignment="left"
-                        fontSize="lg"
-                        fontWeight="semibold"
-                        customColor="grayScale900"
-                      >
-                        Favorites
-                      </TextStyled>
+                      <View>
+                        <TextStyled
+                          textAlignment="left"
+                          fontSize="lg"
+                          fontWeight="semibold"
+                          customColor="grayScale900"
+                        >
+                          Favorites
+                        </TextStyled>
+                      </View>
                     </View>
                   </View>
                 </ButtonStyled>

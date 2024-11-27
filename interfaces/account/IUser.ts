@@ -2,7 +2,8 @@ export default interface IUser {
   id: string
   birthDate?: Date
   businessPhone?: number
-  created: string
+  created: Date
+  createdFormatted: Date
   email: string
   firstName: string
   image?: string

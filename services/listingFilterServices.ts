@@ -117,7 +117,7 @@ const getListingFilters = (builder: IBuilder) => {
   return builder.query<IListingFilterOption[], IListingCategory["id"]>({
     query(categoryId) {
       return {
-        url: `/categories/${categoryId}/filters`,
+        url: `/categories-mobile/${categoryId}/filters`,
         method: 'GET',
 
       }

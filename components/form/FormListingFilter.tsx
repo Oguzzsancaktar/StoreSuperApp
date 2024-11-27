@@ -30,11 +30,6 @@ const FormListingFilter = () => {
       {
         id: 'filter',
         fields: map(filterOptionData, (filter) => {
-          console.log(
-            ' EListingFilterOptionComponentType[filter.filterType]',
-            EListingFilterOptionComponentType[filter.filterType],
-            filter.filterType
-          );
           return {
             label: filter.name,
             name: filter.propertyName,

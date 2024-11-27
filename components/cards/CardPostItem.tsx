@@ -11,6 +11,7 @@ import { find } from 'lodash';
 import stringUtils from '@/utils/stringUtils';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { useAppTheme } from '@/contexts/ThemeContext';
+import IconLocation from '../svg/icon/IconLocation';
 
 interface IProps {
   post: IListingPost;
@@ -166,9 +167,31 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
         </View>
       </View>
 
-      <TextStyled fontSize="sm" fontWeight="regular" textAlignment="left">
-        {post.listingAddress?.fullAddress || ''}
-      </TextStyled>
+      <View
+        style={[
+          commonStyles.flexStyles.rowStart,
+          {
+            width: '100%',
+            gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+            alignItems: 'center',
+          },
+        ]}
+      >
+        <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xxs }}>
+          <IconLocation color={theme.grayScale400} />
+        </View>
+
+        <TextStyled
+          fontSize="sm"
+          fontWeight="regular"
+          customColor={'grayScale400'}
+          textAlignment="left"
+        >
+          {(post?.listingAddress?.countryName || '') +
+            ', ' +
+            (post?.listingAddress?.cityName + '')}
+        </TextStyled>
+      </View>
 
       <View
         style={[

@@ -5,16 +5,26 @@ import ImageCover from '../images/ImageCover';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
-import { useGetCurrentUserInformationQuery } from '@/services/accountServices';
+import {
+  useGetCurrentUserInformationQuery,
+  useGetCurrentUserListingsQuery,
+} from '@/services/accountServices';
+import ImageIconCircle from '../images/ImageIconCircle';
+import IconUser from '../svg/icon/IconUser';
+import dateUtils from '@/utils/dateUtils';
+import APP_FORMATS from '@/constants/APP_FORMATS';
+import { useStorageState } from '@/hooks/useStorageState';
+import APP_STORAGE_KEYS from '@/constants/APP_STORAGE_KEYS';
 
 const CardSellerProfileInfo = () => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
 
+  const { data: currentUserListingData } = useGetCurrentUserListingsQuery();
+
   const { data: currentUserData } = useGetCurrentUserInformationQuery();
 
-  console.log('currentUserData', currentUserData);
   return (
     <View
       style={[
@@ -52,7 +62,20 @@ const CardSellerProfileInfo = () => {
             },
           ]}
         >
-          <ImageCover />
+          {currentUserData?.image ? (
+            <ImageCover url={currentUserData.image} />
+          ) : (
+            <ImageIconCircle
+              icon={
+                <IconUser
+                  width={APP_STYLE_VALUES.WH_SIZES.lg}
+                  height={APP_STYLE_VALUES.WH_SIZES.lg}
+                  color={theme.grayScale900}
+                />
+              }
+              size={APP_STYLE_VALUES.WH_SIZES.xl3}
+            />
+          )}
         </View>
       </View>
 
@@ -66,12 +89,15 @@ const CardSellerProfileInfo = () => {
               },
             ]}
           >
-            <TextStyled fontSize="h6" fontWeight="semibold">
-              Seller Name
-            </TextStyled>
+            <View>
+              <TextStyled fontSize="h6" fontWeight="semibold">
+                {currentUserData?.firstName || ''}{' '}
+                {currentUserData?.lastName || ''}
+              </TextStyled>
+            </View>
             <View style={[{ marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp1 }]}>
               <TextStyled fontSize="md" fontWeight="medium">
-                @sellerUserName
+                {currentUserData.email.toLowerCase()}
               </TextStyled>
             </View>
           </View>
@@ -90,7 +116,7 @@ const CardSellerProfileInfo = () => {
                 Post Count
               </TextStyled>
               <TextStyled fontSize="xs" fontWeight="medium">
-                120
+                {currentUserListingData?.length?.toString() || ''}
               </TextStyled>
             </View>
 
@@ -99,31 +125,42 @@ const CardSellerProfileInfo = () => {
                 Register Date
               </TextStyled>
               <TextStyled fontSize="xs" fontWeight="medium">
-                13 Aug 2023
+                {dateUtils.formatDateForMoment(
+                  currentUserData.created,
+                  'DATE_NAME_MOMENT'
+                )}
               </TextStyled>
             </View>
 
-            <View style={[commonStyles.flexStyles.colCenter]}>
+            {/* <View style={[commonStyles.flexStyles.colCenter]}>
               <TextStyled fontSize="sm" fontWeight="semibold">
                 Seller Type
               </TextStyled>
               <TextStyled fontSize="xs" fontWeight="medium">
                 Business
               </TextStyled>
-            </View>
+            </View> */}
           </View>
-          <View style={[commonStyles.flexStyles.colCenter]}>
-            <TextStyled fontSize="sm" fontWeight="medium">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-              expedita officia repellat! Placeat omnis nobis, vel dolorum fugiat
-              perspiciatis eius.
-            </TextStyled>
+          <View
+            style={[
+              commonStyles.flexStyles.colCenter,
+              { flex: 1, width: '100%' },
+            ]}
+          >
+            {/* <TextStyled fontSize="sm" fontWeight="medium">
+            {(listingItemDetailData?.listingAddress?.countryName ||
+                      '') +
+                      ', ' +
+                      (listingItemDetailData?.listingAddress?.cityName + '')}
+            </TextStyled> */}
           </View>
         </>
       ) : (
-        <TextStyled fontSize="h3" fontWeight="bold">
-          Login For Information
-        </TextStyled>
+        <View>
+          <TextStyled fontSize="h3" fontWeight="bold">
+            Login For Information
+          </TextStyled>
+        </View>
       )}
     </View>
   );

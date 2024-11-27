@@ -2,6 +2,7 @@ import { ButtonStyled } from '@/components/button';
 import CardPostCategory from '@/components/cards/CardPostCategory';
 import CardPostPrice from '@/components/cards/CardPostPrice';
 import CardSellerInfo from '@/components/cards/CardSellerInfo';
+import CardListingDetailOptions from '@/components/cards/listing/CardListingDetailOptions';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import ImageCover from '@/components/images/ImageCover';
@@ -83,16 +84,19 @@ const ListingDetailPage = () => {
                   <IconLocation color={theme.grayScale400} />
                 </View>
 
-                <TextStyled
-                  textAlignment="center"
-                  fontSize="md"
-                  fontWeight="bold"
-                  customColor={'grayScale400'}
-                >
-                  {(listingItemDetailData?.listingAddress?.countryName || '') +
-                    ', ' +
-                    (listingItemDetailData?.listingAddress?.cityName + '')}
-                </TextStyled>
+                <View style={[]}>
+                  <TextStyled
+                    textAlignment="left"
+                    fontSize="md"
+                    fontWeight="bold"
+                    customColor={'grayScale400'}
+                  >
+                    {(listingItemDetailData?.listingAddress?.countryName ||
+                      '') +
+                      ', ' +
+                      (listingItemDetailData?.listingAddress?.cityName + '')}
+                  </TextStyled>
+                </View>
               </View>
             </View>
 
@@ -100,20 +104,11 @@ const ListingDetailPage = () => {
               <ImageCover url={coverImageUrl} />
             </View>
 
-            <View style={{ width: '100%' }}>
-              <CardPostPrice
-                negotiable={listingItemDetailData?.negotiable}
-                price={listingItemDetailData?.price || ({} as IListingPrice)}
-              />
-            </View>
-
-            <View style={{ width: '100%' }}>
-              <CardPostCategory
-                categories={listingItemDetailData?.categories || []}
-              />
-            </View>
-
-            <View style={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 }}>
+            <View
+              style={{
+                gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+              }}
+            >
               <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
                 Description
               </TextStyled>
@@ -127,7 +122,24 @@ const ListingDetailPage = () => {
             </View>
 
             <View style={{ width: '100%' }}>
+              <CardPostPrice
+                negotiable={listingItemDetailData?.negotiable}
+                formattedPrice={listingItemDetailData?.formattedPrice}
+              />
+            </View>
+
+            <View style={{ width: '100%' }}>
+              <CardPostCategory
+                categories={listingItemDetailData?.categories || []}
+              />
+            </View>
+
+            <CardListingDetailOptions options={listingItemDetailData.options} />
+
+            <View style={{ width: '100%' }}>
               <CardSellerInfo
+                allowMessaging={listingItemDetailData.allowMessaging}
+                allowPhoneCalls={listingItemDetailData.allowPhoneCalls}
                 user={listingItemDetailData?.user || ({} as IUser)}
               />
             </View>

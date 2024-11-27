@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
-import { Text, StyleProp, TextStyle } from 'react-native';
+import { Text, StyleProp, TextStyle, View } from 'react-native';
 import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
 import { IAppTheme, IShadowStylesheet } from '@/interfaces/theme';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { startsWith } from 'lodash';
 import useThemedStyles from '@/hooks/useThemedStyles';
+import useCommonStyles from '@/hooks/useCommonStyles';
 
 interface IProps {
   textAlignment?: 'left' | 'center' | 'right';
@@ -25,11 +26,13 @@ const TextStyled: React.FC<IProps> = ({
 }) => {
   const { theme } = useAppTheme();
   const { shadowStyles } = useThemedStyles();
+  const commonStyles = useCommonStyles();
 
   const textStyles = useMemo(() => {
     const { fontSizes, fontWeights } = APP_TYPOGRAPHY;
 
     let tempStyles: StyleProp<TextStyle> = {
+      width: '100%',
       lineHeight: fontSizes[fontSize] * 1.5,
       textAlign: textAlignment || 'center',
       fontSize: fontSizes[fontSize],
@@ -51,7 +54,11 @@ const TextStyled: React.FC<IProps> = ({
     return tempStyles;
   }, [theme, customColor, textShadow, fontSize, fontWeight]);
 
-  return <Text style={textStyles}>{children}</Text>;
+  return (
+    <View style={[commonStyles.flexStyles.colCenter, { width: '100%' }]}>
+      <Text style={textStyles}>{children}</Text>
+    </View>
+  );
 };
 
 export default TextStyled;

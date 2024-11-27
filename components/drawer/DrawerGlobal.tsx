@@ -33,7 +33,7 @@ const DrawerGlobal = () => {
           flex: 1,
           backgroundColor: theme.appBackground,
           padding: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-          marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp8,
+          marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp8,
           gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
         }}
       >

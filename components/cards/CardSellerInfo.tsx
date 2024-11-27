@@ -13,8 +13,14 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 
 interface IProps {
   user: IUser;
+  allowPhoneCalls: boolean;
+  allowMessaging: boolean;
 }
-const CardSellerInfo: React.FC<IProps> = ({ user = {} as IUser }) => {
+const CardSellerInfo: React.FC<IProps> = ({
+  allowPhoneCalls = false,
+  allowMessaging = false,
+  user = {} as IUser,
+}) => {
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
@@ -28,43 +34,6 @@ const CardSellerInfo: React.FC<IProps> = ({ user = {} as IUser }) => {
           {
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
             paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-          },
-        ]}
-      >
-        <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
-          <ImageIconCircle icon={<IconUser color={theme.grayScale900} />} />
-        </View>
-
-        <View style={commonStyles.flexStyles.colStart}>
-          <TextStyled
-            fontSize="h6"
-            fontWeight="medium"
-            customColor="grayScale400"
-          >
-            Seller
-          </TextStyled>
-          <TextStyled fontSize="h4" fontWeight="bold">
-            {user?.firstName && user?.lastName
-              ? user?.firstName + ' ' + user?.lastName
-              : ''}
-          </TextStyled>
-          <TextStyled
-            fontSize="sm"
-            fontWeight="medium"
-            customColor="grayScale500"
-          >
-            Member since,{' '}
-            {moment(user.created).format(APP_FORMATS.DATE_NAME_MOMENT)}
-          </TextStyled>
-        </View>
-      </View>
-
-      <View
-        style={[
-          commonStyles.flexStyles.rowStart,
-          {
-            gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-            paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp4,
           },
         ]}
       >
@@ -91,7 +60,48 @@ const CardSellerInfo: React.FC<IProps> = ({ user = {} as IUser }) => {
             Contact Information
           </TextStyled>
           <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
-            {user?.phoneNumber || user.email}
+            {(allowPhoneCalls && user?.phoneNumber && user?.phoneNumber) || ''}
+          </TextStyled>
+
+          <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
+            {(allowMessaging && user?.email && user?.email) || ''}
+          </TextStyled>
+        </View>
+      </View>
+
+      <View
+        style={[
+          commonStyles.flexStyles.rowStart,
+          {
+            gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+          },
+        ]}
+      >
+        <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
+          <ImageIconCircle icon={<IconUser color={theme.grayScale900} />} />
+        </View>
+
+        <View style={commonStyles.flexStyles.colStart}>
+          {/* <TextStyled
+            fontSize="h6"
+            fontWeight="medium"
+            customColor="grayScale400"
+          >
+            Owner
+          </TextStyled> */}
+          <TextStyled fontSize="h4" fontWeight="bold">
+            {user?.firstName && user?.lastName
+              ? user?.firstName + ' ' + user?.lastName
+              : ''}
+          </TextStyled>
+          <TextStyled
+            fontSize="sm"
+            fontWeight="medium"
+            customColor="grayScale500"
+          >
+            Member since,{' '}
+            {moment(user.created).format(APP_FORMATS.DATE_NAME_MOMENT)}
           </TextStyled>
         </View>
       </View>

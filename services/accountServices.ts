@@ -75,6 +75,19 @@ const getCurrentUserInformation = (builder: IBuilder) => {
 }
 
 
+const getCurrentUserListings = (builder: IBuilder) => {
+  return builder.query<any[], void>({
+    query() {
+      return {
+        url: `/users/my-listings`,
+        method: 'GET',
+      }
+    },
+    providesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
 const accountApiSlice = createApi({
   reducerPath: ACCOUNT_API_REDUCER_PATH,
   tagTypes: [ACCOUNT_API_TAG],
@@ -83,13 +96,14 @@ const accountApiSlice = createApi({
     registerAccount: registerAccount(builder),
     loginAccount: loginAccount(builder),
     loginWithGoogle: loginWithGoogle(builder),
-    getCurrentUserInformation: getCurrentUserInformation(builder)
+    getCurrentUserInformation: getCurrentUserInformation(builder),
+    getCurrentUserListings: getCurrentUserListings(builder)
   }),
 })
 
-const { useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery } = accountApiSlice
+const { useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery, useGetCurrentUserListingsQuery } = accountApiSlice
 
-export { accountApiSlice, useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery }
+export { accountApiSlice, useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery, useGetCurrentUserListingsQuery }
 
 
 

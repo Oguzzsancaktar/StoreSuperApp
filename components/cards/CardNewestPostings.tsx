@@ -34,15 +34,17 @@ const CardNewestPostings = () => {
     <View style={{ height: '100%' }}>
       <View
         style={[
-          commonStyles.flexStyles.rowWrap,
+          commonStyles.flexStyles.rowBetween,
           {
             marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
           },
         ]}
       >
-        <TextStyled fontSize="h6" fontWeight="semibold">
-          Newest Postings On
-        </TextStyled>
+        <View>
+          <TextStyled fontSize="h6" textAlignment="left" fontWeight="semibold">
+            Newest Postings On
+          </TextStyled>
+        </View>
 
         <View
           style={{
