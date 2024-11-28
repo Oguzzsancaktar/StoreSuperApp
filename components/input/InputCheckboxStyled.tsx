@@ -70,8 +70,8 @@ const InputCheckboxStyled: React.FC<IProps> = ({
         <Animated.View
           style={[
             {
-              width: APP_STYLE_VALUES.WH_SIZES.xxs,
-              height: APP_STYLE_VALUES.WH_SIZES.xxs,
+              width: APP_STYLE_VALUES.WH_SIZES.xs2,
+              height: APP_STYLE_VALUES.WH_SIZES.xs2,
               borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.sm,
               borderWidth: 2,
             },

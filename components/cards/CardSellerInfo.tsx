@@ -27,47 +27,52 @@ const CardSellerInfo: React.FC<IProps> = ({
 
   return (
     <View style={themedStyles.cardStyles.default}>
-      <View
-        style={[
-          commonStyles.flexStyles.rowStart,
-          themedStyles.borderStyles.bottomUnderline,
-          {
-            gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-            paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-          },
-        ]}
-      >
+      {(allowMessaging || allowPhoneCalls) && (
         <View
           style={[
-            commonStyles.flexStyles.flexCenter,
-            { width: APP_STYLE_VALUES.WH_SIZES.sm },
+            commonStyles.flexStyles.rowStart,
+            themedStyles.borderStyles.bottomUnderline,
+            {
+              gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+              paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+            },
           ]}
         >
-          <ImageIconCircle
-            icon={<IconChatSupport color={theme.grayScale900} />}
-          />
-        </View>
-
-        <View
-          style={(commonStyles.flexStyles.colStart, { width: '100%', flex: 1 })}
-        >
-          <TextStyled
-            fontSize="h6"
-            fontWeight="medium"
-            customColor="grayScale400"
-            textAlignment="left"
+          <View
+            style={[
+              commonStyles.flexStyles.flexCenter,
+              { width: APP_STYLE_VALUES.WH_SIZES.sm },
+            ]}
           >
-            Contact Information
-          </TextStyled>
-          <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
-            {(allowPhoneCalls && user?.phoneNumber && user?.phoneNumber) || ''}
-          </TextStyled>
+            <ImageIconCircle
+              icon={<IconChatSupport color={theme.grayScale900} />}
+            />
+          </View>
 
-          <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
-            {(allowMessaging && user?.email && user?.email) || ''}
-          </TextStyled>
+          <View
+            style={
+              (commonStyles.flexStyles.colStart, { width: '100%', flex: 1 })
+            }
+          >
+            <TextStyled
+              fontSize="h6"
+              fontWeight="medium"
+              customColor="grayScale400"
+              textAlignment="left"
+            >
+              Contact Information
+            </TextStyled>
+            <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
+              {(allowPhoneCalls && user?.phoneNumber && user?.phoneNumber) ||
+                ''}
+            </TextStyled>
+
+            <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
+              {(allowMessaging && user?.email && user?.email) || ''}
+            </TextStyled>
+          </View>
         </View>
-      </View>
+      )}
 
       <View
         style={[
@@ -90,11 +95,13 @@ const CardSellerInfo: React.FC<IProps> = ({
           >
             Owner
           </TextStyled> */}
-          <TextStyled fontSize="h4" fontWeight="bold">
-            {user?.firstName && user?.lastName
-              ? user?.firstName + ' ' + user?.lastName
-              : ''}
-          </TextStyled>
+          <View>
+            <TextStyled fontSize="h4" fontWeight="bold">
+              {user?.firstName && user?.lastName
+                ? user?.firstName + ' ' + user?.lastName
+                : ''}
+            </TextStyled>
+          </View>
           <TextStyled
             fontSize="sm"
             fontWeight="medium"

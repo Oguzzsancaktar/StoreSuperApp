@@ -104,13 +104,22 @@ const CardListingItems = () => {
           },
         ]}
       >
-        <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
-          {listingItemsData?.totalCount?.toString() || ''}{' '}
-        </TextStyled>
-
-        <TextStyled fontSize="h4" fontWeight="bold">
-          Results Found
-        </TextStyled>
+        <View>
+          <TextStyled
+            fontSize="h5"
+            fontWeight="bold"
+            customColor="primary"
+            textAlignment="left"
+          >
+            {listingItemsData?.totalCount?.toString() || ''}
+            {'  '}
+          </TextStyled>
+        </View>
+        <View>
+          <TextStyled fontSize="h5" fontWeight="bold" textAlignment="left">
+            Results Found
+          </TextStyled>
+        </View>
       </View>
 
       <ScrollView

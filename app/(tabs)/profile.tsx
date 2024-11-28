@@ -15,14 +15,21 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import useAppImages from '@/hooks/useAppImages';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import useThemedStyles from '@/hooks/useThemedStyles';
-import { useGetCurrentUserInformationQuery } from '@/services/accountServices';
+import {
+  useGetCurrentUserInformationQuery,
+  useGetCurrentUserListingsQuery,
+} from '@/services/accountServices';
 import { router, usePathname } from 'expo-router';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
+import { map } from 'lodash';
+import CardPostItem from '@/components/cards/CardPostItem';
 
 const ProfileScreen = () => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
+
+  const { data: currentUserListingData } = useGetCurrentUserListingsQuery();
 
   const handleSettingsPress = () => {
     router.navigate('/(drawer)/settings');
@@ -123,7 +130,17 @@ const ProfileScreen = () => {
             <CardSellerProfileInfo />
 
             <View style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
-              <CardNewestPostings />
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                  gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                  paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                }}
+              >
+                {map(currentUserListingData, (post, index) => {
+                  return <CardPostItem post={post} key={index} />;
+                })}
+              </ScrollView>
             </View>
           </View>
         </InnerCommonContainer>

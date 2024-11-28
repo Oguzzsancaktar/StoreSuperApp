@@ -187,7 +187,7 @@ const InputImageUploader: React.FC<IProps> = ({
                 ]}
               >
                 <ImageIconCircle
-                  size={APP_STYLE_VALUES.WH_SIZES.xxs}
+                  size={APP_STYLE_VALUES.WH_SIZES.xs2}
                   bgColor="grayScale200"
                   icon={<IconTrash color={theme.white} />}
                 />

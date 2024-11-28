@@ -8,8 +8,9 @@ const WH_SIZES = {
   md: 48,
   sm: 40,
   xs: 32,
-  xxs: 24,
-
+  xs2: 24,
+  xs3: 16,
+  xs4: 8,
 }
 
 const RADIUS_SIZES = {

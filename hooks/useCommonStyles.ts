@@ -72,6 +72,13 @@ const useCommonStyles = () => {
       alignItems: 'center',
       flexWrap: 'wrap',
     },
+    rowCenter: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexWrap: 'nowrap',
+    },
   })
 
 

@@ -98,11 +98,15 @@ const WelcomeScreen = () => {
               or
             </TextStyled>
 
-            <Link href={APP_ROUTES.TABS.TIMELINE}>
+            <Link
+              style={[commonStyles.flexStyles.selfCenter]}
+              href={APP_ROUTES.TABS.TIMELINE}
+            >
               <TextStyled
                 fontSize="xl"
                 fontWeight="regular"
                 customColor="grayScale600"
+                textAlignment="center"
               >
                 Continue without signin
               </TextStyled>

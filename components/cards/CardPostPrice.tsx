@@ -44,13 +44,16 @@ const CardPostPrice: React.FC<IProps> = ({ negotiable, formattedPrice }) => {
           <TextStyled fontSize="h4" fontWeight="bold">
             {formattedPrice}
           </TextStyled>
-          <TextStyled
-            fontSize="sm"
-            fontWeight="medium"
-            customColor="grayScale500"
-          >
-            {negotiable ? 'Negotiable' : 'Not Negotiable'}
-          </TextStyled>
+          <View>
+            <TextStyled
+              fontSize="sm"
+              fontWeight="medium"
+              customColor="grayScale500"
+              textAlignment="left"
+            >
+              {negotiable ? 'Negotiable' : 'Not Negotiable'}
+            </TextStyled>
+          </View>
         </View>
       </View>
     </View>

@@ -129,7 +129,7 @@ const useThemedStyles = () => {
 
       backgroundColor: theme.primary,
       borderColor: COMMON_COLOURS.primary,
-      height: APP_STYLE_VALUES.WH_SIZES.xxs,
+      height: APP_STYLE_VALUES.WH_SIZES.xs2,
       padding: APP_STYLE_VALUES.SPACE_SIZES.sp0,
       display: "flex",
       alignItems: "center",
@@ -149,7 +149,7 @@ const useThemedStyles = () => {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.grayScale600,
       borderColor: theme.grayScale600,
-      height: APP_STYLE_VALUES.WH_SIZES.xxs,
+      height: APP_STYLE_VALUES.WH_SIZES.xs2,
       padding: APP_STYLE_VALUES.SPACE_SIZES.sp0,
       display: "flex",
       alignItems: "center",

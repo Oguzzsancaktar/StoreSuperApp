@@ -77,7 +77,7 @@ const ListingDetailPage = () => {
                   },
                 ]}
               >
-                <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xxs }}>
+                <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xs2 }}>
                   <IconLocation color={theme.grayScale400} />
                 </View>
 
@@ -128,6 +128,16 @@ const ListingDetailPage = () => {
               />
             </View>
             <CardListingDetailOptions options={listingItemDetailData.options} />
+
+            <View style={{ width: '100%' }}>
+              <MapGeoLoaction
+                geoLocation={{
+                  latitude: listingItemDetailData.listingAddress?.latitude,
+                  longitude: listingItemDetailData.listingAddress?.longitude,
+                }}
+              />
+            </View>
+
             <View style={{ width: '100%' }}>
               <CardSellerInfo
                 allowMessaging={listingItemDetailData.allowMessaging}
@@ -135,15 +145,6 @@ const ListingDetailPage = () => {
                 user={listingItemDetailData?.user || ({} as IUser)}
               />
             </View>
-          </View>
-
-          <View style={{ width: '100%', height: 300 }}>
-            <MapGeoLoaction
-              geoLocation={{
-                latitude: listingItemDetailData.listingAddress?.latitude,
-                longitude: listingItemDetailData.listingAddress?.longitude,
-              }}
-            />
           </View>
         </ScrollView>
 
@@ -177,20 +178,22 @@ const ListingDetailPage = () => {
               >
                 <View
                   style={[
-                    commonStyles.flexStyles.rowStart,
+                    commonStyles.flexStyles.rowCenter,
                     { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
                   ]}
                 >
                   <IconSendMessage color={theme.white} />
 
-                  <TextStyled
-                    textAlignment="left"
-                    fontSize="lg"
-                    fontWeight="semibold"
-                    customColor="white"
-                  >
-                    Send Message
-                  </TextStyled>
+                  <View>
+                    <TextStyled
+                      textAlignment="left"
+                      fontSize="lg"
+                      fontWeight="semibold"
+                      customColor="white"
+                    >
+                      Send Message
+                    </TextStyled>
+                  </View>
                 </View>
               </View>
             </ButtonStyled>

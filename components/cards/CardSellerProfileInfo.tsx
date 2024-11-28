@@ -12,6 +12,9 @@ import {
 import ImageIconCircle from '../images/ImageIconCircle';
 import IconUser from '../svg/icon/IconUser';
 import dateUtils from '@/utils/dateUtils';
+import { Link, router } from 'expo-router';
+import APP_ROUTES from '@/constants/APP_ROUTES';
+import { ButtonStyled } from '../button';
 
 const CardSellerProfileInfo = () => {
   const commonStyles = useCommonStyles();
@@ -153,10 +156,19 @@ const CardSellerProfileInfo = () => {
           </View>
         </>
       ) : (
-        <View>
-          <TextStyled fontSize="h3" fontWeight="bold">
-            Login For Information
+        <View style={{ width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
+          <TextStyled fontSize="h4" fontWeight="bold">
+            Sign in to see profile
           </TextStyled>
+
+          <ButtonStyled
+            onPress={() => {
+              router.push(APP_ROUTES.PUBLIC.LOGIN);
+            }}
+            text={'Login'}
+            variant="buttonPrimaryOutlined"
+            gradientBg
+          />
         </View>
       )}
     </View>

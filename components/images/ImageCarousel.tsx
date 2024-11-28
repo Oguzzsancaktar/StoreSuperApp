@@ -54,11 +54,7 @@ const ImageCarousel: React.FC<IProps> = ({ imageUrls }) => {
         autoPlay={false}
         ref={carouselRef}
         width={parentSizes.width || width}
-        height={
-          parentSizes.height -
-          APP_STYLE_VALUES.WH_SIZES.xxs -
-          APP_STYLE_VALUES.SPACE_SIZES.sp1
-        }
+        height={parentSizes.height - APP_STYLE_VALUES.SPACE_SIZES.sp1}
         modeConfig={{
           parallaxScrollingScale: 0.9,
           parallaxScrollingOffset: 50,
@@ -95,12 +91,13 @@ const ImageCarousel: React.FC<IProps> = ({ imageUrls }) => {
         {map(imageUrls, (img, index) => {
           return (
             <TouchableOpacity
+              key={index}
               onPress={() => handleDotClick(index)}
               style={{
                 backgroundColor:
                   currentIndex === index ? theme.primary : theme.grayScale400,
-                width: APP_STYLE_VALUES.WH_SIZES.xxs,
-                height: APP_STYLE_VALUES.WH_SIZES.xxs,
+                width: APP_STYLE_VALUES.WH_SIZES.xs4,
+                height: APP_STYLE_VALUES.WH_SIZES.xs4,
                 borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
               }}
             />

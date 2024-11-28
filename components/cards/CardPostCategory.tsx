@@ -4,11 +4,9 @@ import { View } from 'react-native';
 import ImageIconCircle from '../images/ImageIconCircle';
 import { TextStyled } from '../typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconWorld from '../svg/icon/IconWorld';
 import IListingCategory from '@/interfaces/listing/IListingCategory';
 import { useMemo } from 'react';
 import { find, map } from 'lodash';
-import ImageStyled from '../images/ImageStyled';
 import { SvgUri } from 'react-native-svg';
 
 interface IProps {
@@ -51,18 +49,20 @@ const CardPostCategory: React.FC<IProps> = ({ categories }) => {
           <TextStyled fontSize="h4" fontWeight="bold">
             {parentCategory?.name || ''}
           </TextStyled>
-          <TextStyled
-            fontSize="sm"
-            fontWeight="medium"
-            customColor="grayScale500"
-          >
-            {map(categories, (cat) => {
-              if (cat.parentCategoryId) {
-                return cat.name + ' ';
-              }
-              return '';
-            })}
-          </TextStyled>
+          <View>
+            <TextStyled
+              fontSize="sm"
+              fontWeight="medium"
+              customColor="grayScale500"
+            >
+              {map(categories, (cat) => {
+                if (cat.parentCategoryId) {
+                  return cat.name + ' ';
+                }
+                return '';
+              })}
+            </TextStyled>
+          </View>
         </View>
       </View>
     </View>

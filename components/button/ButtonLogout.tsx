@@ -32,14 +32,16 @@ const ButtonLogout: React.FC<IProps> = () => {
           ]}
         >
           <IconLogout color={theme.grayScale900} />
-          <TextStyled
-            textAlignment="left"
-            fontSize="lg"
-            fontWeight="semibold"
-            customColor="grayScale900"
-          >
-            Logout
-          </TextStyled>
+          <View>
+            <TextStyled
+              textAlignment="left"
+              fontSize="lg"
+              fontWeight="semibold"
+              customColor="grayScale900"
+            >
+              Logout
+            </TextStyled>
+          </View>
         </View>
       </View>
     </ButtonStyled>

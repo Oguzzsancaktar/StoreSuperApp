@@ -177,7 +177,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
           },
         ]}
       >
-        <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xxs }}>
+        <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xs2 }}>
           <IconLocation color={theme.grayScale400} />
         </View>
 
