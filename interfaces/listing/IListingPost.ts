@@ -18,7 +18,7 @@ interface IListingPost {
   id: string
   isActive: boolean
   isDraft: boolean
-  listingAddress?: IAddress
+  listingAddress: IAddress
   media: IListingPostMedia[]
   name: string
   negotiable: boolean

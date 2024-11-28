@@ -7,6 +7,7 @@ import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import ImageCarousel from '@/components/images/ImageCarousel';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
+import MapGeoLoaction from '@/components/map/MapGeoLoaction';
 import IconLocation from '@/components/svg/icon/IconLocation';
 import IconSendMessage from '@/components/svg/icon/IconSendMessage';
 import IconUser from '@/components/svg/icon/IconUser';
@@ -30,12 +31,7 @@ const ListingDetailPage = () => {
   const { data: listingItemDetailData, isLoading } =
     useGetListingItemDetailsQuery(listingId as string);
 
-  const coverImageUrl = useMemo(() => {
-    return (
-      find(listingItemDetailData?.media, (med) => med.isCoverImage) ||
-      listingItemDetailData?.media[0]
-    )?.url;
-  }, [listingItemDetailData]);
+  console.log('listingItemDetailData', listingItemDetailData);
 
   const mediaUrls = useMemo(() => {
     return map(listingItemDetailData?.media, (m) => m.url);
@@ -100,7 +96,6 @@ const ListingDetailPage = () => {
                 </View>
               </View>
             </View>
-
             <View style={{ width: '100%', height: 300 }}>
               <ImageCarousel imageUrls={mediaUrls} />
             </View>
@@ -121,22 +116,18 @@ const ListingDetailPage = () => {
                 {listingItemDetailData?.description || ''}
               </TextStyled>
             </View>
-
             <View style={{ width: '100%' }}>
               <CardPostPrice
                 negotiable={listingItemDetailData?.negotiable}
                 formattedPrice={listingItemDetailData?.formattedPrice}
               />
             </View>
-
             <View style={{ width: '100%' }}>
               <CardPostCategory
                 categories={listingItemDetailData?.categories || []}
               />
             </View>
-
             <CardListingDetailOptions options={listingItemDetailData.options} />
-
             <View style={{ width: '100%' }}>
               <CardSellerInfo
                 allowMessaging={listingItemDetailData.allowMessaging}
@@ -144,6 +135,15 @@ const ListingDetailPage = () => {
                 user={listingItemDetailData?.user || ({} as IUser)}
               />
             </View>
+          </View>
+
+          <View style={{ width: '100%', height: 300 }}>
+            <MapGeoLoaction
+              geoLocation={{
+                latitude: listingItemDetailData.listingAddress?.latitude,
+                longitude: listingItemDetailData.listingAddress?.longitude,
+              }}
+            />
           </View>
         </ScrollView>
 
