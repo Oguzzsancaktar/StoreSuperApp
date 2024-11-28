@@ -5,7 +5,7 @@ import CardSellerInfo from '@/components/cards/CardSellerInfo';
 import CardListingDetailOptions from '@/components/cards/listing/CardListingDetailOptions';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import ImageCover from '@/components/images/ImageCover';
+import ImageCarousel from '@/components/images/ImageCarousel';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import IconLocation from '@/components/svg/icon/IconLocation';
 import IconSendMessage from '@/components/svg/icon/IconSendMessage';
@@ -15,10 +15,9 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import IUser from '@/interfaces/account/IUser';
-import IListingPrice from '@/interfaces/listing/IListingPrice';
 import { useGetListingItemDetailsQuery } from '@/services/listingServices';
 import { useLocalSearchParams } from 'expo-router';
-import { find } from 'lodash';
+import { find, map } from 'lodash';
 import { useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
 
@@ -31,13 +30,15 @@ const ListingDetailPage = () => {
   const { data: listingItemDetailData, isLoading } =
     useGetListingItemDetailsQuery(listingId as string);
 
-  console.log('listingItemDetailData', listingItemDetailData);
-
   const coverImageUrl = useMemo(() => {
     return (
       find(listingItemDetailData?.media, (med) => med.isCoverImage) ||
       listingItemDetailData?.media[0]
     )?.url;
+  }, [listingItemDetailData]);
+
+  const mediaUrls = useMemo(() => {
+    return map(listingItemDetailData?.media, (m) => m.url);
   }, [listingItemDetailData]);
 
   if (isLoading || !listingItemDetailData) {
@@ -100,8 +101,8 @@ const ListingDetailPage = () => {
               </View>
             </View>
 
-            <View style={{ width: '100%', height: 200 }}>
-              <ImageCover url={coverImageUrl} />
+            <View style={{ width: '100%', height: 300 }}>
+              <ImageCarousel imageUrls={mediaUrls} />
             </View>
 
             <View

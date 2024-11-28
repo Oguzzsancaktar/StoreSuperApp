@@ -4,7 +4,7 @@ import useThemedStyles from '@/hooks/useThemedStyles';
 import ISelectOption from '@/interfaces/theme/ISelectOption';
 import { TextStyled } from '../../typography';
 import IListingCategory from '@/interfaces/listing/IListingCategory';
-import ImageCover from '../../images/ImageCover';
+import ImageStyled from '../../images/ImageStyled';
 import { BlurView } from '@react-native-community/blur';
 import { useListingFilter } from '@/contexts/ListingFilterContext';
 import { useAppTheme } from '@/contexts/ThemeContext';
@@ -41,7 +41,7 @@ const CardListingCategoryItem: React.FC<IProps> = ({
         },
       ]}
     >
-      <ImageCover url={category.banner} />
+      <ImageStyled url={category.banner} />
 
       {isSelected && <GradientBackground />}
 

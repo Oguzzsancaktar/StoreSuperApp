@@ -3,7 +3,7 @@ import CardNewestPostings from '@/components/cards/CardNewestPostings';
 import CardSellerProfileInfo from '@/components/cards/CardSellerProfileInfo';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import ImageCover from '@/components/images/ImageCover';
+import ImageStyled from '@/components/images/ImageStyled';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import IconBookmark from '@/components/svg/icon/IconBookmark';
 import IconHeart from '@/components/svg/icon/IconHeart';
@@ -57,7 +57,7 @@ const ProfileScreen = () => {
               },
             ]}
           >
-            <ImageCover imageId="BANNER_PROFILE_DEFAULT" />
+            <ImageStyled imageId="BANNER_PROFILE_DEFAULT" />
           </View>
 
           <InnerCommonContainer>

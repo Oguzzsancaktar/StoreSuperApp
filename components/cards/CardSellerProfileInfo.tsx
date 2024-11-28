@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import useThemedStyles from '@/hooks/useThemedStyles';
-import ImageCover from '../images/ImageCover';
+import ImageStyled from '../images/ImageStyled';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
@@ -12,9 +12,6 @@ import {
 import ImageIconCircle from '../images/ImageIconCircle';
 import IconUser from '../svg/icon/IconUser';
 import dateUtils from '@/utils/dateUtils';
-import APP_FORMATS from '@/constants/APP_FORMATS';
-import { useStorageState } from '@/hooks/useStorageState';
-import APP_STORAGE_KEYS from '@/constants/APP_STORAGE_KEYS';
 
 const CardSellerProfileInfo = () => {
   const commonStyles = useCommonStyles();
@@ -63,7 +60,7 @@ const CardSellerProfileInfo = () => {
           ]}
         >
           {currentUserData?.image ? (
-            <ImageCover url={currentUserData.image} />
+            <ImageStyled url={currentUserData.image} />
           ) : (
             <ImageIconCircle
               icon={

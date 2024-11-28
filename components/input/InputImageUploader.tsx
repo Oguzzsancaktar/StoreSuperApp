@@ -9,7 +9,7 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { COMMON_COLOURS } from '@/constants/APP_THEMES';
 import { map, filter, findIndex, forEach } from 'lodash';
-import ImageCover from '../images/ImageCover';
+import ImageStyled from '../images/ImageStyled';
 import ImageIconCircle from '../images/ImageIconCircle';
 import IconTrash from '../svg/icon/IconTrash';
 
@@ -192,7 +192,7 @@ const InputImageUploader: React.FC<IProps> = ({
                   icon={<IconTrash color={theme.white} />}
                 />
               </TouchableOpacity>
-              <ImageCover key={index} url={image.uri} />
+              <ImageStyled key={index} url={image.uri} />
             </View>
           ) : (
             <Pressable

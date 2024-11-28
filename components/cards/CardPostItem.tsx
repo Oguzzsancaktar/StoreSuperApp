@@ -2,7 +2,7 @@ import useThemedStyles from '@/hooks/useThemedStyles';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import ImageCover from '../images/ImageCover';
+import ImageStyled from '../images/ImageStyled';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { Href, router } from 'expo-router';
 import IListingPost from '@/interfaces/listing/IListingPost';
@@ -84,7 +84,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
         ]}
       >
         <View style={{ width: 70, height: 70 }}>
-          <ImageCover url={post?.media[0]?.url} />
+          <ImageStyled url={post?.media[0]?.url} />
         </View>
 
         <View style={[commonStyles.flexStyles.colStart, { flex: 1 }]}>

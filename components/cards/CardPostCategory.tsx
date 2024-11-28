@@ -8,7 +8,7 @@ import IconWorld from '../svg/icon/IconWorld';
 import IListingCategory from '@/interfaces/listing/IListingCategory';
 import { useMemo } from 'react';
 import { find, map } from 'lodash';
-import ImageCover from '../images/ImageCover';
+import ImageStyled from '../images/ImageStyled';
 import { SvgUri } from 'react-native-svg';
 
 interface IProps {
