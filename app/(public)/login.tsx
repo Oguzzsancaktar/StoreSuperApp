@@ -64,13 +64,15 @@ const LoginScreen = () => {
         <View
           style={{ maxWidth: APP_STYLE_VALUES.MAX_WIDTH.lg, margin: 'auto' }}
         >
-          <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
-            With Setuka24 you list with Ease & find with purpose
-          </TextStyled>
-          <TextStyled fontSize="md" fontWeight="semibold">
-            Login into your account, to find cool things in your area or sell
-            your own stuff.
-          </TextStyled>
+          <View>
+            <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
+              With Setuka24 you list with Ease & find with purpose
+            </TextStyled>
+            <TextStyled fontSize="md" fontWeight="semibold">
+              Login into your account, to find cool things in your area or sell
+              your own stuff.
+            </TextStyled>
+          </View>
         </View>
       </View>
 

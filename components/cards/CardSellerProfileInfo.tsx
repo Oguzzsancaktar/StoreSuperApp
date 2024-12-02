@@ -70,7 +70,7 @@ const CardSellerProfileInfo = () => {
                 <IconUser
                   width={APP_STYLE_VALUES.WH_SIZES.lg}
                   height={APP_STYLE_VALUES.WH_SIZES.lg}
-                  color={theme.grayScale900}
+                  color={theme.white}
                 />
               }
               size={APP_STYLE_VALUES.WH_SIZES.xl3}
@@ -127,7 +127,7 @@ const CardSellerProfileInfo = () => {
               <TextStyled fontSize="xs" fontWeight="medium">
                 {dateUtils.formatDateForMoment(
                   currentUserData.created,
-                  'DATE_NAME_MOMENT'
+                  'DATE_MOMENT_NAME'
                 )}
               </TextStyled>
             </View>

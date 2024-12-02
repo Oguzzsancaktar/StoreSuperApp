@@ -19,24 +19,34 @@ const CardLinkItem: React.FC<IProps> = ({ text, icon, right, onPress }) => {
       <View
         style={[
           commonStyles.flexStyles.rowBetween,
-          { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+          {
+            height: '100%',
+            width: '100%',
+            gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            alignItems: 'center',
+          },
         ]}
       >
         <View
           style={[
             commonStyles.flexStyles.rowStart,
-            { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+            {
+              alignItems: 'center',
+              gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            },
           ]}
         >
           {getIconWithProps(icon, { color: theme.grayScale400 })}
-          <TextStyled
-            textAlignment="left"
-            fontSize="md"
-            fontWeight="medium"
-            customColor="grayScale900"
-          >
-            {text}
-          </TextStyled>
+          <View style={{}}>
+            <TextStyled
+              textAlignment="left"
+              fontSize="md"
+              fontWeight="medium"
+              customColor="grayScale900"
+            >
+              {text}
+            </TextStyled>
+          </View>
         </View>
 
         {right === 'chevron' ? (

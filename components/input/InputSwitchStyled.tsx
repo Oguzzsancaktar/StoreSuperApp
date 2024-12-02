@@ -8,16 +8,10 @@ import { TextStyled } from '../typography';
 
 interface IProps {
   label?: string;
-  placeholder?: string;
   isOn: boolean;
   onToggle: () => void;
 }
-const InputSwitchStyled: React.FC<IProps> = ({
-  label,
-  placeholder,
-  isOn,
-  onToggle,
-}) => {
+const InputSwitchStyled: React.FC<IProps> = ({ label, isOn, onToggle }) => {
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
   return (
@@ -26,7 +20,6 @@ const InputSwitchStyled: React.FC<IProps> = ({
         commonStyles.flexStyles.rowStart,
         {
           alignItems: 'center',
-          marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
         },
       ]}
     >

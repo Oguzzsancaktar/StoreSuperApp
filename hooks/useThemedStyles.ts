@@ -97,6 +97,20 @@ const useThemedStyles = () => {
       shadowRadius: 12,
       elevation: 0,
     },
+    dropShadow100: {
+      shadowColor: theme.grayScale100,
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 0.5,
+      shadowRadius: 5,
+      elevation: 1,
+    },
+    dropShadow900: {
+      shadowColor: theme.grayScale900,
+      shadowOffset: { width: 0, height: 5 },
+      shadowOpacity: 0.1,
+      shadowRadius: 5,
+      elevation: 1,
+    },
   })
 
   const inputStyles = StyleSheet.create({
@@ -124,6 +138,8 @@ const useThemedStyles = () => {
       borderColor: COMMON_COLOURS.primaryDarken10,
       ...shadowStyles.dropShadowSm
     },
+
+
     badgePrimarySolid: {
       ...COMMON_BUTTON_STYLES,
 

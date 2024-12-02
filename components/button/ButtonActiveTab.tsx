@@ -6,6 +6,7 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { COMMON_COLOURS } from '@/constants/APP_THEMES';
+import { useMemo } from 'react';
 
 interface IProps {
   icon: any;
@@ -20,6 +21,9 @@ const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
 
   const router = useRouter();
 
+  const isPrimaryButton = useMemo(() => {
+    return to === '/addPost';
+  }, [to]);
   const handlePress = () => {
     // if (to === '/profile') {
     //   setUseSafeArea(false);
@@ -37,18 +41,18 @@ const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
         {
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor:
-            to === '/addPost' ? theme.primary : COMMON_COLOURS.transparent,
-          width:
-            to === '/addPost'
-              ? APP_STYLE_VALUES.WH_SIZES.lg
-              : (width -
-                  APP_STYLE_VALUES.WH_SIZES.lg -
-                  APP_STYLE_VALUES.SPACE_SIZES.sp4 * 2 -
-                  APP_STYLE_VALUES.SPACE_SIZES.sp2 * 2) /
-                4,
-          marginTop: to === '/addPost' ? -APP_STYLE_VALUES.SPACE_SIZES.sp2 : 0,
-          height: to === '/addPost' ? APP_STYLE_VALUES.WH_SIZES.lg : '100%',
+          backgroundColor: isPrimaryButton
+            ? theme.primary
+            : COMMON_COLOURS.transparent,
+          width: isPrimaryButton
+            ? APP_STYLE_VALUES.WH_SIZES.lg
+            : (width -
+                APP_STYLE_VALUES.WH_SIZES.lg -
+                APP_STYLE_VALUES.SPACE_SIZES.sp4 * 2 -
+                APP_STYLE_VALUES.SPACE_SIZES.sp2 * 2) /
+              4,
+          marginTop: isPrimaryButton ? -APP_STYLE_VALUES.SPACE_SIZES.sp2 : 0,
+          height: isPrimaryButton ? APP_STYLE_VALUES.WH_SIZES.lg : '100%',
           padding: APP_STYLE_VALUES.SPACE_SIZES.sp1,
           borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
         },
@@ -65,9 +69,9 @@ const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
       >
         {icon({
           color:
-            isActive && to !== '/addPost'
+            isActive && !isPrimaryButton
               ? theme.primary
-              : to === '/addPost'
+              : isPrimaryButton
               ? theme.white
               : theme.grayScale900,
         })}

@@ -6,6 +6,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { View, Text, Platform } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { GradientBackground } from '../svg/background';
+import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 interface IProps {
   children: React.ReactNode;

@@ -1,6 +1,4 @@
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { Pressable, TouchableOpacity, View } from 'react-native';
-import useCommonStyles from '@/hooks/useCommonStyles';
+import { TouchableOpacity } from 'react-native';
 import IconChevronLeft from '../svg/icon/IconChevronLeft';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { router } from 'expo-router';
@@ -8,7 +6,7 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import ImageIconCircle from '../images/ImageIconCircle';
 
 interface IProps {
-  customEvent(): void;
+  customEvent?: () => void;
 }
 
 const ButtonGoBack: React.FC<IProps> = ({ customEvent }) => {

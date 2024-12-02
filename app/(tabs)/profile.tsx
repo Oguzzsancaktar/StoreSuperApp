@@ -89,7 +89,7 @@ const ProfileScreen = () => {
                         { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
                       ]}
                     >
-                      <IconHeart color={theme.white} />
+                      <IconHeart color={theme.grayScale900} />
 
                       <View>
                         <TextStyled
