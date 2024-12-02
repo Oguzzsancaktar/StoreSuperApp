@@ -2,8 +2,8 @@ import APP_FORMATS from "@/constants/APP_FORMATS"
 import moment from "moment"
 
 const formatDateForMoment = (date: Date, format: keyof typeof APP_FORMATS) => {
-  // APP_FORMATS.DATE_INCOMING_FORMAT_MOMENT
-  return moment(date).format(APP_FORMATS[format])
+
+  return moment(date, APP_FORMATS.DATE_MOMENT_INCOMING).format(APP_FORMATS[format])
 }
 
 

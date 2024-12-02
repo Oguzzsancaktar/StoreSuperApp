@@ -9,7 +9,6 @@ import IListingPost from '@/interfaces/listing/IListingPost';
 import dateUtils from '@/utils/dateUtils';
 import { find } from 'lodash';
 import stringUtils from '@/utils/stringUtils';
-import APP_ROUTES from '@/constants/APP_ROUTES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import IconLocation from '../svg/icon/IconLocation';
 
@@ -22,6 +21,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
 
+  console.log('post', post);
   const handlePress = () => {
     router.push(('/(private)/post/' + post.id) as Href);
   };
@@ -46,7 +46,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
         <TextStyled fontSize="md" fontWeight="semibold" customColor="white">
           {dateUtils.formatDateForMoment(
             post?.created ?? '',
-            'DATE_NAME_MOMENT'
+            'DATE_MOMENT_MONTH_NAME'
           )}
         </TextStyled>
       </View>
@@ -187,9 +187,10 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
           customColor={'grayScale400'}
           textAlignment="left"
         >
-          {(post?.listingAddress?.countryName || '') +
-            ', ' +
-            (post?.listingAddress?.cityName + '')}
+          {post?.listingAddress &&
+            (post?.listingAddress?.countryName || '') +
+              ', ' +
+              (post?.listingAddress?.cityName + '')}
         </TextStyled>
       </View>
 
