@@ -1,4 +1,5 @@
 import { ButtonStyled } from '@/components/button';
+import CardListingActions from '@/components/cards/CardListingActions';
 import CardPostCategory from '@/components/cards/CardPostCategory';
 import CardPostPrice from '@/components/cards/CardPostPrice';
 import CardSellerInfo from '@/components/cards/CardSellerInfo';
@@ -43,6 +44,21 @@ const ListingDetailPage = () => {
 
   return (
     <ScreenWrapperContainer showGoBack={true}>
+      <View
+        style={[
+          commonStyles.absolutePositionStyles.absoluteFill,
+          {
+            left: 'auto',
+            width: APP_STYLE_VALUES.WH_SIZES.xl3,
+            height: APP_STYLE_VALUES.WH_SIZES.xs,
+            top: -APP_STYLE_VALUES.WH_SIZES.xs,
+            marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+          },
+        ]}
+      >
+        <CardListingActions />
+      </View>
+
       <InnerCommonContainer>
         <ScrollView
           nestedScrollEnabled

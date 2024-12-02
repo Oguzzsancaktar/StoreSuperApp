@@ -75,7 +75,7 @@ const InputSelectStyled: React.FC<IProps> = ({
           fontSize: APP_TYPOGRAPHY.fontSizes.h6,
           color: theme.grayScale900,
         }}
-        iconColor={theme.white}
+        iconColor={theme.grayScale900}
         activeColor={theme.grayScale300}
         itemContainerStyle={{}}
         itemTextStyle={{ color: theme.grayScale900 }}

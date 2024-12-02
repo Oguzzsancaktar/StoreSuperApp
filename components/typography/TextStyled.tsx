@@ -13,7 +13,7 @@ interface IProps {
   fontSize: keyof typeof APP_TYPOGRAPHY.fontSizes;
   fontWeight: keyof typeof APP_TYPOGRAPHY.fontWeights;
   customColor?: keyof IAppTheme;
-  children: string | string[];
+  children: string | string[] | number;
 }
 
 const TextStyled: React.FC<IProps> = ({

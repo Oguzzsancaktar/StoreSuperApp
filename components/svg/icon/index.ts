@@ -23,6 +23,8 @@ import IconEmpty from "./IconEmpty";
 import IconEyeHide from "./IconEyeHide";
 import IconEyeShow from "./IconEyeShow";
 
+
+
 import IconFAQ from "./IconFAQ";
 import IconFilter from "./IconFilter";
 import IconFlash from "./IconFlash";
@@ -31,6 +33,7 @@ import IconHeart from "./IconHeart";
 
 import IconHome from "./IconHome";
 import IconKey from "./IconKey";
+import IconLike from "./IconEyeShow";
 import IconLocation from "./IconLocation";
 import IconLock from "./IconLock";
 import IconLogout from "./IconLogout";
@@ -128,6 +131,7 @@ const ICONS = {
   IconHeartFilled,
   IconHome,
   IconKey,
+  IconLike,
   IconLocation,
   IconLock,
   IconLogout,

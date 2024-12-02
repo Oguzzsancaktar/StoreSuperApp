@@ -54,8 +54,15 @@ const useCommonStyles = () => {
     rowStart: {
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'flex-start',
+      alignItems: 'center',
       justifyContent: "flex-start",
+      flexWrap: "nowrap"
+    },
+    rowEnd: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: "flex-end",
       flexWrap: "nowrap"
     },
     rowBetween: {
