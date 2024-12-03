@@ -32,8 +32,6 @@ const ListingDetailPage = () => {
   const { data: listingItemDetailData, isLoading } =
     useGetListingItemDetailsQuery(listingId as string);
 
-  console.log('listingItemDetailData', listingItemDetailData);
-
   const mediaUrls = useMemo(() => {
     return map(listingItemDetailData?.media, (m) => m.url);
   }, [listingItemDetailData]);

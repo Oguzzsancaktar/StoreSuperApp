@@ -1,7 +1,6 @@
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { COMMON_COLOURS } from '@/constants/APP_THEMES';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 interface IProps {
   startColor?: string;
@@ -23,7 +22,6 @@ const GradientBackground: React.FC<IProps> = ({
       style={[
         commonStyles.absolutePositionStyles.absoluteFill,
         {
-          borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
           overflow: 'hidden',
           flex: 1,
         },

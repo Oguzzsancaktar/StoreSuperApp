@@ -1,6 +1,5 @@
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { InnerCommonContainer } from '@/components/containers';
-import SRegisterIllustration from '@/components/svg/illustrations/SRegisterIllustration';
 import { TextStyled } from '@/components/typography';
 import { View } from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
@@ -9,7 +8,6 @@ import { ButtonStyled } from '@/components/button';
 import { Href, router, useLocalSearchParams } from 'expo-router';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { WelcomeBackgroundPattern } from '@/components/svg/background';
-import APP_ROUTES from '@/constants/APP_ROUTES';
 
 interface IProps {}
 

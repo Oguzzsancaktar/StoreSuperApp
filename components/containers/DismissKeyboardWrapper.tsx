@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  TouchableWithoutFeedback,
-  Keyboard,
-  View,
-  StyleSheet,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
 import { useInputFocus } from '@/contexts/InputFocusContext';
 
 const DismissKeyboardWrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -14,26 +8,27 @@ const DismissKeyboardWrapper: React.FC<{ children: React.ReactNode }> = ({
   const { blurAllInputs } = useInputFocus();
 
   const dismissKeyboardAndBlurInputs = () => {
-    // blurAllInputs(); // Tüm inputlardan focus'u kaldır
-    // Keyboard.dismiss(); // Klavyeyi kapat
+    blurAllInputs(); // Tüm inputlardan focus'u kaldır
+    Keyboard.dismiss(); // Klavyeyi kapat
   };
 
+  // @todo manage with best practice
   return (
     // <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
     <TouchableWithoutFeedback
       accessible={false}
       onPress={dismissKeyboardAndBlurInputs}
     >
-      <View style={styles.container}>{children}</View>
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
+        {children}
+      </View>
     </TouchableWithoutFeedback>
     // </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default DismissKeyboardWrapper;

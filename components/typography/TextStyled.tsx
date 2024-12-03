@@ -14,6 +14,7 @@ interface IProps {
   fontWeight: keyof typeof APP_TYPOGRAPHY.fontWeights;
   customColor?: keyof IAppTheme;
   children: string | string[] | number;
+  numberOfLines?: number;
 }
 
 const TextStyled: React.FC<IProps> = ({
@@ -23,6 +24,7 @@ const TextStyled: React.FC<IProps> = ({
   fontSize,
   fontWeight,
   customColor,
+  numberOfLines,
 }) => {
   const { theme } = useAppTheme();
   const { shadowStyles } = useThemedStyles();
@@ -56,7 +58,9 @@ const TextStyled: React.FC<IProps> = ({
 
   return (
     <View style={[commonStyles.flexStyles.colCenter, { width: '100%' }]}>
-      <Text style={textStyles}>{children}</Text>
+      <Text numberOfLines={numberOfLines} style={textStyles}>
+        {children}
+      </Text>
     </View>
   );
 };

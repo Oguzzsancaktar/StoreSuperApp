@@ -14,6 +14,7 @@ import IconPlusCircle from '@/components/svg/icon/circle/IconPlusCircle';
 import IconSearch from '@/components/svg/icon/IconSearch';
 import { ListingFilterProvider } from '@/contexts/ListingFilterContext';
 import useThemedStyles from '@/hooks/useThemedStyles';
+import { GradientBackground } from '@/components/svg/background';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -66,6 +67,11 @@ export default function TabLayout() {
             paddingBottom: 0,
             marginTop: 0,
             paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            elevation: 0,
+            borderTopWidth: 0,
+            position: 'absolute',
+            left: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+            zIndex: 1,
           },
           tabBarButton: ({ accessibilityState, to, ...rest }) => {
             const isSelected = accessibilityState?.selected || false;

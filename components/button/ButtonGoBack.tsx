@@ -31,7 +31,10 @@ const ButtonGoBack: React.FC<IProps> = ({ customEvent }) => {
         },
       ]}
     >
-      <ImageIconCircle icon={<IconChevronLeft color={theme.white} />} />
+      <ImageIconCircle
+        bgColor="transparent"
+        icon={<IconChevronLeft color={theme.grayScale900} />}
+      />
     </TouchableOpacity>
   );
 };

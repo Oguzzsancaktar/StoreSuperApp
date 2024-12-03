@@ -1,5 +1,6 @@
 import { View } from 'react-native';
 import useCommonStyles from '@/hooks/useCommonStyles';
+import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 interface IProps {
   children: React.ReactNode;
@@ -13,8 +14,8 @@ const InnerCommonContainer: React.FC<IProps> = ({ children }) => {
       style={[
         commonStyles.flexStyles.selfCenter,
         commonStyles.flexStyles.colBetween,
-        commonStyles.spacingStyles.p4,
         {
+          paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp4,
           backgroundColor: 'transparent',
           flex: 1,
           width: '100%',
