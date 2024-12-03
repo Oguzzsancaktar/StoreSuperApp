@@ -9,6 +9,7 @@ import FilterStuffType from '../filters/FilterStuffType';
 import { useMemo, useState } from 'react';
 import ISelectOption from '@/interfaces/theme/ISelectOption';
 import { useGetNewestPostsQuery } from '@/services/listingServices';
+import ListFlatStyled from '../list/ListFlatStyled';
 
 const CardNewestPostings = () => {
   const commonStyles = useCommonStyles();
@@ -66,17 +67,11 @@ const CardNewestPostings = () => {
         </View>
       </View>
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-          paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-        }}
-      >
-        {map(newestPostData, (post, index) => {
-          return <CardPostItem post={post} key={index} />;
-        })}
-      </ScrollView>
+      <ListFlatStyled
+        onStartShouldSetResponder={() => true}
+        data={newestPostData}
+        renderItem={({ item }) => <CardPostItem post={item} />}
+      />
     </View>
   );
 };

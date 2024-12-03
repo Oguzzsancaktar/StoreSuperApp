@@ -16,6 +16,7 @@ import ISelectOption from '@/interfaces/theme/ISelectOption';
 import IconFilter from '@/components/svg/icon/IconFilter';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import { useDrawerState } from '@/contexts/DrawerContext';
+import ListFlatStyled from '@/components/list/ListFlatStyled';
 
 const CardListingItems = () => {
   const { theme } = useAppTheme();
@@ -122,17 +123,10 @@ const CardListingItems = () => {
         </View>
       </View>
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-          paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-        }}
-      >
-        {map(listingItemsData?.items, (post, index) => {
-          return <CardPostItem post={post} key={index} />;
-        })}
-      </ScrollView>
+      <ListFlatStyled
+        data={listingItemsData?.items}
+        renderItem={({ item }) => <CardPostItem post={item} />}
+      ></ListFlatStyled>
     </View>
   );
 };

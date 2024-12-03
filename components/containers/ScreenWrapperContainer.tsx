@@ -6,12 +6,10 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 interface IProps {
   children: React.ReactNode;
   showGoBack?: boolean;
-  isTabsActive?: boolean;
 }
 const ScreenWrapperContainer: React.FC<IProps> = ({
   children,
   showGoBack = false,
-  isTabsActive = false,
 }) => {
   const themedStyles = useThemedStyles();
   return (
@@ -32,7 +30,6 @@ const ScreenWrapperContainer: React.FC<IProps> = ({
         style={[
           {
             ...themedStyles.containerStyles.screenWrapperContainer,
-            marginBottom: isTabsActive ? APP_STYLE_VALUES.SPACE_SIZES.sp13 : 0,
           },
         ]}
       >

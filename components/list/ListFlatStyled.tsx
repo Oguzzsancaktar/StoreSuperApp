@@ -64,6 +64,7 @@ const ListFlatStyled = <T,>({ data, renderItem, ...others }: IProps<T>) => {
         keyExtractor={(item, idx) => idx.toString()}
         scrollEnabled={true}
         nestedScrollEnabled={true}
+        contentContainerStyle={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 }}
       />
     </View>
   );

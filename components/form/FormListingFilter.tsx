@@ -82,7 +82,6 @@ const FormListingFilter = () => {
     const keys = Object.keys(others);
   };
 
-  console.log('filterOptionData', filterOptionData);
   // @todo create custom scrollwiev
   return (
     <View

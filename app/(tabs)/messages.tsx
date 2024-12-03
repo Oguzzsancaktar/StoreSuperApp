@@ -113,7 +113,7 @@ const MessagesScreen = () => {
     return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;
   }
   return (
-    <ScreenWrapperContainer isTabsActive={true}>
+    <ScreenWrapperContainer>
       <InnerCommonContainer>
         <View
           style={[
@@ -151,6 +151,9 @@ const MessagesScreen = () => {
         <ListFlatStyled
           onStartShouldSetResponder={() => true}
           renderItem={renderItem}
+          contentContainerStyle={{
+            paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp13,
+          }}
           data={[...chatListData]}
         />
       </InnerCommonContainer>

@@ -4,7 +4,7 @@ import { InnerCommonContainer } from '@/components/containers';
 
 export default function TimelineScreen() {
   return (
-    <ScreenWrapperContainer isTabsActive={true}>
+    <ScreenWrapperContainer>
       <InnerCommonContainer>
         <CardNewestPostings />
       </InnerCommonContainer>

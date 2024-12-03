@@ -23,6 +23,7 @@ import { router, usePathname } from 'expo-router';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
 import { map } from 'lodash';
 import CardPostItem from '@/components/cards/CardPostItem';
+import ListFlatStyled from '@/components/list/ListFlatStyled';
 
 const ProfileScreen = () => {
   const commonStyles = useCommonStyles();
@@ -130,17 +131,10 @@ const ProfileScreen = () => {
             <CardSellerProfileInfo />
 
             <View style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{
-                  gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                  paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                }}
-              >
-                {map(currentUserListingData, (post, index) => {
-                  return <CardPostItem post={post} key={index} />;
-                })}
-              </ScrollView>
+              <ListFlatStyled
+                data={currentUserListingData}
+                renderItem={({ item }) => <CardPostItem post={item} />}
+              />
             </View>
           </View>
         </InnerCommonContainer>
