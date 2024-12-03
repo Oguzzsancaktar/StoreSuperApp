@@ -1,4 +1,9 @@
-import { createContext, useContext, type PropsWithChildren } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  type PropsWithChildren,
+} from 'react';
 import APP_STORAGE_KEYS from '@/constants/APP_STORAGE_KEYS';
 import { useStorageState } from '@/hooks/useStorageState';
 
@@ -6,6 +11,8 @@ import ILoginResult from '@/interfaces/account/ILoginResult';
 import apiClient from '@/config/axiosInstance';
 import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
+import { useDispatch } from 'react-redux';
+import { ACCOUNT_API_TAG, accountApiSlice } from '@/services/accountServices';
 
 const AuthContext = createContext<{
   signIn: (loginResult: ILoginResult) => void;
@@ -32,6 +39,8 @@ export function useSession() {
 }
 
 export function SessionProvider({ children }: PropsWithChildren) {
+  const dispatch = useDispatch();
+
   const [[isLoading, session], setSession] = useStorageState(
     APP_STORAGE_KEYS.AUTH_SESSION
   );
@@ -42,6 +51,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
     APP_STORAGE_KEYS.REFRESH_TOKEN_EXPIRY
   );
 
+  console.log('session', session);
   const signIn = ({
     token,
     refreshToken,
@@ -53,11 +63,15 @@ export function SessionProvider({ children }: PropsWithChildren) {
   };
 
   const signOut = () => {
+    dispatch(accountApiSlice.util.invalidateTags([ACCOUNT_API_TAG]));
+    dispatch(accountApiSlice.util.resetApiState());
+
     setSession(null);
     setRefreshToken(null);
     setRefreshTokenExpiryTime(null);
     apiClient.defaults.headers.common['Authorization'] = '';
     router.push(APP_ROUTES.PUBLIC.WELCOME);
+    console.log('-----');
   };
 
   const refreshAuthToken = async () => {

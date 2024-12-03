@@ -7,6 +7,7 @@ import { InputStyled } from '@/components/input';
 import ListFlatStyled from '@/components/list/ListFlatStyled';
 import IconOptions from '@/components/svg/icon/IconOptions';
 import IconSendMessage from '@/components/svg/icon/IconSendMessage';
+import IconUser from '@/components/svg/icon/IconUser';
 import { TextStyled } from '@/components/typography';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
@@ -20,6 +21,7 @@ import {
   useCreateMessageMutation,
   useGetChatMessagesQuery,
 } from '@/services/chatServices';
+import { useGetListingItemDetailsQuery } from '@/services/listingServices';
 import jwtUtils from '@/utils/jwtUtils';
 import { Redirect, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
@@ -31,6 +33,13 @@ const MessagesDetailScreen = () => {
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
   const { chatRegistryId, listingId } = useLocalSearchParams();
+
+  const { data: listingDetailData } = useGetListingItemDetailsQuery(
+    listingId as string,
+    { skip: !listingId }
+  );
+
+  console.log('listingDetailData', listingDetailData);
 
   const userJwtDecoded = jwtUtils.userJwtDecode(session ?? '');
 
@@ -68,6 +77,7 @@ const MessagesDetailScreen = () => {
         style={[
           themedStyles.borderStyles.default,
           {
+            maxWidth: '100%',
             borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
             padding: APP_STYLE_VALUES.SPACE_SIZES.sp3,
             paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2,
@@ -87,7 +97,7 @@ const MessagesDetailScreen = () => {
               },
         ]}
       >
-        <View>
+        <View style={{ height: 'auto', maxWidth: '100%' }}>
           <TextStyled
             textAlignment="left"
             fontSize="md"
@@ -129,7 +139,7 @@ const MessagesDetailScreen = () => {
     return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;
   }
 
-  if (!messagesData) {
+  if (!messagesData || !listingDetailData) {
     return null;
   }
 
@@ -170,7 +180,20 @@ const MessagesDetailScreen = () => {
                     height: APP_STYLE_VALUES.WH_SIZES.sm,
                   }}
                 >
-                  <ImageStyled />
+                  {listingDetailData.user?.image ? (
+                    <ImageStyled url={listingDetailData.user?.image} />
+                  ) : (
+                    <ImageIconCircle
+                      icon={
+                        <IconUser
+                          width={APP_STYLE_VALUES.WH_SIZES.xs2}
+                          height={APP_STYLE_VALUES.WH_SIZES.xs2}
+                          color={theme.white}
+                        />
+                      }
+                      size={APP_STYLE_VALUES.WH_SIZES.sm}
+                    />
+                  )}
                 </View>
                 <View>
                   <TextStyled
@@ -178,7 +201,12 @@ const MessagesDetailScreen = () => {
                     fontWeight="semibold"
                     customColor="grayScale900"
                   >
-                    Eyüp Ahmet
+                    {listingDetailData.user?.lastName &&
+                    listingDetailData.user?.firstName
+                      ? (listingDetailData.user?.firstName || '') +
+                        ' ' +
+                        (listingDetailData.user?.lastName || '')
+                      : listingDetailData.user.email}
                   </TextStyled>
                 </View>
               </View>
@@ -220,7 +248,7 @@ const MessagesDetailScreen = () => {
                   customColor="grayScale900"
                   numberOfLines={1}
                 >
-                  Ev arabam
+                  {listingDetailData.name}
                 </TextStyled>
                 <TextStyled
                   textAlignment="left"
@@ -229,7 +257,7 @@ const MessagesDetailScreen = () => {
                   customColor="grayScale500"
                   numberOfLines={1}
                 >
-                  Benim güzel arabam...
+                  {listingDetailData.formattedPrice}
                 </TextStyled>
               </View>
             </View>

@@ -22,7 +22,7 @@ const ListFlatStyled = <T,>({ data, renderItem, ...others }: IProps<T>) => {
         style={[
           commonStyles.absolutePositionStyles.absoluteFill,
           {
-            height: APP_STYLE_VALUES.WH_SIZES.md,
+            height: APP_STYLE_VALUES.WH_SIZES.sm,
             // @todo create constant for zIndexes
             zIndex: 1,
           },
@@ -40,7 +40,7 @@ const ListFlatStyled = <T,>({ data, renderItem, ...others }: IProps<T>) => {
         style={[
           commonStyles.absolutePositionStyles.absoluteFill,
           {
-            height: APP_STYLE_VALUES.WH_SIZES.md,
+            height: APP_STYLE_VALUES.WH_SIZES.sm,
             top: 'auto',
             // @todo create constant for zIndexes
             zIndex: 1,

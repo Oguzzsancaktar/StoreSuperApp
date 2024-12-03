@@ -18,7 +18,7 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import IUser from '@/interfaces/account/IUser';
 import { useGetListingItemDetailsQuery } from '@/services/listingServices';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { find, map } from 'lodash';
 import { useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
@@ -31,6 +31,14 @@ const ListingDetailPage = () => {
 
   const { data: listingItemDetailData, isLoading } =
     useGetListingItemDetailsQuery(listingId as string);
+
+  const handleSendMessageClick = () => {
+    router.push({
+      // @todo fix find best practice for constant all routes
+      pathname: ('/(private)/chat/' + 'new') as any,
+      params: { listingId: listingId },
+    });
+  };
 
   const mediaUrls = useMemo(() => {
     return map(listingItemDetailData?.media, (m) => m.url);
@@ -183,7 +191,10 @@ const ListingDetailPage = () => {
           {/* @todo add it to button compoennt for icon */}
 
           <View style={{ flex: 1 }}>
-            <ButtonStyled variant="buttonPrimarySolid">
+            <ButtonStyled
+              variant="buttonPrimarySolid"
+              onPress={handleSendMessageClick}
+            >
               <View
                 style={[
                   commonStyles.flexStyles.rowCenterWrap,

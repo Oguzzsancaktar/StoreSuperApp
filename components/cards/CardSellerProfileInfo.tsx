@@ -22,7 +22,6 @@ const CardSellerProfileInfo = () => {
   const { theme } = useAppTheme();
 
   const { data: currentUserListingData } = useGetCurrentUserListingsQuery();
-
   const { data: currentUserData } = useGetCurrentUserInformationQuery();
 
   return (

@@ -14,6 +14,7 @@ const COMMON_BUTTON_STYLES = {
   padding: SPACE_SIZES.sp4,
   paddingVertical: SPACE_SIZES.sp0,
   borderWidth: 1,
+  overflow: "hidden" as "hidden" | "visible" | undefined,
 }
 
 const COMMON_CARD_STYLES = {

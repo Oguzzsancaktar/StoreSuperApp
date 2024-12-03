@@ -151,20 +151,7 @@ const MessagesScreen = () => {
         <ListFlatStyled
           onStartShouldSetResponder={() => true}
           renderItem={renderItem}
-          data={[
-            ...chatListData,
-            ...chatListData,
-            ...chatListData,
-            ...chatListData,
-            ...chatListData,
-            ...chatListData,
-            ...chatListData,
-            ...chatListData,
-            ...chatListData,
-            ...chatListData,
-            ...chatListData,
-            ...chatListData,
-          ]}
+          data={[...chatListData]}
         />
       </InnerCommonContainer>
     </ScreenWrapperContainer>

@@ -9,7 +9,7 @@ import IUser from '@/interfaces/account/IUser';
 
 
 const ACCOUNT_API_REDUCER_PATH = 'accountAPI'
-const ACCOUNT_API_TAG = "accountTag"
+export const ACCOUNT_API_TAG = "accountTag"
 
 type IBuilder = EndpointBuilder<
   IAxiosBaseQueryFn,

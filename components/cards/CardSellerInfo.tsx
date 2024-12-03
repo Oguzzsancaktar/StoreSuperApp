@@ -108,7 +108,7 @@ const CardSellerInfo: React.FC<IProps> = ({
             customColor="grayScale500"
           >
             Member since,{' '}
-            {moment(user.created).format(APP_FORMATS.DATE_NAME_MOMENT)}
+            {moment(user.created).format(APP_FORMATS.DATE_MOMENT_NAME)}
           </TextStyled>
         </View>
       </View>
