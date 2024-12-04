@@ -28,6 +28,7 @@ interface IListingPost {
   tags: string[]
   user: IUser
   userId: string
+  isFavorite: boolean
 }
 
 export default IListingPost

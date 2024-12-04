@@ -16,6 +16,12 @@ export default function PublicLayout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="favorites"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }

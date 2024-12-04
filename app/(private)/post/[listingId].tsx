@@ -40,6 +40,7 @@ const ListingDetailPage = () => {
     });
   };
 
+  console.log('listingItemDetailData', listingItemDetailData);
   const mediaUrls = useMemo(() => {
     return map(listingItemDetailData?.media, (m) => m.url);
   }, [listingItemDetailData]);
@@ -49,22 +50,16 @@ const ListingDetailPage = () => {
   }
 
   return (
-    <ScreenWrapperContainer showGoBack={true}>
-      <View
-        style={[
-          commonStyles.absolutePositionStyles.absoluteFill,
-          {
-            left: 'auto',
-            width: APP_STYLE_VALUES.WH_SIZES.xl3,
-            height: APP_STYLE_VALUES.WH_SIZES.xs,
-            top: -APP_STYLE_VALUES.WH_SIZES.xs,
-            marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-          },
-        ]}
-      >
-        <CardListingActions />
-      </View>
-
+    <ScreenWrapperContainer
+      showGoBack={true}
+      showBorderUnderline={true}
+      rightElement={
+        <CardListingActions
+          listingId={listingItemDetailData.id}
+          isFavorite={listingItemDetailData.isFavorite}
+        />
+      }
+    >
       <InnerCommonContainer>
         <ScrollView
           nestedScrollEnabled

@@ -1,9 +1,13 @@
 import { IIconProps } from '@/interfaces/app';
 import { Path, Svg } from 'react-native-svg';
 
-const IconChevronLeft: React.FC<IIconProps> = ({ color }) => {
+const IconChevronLeft: React.FC<IIconProps> = ({
+  color,
+  width = '23',
+  height = '24',
+}) => {
   return (
-    <Svg width="23" height="24" viewBox="0 0 23 24" fill="none">
+    <Svg width={width} height={height} viewBox="0 0 23 24" fill="none">
       <Path
         fillRule="evenodd"
         clipRule="evenodd"

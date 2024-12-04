@@ -11,11 +11,7 @@ import { find } from 'lodash';
 import stringUtils from '@/utils/stringUtils';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import IconLocation from '../svg/icon/IconLocation';
-import IconLike from '../svg/icon/IconLike';
 import IconEyeShowFilled from '../svg/icon/filled/IconEyeShowFilled';
-import ImageIconCircle from '../images/ImageIconCircle';
-import IconShare from '../svg/icon/IconShare';
-import IconHeart from '../svg/icon/IconHeart';
 import IconHeartFilled from '../svg/icon/filled/IconHeartFilled';
 import CardListingActions from './CardListingActions';
 
@@ -27,6 +23,8 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
   const { theme } = useAppTheme();
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
+
+  console.log('post', post);
 
   const handlePress = () => {
     router.push(('/(private)/post/' + post.id) as Href);
@@ -283,7 +281,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
           </View>
         </View>
 
-        <CardListingActions />
+        <CardListingActions listingId={post.id} isFavorite={post.isFavorite} />
       </View>
     </View>
   );

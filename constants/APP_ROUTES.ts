@@ -11,6 +11,7 @@ export interface IAppRoutes {
 const APP_ROUTES: IAppRoutes = {
   DRAWER: {
     SETTINGS: "/(drawer)/settings",
+    FAVORITES: "/(drawer)/favorites",
     SUCCESS: "/(drawer)/success",
   },
 

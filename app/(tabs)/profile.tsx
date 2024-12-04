@@ -24,6 +24,7 @@ import { View, TouchableOpacity, ScrollView } from 'react-native';
 import { map } from 'lodash';
 import CardPostItem from '@/components/cards/CardPostItem';
 import ListFlatStyled from '@/components/list/ListFlatStyled';
+import APP_ROUTES from '@/constants/APP_ROUTES';
 
 const ProfileScreen = () => {
   const commonStyles = useCommonStyles();
@@ -77,7 +78,10 @@ const ProfileScreen = () => {
             >
               {/* @todo add it to button compoennt for icon */}
               <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xl4 }}>
-                <ButtonStyled variant="badgeOutlined">
+                <ButtonStyled
+                  variant="badgeOutlined"
+                  onPress={() => router.push(APP_ROUTES.DRAWER.FAVORITES)}
+                >
                   <View
                     style={[
                       commonStyles.flexStyles.rowCenterWrap,

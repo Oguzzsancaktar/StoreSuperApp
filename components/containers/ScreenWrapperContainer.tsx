@@ -2,30 +2,57 @@ import { View } from 'react-native';
 import useThemedStyles from '@/hooks/useThemedStyles';
 import { ButtonGoBack } from '../button';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import useCommonStyles from '@/hooks/useCommonStyles';
+import { TextStyled } from '../typography';
 
 interface IProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   showGoBack?: boolean;
+  headerTitle?: string;
+  rightElement?: React.ReactNode;
+  showBorderUnderline?: boolean;
 }
 const ScreenWrapperContainer: React.FC<IProps> = ({
   children,
   showGoBack = false,
+  headerTitle,
+  rightElement,
+  showBorderUnderline,
 }) => {
   const themedStyles = useThemedStyles();
+  const commonStyles = useCommonStyles();
   return (
     <View style={[themedStyles.containerStyles.screenWrapperContainer]}>
-      {showGoBack && (
+      {(showGoBack || headerTitle || rightElement) && (
         <View
           style={[
+            commonStyles.flexStyles.rowBetween,
+            showBorderUnderline && themedStyles.borderStyles.bottomUnderline,
             {
               paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-              height: APP_STYLE_VALUES.WH_SIZES.sm,
+              paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+              marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
             },
           ]}
         >
-          <ButtonGoBack />
+          <View style={[commonStyles.flexStyles.rowStart]}>
+            {showGoBack && <ButtonGoBack isCircular={false} />}
+            {headerTitle && (
+              <View>
+                <TextStyled
+                  fontSize="h5"
+                  fontWeight="semibold"
+                  customColor="grayScale900"
+                >
+                  {headerTitle}
+                </TextStyled>
+              </View>
+            )}
+          </View>
+          <View>{rightElement}</View>
         </View>
       )}
+
       <View
         style={[
           {

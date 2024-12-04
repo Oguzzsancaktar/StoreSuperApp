@@ -8,6 +8,7 @@ import IListingQueryParams from '@/interfaces/listing/IListingQueryParams';
 import IPaginationResult from '@/interfaces/app/IPaginationResult';
 import IListingCreateDTO from '@/interfaces/listing/IListingCreateDTO';
 import { map } from 'lodash';
+import IListingFavorite from '@/interfaces/listing/IListingFavorite';
 
 const LISTING_API_REDUCER_PATH = 'listingAPI'
 const LISTING_API_TAG = "listingTag"
@@ -68,6 +69,55 @@ const createListing = (builder: IBuilder) => {
 }
 
 
+
+const getListingFavorites = (builder: IBuilder) => {
+  return builder.query<IListingFavorite[], void>({
+    query(data) {
+      return {
+        url: `/users/favorite`,
+        method: 'GET',
+
+      }
+    },
+    providesTags: [LISTING_API_TAG],
+  })
+}
+
+
+
+const addListingFavorite = (builder: IBuilder) => {
+  return builder.mutation<IListingPost["id"], { listingId: IListingPost["id"] }>({
+    query(data) {
+      return {
+        url: `/users/favorite`,
+        method: 'POST',
+        data: {
+          ...data,
+        }
+      }
+    },
+    invalidatesTags: [LISTING_API_TAG],
+  })
+}
+
+
+
+const removeListingFavorite = (builder: IBuilder) => {
+  return builder.mutation<IListingPost["id"], { id: IListingPost["id"] }>({
+    query(data) {
+      return {
+        url: `/users/favorite`,
+        method: 'DELETE',
+        data: {
+          ...data,
+        }
+      }
+    },
+    invalidatesTags: [LISTING_API_TAG],
+  })
+}
+
+
 const uploadListingMedia = (builder: IBuilder) => {
   return builder.mutation<string[], IListingCreateDTO["media"]>({
     query(formData) {
@@ -98,6 +148,7 @@ const getListingItemDetails = (builder: IBuilder) => {
   })
 }
 
+
 const listingApiSlice = createApi({
   reducerPath: LISTING_API_REDUCER_PATH,
   tagTypes: [LISTING_API_TAG],
@@ -107,13 +158,16 @@ const listingApiSlice = createApi({
     getNewestPosts: getNewestPosts(builder),
     createListing: createListing(builder),
     getListingItemDetails: getListingItemDetails(builder),
-    uploadListingMedia: uploadListingMedia(builder)
+    uploadListingMedia: uploadListingMedia(builder),
+    addListingFavorite: addListingFavorite(builder),
+    removeListingFavorite: removeListingFavorite(builder),
+    getListingFavorites: getListingFavorites(builder)
   }),
 })
 
-const { useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation } = listingApiSlice
+const { useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery } = listingApiSlice
 
-export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation }
+export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery }
 
 
 
