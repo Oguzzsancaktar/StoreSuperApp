@@ -6,15 +6,18 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
 import {
+  useAddCurrentUserImageMutation,
   useGetCurrentUserInformationQuery,
   useGetCurrentUserListingsQuery,
 } from '@/services/accountServices';
 import ImageIconCircle from '../images/ImageIconCircle';
 import IconUser from '../svg/icon/IconUser';
 import dateUtils from '@/utils/dateUtils';
-import { Link, router } from 'expo-router';
+import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { ButtonStyled } from '../button';
+import InputImageUploader from '../input/InputImageUploader';
+import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
 
 const CardSellerProfileInfo = () => {
   const commonStyles = useCommonStyles();
@@ -23,6 +26,28 @@ const CardSellerProfileInfo = () => {
 
   const { data: currentUserListingData } = useGetCurrentUserListingsQuery();
   const { data: currentUserData } = useGetCurrentUserInformationQuery();
+
+  const [uploadProfileImage, { isLoading: uploadImageIsLoading }] =
+    useAddCurrentUserImageMutation();
+
+  const handleImageUpload = async (selectedImages: any[]) => {
+    const formDataForMedia = new FormData();
+
+    const file = selectedImages[0];
+    if (file) {
+      formDataForMedia.append('file', file, file.name); // `files` API'deki alan adıyla eşleşmeli
+    }
+
+    try {
+      const uploadedMediaUrls = await uploadProfileImage(
+        formDataForMedia as any
+      ).unwrap();
+
+      console.log('uploadedMediaUrls', uploadedMediaUrls);
+    } catch (err) {
+      console.log('err', err);
+    }
+  };
 
   return (
     <View
@@ -51,30 +76,69 @@ const CardSellerProfileInfo = () => {
         <View
           style={[
             {
-              borderWidth: 1,
-              overflow: 'hidden',
               marginTop: -APP_STYLE_VALUES.WH_SIZES.xl3 / 2,
-              borderColor: theme.grayScale100,
-              width: APP_STYLE_VALUES.WH_SIZES.xl3,
-              height: APP_STYLE_VALUES.WH_SIZES.xl3,
-              borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
             },
           ]}
         >
-          {currentUserData?.image ? (
-            <ImageStyled url={currentUserData.image} />
-          ) : (
-            <ImageIconCircle
-              icon={
-                <IconUser
-                  width={APP_STYLE_VALUES.WH_SIZES.lg}
-                  height={APP_STYLE_VALUES.WH_SIZES.lg}
-                  color={theme.white}
-                />
-              }
-              size={APP_STYLE_VALUES.WH_SIZES.xl3}
+          <View
+            style={[
+              commonStyles.absolutePositionStyles.absoluteFill,
+              {
+                top: 'auto',
+                left: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+                zIndex: 1,
+                width: APP_STYLE_VALUES.WH_SIZES.xs,
+                height: APP_STYLE_VALUES.WH_SIZES.xs,
+              },
+            ]}
+          >
+            <InputImageUploader
+              isUploadButton={true}
+              maxMedia={1}
+              onChange={handleImageUpload}
             />
-          )}
+          </View>
+
+          <View
+            style={[
+              {
+                overflow: 'hidden',
+                borderColor: theme.grayScale100,
+                width: APP_STYLE_VALUES.WH_SIZES.xl3,
+                height: APP_STYLE_VALUES.WH_SIZES.xl3,
+                borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
+              },
+            ]}
+          >
+            {uploadImageIsLoading && (
+              <View
+                style={[
+                  commonStyles.absolutePositionStyles.absoluteFill,
+                  { zIndex: 1 },
+                ]}
+              >
+                <ImageIconCircle
+                  icon={<SvgAnimLoadingSpinner color={theme.white} />}
+                  size={APP_STYLE_VALUES.WH_SIZES.xl3}
+                />
+              </View>
+            )}
+
+            {currentUserData?.image ? (
+              <ImageStyled url={currentUserData.image} />
+            ) : (
+              <ImageIconCircle
+                icon={
+                  <IconUser
+                    width={APP_STYLE_VALUES.WH_SIZES.lg}
+                    height={APP_STYLE_VALUES.WH_SIZES.lg}
+                    color={theme.white}
+                  />
+                }
+                size={APP_STYLE_VALUES.WH_SIZES.xl3}
+              />
+            )}
+          </View>
         </View>
       </View>
 

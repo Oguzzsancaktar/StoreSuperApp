@@ -1,5 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import { View } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
@@ -38,20 +37,21 @@ const DrawerGlobal = () => {
         style={{
           flex: 1,
           backgroundColor: theme.appBackground,
-          padding: APP_STYLE_VALUES.SPACE_SIZES.sp4,
           marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp8,
           gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
         }}
       >
-        <ImageIconCircle
-          onPress={toggleDrawer}
-          gradientBg={true}
-          radius={APP_STYLE_VALUES.RADIUS_SIZES.sm}
-          borderColor="primary"
-          bgColor="appBackground"
-          size={APP_STYLE_VALUES.WH_SIZES.xs}
-          icon={<IconClose color={theme.grayScale900} />}
-        />
+        <View style={{ marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
+          <ImageIconCircle
+            onPress={toggleDrawer}
+            gradientBg={true}
+            radius={APP_STYLE_VALUES.RADIUS_SIZES.sm}
+            borderColor="primary"
+            bgColor="appBackground"
+            size={APP_STYLE_VALUES.WH_SIZES.xs}
+            icon={<IconClose color={theme.grayScale900} />}
+          />
+        </View>
 
         <View style={{ flex: 1 }}>
           <FormListingFilter />

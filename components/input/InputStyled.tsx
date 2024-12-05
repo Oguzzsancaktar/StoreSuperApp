@@ -5,7 +5,6 @@ import useThemedStyles from '@/hooks/useThemedStyles';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconBell from '../svg/icon/IconBell';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { getIconWithProps } from '../svg/icon';
 import IconEyeHide from '../svg/icon/IconEyeHide';

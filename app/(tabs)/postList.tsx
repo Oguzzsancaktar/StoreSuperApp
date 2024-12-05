@@ -2,45 +2,39 @@ import CardListingCategories from '@/components/cards/listing/CardListingCategor
 import CardListingItems from '@/components/cards/listing/CardListingItems';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import DrawerGlobal from '@/components/drawer/DrawerGlobal';
-import DrawerFilterOptions from '@/components/drawer/DrawerGlobal';
-import FilterListingOptionsByCategory from '@/components/form/FormListingFilter';
-import { TextStyled } from '@/components/typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import {
-  ListingFilterProvider,
-  useListingFilter,
-} from '@/contexts/ListingFilterContext';
+import { useListingFilter } from '@/contexts/ListingFilterContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import IListingCategory from '@/interfaces/listing/IListingCategory';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { View } from 'react-native';
 
 const PostScreenActiveComponent = () => {
-  const { setSelectedCategory } = useListingFilter();
-
-  const { selectedCategory } = useListingFilter();
+  const { filterValues, setFilterValues } = useListingFilter();
 
   const activeTab = useMemo(() => {
     let tab = (
       <CardListingCategories
-        selectedCategory={selectedCategory || ''}
-        handleSelectCategory={(categoryId) => setSelectedCategory(categoryId)}
+        selectedCategory={filterValues?.category || ''}
+        handleSelectCategory={(categoryId) =>
+          setFilterValues({ ...filterValues, category: categoryId })
+        }
       />
     );
-    if (selectedCategory) {
+    if (filterValues?.category) {
       tab = <CardListingItems />;
     } else {
       tab = (
         <CardListingCategories
-          selectedCategory={selectedCategory || ''}
-          handleSelectCategory={(categoryId) => setSelectedCategory(categoryId)}
+          selectedCategory={filterValues?.category || ''}
+          handleSelectCategory={(categoryId) =>
+            setFilterValues({ ...filterValues, category: categoryId })
+          }
         />
       );
     }
 
     return tab;
-  }, [selectedCategory]);
+  }, [filterValues?.category]);
 
   return (
     <InnerCommonContainer>

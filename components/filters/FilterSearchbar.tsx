@@ -2,8 +2,12 @@ import { InputStyled } from '../input';
 
 interface IProps {
   handleMostSearched: (state: boolean) => void;
+  handleChange(val: string): void;
 }
-const FilterSearchbar: React.FC<IProps> = ({ handleMostSearched }) => {
+const FilterSearchbar: React.FC<IProps> = ({
+  handleMostSearched,
+  handleChange,
+}) => {
   const handleBlur = () => {
     handleMostSearched(false);
   };
@@ -14,6 +18,7 @@ const FilterSearchbar: React.FC<IProps> = ({ handleMostSearched }) => {
 
   return (
     <InputStyled
+      onChangeText={handleChange}
       handleBlur={handleBlur}
       handleFocus={handleFocus}
       placeholder="Search"

@@ -16,7 +16,6 @@ import EListingOptionComponentType from '@/interfaces/enums/EListingOptionCompon
 import useThemedStyles from '@/hooks/useThemedStyles';
 import { IInputProps } from '@/interfaces/app';
 import IListingCreateDTO from '@/interfaces/listing/IListingCreateDTO';
-import ETranslationLanguages from '@/interfaces/enums/ELanguages';
 import IListingOptionCreateDTO from '@/interfaces/listing/IListingOptionCreateDTO';
 import {
   useUploadListingMediaMutation,

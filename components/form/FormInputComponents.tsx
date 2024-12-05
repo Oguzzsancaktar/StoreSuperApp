@@ -107,7 +107,6 @@ const FormInputComponents: React.FC<IProps> = ({
         component = (
           <InputSwitchStyled
             label={label}
-            placeholder={placeholder}
             isOn={value}
             onToggle={() => onChange(!value)}
           />

@@ -1,63 +1,56 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { IIconNames, IInputProps } from '@/interfaces/app';
-import { View, TextInput, Pressable } from 'react-native';
+import {
+  View,
+  TextInput,
+  Pressable,
+  NativeSyntheticEvent,
+  TextInputChangeEventData,
+} from 'react-native';
 import useThemedStyles from '@/hooks/useThemedStyles';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconBell from '../svg/icon/IconBell';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { getIconWithProps } from '../svg/icon';
-import IconEyeHide from '../svg/icon/IconEyeHide';
-import IconEyeShow from '../svg/icon/IconEyeShow';
 import { useInputFocus } from '@/contexts/InputFocusContext';
 import InputStyled from './InputStyled';
 
-interface IProps
-  extends React.ComponentProps<typeof TextInput>,
-    Omit<IInputProps, 'required' | 'type'> {
+interface IProps extends Omit<IInputProps, 'required' | 'type'> {
   handleFocus?: (val: boolean) => void;
   handleBlur?: (val: boolean) => void;
+  onChange(value: number[]): void;
+  value: number[];
 }
 
 const InputMinMaxStyled: React.FC<IProps> = ({
   placeholder,
   label,
   name,
+  value,
+  onChange,
   ...props
 }) => {
   const inputRef = useRef<TextInput>(null);
   const { registerInput, unregisterInput } = useInputFocus();
 
-  const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
 
-  const leftIconName = useMemo(() => {
-    let iconName: IIconNames | null = null;
-
-    switch (name) {
-      case 'email':
-        iconName = 'IconEmail';
-        break;
-      case 'password':
-        iconName = 'IconLock';
-        break;
-      case 'confirmPassword':
-        iconName = 'IconLock';
-        break;
+  const handleChange = (v: number, type: 'min' | 'max') => {
+    const tempRange = [...(value || [0, 0])];
+    if (type === 'min') {
+      tempRange[0] = v;
+    } else {
+      tempRange[1] = v;
     }
-
-    return iconName;
-  }, [name]);
+    console.log('tempRange', tempRange);
+    onChange(tempRange);
+  };
 
   useEffect(() => {
-    // Input'u context'e kaydet
     if (inputRef.current) {
       registerInput(inputRef);
     }
     return () => {
-      // Input'u context'ten çıkar
       unregisterInput(inputRef);
     };
   }, [registerInput, unregisterInput]);
@@ -87,8 +80,20 @@ const InputMinMaxStyled: React.FC<IProps> = ({
           },
         ]}
       >
-        <InputStyled name={name + 'Min'} placeholder="Min" type="number" />
-        <InputStyled name={name + 'Max'} placeholder="Max" type="number" />
+        <InputStyled
+          name={name + 'Min'}
+          placeholder="Min"
+          type="number"
+          defaultValue={value ? value[0].toString() : ''}
+          onChangeText={(val) => handleChange(+val, 'min')}
+        />
+        <InputStyled
+          name={name + 'Max'}
+          placeholder="Max"
+          type="number"
+          defaultValue={value ? value[1].toString() : ''}
+          onChangeText={(val) => handleChange(+val, 'max')}
+        />
       </View>
     </View>
   );

@@ -10,13 +10,13 @@ import { map } from 'lodash';
 const CardMostSearchedWords = () => {
   const commonStyles = useCommonStyles();
 
-  const { selectedCategory } = useListingFilter();
+  const { filterValues } = useListingFilter();
 
   const { data: mostSearchedKeysData } = useGetMostSearchedKeysQuery(
     {
-      categoryId: selectedCategory || '',
+      categoryId: filterValues?.category || '',
     },
-    { skip: !selectedCategory }
+    { skip: !filterValues?.category }
   );
 
   return (
@@ -30,12 +30,16 @@ const CardMostSearchedWords = () => {
           },
         ]}
       >
-        <TextStyled fontSize="h4" fontWeight="bold">
-          Most
-        </TextStyled>
-        <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
-          Searched
-        </TextStyled>
+        <View>
+          <TextStyled fontSize="h4" fontWeight="bold">
+            Most
+          </TextStyled>
+        </View>
+        <View>
+          <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
+            Searched
+          </TextStyled>
+        </View>
       </View>
 
       <View

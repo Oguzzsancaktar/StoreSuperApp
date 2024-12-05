@@ -1,15 +1,11 @@
 import { TouchableOpacity, View } from 'react-native';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import useThemedStyles from '@/hooks/useThemedStyles';
-import ISelectOption from '@/interfaces/theme/ISelectOption';
 import { TextStyled } from '../../typography';
 import IListingCategory from '@/interfaces/listing/IListingCategory';
 import ImageStyled from '../../images/ImageStyled';
 import { BlurView } from '@react-native-community/blur';
-import { useListingFilter } from '@/contexts/ListingFilterContext';
 import { useAppTheme } from '@/contexts/ThemeContext';
-import { useMemo } from 'react';
-import APP_THEMES, { COMMON_COLOURS } from '@/constants/APP_THEMES';
 import { GradientBackground } from '@/components/svg/background';
 
 interface IProps {

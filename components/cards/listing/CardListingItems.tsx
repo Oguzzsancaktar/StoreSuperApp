@@ -24,18 +24,24 @@ const CardListingItems = () => {
 
   const { toggleDrawer } = useDrawerState();
 
-  const { selectedCategory, setSelectedCategory } = useListingFilter();
+  const { filterValues, setFilterValues } = useListingFilter();
 
   const [showMostSearched, setShowMostSearched] = useState(false);
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
+
   const { data: listingItemsData } = useGetListingItemsQuery(
     {
-      categoryId: selectedCategory || '',
+      minPrice: filterValues?.price ? filterValues?.price[0] : undefined,
+      maxPrice: filterValues?.price ? filterValues?.price[1] : undefined,
+      subCategoryIds: filterValues?.subCategoryIds?.value,
+      countryId: filterValues?.address?.value || undefined,
+      query: filterValues?.query || '',
+      categoryId: filterValues?.category || '',
       pageSize: 100,
       pageNumber: 0,
     },
-    { skip: !selectedCategory }
+    { skip: !filterValues?.category }
   );
 
   const listingCategoryOptions = useMemo<ISelectOption[]>(() => {
@@ -48,13 +54,16 @@ const CardListingItems = () => {
     toggleDrawer();
   };
 
+  const handleChange = (text: string) => {
+    setFilterValues({ ...filterValues, query: text });
+  };
+
   return (
     <View style={{ height: '100%' }}>
       <View
         style={[
           commonStyles.flexStyles.rowWrap,
           {
-            marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
             borderColor: theme.primary,
           },
@@ -71,7 +80,10 @@ const CardListingItems = () => {
         />
 
         <View style={{ flex: 1 }}>
-          <FilterSearchbar handleMostSearched={setShowMostSearched} />
+          <FilterSearchbar
+            handleChange={handleChange}
+            handleMostSearched={setShowMostSearched}
+          />
         </View>
         <View
           style={{
@@ -81,10 +93,13 @@ const CardListingItems = () => {
           <FilterStuffType
             value={find(
               listingCategoryOptions,
-              (category) => category.value === selectedCategory
+              (category) => category.value === filterValues?.category
             )}
             onChange={(option: ISelectOption) =>
-              setSelectedCategory(option.value as string)
+              setFilterValues({
+                ...filterValues,
+                category: option.value as string,
+              })
             }
             options={listingCategoryOptions}
           />
@@ -116,7 +131,7 @@ const CardListingItems = () => {
             {'  '}
           </TextStyled>
         </View>
-        <View>
+        <View style={{ marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
           <TextStyled fontSize="h5" fontWeight="bold" textAlignment="left">
             Results Found
           </TextStyled>

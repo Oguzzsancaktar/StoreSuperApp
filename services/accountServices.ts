@@ -75,6 +75,20 @@ const getCurrentUserInformation = (builder: IBuilder) => {
 }
 
 
+const addCurrentUserImage = (builder: IBuilder) => {
+  return builder.mutation<IUser, void>({
+    query(data) {
+      return {
+        url: `/users/profile/add-image`,
+        method: 'POST',
+        data
+      }
+    },
+    invalidatesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
 const getCurrentUserListings = (builder: IBuilder) => {
   return builder.query<any[], void>({
     query() {
@@ -97,13 +111,14 @@ const accountApiSlice = createApi({
     loginAccount: loginAccount(builder),
     loginWithGoogle: loginWithGoogle(builder),
     getCurrentUserInformation: getCurrentUserInformation(builder),
-    getCurrentUserListings: getCurrentUserListings(builder)
+    getCurrentUserListings: getCurrentUserListings(builder),
+    addCurrentUserImage: addCurrentUserImage(builder)
   }),
 })
 
-const { useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery, useGetCurrentUserListingsQuery } = accountApiSlice
+const { useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery, useGetCurrentUserListingsQuery, useAddCurrentUserImageMutation } = accountApiSlice
 
-export { accountApiSlice, useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery, useGetCurrentUserListingsQuery }
+export { accountApiSlice, useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery, useGetCurrentUserListingsQuery, useAddCurrentUserImageMutation }
 
 
 

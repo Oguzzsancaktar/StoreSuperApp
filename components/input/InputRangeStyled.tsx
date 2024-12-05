@@ -1,68 +1,39 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { IIconNames, IInputProps } from '@/interfaces/app';
-import { View, TextInput, Pressable, StyleSheet } from 'react-native';
-import useThemedStyles from '@/hooks/useThemedStyles';
+import { useState } from 'react';
+import { IInputProps } from '@/interfaces/app';
+import { View, StyleSheet, LayoutChangeEvent } from 'react-native';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconBell from '../svg/icon/IconBell';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { getIconWithProps } from '../svg/icon';
-import IconEyeHide from '../svg/icon/IconEyeHide';
-import IconEyeShow from '../svg/icon/IconEyeShow';
-import { useInputFocus } from '@/contexts/InputFocusContext';
-import InputStyled from './InputStyled';
-import Slider from '@react-native-community/slider';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import useThemedStyles from '@/hooks/useThemedStyles';
 
-interface IProps
-  extends React.ComponentProps<typeof TextInput>,
-    Omit<IInputProps, 'required' | 'type'> {}
+interface IProps extends Omit<IInputProps, 'required' | 'type'> {
+  value: number[];
+  onChange(value: number[]): void;
+}
 
 const InputRangeStyled: React.FC<IProps> = ({
   placeholder,
   label,
   name,
+  value,
+  onChange,
   ...props
 }) => {
-  const inputRef = useRef<TextInput>(null);
-  const { registerInput, unregisterInput } = useInputFocus();
-  const [range, setRange] = useState([16, 44]); // Başlangıç değerleri
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
 
-  const leftIconName = useMemo(() => {
-    let iconName: IIconNames | null = null;
+  const [parentSizes, setParentSizes] = useState({ width: 0, height: 0 });
 
-    switch (name) {
-      case 'email':
-        iconName = 'IconEmail';
-        break;
-      case 'password':
-        iconName = 'IconLock';
-        break;
-      case 'confirmPassword':
-        iconName = 'IconLock';
-        break;
-    }
-
-    return iconName;
-  }, [name]);
-
-  useEffect(() => {
-    // Input'u context'e kaydet
-    if (inputRef.current) {
-      registerInput(inputRef);
-    }
-    return () => {
-      // Input'u context'ten çıkar
-      unregisterInput(inputRef);
-    };
-  }, [registerInput, unregisterInput]);
+  const handleLayout = (event: LayoutChangeEvent) => {
+    const { width, height } = event.nativeEvent.layout;
+    setParentSizes({ width, height });
+  };
 
   return (
-    <View>
+    <View onLayout={handleLayout}>
       {label && (
         <View
           style={{
@@ -78,7 +49,7 @@ const InputRangeStyled: React.FC<IProps> = ({
 
       <View
         style={[
-          commonStyles.flexStyles.rowStart,
+          commonStyles.flexStyles.rowCenter,
           {
             flex: 1,
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
@@ -87,26 +58,96 @@ const InputRangeStyled: React.FC<IProps> = ({
         ]}
       >
         <MultiSlider
-          values={range}
-          sliderLength={300} // Slider genişliği (px)
-          onValuesChange={(values) => setRange(values)} // Değer değişikliği
-          min={10} // Minimum değer
-          max={50} // Maksimum değer
+          values={value || [0, 100]}
+          onValuesChange={(values) => onChange(values)} // Değer değişikliği
+          min={0} // Minimum değer
+          max={100} // Maksimum değer
           step={1} // Adım büyüklüğü
+          enableLabel={true}
+          customLabel={({
+            oneMarkerValue,
+            oneMarkerLeftPosition,
+            twoMarkerLeftPosition,
+            twoMarkerValue,
+          }) => {
+            return (
+              <>
+                <View
+                  style={[
+                    themedStyles.cardStyles.default,
+                    {
+                      paddingVertical: 0,
+                      paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                      height: APP_STYLE_VALUES.WH_SIZES.xs2,
+                      position: 'absolute',
+                      left:
+                        oneMarkerLeftPosition -
+                        (APP_STYLE_VALUES.WH_SIZES.xl -
+                          APP_STYLE_VALUES.SPACE_SIZES.sp2) /
+                          2,
+                      width: APP_STYLE_VALUES.WH_SIZES.xl,
+                    },
+                  ]}
+                >
+                  <TextStyled
+                    textAlignment="center"
+                    fontSize="md"
+                    fontWeight="regular"
+                  >
+                    {oneMarkerValue + 'M'}
+                  </TextStyled>
+                </View>
+
+                <View
+                  style={[
+                    themedStyles.cardStyles.default,
+                    {
+                      paddingVertical: 0,
+                      paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                      height: APP_STYLE_VALUES.WH_SIZES.xs2,
+                      position: 'absolute',
+                      left:
+                        twoMarkerLeftPosition -
+                        (APP_STYLE_VALUES.WH_SIZES.xl -
+                          APP_STYLE_VALUES.SPACE_SIZES.sp2) /
+                          2,
+                      width: APP_STYLE_VALUES.WH_SIZES.xl,
+                    },
+                  ]}
+                >
+                  <TextStyled
+                    textAlignment="center"
+                    fontSize="md"
+                    fontWeight="regular"
+                  >
+                    {twoMarkerValue + 'M'}
+                  </TextStyled>
+                </View>
+              </>
+            );
+          }}
+          sliderLength={
+            parentSizes.width -
+            APP_STYLE_VALUES.WH_SIZES.xl -
+            APP_STYLE_VALUES.SPACE_SIZES.sp2 * 2
+          }
           selectedStyle={{
-            backgroundColor: '#FF5733', // Seçilen aralık rengi
+            backgroundColor: theme.primary,
           }}
           unselectedStyle={{
-            backgroundColor: '#D3D3D3', // Seçilmeyen aralık rengi
+            backgroundColor: theme.grayScale200,
           }}
           markerStyle={{
-            backgroundColor: '#FF5733', // Thumb rengi
+            backgroundColor: theme.primary,
             height: 20,
             width: 20,
             borderRadius: 10,
           }}
           containerStyle={{
-            height: 40,
+            justifyContent: 'flex-end',
+            flex: 1,
+            width: '100%',
+            height: APP_STYLE_VALUES.WH_SIZES.md,
           }}
           trackStyle={{
             height: 4,

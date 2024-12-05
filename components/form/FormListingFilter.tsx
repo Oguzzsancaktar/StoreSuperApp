@@ -1,29 +1,28 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, ScrollView, ViewStyle } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { useGetListingFiltersQuery } from '@/services/listingFilterServices';
 import { useListingFilter } from '@/contexts/ListingFilterContext';
-import { useAppTheme } from '@/contexts/ThemeContext';
 import { map } from 'lodash';
-import { FormStyled, FormWizard } from '.';
+import { FormWizard } from '.';
 import { IFormWizardStepProps } from './FormWizard';
-import useThemedStyles from '@/hooks/useThemedStyles';
 import EListingFilterOptionComponentType from '@/interfaces/enums/EListingFilterOptionComponentType';
 import { IInputProps } from '@/interfaces/app';
+import { useDrawerState } from '@/contexts/DrawerContext';
 
 const FormListingFilter = () => {
-  const { theme } = useAppTheme();
-  const { selectedCategory } = useListingFilter();
-  const themedStyles = useThemedStyles();
+  const { filterValues, setFilterValues } = useListingFilter();
+
+  const { isDrawerOpen, toggleDrawer } = useDrawerState();
+
+  console.log('filterValues', filterValues);
   const { data: filterOptionData } = useGetListingFiltersQuery(
-    selectedCategory || '',
+    filterValues.category || '',
     {
-      skip: !selectedCategory,
+      skip: !filterValues.category,
     }
   );
 
-  const [values, setValues] = useState<Record<string, any>>({});
-
-  console.log('values', values);
+  const [values, setValues] = useState<Record<string, any>>(filterValues);
 
   const steps: IFormWizardStepProps[] = useMemo(
     () => [
@@ -49,37 +48,11 @@ const FormListingFilter = () => {
     [filterOptionData]
   );
 
-  const defaultValues = {};
+  const defaultValues = { ...filterValues };
 
   const handleSubmit = async (values: Record<string, any>) => {
-    const {
-      categoryId = '',
-      allowMessaging = false,
-      allowPhoneCalls = false,
-      isActive = true,
-      isDraft = true,
-      city = {},
-      country = {},
-      district = {},
-      fullAddress = '',
-      showFullAddress = false,
-      zipCode = '',
-      tags = [],
-      translations = [],
-      currency = {},
-      description = '',
-      title = '',
-      media = [],
-      options = [],
-      price = {},
-      negotiable = false,
-      coverImage = '',
-      terms,
-      estateType,
-      ...others
-    } = values || {};
-
-    const keys = Object.keys(others);
+    setFilterValues({ ...filterValues, ...values });
+    toggleDrawer();
   };
 
   // @todo create custom scrollwiev

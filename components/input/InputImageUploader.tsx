@@ -24,6 +24,7 @@ interface IProps {
   maxMedia?: number;
   label?: string;
   onChange(selectedImages: (ImagePickerResponse | undefined)[]): void;
+  isUploadButton?: boolean;
 }
 
 const InputImageUploader: React.FC<IProps> = ({
@@ -31,6 +32,7 @@ const InputImageUploader: React.FC<IProps> = ({
   value,
   label,
   onChange,
+  isUploadButton = false,
 }) => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
@@ -73,7 +75,11 @@ const InputImageUploader: React.FC<IProps> = ({
             oldImages[undefinedIndex] = newImg;
           });
 
-          setSelectedImages([...oldImages]);
+          if (maxMedia === 1) {
+            setSelectedImages(() => [...newImages]);
+          } else {
+            setSelectedImages(() => [...oldImages]);
+          }
         }
       }
     );
@@ -88,10 +94,16 @@ const InputImageUploader: React.FC<IProps> = ({
   };
 
   useEffect(() => {
+    console.log('selectedImages', selectedImages);
     onChange(selectedImages);
   }, [selectedImages]);
 
-  return selectedImages.length === 0 ? (
+  return isUploadButton ? (
+    <ImageIconCircle
+      icon={<IconUpload color={theme.grayScale100} />}
+      onPress={pickImage}
+    />
+  ) : selectedImages.length === 0 ? (
     <Pressable
       onPress={pickImage}
       style={[
