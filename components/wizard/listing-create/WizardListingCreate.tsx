@@ -26,21 +26,22 @@ import { Href, router, useNavigation } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 
 const WizardListingCreate = () => {
+  const themedStyles = useThemedStyles();
+
+  const defaultValues = {};
   const [values, setValues] = useState<Record<string, any>>({});
 
-  const navigation = useNavigation();
   const [
     createListing,
     { data: createdListingData, isLoading: createListingIsLoading },
   ] = useCreateListingMutation();
+
   const [uploadListingMedia, { isLoading: uploadListingMediaIsLoading }] =
     useUploadListingMediaMutation();
 
   const { data: listingCategorySubData } = useGetListingCategorySubsQuery(
     values?.categoryId
   );
-
-  const themedStyles = useThemedStyles();
 
   const { data: listingCategoryOptionsData } =
     useGetListingCategoryOptionsQuery(values?.categoryId);
@@ -53,12 +54,6 @@ const WizardListingCreate = () => {
       };
     });
   }, [listingCategorySubData]);
-
-  const handleCategorySelect = (categoryId: IListingCategory['id']) => {
-    setValues((prev) => {
-      return { categoryId };
-    });
-  };
 
   const steps: IFormWizardStepProps[] = useMemo(
     () => [
@@ -251,7 +246,11 @@ const WizardListingCreate = () => {
     [listingCategoryOptionsData, values]
   );
 
-  const defaultValues = {};
+  const handleCategorySelect = (categoryId: IListingCategory['id']) => {
+    setValues((prev) => {
+      return { categoryId };
+    });
+  };
 
   const handleSubmit = async (values: Record<string, any>) => {
     const {
@@ -397,7 +396,7 @@ const WizardListingCreate = () => {
   };
 
   return (
-    <ScreenWrapperContainer>
+    <ScreenWrapperContainer isTabBarActive={true}>
       <FormWizard
         isLoading={uploadListingMediaIsLoading || createListingIsLoading}
         isNextDisabled={!values?.categoryId}

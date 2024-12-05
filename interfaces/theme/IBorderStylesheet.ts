@@ -6,6 +6,7 @@ interface IBorderStylesheet {
   dashedGray: StyleSheet.NamedStyles<any>;
   dashedPrimary: StyleSheet.NamedStyles<any>;
   bottomUnderline: StyleSheet.NamedStyles<any>;
+  rightSeperator: StyleSheet.NamedStyles<any>;
 }
 
 export default IBorderStylesheet;

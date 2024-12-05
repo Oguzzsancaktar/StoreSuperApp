@@ -7,21 +7,45 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import IListingCategory from '@/interfaces/listing/IListingCategory';
 import { useMemo } from 'react';
 import { find, map } from 'lodash';
-import { SvgUri } from 'react-native-svg';
+import IconHome from '../svg/icon/IconHome';
+import { useAppTheme } from '@/contexts/ThemeContext';
+import IconVehicle from '../svg/icon/IconVehicle';
+import IconCamera from '../svg/icon/IconCamera';
+import IconMegaphone from '../svg/icon/IconMegaphone';
 
 interface IProps {
   categories: IListingCategory[];
 }
 const CardPostCategory: React.FC<IProps> = ({ categories }) => {
+  const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
-
-  console.log('categories', categories);
 
   const parentCategory = useMemo(() => {
     return find(categories, (c) => c.parentCategoryId === null);
   }, [categories]);
 
+  const categoryIcon = useMemo(() => {
+    let icon = <IconMegaphone color={theme.grayScale900} />;
+
+    switch (parentCategory?.name) {
+      case 'Real Estate':
+        icon = <IconHome color={theme.grayScale900} />;
+        break;
+      case 'Cars':
+        icon = <IconVehicle color={theme.grayScale900} />;
+        break;
+      case 'Electronics':
+        icon = <IconCamera color={theme.grayScale900} />;
+        break;
+      default:
+        icon = <IconMegaphone color={theme.grayScale900} />;
+        break;
+    }
+    return icon;
+  }, [parentCategory, theme]);
+
+  console.log('categories', parentCategory);
   return (
     <View
       style={[
@@ -42,7 +66,8 @@ const CardPostCategory: React.FC<IProps> = ({ categories }) => {
         ]}
       >
         <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
-          <ImageIconCircle icon={<SvgUri uri={parentCategory?.icon || ''} />} />
+          <ImageIconCircle bgColor={'grayScale300'} icon={categoryIcon} />
+          {/* <SvgUri uri={parentCategory?.icon || ''} /> */}
         </View>
 
         <View style={commonStyles.flexStyles.colStart}>

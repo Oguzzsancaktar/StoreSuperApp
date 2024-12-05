@@ -4,12 +4,19 @@ import { GradientBackground } from '../svg/background';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { useAppTheme } from '@/contexts/ThemeContext';
 
-interface IProps<T> extends FlatListProps<T> {}
+interface IProps<T> extends FlatListProps<T> {
+  showGradients?: boolean;
+}
 
-const ListFlatStyled = <T,>({ data, renderItem, ...others }: IProps<T>) => {
+const ListFlatStyled = <T,>({
+  data,
+  showGradients = true,
+  renderItem,
+  ...others
+}: IProps<T>) => {
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
-  console.log('others', others);
+
   return (
     <View
       style={{
@@ -18,42 +25,46 @@ const ListFlatStyled = <T,>({ data, renderItem, ...others }: IProps<T>) => {
         position: 'relative',
       }}
     >
-      <View
-        style={[
-          commonStyles.absolutePositionStyles.absoluteFill,
-          {
-            height: APP_STYLE_VALUES.WH_SIZES.sm,
-            // @todo create constant for zIndexes
-            zIndex: 1,
-          },
-        ]}
-      >
-        <GradientBackground
-          endColor={theme.appBackground}
-          startColor={theme.appBackground}
-          startOpacity="0.5"
-          endOpacity="0"
-        />
-      </View>
+      {showGradients && (
+        <>
+          {/* <View
+            style={[
+              commonStyles.absolutePositionStyles.absoluteFill,
+              {
+                height: APP_STYLE_VALUES.WH_SIZES.sm,
+                // @todo create constant for zIndexes
+                zIndex: 1,
+              },
+            ]}
+          >
+            <GradientBackground
+              endColor={theme.appBackground}
+              startColor={theme.appBackground}
+              startOpacity="0.5"
+              endOpacity="0"
+            />
+          </View> */}
 
-      <View
-        style={[
-          commonStyles.absolutePositionStyles.absoluteFill,
-          {
-            height: APP_STYLE_VALUES.WH_SIZES.sm,
-            top: 'auto',
-            // @todo create constant for zIndexes
-            zIndex: 1,
-          },
-        ]}
-      >
-        <GradientBackground
-          endColor={theme.appBackground}
-          startColor={theme.appBackground}
-          startOpacity="0"
-          endOpacity="0.5"
-        />
-      </View>
+          <View
+            style={[
+              commonStyles.absolutePositionStyles.absoluteFill,
+              {
+                height: APP_STYLE_VALUES.WH_SIZES.sm,
+                top: 'auto',
+                // @todo create constant for zIndexes
+                zIndex: 1,
+              },
+            ]}
+          >
+            <GradientBackground
+              endColor={theme.appBackground}
+              startColor={theme.appBackground}
+              startOpacity="0"
+              endOpacity="0.5"
+            />
+          </View>
+        </>
+      )}
 
       <FlatList
         {...others}
@@ -64,7 +75,13 @@ const ListFlatStyled = <T,>({ data, renderItem, ...others }: IProps<T>) => {
         keyExtractor={(item, idx) => idx.toString()}
         scrollEnabled={true}
         nestedScrollEnabled={true}
-        contentContainerStyle={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 }}
+        contentContainerStyle={[
+          {
+            gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp15,
+          },
+          others.contentContainerStyle,
+        ]}
       />
     </View>
   );

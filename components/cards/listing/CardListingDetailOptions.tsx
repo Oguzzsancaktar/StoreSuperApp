@@ -38,6 +38,7 @@ const CardListingDetailOptions: React.FC<IProps> = ({ options }) => {
       >
         <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
           <ImageIconCircle
+            bgColor={'grayScale300'}
             icon={<IconTechnical color={theme.grayScale900} />}
           />
         </View>

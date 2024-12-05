@@ -55,7 +55,6 @@ const PostListScreen = () => {
   const commonStyles = useCommonStyles();
   return (
     <ScreenWrapperContainer>
-      <DrawerGlobal />
       <PostScreenActiveComponent />
     </ScreenWrapperContainer>
   );

@@ -47,6 +47,19 @@ const getNewestPosts = (builder: IBuilder) => {
   })
 }
 
+
+const getViewCount = (builder: IBuilder) => {
+  return builder.query<number, IListingPost["id"]>({
+    query(id) {
+      return {
+        url: `/listings/${id}/view-count`,
+        method: 'GET',
+      }
+    },
+    providesTags: [LISTING_API_TAG],
+  })
+}
+
 const createListing = (builder: IBuilder) => {
   return builder.mutation<IListingPost["id"], IListingCreateDTO>({
     query(data) {
@@ -161,13 +174,14 @@ const listingApiSlice = createApi({
     uploadListingMedia: uploadListingMedia(builder),
     addListingFavorite: addListingFavorite(builder),
     removeListingFavorite: removeListingFavorite(builder),
-    getListingFavorites: getListingFavorites(builder)
+    getListingFavorites: getListingFavorites(builder),
+    getViewCount: getViewCount(builder)
   }),
 })
 
-const { useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery } = listingApiSlice
+const { useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery } = listingApiSlice
 
-export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery }
+export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery }
 
 
 

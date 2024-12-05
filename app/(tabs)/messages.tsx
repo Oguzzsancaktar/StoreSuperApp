@@ -105,8 +105,11 @@ const MessagesScreen = () => {
     );
   };
 
+  console.log('chatListData', chatListData);
+
   if (!chatListData) {
-    return null;
+    // @todo preloadaer
+    return <ScreenWrapperContainer />;
   }
 
   if (!session) {
@@ -149,6 +152,7 @@ const MessagesScreen = () => {
         </View>
 
         <ListFlatStyled
+          showGradients={false}
           onStartShouldSetResponder={() => true}
           renderItem={renderItem}
           contentContainerStyle={{

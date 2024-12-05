@@ -55,6 +55,11 @@ const useThemedStyles = () => {
     bottomUnderline: {
       borderBottomWidth: 2,
       borderColor: theme.grayScale200,
+    },
+
+    rightSeperator: {
+      borderRightWidth: 2,
+      borderColor: theme.grayScale200,
     }
 
   })

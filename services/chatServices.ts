@@ -3,11 +3,6 @@ import { axiosBaseQuery, IAxiosBaseQueryFn } from '../config/axiosBaseQuery';
 
 import { createApi, EndpointBuilder } from '@reduxjs/toolkit/query/react'
 
-import IListingPost from '@/interfaces/listing/IListingPost';
-import IListingQueryParams from '@/interfaces/listing/IListingQueryParams';
-import IPaginationResult from '@/interfaces/app/IPaginationResult';
-import IListingCreateDTO from '@/interfaces/listing/IListingCreateDTO';
-import { map } from 'lodash';
 import IChatConversation from '@/interfaces/chat/IChatConversation';
 import IChatMessage from '@/interfaces/chat/IChatMessage';
 import IChatCreateDTO from '@/interfaces/chat/IChatCreateDTO';

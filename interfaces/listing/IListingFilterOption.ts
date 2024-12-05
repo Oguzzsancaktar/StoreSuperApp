@@ -1,5 +1,4 @@
 import EListingFilterOptionComponentType from "../enums/EListingFilterOptionComponentType"
-import EListingOptionComponentType from "../enums/EListingOptionComponentType"
 import IListingCategory from "./IListingCategory"
 
 export default interface IListingFilterOption {

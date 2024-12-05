@@ -6,7 +6,7 @@ import IListingPostMedia from "./IListingPostMedia"
 interface IListingPost {
   allowMessaging: boolean
   allowPhoneCalls: boolean
-  amountFavorite: number
+  favoriteCount: number
   boost: { listingId: "00000000-0000-0000-0000-000000000000" }
   category?: IListingCategory
   categoryId?: IListingCategory["id"]

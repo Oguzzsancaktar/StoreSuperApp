@@ -14,6 +14,7 @@ import IconLocation from '../svg/icon/IconLocation';
 import IconEyeShowFilled from '../svg/icon/filled/IconEyeShowFilled';
 import IconHeartFilled from '../svg/icon/filled/IconHeartFilled';
 import CardListingActions from './CardListingActions';
+import { useGetViewCountQuery } from '@/services/listingServices';
 
 interface IProps {
   post: IListingPost;
@@ -24,7 +25,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
 
-  console.log('post', post);
+  const { data: postViewData } = useGetViewCountQuery(post.id);
 
   const handlePress = () => {
     router.push(('/(private)/post/' + post.id) as Href);
@@ -254,7 +255,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
                 fontWeight="medium"
                 customColor="grayScale900"
               >
-                {post.amountFavorite}
+                {postViewData || ''}
               </TextStyled>
             </View>
           </View>
@@ -275,13 +276,18 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
                 fontWeight="medium"
                 customColor="grayScale900"
               >
-                {post.amountFavorite}
+                {post.favoriteCount}
               </TextStyled>
             </View>
           </View>
         </View>
 
-        <CardListingActions listingId={post.id} isFavorite={post.isFavorite} />
+        <CardListingActions
+          favoriteCount={post.favoriteCount}
+          listingTitle={post.name}
+          listingId={post.id}
+          isFavorite={post.isFavorite}
+        />
       </View>
     </View>
   );

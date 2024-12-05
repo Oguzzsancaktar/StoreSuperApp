@@ -4,7 +4,6 @@ import { View } from 'react-native';
 import ImageIconCircle from '../images/ImageIconCircle';
 import { TextStyled } from '../typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IListingPrice from '@/interfaces/listing/IListingPrice';
 import IconTag from '../svg/icon/IconTag';
 import { useAppTheme } from '@/contexts/ThemeContext';
 
@@ -37,7 +36,10 @@ const CardPostPrice: React.FC<IProps> = ({ negotiable, formattedPrice }) => {
         ]}
       >
         <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
-          <ImageIconCircle icon={<IconTag color={theme.grayScale900} />} />
+          <ImageIconCircle
+            bgColor={'grayScale300'}
+            icon={<IconTag color={theme.grayScale900} />}
+          />
         </View>
 
         <View style={commonStyles.flexStyles.colStart}>

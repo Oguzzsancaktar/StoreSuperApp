@@ -11,6 +11,7 @@ interface IProps {
   headerTitle?: string;
   rightElement?: React.ReactNode;
   showBorderUnderline?: boolean;
+  isTabBarActive?: boolean;
 }
 const ScreenWrapperContainer: React.FC<IProps> = ({
   children,
@@ -18,6 +19,7 @@ const ScreenWrapperContainer: React.FC<IProps> = ({
   headerTitle,
   rightElement,
   showBorderUnderline,
+  isTabBarActive,
 }) => {
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
@@ -31,7 +33,7 @@ const ScreenWrapperContainer: React.FC<IProps> = ({
             {
               paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp4,
               paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-              marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+              marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
             },
           ]}
         >
@@ -57,6 +59,9 @@ const ScreenWrapperContainer: React.FC<IProps> = ({
         style={[
           {
             ...themedStyles.containerStyles.screenWrapperContainer,
+            marginBottom: isTabBarActive
+              ? APP_STYLE_VALUES.SPACE_SIZES.sp20
+              : 0,
           },
         ]}
       >

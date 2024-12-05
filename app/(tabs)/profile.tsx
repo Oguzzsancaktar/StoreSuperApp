@@ -136,6 +136,7 @@ const ProfileScreen = () => {
 
             <View style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
               <ListFlatStyled
+                showGradients={false}
                 data={currentUserListingData}
                 renderItem={({ item }) => <CardPostItem post={item} />}
               />

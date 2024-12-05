@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { BlurView } from '@react-native-community/blur';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import FilterListingOptionsByCategory from '../form/FormListingFilter';
+import FormListingFilter from '../form/FormListingFilter';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { useDrawerState } from '@/contexts/DrawerContext';
 import ImageIconCircle from '../images/ImageIconCircle';
@@ -20,7 +20,13 @@ const DrawerGlobal = () => {
   }
   return (
     <View
-      style={[commonStyles.absolutePositionStyles.absoluteFill, { zIndex: 9 }]}
+      style={[
+        commonStyles.absolutePositionStyles.absoluteFill,
+        {
+          position: 'absolute',
+          zIndex: 9,
+        },
+      ]}
     >
       <BlurView
         style={commonStyles.absolutePositionStyles.absoluteFill}
@@ -48,7 +54,7 @@ const DrawerGlobal = () => {
         />
 
         <View style={{ flex: 1 }}>
-          <FilterListingOptionsByCategory />
+          <FormListingFilter />
         </View>
       </View>
     </View>

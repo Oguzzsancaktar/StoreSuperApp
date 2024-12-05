@@ -7,6 +7,7 @@ import React, { ReactNode } from 'react';
 import { GradientBackground } from '../svg/background';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
+import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 interface IProps {
   disabled?: boolean;
@@ -32,7 +33,13 @@ const ButtonStyled: React.FC<IProps> = ({
   const commonStyles = useCommonStyles();
 
   return (
-    <View style={{ width: '100%' }}>
+    <View
+      style={{
+        width: '100%',
+        borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
+        overflow: 'hidden',
+      }}
+    >
       {gradientBg && <GradientBackground />}
 
       <Pressable
