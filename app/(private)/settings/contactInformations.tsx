@@ -2,9 +2,8 @@ import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContain
 import { InnerCommonContainer } from '@/components/containers';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { TextStyled } from '@/components/typography';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconTheme from '@/components/svg/icon/IconTheme';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import IconSettingCog from '@/components/svg/icon/IconSettingCog';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
@@ -12,58 +11,45 @@ import CardLinkItem from '@/components/cards/CardLinkItem';
 import { map } from 'lodash';
 import { IIconNames } from '@/interfaces/app';
 import { useMemo } from 'react';
-import ButtonLogout from '@/components/button/ButtonLogout';
+import { router } from 'expo-router';
+import APP_ROUTES from '@/constants/APP_ROUTES';
 
-export interface ISettingItemProps {
+export interface IAddressItemProps {
   icon: IIconNames;
   text: string;
   right: 'chevron' | 'switch';
   onPress: () => void;
 }
 
-const SettingsScreen = () => {
+const UpdateContactInformationScreen = () => {
   const { theme, toggleTheme } = useAppTheme();
   const commonStyles = useCommonStyles();
 
-  const SETTING_ITEMS: ISettingItemProps[] = useMemo(
+  const Address_ITEMS: IAddressItemProps[] = useMemo(
     () => [
       {
         icon: 'IconUser',
-        text: 'Account Settings',
+        text: 'Personal Information',
         right: 'chevron',
-        onPress: () => {},
-      },
-      {
-        icon: 'IconEdit',
-        text: 'Personal Informations',
-        right: 'chevron',
-        onPress: () => {},
-      },
-      {
-        icon: 'IconPrivacy',
-        text: 'Privacy Policy',
-        right: 'chevron',
-        onPress: () => {},
-      },
-      {
-        icon: 'IconBell',
-        text: 'Notifications',
-        right: 'switch',
-        onPress: () => {},
-      },
-      {
-        icon: 'IconTheme',
-        text: 'Dark Mode',
-        right: 'switch',
         onPress: () => {
-          toggleTheme();
+          router.push(APP_ROUTES.PUBLIC.ADDRESS_PERSONAL_INFORMATIONS);
         },
       },
       {
-        icon: 'IconChatSupport',
-        text: 'Contact Us',
+        icon: 'IconPhone',
+        text: 'Contact Information',
         right: 'chevron',
-        onPress: () => {},
+        onPress: () => {
+          router.push(APP_ROUTES.PUBLIC.ADDRESS_CONTACT_INFORMATIONS);
+        },
+      },
+      {
+        icon: 'IconLocation',
+        text: 'Address Information',
+        right: 'chevron',
+        onPress: () => {
+          router.push(APP_ROUTES.PUBLIC.ADDRESS_ADDRESS_INFORMATIONS);
+        },
       },
     ],
     [toggleTheme]
@@ -91,8 +77,8 @@ const SettingsScreen = () => {
               }
             />
 
-            <TextStyled fontSize="h3" fontWeight="bold">
-              Settings
+            <TextStyled fontSize="h4" fontWeight="bold">
+              Contact Informations
             </TextStyled>
           </View>
 
@@ -101,26 +87,11 @@ const SettingsScreen = () => {
               commonStyles.flexStyles.colStart,
               { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
             ]}
-          >
-            {map(SETTING_ITEMS, ({ text, icon, right, onPress }, index) => {
-              return (
-                <CardLinkItem
-                  key={index}
-                  icon={icon}
-                  text={text}
-                  right={right}
-                  onPress={onPress}
-                />
-              );
-            })}
-          </View>
-        </View>
-        <View>
-          <ButtonLogout />
+          ></View>
         </View>
       </InnerCommonContainer>
     </ScreenWrapperContainer>
   );
 };
 
-export default SettingsScreen;
+export default UpdateContactInformationScreen;

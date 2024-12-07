@@ -55,6 +55,15 @@ const InputStyled: React.FC<IProps> = ({
       case 'email':
         iconName = 'IconEmail';
         break;
+      case 'firstname':
+        iconName = 'IconUser';
+        break;
+      case 'lastname':
+        iconName = 'IconUser';
+        break;
+      case 'birthday':
+        iconName = 'IconCalendar';
+        break;
       case 'password':
         iconName = 'IconLock';
         break;

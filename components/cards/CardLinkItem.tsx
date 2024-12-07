@@ -15,7 +15,7 @@ const CardLinkItem: React.FC<IProps> = ({ text, icon, right, onPress }) => {
   const { theme } = useAppTheme();
 
   return (
-    <ButtonStyled variant="buttonPrimaryOutlined">
+    <ButtonStyled onPress={onPress} variant="buttonPrimaryOutlined">
       <View
         style={[
           commonStyles.flexStyles.rowBetween,
@@ -36,7 +36,7 @@ const CardLinkItem: React.FC<IProps> = ({ text, icon, right, onPress }) => {
             },
           ]}
         >
-          {getIconWithProps(icon, { color: theme.grayScale400 })}
+          {getIconWithProps(icon, { color: theme.primary })}
           <View style={{}}>
             <TextStyled
               textAlignment="left"

@@ -5,6 +5,8 @@ enum EListingFilterOptionComponentType {
   "select2" = 6,
   "select" = 7,
   "range" = 9,
+  "date",
+
 }
 
 export default EListingFilterOptionComponentType

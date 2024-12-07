@@ -4,7 +4,21 @@ export default function PublicLayout() {
   return (
     <Stack>
       <Stack.Screen
-        name="settings"
+        name="post/[listingId]"
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="settings/index"
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="settings/updateInformations"
         options={{
           headerShown: false,
         }}

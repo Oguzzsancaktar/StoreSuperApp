@@ -35,6 +35,15 @@ const INPUT_EMAIL: IInputProps = {
   required: true,
 }
 
+const INPUT_BIRTHDAY: IInputProps = {
+  label: 'Birthday',
+  name: 'birthday',
+  placeholder: 'Enter your birthday...',
+  type: 'date',
+  required: true,
+}
+
+
 const INPUT_PASSWORD: IInputProps = {
   label: 'Password',
   name: 'password',
@@ -54,7 +63,11 @@ const INPUT_PASSWORD_CONFIRM: IInputProps = {
 const APP_INPUT_FIELDS = {
   INPUT_EMAIL,
   INPUT_PASSWORD,
-  INPUT_PASSWORD_CONFIRM
+  INPUT_PASSWORD_CONFIRM,
+  INPUT_USERNNAME,
+  INPUT_FISTNAME,
+  INPUT_LASTNAME,
+  INPUT_BIRTHDAY
 }
 
 export default APP_INPUT_FIELDS

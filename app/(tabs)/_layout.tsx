@@ -14,7 +14,6 @@ import IconPlusCircle from '@/components/svg/icon/circle/IconPlusCircle';
 import IconSearch from '@/components/svg/icon/IconSearch';
 import { ListingFilterProvider } from '@/contexts/ListingFilterContext';
 import useThemedStyles from '@/hooks/useThemedStyles';
-import { GradientBackground } from '@/components/svg/background';
 import DrawerGlobal from '@/components/drawer/DrawerGlobal';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/

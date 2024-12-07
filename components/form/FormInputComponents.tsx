@@ -12,6 +12,7 @@ import InputSelectDistrict from '../input/InputSelectDistrict';
 import InputSwitchStyled from '../input/InputSwitchStyled';
 import InputMinMaxStyled from '../input/InputMinMaxStyled';
 import InputRangeStyled from '../input/InputRangeStyled';
+import InputDatePickerStyled from '../input/InputDatePickerStyled';
 
 interface IProps extends Omit<IInputProps, 'required'> {
   onChange(...event: any[]): void;
@@ -51,6 +52,20 @@ const FormInputComponents: React.FC<IProps> = ({
     );
 
     switch (type) {
+      case 'date':
+        component = (
+          <InputDatePickerStyled
+            name={name}
+            type={type}
+            label={label}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder={placeholder}
+          />
+        );
+        break;
+
       case 'range':
         component = (
           <InputRangeStyled
