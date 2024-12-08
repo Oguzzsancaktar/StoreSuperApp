@@ -14,15 +14,18 @@ import { useMemo } from 'react';
 import ButtonLogout from '@/components/button/ButtonLogout';
 import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
+import { useSession } from '@/contexts/AuthContext';
 
 export interface ISettingItemProps {
   icon: IIconNames;
   text: string;
   right: 'chevron' | 'switch';
+  priv?: boolean;
   onPress: () => void;
 }
 
 const SettingsScreen = () => {
+  const { session } = useSession();
   const { theme, toggleTheme } = useAppTheme();
   const commonStyles = useCommonStyles();
 
@@ -33,6 +36,7 @@ const SettingsScreen = () => {
         text: 'Account Settings',
         right: 'chevron',
         onPress: () => {},
+        priv: true,
       },
       {
         icon: 'IconEdit',
@@ -41,6 +45,7 @@ const SettingsScreen = () => {
         onPress: () => {
           router.push(APP_ROUTES.DRAWER.SETTINGS_UPDATE_INFORMATIONS);
         },
+        priv: true,
       },
       {
         icon: 'IconPrivacy',
@@ -105,17 +110,24 @@ const SettingsScreen = () => {
               { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
             ]}
           >
-            {map(SETTING_ITEMS, ({ text, icon, right, onPress }, index) => {
-              return (
-                <CardLinkItem
-                  key={index}
-                  icon={icon}
-                  text={text}
-                  right={right}
-                  onPress={onPress}
-                />
-              );
-            })}
+            {map(
+              SETTING_ITEMS,
+              ({ text, icon, right, onPress, priv }, index) => {
+                if (priv && !session) {
+                  return null;
+                }
+
+                return (
+                  <CardLinkItem
+                    key={index}
+                    icon={icon}
+                    text={text}
+                    right={right}
+                    onPress={onPress}
+                  />
+                );
+              }
+            )}
           </View>
         </View>
         <View>

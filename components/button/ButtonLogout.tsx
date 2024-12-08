@@ -40,7 +40,7 @@ const ButtonLogout: React.FC<IProps> = () => {
             { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
           ]}
         >
-          <IconLogout color={theme.grayScale900} />
+          {session && <IconLogout color={theme.grayScale900} />}
           <View>
             <TextStyled
               textAlignment="left"

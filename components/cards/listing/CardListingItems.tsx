@@ -17,6 +17,7 @@ import IconFilter from '@/components/svg/icon/IconFilter';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import { useDrawerState } from '@/contexts/DrawerContext';
 import FlatListStyled from '@/components/override/FlatListStyled';
+import Preloader from '@/components/feedback/Preloader';
 
 const CardListingItems = () => {
   const { theme } = useAppTheme();
@@ -30,19 +31,20 @@ const CardListingItems = () => {
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
 
-  const { data: listingItemsData } = useGetListingItemsQuery(
-    {
-      minPrice: filterValues?.price ? filterValues?.price[0] : undefined,
-      maxPrice: filterValues?.price ? filterValues?.price[1] : undefined,
-      subCategoryIds: filterValues?.subCategoryIds?.value,
-      countryId: filterValues?.address?.value || undefined,
-      query: filterValues?.query || '',
-      categoryId: filterValues?.category || '',
-      pageSize: 100,
-      pageNumber: 0,
-    },
-    { skip: !filterValues?.category }
-  );
+  const { data: listingItemsData, isLoading: isListingItemsLoading } =
+    useGetListingItemsQuery(
+      {
+        minPrice: filterValues?.price ? filterValues?.price[0] : undefined,
+        maxPrice: filterValues?.price ? filterValues?.price[1] : undefined,
+        subCategoryIds: filterValues?.subCategoryIds?.value,
+        countryId: filterValues?.address?.value || undefined,
+        query: filterValues?.query || '',
+        categoryId: filterValues?.category || '',
+        pageSize: 100,
+        pageNumber: 0,
+      },
+      { skip: !filterValues?.category }
+    );
 
   const listingCategoryOptions = useMemo<ISelectOption[]>(() => {
     return map(listingCategoriesData, (l) => {
@@ -57,6 +59,10 @@ const CardListingItems = () => {
   const handleChange = (text: string) => {
     setFilterValues({ ...filterValues, query: text });
   };
+
+  if (isListingItemsLoading) {
+    return <Preloader isTabBarActive={true} />;
+  }
 
   return (
     <View style={{ height: '100%' }}>

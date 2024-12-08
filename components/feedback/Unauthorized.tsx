@@ -11,10 +11,16 @@ import ImageStyled from '../images/ImageStyled';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 
 interface IProps extends IScreenWrapperContainerProps {}
-const Unauthorized: React.FC<IProps> = ({ isTabBarActive }) => {
+const Unauthorized: React.FC<IProps> = ({
+  isTabBarActive,
+  showGoBack = true,
+}) => {
   const commonStyles = useCommonStyles();
   return (
-    <ScreenWrapperContainer showGoBack={true} isTabBarActive={isTabBarActive}>
+    <ScreenWrapperContainer
+      showGoBack={showGoBack}
+      isTabBarActive={isTabBarActive}
+    >
       <InnerCommonContainer>
         <View
           style={[
