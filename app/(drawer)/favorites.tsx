@@ -13,7 +13,7 @@ import { IIconNames } from '@/interfaces/app';
 import ButtonLogout from '@/components/button/ButtonLogout';
 import { useGetListingFavoritesQuery } from '@/services/listingServices';
 import CardPostItem from '@/components/cards/CardPostItem';
-import ListFlatStyled from '@/components/list/ListFlatStyled';
+import FlatListStyled from '@/components/override/FlatListStyled';
 
 export interface ISettingItemProps {
   icon: IIconNames;
@@ -51,7 +51,7 @@ const FavoritesScreen = () => {
       }
     >
       <InnerCommonContainer>
-        <ListFlatStyled
+        <FlatListStyled
           onStartShouldSetResponder={() => true}
           data={favoriteListingsData}
           renderItem={({ item }) => <CardPostItem post={item.listing} />}

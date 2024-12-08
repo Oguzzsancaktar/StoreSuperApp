@@ -31,7 +31,7 @@ const InputDatePickerStyled: React.FC<IProps> = ({
   const inputRef = useRef<TextInput>(null);
   const { registerInput, unregisterInput } = useInputFocus();
 
-  const { theme } = useAppTheme();
+  const { theme, isDark } = useAppTheme();
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -100,26 +100,27 @@ const InputDatePickerStyled: React.FC<IProps> = ({
           })}
         </View>
 
-        {isFocused && (
-          <DateTimePicker
-            {...props}
-            collapsable={false}
-            testID={name}
-            value={new Date()}
-            mode="date"
-            display="inline"
-            onChange={onChange}
-            focusable={false}
-            textColor={theme.grayScale900}
-            accentColor={theme.primary}
-            style={{
-              backgroundColor: theme.grayScale900,
-              width: '100%',
+        <DateTimePicker
+          {...props}
+          testID={name}
+          value={new Date()}
+          mode="date"
+          display="default"
+          themeVariant={isDark ? 'dark' : 'light'}
+          onChange={onChange}
+          textColor={theme.grayScale900}
+          accentColor={theme.primary}
+          style={[
+            commonStyles.flexStyles.rowCenter,
+            {
+              paddingRight: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+              borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
               flex: 1,
-            }}
-            maximumDate={new Date()}
-          />
-        )}
+              zIndex: 9,
+            },
+          ]}
+          maximumDate={new Date()}
+        />
       </View>
     </Pressable>
   );

@@ -32,6 +32,7 @@ const CardListingCategories: React.FC<IProps> = ({
       ]}
     >
       {map(listingCategoriesData, (item, index) => {
+        console.log('item', item);
         return (
           <View
             key={index}

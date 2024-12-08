@@ -6,16 +6,25 @@ import useCommonStyles from '@/hooks/useCommonStyles';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { useSession } from '@/contexts/AuthContext';
+import { router } from 'expo-router';
+import APP_ROUTES from '@/constants/APP_ROUTES';
 
 interface IProps {}
 const ButtonLogout: React.FC<IProps> = () => {
   const commonStyles = useCommonStyles();
   const { theme } = useAppTheme();
-  const { signOut } = useSession();
+  const { session, signOut } = useSession();
 
+  const handlePress = () => {
+    if (!session) {
+      router.replace(APP_ROUTES.PUBLIC.WELCOME);
+    } else {
+      signOut();
+    }
+  };
   return (
     <ButtonStyled
-      onPress={signOut}
+      onPress={handlePress}
       gradientBg={true}
       variant="buttonPrimaryOutlined"
     >
@@ -39,7 +48,7 @@ const ButtonLogout: React.FC<IProps> = () => {
               fontWeight="semibold"
               customColor="grayScale900"
             >
-              Logout
+              {session ? 'Logout' : 'Login'}
             </TextStyled>
           </View>
         </View>

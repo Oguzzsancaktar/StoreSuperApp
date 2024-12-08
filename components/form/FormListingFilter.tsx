@@ -8,6 +8,7 @@ import { IFormWizardStepProps } from './FormWizard';
 import EListingFilterOptionComponentType from '@/interfaces/enums/EListingFilterOptionComponentType';
 import { IInputProps } from '@/interfaces/app';
 import { useDrawerState } from '@/contexts/DrawerContext';
+import ScrollViewStyled from '../override/ScrollViewStyled';
 
 const FormListingFilter = () => {
   const { filterValues, setFilterValues } = useListingFilter();
@@ -64,9 +65,7 @@ const FormListingFilter = () => {
       }}
       onStartShouldSetResponder={() => true}
     >
-      <ScrollView
-        nestedScrollEnabled
-        keyboardShouldPersistTaps="handled"
+      <ScrollViewStyled
         contentContainerStyle={{
           flex: 1,
         }}
@@ -78,7 +77,7 @@ const FormListingFilter = () => {
           defaultValues={defaultValues}
           onSubmit={handleSubmit}
         />
-      </ScrollView>
+      </ScrollViewStyled>
     </View>
   );
 };

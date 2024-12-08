@@ -3,8 +3,9 @@ import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import ImageStyled from '@/components/images/ImageStyled';
+import ImageUserProfile from '@/components/images/ImageUserProfile';
 import { InputStyled } from '@/components/input';
-import ListFlatStyled from '@/components/list/ListFlatStyled';
+import FlatListStyled from '@/components/override/FlatListStyled';
 import IconOptions from '@/components/svg/icon/IconOptions';
 import IconSendMessage from '@/components/svg/icon/IconSendMessage';
 import IconUser from '@/components/svg/icon/IconUser';
@@ -23,9 +24,15 @@ import {
 } from '@/services/chatServices';
 import { useGetListingItemDetailsQuery } from '@/services/listingServices';
 import jwtUtils from '@/utils/jwtUtils';
-import { Redirect, useLocalSearchParams } from 'expo-router';
+import { Href, Redirect, router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
-import { Keyboard, KeyboardAvoidingView, Platform, View } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  View,
+} from 'react-native';
 
 const MessagesDetailScreen = () => {
   const { session } = useSession();
@@ -39,8 +46,6 @@ const MessagesDetailScreen = () => {
     { skip: !listingId }
   );
 
-  console.log('listingDetailData', listingDetailData);
-
   const userJwtDecoded = jwtUtils.userJwtDecode(session ?? '');
 
   const { data: messagesData } = useGetChatMessagesQuery(
@@ -49,6 +54,10 @@ const MessagesDetailScreen = () => {
 
   const [createMessage] = useCreateMessageMutation();
   const [newMessage, setNewMessage] = useState('');
+
+  const handleAdvertClick = () => {
+    router.push(('/(drawer)/post/' + listingId) as Href);
+  };
 
   const sendMessage = async () => {
     if (newMessage.trim()) {
@@ -144,7 +153,18 @@ const MessagesDetailScreen = () => {
   }
 
   return (
-    <ScreenWrapperContainer>
+    <ScreenWrapperContainer
+      showGoBack={true}
+      leftElement={<ImageUserProfile url={listingDetailData?.user?.image} />}
+      headerTitle={
+        listingDetailData.user?.lastName && listingDetailData.user?.firstName
+          ? (listingDetailData.user?.firstName || '') +
+            ' ' +
+            (listingDetailData.user?.lastName || '')
+          : listingDetailData.user.email
+      }
+      rightElement={<IconOptions color={theme.grayScale900} />}
+    >
       <InnerCommonContainer>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -153,69 +173,8 @@ const MessagesDetailScreen = () => {
           }
           style={{ flex: 1 }}
         >
-          <View
-            style={[
-              commonStyles.flexStyles.rowBetween,
-              { backgroundColor: theme.appBackground },
-            ]}
-          >
-            <View
-              style={[
-                commonStyles.flexStyles.rowStart,
-                { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
-              ]}
-            >
-              <ButtonGoBack />
-              <View
-                style={[
-                  commonStyles.flexStyles.rowStart,
-                  { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
-                ]}
-              >
-                <View
-                  style={{
-                    borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
-                    overflow: 'hidden',
-                    width: APP_STYLE_VALUES.WH_SIZES.sm,
-                    height: APP_STYLE_VALUES.WH_SIZES.sm,
-                  }}
-                >
-                  {listingDetailData.user?.image ? (
-                    <ImageStyled url={listingDetailData.user?.image} />
-                  ) : (
-                    <ImageIconCircle
-                      icon={
-                        <IconUser
-                          width={APP_STYLE_VALUES.WH_SIZES.xs2}
-                          height={APP_STYLE_VALUES.WH_SIZES.xs2}
-                          color={theme.white}
-                        />
-                      }
-                      size={APP_STYLE_VALUES.WH_SIZES.sm}
-                    />
-                  )}
-                </View>
-                <View>
-                  <TextStyled
-                    fontSize="md"
-                    fontWeight="semibold"
-                    customColor="grayScale900"
-                  >
-                    {listingDetailData.user?.lastName &&
-                    listingDetailData.user?.firstName
-                      ? (listingDetailData.user?.firstName || '') +
-                        ' ' +
-                        (listingDetailData.user?.lastName || '')
-                      : listingDetailData.user.email}
-                  </TextStyled>
-                </View>
-              </View>
-            </View>
-
-            <IconOptions color={theme.grayScale900} />
-          </View>
-
-          <View
+          <Pressable
+            onPress={handleAdvertClick}
             style={[
               themedStyles.borderStyles.dashedPrimary,
               {
@@ -261,9 +220,9 @@ const MessagesDetailScreen = () => {
                 </TextStyled>
               </View>
             </View>
-          </View>
+          </Pressable>
 
-          <ListFlatStyled
+          <FlatListStyled
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={{
               flexGrow: 1,

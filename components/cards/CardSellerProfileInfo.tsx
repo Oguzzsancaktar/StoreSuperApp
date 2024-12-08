@@ -35,7 +35,7 @@ const CardSellerProfileInfo = () => {
 
     const file = selectedImages[0];
     if (file) {
-      formDataForMedia.append('file', file, file.name); // `files` API'deki alan adıyla eşleşmeli
+      formDataForMedia.append('file', file, file.name);
     }
 
     try {

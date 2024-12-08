@@ -71,7 +71,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
     setRefreshTokenExpiryTime(null);
     apiClient.defaults.headers.common['Authorization'] = '';
     router.push(APP_ROUTES.PUBLIC.WELCOME);
-    console.log('-----');
   };
 
   const refreshAuthToken = async () => {
@@ -89,7 +88,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
       return newToken;
     } catch (error) {
-      signOut(); // Eğer yenileme başarısızsa oturumu sonlandır
+      signOut();
       throw error;
     }
   };

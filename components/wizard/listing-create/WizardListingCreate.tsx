@@ -1,4 +1,3 @@
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import { FormWizard } from '@/components/form';
 import { IFormWizardStepProps } from '@/components/form/FormWizard';
 import { View, ViewStyle } from 'react-native';
@@ -21,7 +20,7 @@ import {
   useUploadListingMediaMutation,
   useCreateListingMutation,
 } from '@/services/listingServices';
-import { Href, router, useNavigation } from 'expo-router';
+import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 
 const WizardListingCreate = () => {
@@ -53,6 +52,12 @@ const WizardListingCreate = () => {
       };
     });
   }, [listingCategorySubData]);
+
+  const handleCategorySelect = (categoryId: IListingCategory['id']) => {
+    setValues((prev) => {
+      return { categoryId };
+    });
+  };
 
   const steps: IFormWizardStepProps[] = useMemo(
     () => [
@@ -242,14 +247,8 @@ const WizardListingCreate = () => {
         ],
       },
     ],
-    [listingCategoryOptionsData, values]
+    [handleCategorySelect, listingCategoryOptionsData, values]
   );
-
-  const handleCategorySelect = (categoryId: IListingCategory['id']) => {
-    setValues((prev) => {
-      return { categoryId };
-    });
-  };
 
   const handleSubmit = async (values: Record<string, any>) => {
     const {
@@ -395,17 +394,15 @@ const WizardListingCreate = () => {
   };
 
   return (
-    <ScreenWrapperContainer isTabBarActive={true}>
-      <FormWizard
-        isLoading={uploadListingMediaIsLoading || createListingIsLoading}
-        isNextDisabled={!values?.categoryId}
-        values={values}
-        setValues={setValues}
-        steps={steps}
-        defaultValues={defaultValues}
-        onSubmit={handleSubmit}
-      />
-    </ScreenWrapperContainer>
+    <FormWizard
+      isLoading={uploadListingMediaIsLoading || createListingIsLoading}
+      isNextDisabled={!values?.categoryId}
+      values={values}
+      setValues={setValues}
+      steps={steps}
+      defaultValues={defaultValues}
+      onSubmit={handleSubmit}
+    />
   );
 };
 

@@ -10,16 +10,20 @@ interface IProps {
   showGoBack?: boolean;
   headerTitle?: string;
   rightElement?: React.ReactNode;
+  leftElement?: React.ReactNode;
   showBorderUnderline?: boolean;
   isTabBarActive?: boolean;
+  customGoBackEvent?: () => void;
 }
 const ScreenWrapperContainer: React.FC<IProps> = ({
   children,
   showGoBack = false,
+  leftElement,
   headerTitle,
   rightElement,
   showBorderUnderline,
   isTabBarActive,
+  customGoBackEvent,
 }) => {
   const themedStyles = useThemedStyles();
   const commonStyles = useCommonStyles();
@@ -38,18 +42,36 @@ const ScreenWrapperContainer: React.FC<IProps> = ({
           ]}
         >
           <View style={[commonStyles.flexStyles.rowStart]}>
-            {showGoBack && <ButtonGoBack isCircular={false} />}
-            {headerTitle && (
-              <View>
-                <TextStyled
-                  fontSize="h5"
-                  fontWeight="semibold"
-                  customColor="grayScale900"
-                >
-                  {headerTitle}
-                </TextStyled>
-              </View>
+            {showGoBack && (
+              <ButtonGoBack
+                customEvent={customGoBackEvent}
+                isCircular={false}
+              />
             )}
+
+            <View
+              style={[
+                commonStyles.flexStyles.rowStart,
+                {
+                  gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                  height: APP_STYLE_VALUES.WH_SIZES.md,
+                },
+              ]}
+            >
+              {leftElement && leftElement}
+
+              {headerTitle && (
+                <View>
+                  <TextStyled
+                    fontSize="h5"
+                    fontWeight="semibold"
+                    customColor="grayScale900"
+                  >
+                    {headerTitle}
+                  </TextStyled>
+                </View>
+              )}
+            </View>
           </View>
           <View>{rightElement}</View>
         </View>

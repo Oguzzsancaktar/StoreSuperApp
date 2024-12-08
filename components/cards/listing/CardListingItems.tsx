@@ -16,7 +16,7 @@ import ISelectOption from '@/interfaces/theme/ISelectOption';
 import IconFilter from '@/components/svg/icon/IconFilter';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import { useDrawerState } from '@/contexts/DrawerContext';
-import ListFlatStyled from '@/components/list/ListFlatStyled';
+import FlatListStyled from '@/components/override/FlatListStyled';
 
 const CardListingItems = () => {
   const { theme } = useAppTheme();
@@ -138,10 +138,10 @@ const CardListingItems = () => {
         </View>
       </View>
 
-      <ListFlatStyled
+      <FlatListStyled
         data={listingItemsData?.items}
         renderItem={({ item }) => <CardPostItem post={item} />}
-      ></ListFlatStyled>
+      ></FlatListStyled>
     </View>
   );
 };

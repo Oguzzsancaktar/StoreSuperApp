@@ -28,7 +28,8 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
   const { data: postViewData } = useGetViewCountQuery(post.id);
 
   const handlePress = () => {
-    router.push(('/(private)/post/' + post.id) as Href);
+    // @todo create structure for dynamic route to APP_ROUTES
+    router.push(('/(drawer)/post/' + post.id) as Href);
   };
 
   return (

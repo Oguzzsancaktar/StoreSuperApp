@@ -9,6 +9,7 @@ import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContain
 import ImageCarousel from '@/components/images/ImageCarousel';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import MapGeoLoaction from '@/components/map/MapGeoLoaction';
+import ScrollViewStyled from '@/components/override/ScrollViewStyled';
 import IconLocation from '@/components/svg/icon/IconLocation';
 import IconSendMessage from '@/components/svg/icon/IconSendMessage';
 import IconUser from '@/components/svg/icon/IconUser';
@@ -73,130 +74,105 @@ const ListingDetailPage = () => {
         />
       }
     >
-      <ScrollView
-        nestedScrollEnabled
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          flexGrow: 1,
-          gap: APP_STYLE_VALUES.SPACE_SIZES.sp6,
-        }}
-      >
-        <View
-          onStartShouldSetResponder={() => true} // @todo fix drag problem
-          style={[
-            commonStyles.flexStyles.colStart,
-            {
-              width: '100%',
-              gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-            },
-          ]}
-        >
-          <InnerCommonContainer>
-            <View style={[commonStyles.flexStyles.colStart, { width: '100%' }]}>
-              <TextStyled fontSize="h3" fontWeight="bold" textAlignment="left">
-                {listingItemDetailData?.name || ''}
-              </TextStyled>
+      <ScrollViewStyled>
+        <InnerCommonContainer>
+          <View style={[commonStyles.flexStyles.colStart, { width: '100%' }]}>
+            <TextStyled fontSize="h3" fontWeight="bold" textAlignment="left">
+              {listingItemDetailData?.name || ''}
+            </TextStyled>
 
-              <View
-                style={[
-                  commonStyles.flexStyles.rowStart,
-                  {
-                    width: '100%',
-                    gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                    alignItems: 'center',
-                  },
-                ]}
-              >
-                <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xs2 }}>
-                  <IconLocation color={theme.grayScale400} />
-                </View>
-
-                <View style={[]}>
-                  <TextStyled
-                    textAlignment="left"
-                    fontSize="md"
-                    fontWeight="bold"
-                    customColor={'grayScale400'}
-                  >
-                    {(listingItemDetailData?.listingAddress?.countryName ||
-                      '') +
-                      ', ' +
-                      (listingItemDetailData?.listingAddress?.cityName + '')}
-                  </TextStyled>
-                </View>
-              </View>
-            </View>
-          </InnerCommonContainer>
-
-          <View style={{ width: '100%', height: 300 }}>
-            <ImageCarousel imageUrls={mediaUrls} />
-          </View>
-
-          <InnerCommonContainer>
             <View
               style={[
-                commonStyles.flexStyles.colStart,
+                commonStyles.flexStyles.rowStart,
                 {
                   width: '100%',
-                  gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+                  gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                  alignItems: 'center',
                 },
               ]}
             >
-              <View
-                style={{
-                  gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                }}
-              >
+              <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xs2 }}>
+                <IconLocation color={theme.grayScale400} />
+              </View>
+
+              <View style={[]}>
                 <TextStyled
-                  fontSize="h4"
-                  fontWeight="bold"
                   textAlignment="left"
-                >
-                  Description
-                </TextStyled>
-                <TextStyled
                   fontSize="md"
-                  fontWeight="medium"
-                  textAlignment="left"
+                  fontWeight="bold"
+                  customColor={'grayScale400'}
                 >
-                  {listingItemDetailData?.description || ''}
+                  {(listingItemDetailData?.listingAddress?.countryName || '') +
+                    ', ' +
+                    (listingItemDetailData?.listingAddress?.cityName + '')}
                 </TextStyled>
-              </View>
-              <View style={{ width: '100%' }}>
-                <CardPostPrice
-                  negotiable={listingItemDetailData?.negotiable}
-                  formattedPrice={listingItemDetailData?.formattedPrice}
-                />
-              </View>
-              <View style={{ width: '100%' }}>
-                <CardPostCategory
-                  categories={listingItemDetailData?.categories || []}
-                />
-              </View>
-              <CardListingDetailOptions
-                options={listingItemDetailData.options}
-              />
-
-              <View style={{ width: '100%' }}>
-                <MapGeoLoaction
-                  geoLocation={{
-                    latitude: listingItemDetailData.listingAddress?.latitude,
-                    longitude: listingItemDetailData.listingAddress?.longitude,
-                  }}
-                />
-              </View>
-
-              <View style={{ width: '100%' }}>
-                <CardSellerInfo
-                  allowMessaging={listingItemDetailData.allowMessaging}
-                  allowPhoneCalls={listingItemDetailData.allowPhoneCalls}
-                  user={listingItemDetailData?.user || ({} as IUser)}
-                />
               </View>
             </View>
-          </InnerCommonContainer>
+          </View>
+        </InnerCommonContainer>
+
+        <View style={{ width: '100%', height: 300 }}>
+          <ImageCarousel imageUrls={mediaUrls} />
         </View>
-      </ScrollView>
+
+        <InnerCommonContainer>
+          <View
+            style={[
+              commonStyles.flexStyles.colStart,
+              {
+                width: '100%',
+                gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+              },
+            ]}
+          >
+            <View
+              style={{
+                gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+              }}
+            >
+              <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
+                Description
+              </TextStyled>
+              <TextStyled
+                fontSize="md"
+                fontWeight="medium"
+                textAlignment="left"
+              >
+                {listingItemDetailData?.description || ''}
+              </TextStyled>
+            </View>
+            <View style={{ width: '100%' }}>
+              <CardPostPrice
+                negotiable={listingItemDetailData?.negotiable}
+                formattedPrice={listingItemDetailData?.formattedPrice}
+              />
+            </View>
+            <View style={{ width: '100%' }}>
+              <CardPostCategory
+                categories={listingItemDetailData?.categories || []}
+              />
+            </View>
+            <CardListingDetailOptions options={listingItemDetailData.options} />
+
+            <View style={{ width: '100%' }}>
+              <MapGeoLoaction
+                geoLocation={{
+                  latitude: listingItemDetailData.listingAddress?.latitude,
+                  longitude: listingItemDetailData.listingAddress?.longitude,
+                }}
+              />
+            </View>
+
+            <View style={{ width: '100%' }}>
+              <CardSellerInfo
+                allowMessaging={listingItemDetailData.allowMessaging}
+                allowPhoneCalls={listingItemDetailData.allowPhoneCalls}
+                user={listingItemDetailData?.user || ({} as IUser)}
+              />
+            </View>
+          </View>
+        </InnerCommonContainer>
+      </ScrollViewStyled>
 
       <View
         style={[

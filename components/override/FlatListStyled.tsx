@@ -8,7 +8,7 @@ interface IProps<T> extends FlatListProps<T> {
   showGradients?: boolean;
 }
 
-const ListFlatStyled = <T,>({
+const FlatListStyled = <T,>({
   data,
   showGradients = true,
   renderItem,
@@ -87,4 +87,4 @@ const ListFlatStyled = <T,>({
   );
 };
 
-export default ListFlatStyled;
+export default FlatListStyled;

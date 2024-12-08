@@ -23,8 +23,9 @@ import { router, usePathname } from 'expo-router';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
 import { map } from 'lodash';
 import CardPostItem from '@/components/cards/CardPostItem';
-import ListFlatStyled from '@/components/list/ListFlatStyled';
+import FlatListStyled from '@/components/override/FlatListStyled';
 import APP_ROUTES from '@/constants/APP_ROUTES';
+import ScrollViewStyled from '@/components/override/ScrollViewStyled';
 
 const ProfileScreen = () => {
   const commonStyles = useCommonStyles();
@@ -39,11 +40,7 @@ const ProfileScreen = () => {
 
   return (
     <ScreenWrapperContainer>
-      <ScrollView
-        nestedScrollEnabled
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollViewStyled>
         <View
           onStartShouldSetResponder={() => true} // @todo fix drag problem
           style={[
@@ -135,7 +132,7 @@ const ProfileScreen = () => {
             <CardSellerProfileInfo />
 
             <View style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
-              <ListFlatStyled
+              <FlatListStyled
                 showGradients={false}
                 data={currentUserListingData}
                 renderItem={({ item }) => <CardPostItem post={item} />}
@@ -143,7 +140,7 @@ const ProfileScreen = () => {
             </View>
           </View>
         </InnerCommonContainer>
-      </ScrollView>
+      </ScrollViewStyled>
     </ScreenWrapperContainer>
   );
 };

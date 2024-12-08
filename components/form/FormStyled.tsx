@@ -1,24 +1,23 @@
 import { Fragment, useEffect, useMemo } from 'react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
-import { ButtonGoBack, ButtonStyled } from '../button';
-import { ScrollView, View } from 'react-native';
+import { ButtonStyled } from '../button';
+import { View } from 'react-native';
 import { map } from 'lodash';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { IInputProps } from '@/interfaces/app';
 import { TextStyled } from '../typography';
-import APP_VALIDATION_PATTERNS from '@/constants/APP_VALIDATION_PATTERNS';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import FormInputComponents from './FormInputComponents';
 import validationUtils from '@/utils/validationUtils';
+import ScrollViewStyled from '../override/ScrollViewStyled';
 
 export interface IProps {
   submitKey: string;
   fields: Array<IInputProps>;
   defaultValues: Record<string, any>;
   onSubmit(values: Record<string, any>): void;
-  onBack(values: Record<string, any>): void;
-  isLastStep: boolean;
-  isCurrentCustom: boolean;
+  isLastStep?: boolean;
+  isCurrentCustom?: boolean;
   isNextDisabled?: boolean;
   isLoading?: boolean;
 }
@@ -28,7 +27,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   fields,
   defaultValues,
   onSubmit,
-  isLastStep,
+  isLastStep = 'true',
   isCurrentCustom,
   isNextDisabled,
   isLoading,
@@ -54,12 +53,12 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
     <FormProvider {...formInstance}>
       <View
         style={{
+          width: '100%',
           flex: isCurrentCustom ? undefined : 1,
           height: isCurrentCustom ? APP_STYLE_VALUES.WH_SIZES.lg : undefined,
         }}
       >
-        <ScrollView
-          showsVerticalScrollIndicator={false}
+        <ScrollViewStyled
           contentContainerStyle={{
             paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
@@ -90,7 +89,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                     }}
                     render={({ field: { onChange, onBlur, value } }) => {
                       return (
-                        <View style={customStyle || {}}>
+                        <View style={[{ width: '100%' }, customStyle || {}]}>
                           <FormInputComponents
                             formInstance={formInstance}
                             name={name}
@@ -129,7 +128,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
               );
             }
           )}
-        </ScrollView>
+        </ScrollViewStyled>
 
         <View
           style={[
@@ -137,11 +136,6 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
             {
               gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
               height: APP_STYLE_VALUES.WH_SIZES.lg,
-
-              // showBackButton
-              //   ? APP_STYLE_VALUES.WH_SIZES.lg * 2 +
-              //     APP_STYLE_VALUES.SPACE_SIZES.sp2
-              //   : APP_STYLE_VALUES.WH_SIZES.lg,
             },
           ]}
         >

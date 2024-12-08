@@ -23,7 +23,7 @@ export interface ISettingItemProps {
 }
 
 const PersonalInformationScreen = () => {
-  const { theme, toggleTheme } = useAppTheme();
+  const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
 
   return (
@@ -32,7 +32,11 @@ const PersonalInformationScreen = () => {
         <View
           style={[
             commonStyles.flexStyles.colStart,
-            { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+            {
+              height: '100%',
+              width: '100%',
+              gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            },
           ]}
         >
           <View style={[commonStyles.flexStyles.colCenter, { width: '100%' }]}>
@@ -57,6 +61,7 @@ const PersonalInformationScreen = () => {
             style={[
               commonStyles.flexStyles.colStart,
               {
+                flex: 1,
                 width: '100%',
                 gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
               },

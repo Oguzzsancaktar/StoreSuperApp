@@ -1,14 +1,14 @@
 import { ReactNode, useMemo, useState } from 'react';
 import FormStyled from './FormStyled';
-
 import { IInputProps } from '@/interfaces/app';
 import { View } from 'react-native';
 import { TextStyled } from '../typography';
 import { InnerCommonContainer } from '../containers';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { ButtonGoBack } from '../button';
 import { router } from 'expo-router';
+import ScreenWrapperContainer from '../containers/ScreenWrapperContainer';
+import WizardStepIndicator from '../wizard/WizardStepIndicator';
 
 export interface IFormWizardStepProps {
   id: string;
@@ -50,17 +50,17 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
     [activeStepIndex, steps.length]
   );
 
-  const goPrevStep = () => {
+  // @todo goback loss current step data
+  // solve with input blur or select save at same time
+
+  const goPrevStep = (stepValues?: Record<string, any>) => {
+    const newValues = { ...values, ...stepValues };
+    setValues(() => newValues);
+
     if (activeStepIndex === 0) {
       return router.back();
     }
     setActiveStepIndex((index) => (index -= 1));
-  };
-
-  const handleBackStep = (stepValues: Record<string, any>) => {
-    const newValues = { ...values, ...stepValues };
-    setValues(newValues);
-    goPrevStep();
   };
 
   const goNextStep = () => {
@@ -84,82 +84,65 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   }
 
   return (
-    <InnerCommonContainer>
-      <View
-        style={[
-          commonStyles.flexStyles.colBetween,
-          {
-            flex: 1,
-            width: '100%',
-          },
-        ]}
-      >
-        {steps.length > 1 && (
-          <View
-            style={[
-              commonStyles.flexStyles.rowBetween,
-              {
-                width: '100%',
-                marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-              },
-            ]}
-          >
-            <ButtonGoBack customEvent={goPrevStep} />
-
-            <View style={[commonStyles.flexStyles.rowStart, {}]}>
+    <ScreenWrapperContainer
+      showGoBack={steps.length > 1}
+      customGoBackEvent={goPrevStep}
+      isTabBarActive={true}
+      rightElement={
+        steps.length > 1 ? (
+          <WizardStepIndicator
+            activeIndex={activeStepIndex}
+            stepSize={steps.length}
+          />
+        ) : null
+      }
+    >
+      <InnerCommonContainer>
+        <View
+          style={[
+            commonStyles.flexStyles.colBetween,
+            {
+              flex: 1,
+              height: '100%',
+              width: '100%',
+            },
+          ]}
+        >
+          {(activeStep?.stepTitle || activeStep?.stepDescription) && (
+            <View style={{ marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp5 }}>
               <TextStyled
-                fontSize="lg"
-                fontWeight="medium"
+                fontSize="h4"
+                fontWeight="bold"
                 customColor="grayScale900"
               >
-                {activeStepIndex + 1 + ''}
+                {activeStep?.stepTitle as string}
               </TextStyled>
               <TextStyled
-                fontSize="lg"
-                fontWeight="medium"
-                customColor="grayScale400"
+                fontSize="md"
+                fontWeight="regular"
+                customColor="grayScale600"
               >
-                /{steps.length + ''}
+                {activeStep?.stepDescription as string}
               </TextStyled>
             </View>
-          </View>
-        )}
+          )}
 
-        {(activeStep?.stepTitle || activeStep?.stepDescription) && (
-          <View style={{ marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp5 }}>
-            <TextStyled
-              fontSize="h4"
-              fontWeight="bold"
-              customColor="grayScale900"
-            >
-              {activeStep?.stepTitle as string}
-            </TextStyled>
-            <TextStyled
-              fontSize="md"
-              fontWeight="regular"
-              customColor="grayScale600"
-            >
-              {activeStep?.stepDescription as string}
-            </TextStyled>
-          </View>
-        )}
+          {activeStep?.customStep && activeStep.customStep}
 
-        {activeStep?.customStep && activeStep.customStep}
-
-        <FormStyled
-          submitKey={submitKey}
-          isLoading={isLoading}
-          isNextDisabled={isNextDisabled}
-          onBack={handleBackStep}
-          key={activeStep.id} // IMPORTANT! Keep each form instance separate
-          fields={activeStep.fields}
-          defaultValues={{ ...defaultValues, ...values }}
-          onSubmit={handleNextStep}
-          isLastStep={isLastStep}
-          isCurrentCustom={!!activeStep.customStep}
-        />
-      </View>
-    </InnerCommonContainer>
+          <FormStyled
+            submitKey={submitKey}
+            isLoading={isLoading}
+            isNextDisabled={isNextDisabled}
+            key={activeStep.id}
+            fields={activeStep.fields}
+            defaultValues={{ ...defaultValues, ...values }}
+            onSubmit={handleNextStep}
+            isLastStep={isLastStep}
+            isCurrentCustom={!!activeStep.customStep}
+          />
+        </View>
+      </InnerCommonContainer>
+    </ScreenWrapperContainer>
   );
 };
 

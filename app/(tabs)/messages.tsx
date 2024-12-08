@@ -2,7 +2,7 @@ import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import ImageStyled from '@/components/images/ImageStyled';
-import ListFlatStyled from '@/components/list/ListFlatStyled';
+import FlatListStyled from '@/components/override/FlatListStyled';
 import IconBell from '@/components/svg/icon/IconBell';
 import IconTrash from '@/components/svg/icon/IconTrash';
 import { TextStyled } from '@/components/typography';
@@ -151,7 +151,7 @@ const MessagesScreen = () => {
           </View>
         </View>
 
-        <ListFlatStyled
+        <FlatListStyled
           showGradients={false}
           onStartShouldSetResponder={() => true}
           renderItem={renderItem}

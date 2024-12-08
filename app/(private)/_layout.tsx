@@ -1,6 +1,13 @@
-import { Stack } from 'expo-router';
+import { useSession } from '@/contexts/AuthContext';
+import { Redirect, Stack } from 'expo-router';
 
-export default function PublicLayout() {
+export default function PrivateLayout() {
+  const { session } = useSession();
+
+  if (!session) {
+    return <Redirect href="/login" />;
+  }
+
   return (
     <Stack>
       <Stack.Screen

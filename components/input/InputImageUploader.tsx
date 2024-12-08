@@ -94,13 +94,12 @@ const InputImageUploader: React.FC<IProps> = ({
   };
 
   useEffect(() => {
-    console.log('selectedImages', selectedImages);
     onChange(selectedImages);
   }, [selectedImages]);
 
   return isUploadButton ? (
     <ImageIconCircle
-      icon={<IconUpload color={theme.grayScale100} />}
+      icon={<IconUpload color={theme.white} />}
       onPress={pickImage}
     />
   ) : selectedImages.length === 0 ? (
@@ -162,10 +161,11 @@ const InputImageUploader: React.FC<IProps> = ({
             </TextStyled>
           </View>
         )}
-
-        <TextStyled fontSize="xs" fontWeight="regular">
-          Maximum: {maxMedia + ''}
-        </TextStyled>
+        <View>
+          <TextStyled fontSize="xs" fontWeight="regular">
+            Maximum: {maxMedia + ''}
+          </TextStyled>
+        </View>
       </View>
       <View
         style={[

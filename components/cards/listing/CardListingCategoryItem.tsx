@@ -24,7 +24,7 @@ const CardListingCategoryItem: React.FC<IProps> = ({
 
   return (
     <TouchableOpacity
-      onPress={() => onPress(category.id)}
+      onPress={() => onPress(category?.id)}
       style={[
         themedStyles.cardStyles[isSelected ? 'primary' : 'default'],
         commonStyles.flexStyles.colCenter,
