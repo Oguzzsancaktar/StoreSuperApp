@@ -128,6 +128,7 @@ const ListingDetailPage = () => {
             <View
               style={{
                 gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                width: '100%',
               }}
             >
               <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">

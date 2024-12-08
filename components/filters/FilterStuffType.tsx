@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import InputSelectStyled from '../input/InputSelectStyled';
 
 interface IProps {
-  variant?: 'transparent' | 'primary';
+  variant?: 'transparent' | 'solid';
   options: ISelectOption[];
   value: ISelectOption | undefined;
   onChange: (selected: ISelectOption) => void;
@@ -13,7 +13,7 @@ const FilterStuffType: React.FC<IProps> = ({
   options,
   onChange,
   value,
-  variant = 'primary',
+  variant = 'solid',
 }) => {
   const handleSelect = (selectedItem: ISelectOption) => {
     onChange(selectedItem);
@@ -31,7 +31,7 @@ const FilterStuffType: React.FC<IProps> = ({
       <InputSelectStyled
         handleSelect={handleSelect}
         options={options}
-        variant="transparent"
+        variant={variant}
         value={value ?? options[0]}
       />
     </View>

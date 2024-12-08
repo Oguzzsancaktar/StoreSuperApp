@@ -49,10 +49,10 @@ const InputSelectStyled: React.FC<IProps> = ({
         value={value}
         onChange={handleSelect}
         style={[
+          themedStyles.inputStyles.default,
           variant === 'transparent'
             ? themedStyles.buttonStyles.badgeOutlined
             : themedStyles.buttonStyles.buttonPrimarySolid,
-          themedStyles.inputStyles.default,
           {
             width: '100%',
             paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp3,

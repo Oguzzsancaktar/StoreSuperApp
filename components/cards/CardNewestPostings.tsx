@@ -9,7 +9,7 @@ import FilterStuffType from '../filters/FilterStuffType';
 import { useMemo, useState } from 'react';
 import ISelectOption from '@/interfaces/theme/ISelectOption';
 import { useGetNewestPostsQuery } from '@/services/listingServices';
-import FlatListStyled from '../override/FlatListStyled';
+import ListFlatStyled from '../override/FlatListStyled';
 
 const CardNewestPostings = () => {
   const commonStyles = useCommonStyles();
@@ -67,7 +67,7 @@ const CardNewestPostings = () => {
         </View>
       </View>
 
-      <FlatListStyled
+      <ListFlatStyled
         onStartShouldSetResponder={() => true}
         data={newestPostData}
         renderItem={({ item }) => <CardPostItem post={item} />}

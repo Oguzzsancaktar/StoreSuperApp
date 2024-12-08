@@ -1,7 +1,7 @@
 import { TextStyled } from '@/components/typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import useCommonStyles from '@/hooks/useCommonStyles';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import CardPostItem from '../CardPostItem';
 import { useGetListingItemsQuery } from '@/services/listingServices';
 import { find, map } from 'lodash';
@@ -81,6 +81,7 @@ const CardListingItems = () => {
 
         <View style={{ flex: 1 }}>
           <FilterSearchbar
+            value={filterValues?.query}
             handleChange={handleChange}
             handleMostSearched={setShowMostSearched}
           />

@@ -10,7 +10,7 @@ import { map } from 'lodash';
 const CardMostSearchedWords = () => {
   const commonStyles = useCommonStyles();
 
-  const { filterValues } = useListingFilter();
+  const { filterValues, setFilterValues } = useListingFilter();
 
   const { data: mostSearchedKeysData } = useGetMostSearchedKeysQuery(
     {
@@ -19,6 +19,12 @@ const CardMostSearchedWords = () => {
     { skip: !filterValues?.category }
   );
 
+  const handleKeyClick = (key: string) => {
+    setFilterValues({
+      ...filterValues,
+      query: key,
+    });
+  };
   return (
     <View>
       <View
@@ -49,7 +55,11 @@ const CardMostSearchedWords = () => {
         ]}
       >
         {map(mostSearchedKeysData, (key, index) => (
-          <ButtonBadge text={key.keyword} key={index} />
+          <ButtonBadge
+            onClick={() => handleKeyClick(key.keyword)}
+            text={key.keyword}
+            key={index}
+          />
         ))}
       </View>
     </View>
