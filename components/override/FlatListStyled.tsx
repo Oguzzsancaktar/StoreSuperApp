@@ -3,6 +3,7 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { GradientBackground } from '../svg/background';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { useAppTheme } from '@/contexts/ThemeContext';
+import EmptyState from '../feedback/EmptyState';
 
 interface IProps<T> extends FlatListProps<T> {
   showGradients?: boolean;
@@ -27,24 +28,6 @@ const FlatListStyled = <T,>({
     >
       {showGradients && (
         <>
-          {/* <View
-            style={[
-              commonStyles.absolutePositionStyles.absoluteFill,
-              {
-                height: APP_STYLE_VALUES.WH_SIZES.sm,
-                // @todo create constant for zIndexes
-                zIndex: 1,
-              },
-            ]}
-          >
-            <GradientBackground
-              endColor={theme.appBackground}
-              startColor={theme.appBackground}
-              startOpacity="0.5"
-              endOpacity="0"
-            />
-          </View> */}
-
           <View
             style={[
               commonStyles.absolutePositionStyles.absoluteFill,
@@ -66,23 +49,27 @@ const FlatListStyled = <T,>({
         </>
       )}
 
-      <FlatList
-        {...others}
-        keyboardShouldPersistTaps={'never'}
-        showsVerticalScrollIndicator={false}
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item, idx) => idx.toString()}
-        scrollEnabled={true}
-        nestedScrollEnabled={true}
-        contentContainerStyle={[
-          {
-            gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-            paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp15,
-          },
-          others.contentContainerStyle,
-        ]}
-      />
+      {data?.length ? (
+        <FlatList
+          {...others}
+          keyboardShouldPersistTaps={'never'}
+          showsVerticalScrollIndicator={false}
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item, idx) => idx.toString()}
+          scrollEnabled={true}
+          nestedScrollEnabled={true}
+          contentContainerStyle={[
+            {
+              gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+              paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp15,
+            },
+            others.contentContainerStyle,
+          ]}
+        />
+      ) : (
+        <EmptyState />
+      )}
     </View>
   );
 };

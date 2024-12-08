@@ -2,17 +2,13 @@ import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContain
 import { InnerCommonContainer } from '@/components/containers';
 import { FormWizard } from '@/components/form';
 import { IFormWizardStepProps } from '@/components/form/FormWizard';
-import { TextStyled } from '@/components/typography';
-import { View } from 'react-native';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import APP_INPUT_FIELDS from '@/constants/APP_INPUT_FIELDS';
 import { useState } from 'react';
 import ILoginDTO from '@/interfaces/account/ILoginDTO';
 import { useLoginAccountMutation } from '@/services/accountServices';
 import { useSession } from '@/contexts/AuthContext';
 import CardAlternativeAuth from '@/components/cards/auth/CardAlternativeAuth';
-import { toastError, toastWarning } from '@/utils/toastUtils';
-import SLoginIllustration from '@/components/svg/illustrations/SLoginIllustration';
+import { toastError } from '@/utils/toastUtils';
 import { router } from 'expo-router';
 
 const steps: IFormWizardStepProps[] = [

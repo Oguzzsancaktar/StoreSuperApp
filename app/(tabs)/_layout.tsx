@@ -36,14 +36,6 @@ export default function TabLayout() {
     return <Text>Loading...</Text>;
   }
 
-  // Only require authentication within the (app) group's layout as users
-  // need to be able to access the (auth) group and sign in again.
-  // const {  session } = useSession();
-
-  // if (!session) {
-  //   return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;
-  // }
-
   return (
     <ListingFilterProvider>
       <DrawerGlobal />

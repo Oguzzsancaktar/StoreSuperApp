@@ -144,9 +144,9 @@ const MessagesDetailScreen = () => {
     </View>
   );
 
-  if (!session) {
-    return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;
-  }
+  // if (!session) {
+  //   return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;
+  // }
 
   if (!messagesData || !listingDetailData) {
     return null;

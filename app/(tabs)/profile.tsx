@@ -7,21 +7,15 @@ import ImageStyled from '@/components/images/ImageStyled';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import IconBookmark from '@/components/svg/icon/IconBookmark';
 import IconHeart from '@/components/svg/icon/IconHeart';
-import IconSendMessage from '@/components/svg/icon/IconSendMessage';
 import IconSettingCog from '@/components/svg/icon/IconSettingCog';
 import { TextStyled } from '@/components/typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
-import useAppImages from '@/hooks/useAppImages';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import useThemedStyles from '@/hooks/useThemedStyles';
-import {
-  useGetCurrentUserInformationQuery,
-  useGetCurrentUserListingsQuery,
-} from '@/services/accountServices';
+import { useGetCurrentUserListingsQuery } from '@/services/accountServices';
 import { router, usePathname } from 'expo-router';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
-import { map } from 'lodash';
 import CardPostItem from '@/components/cards/CardPostItem';
 import FlatListStyled from '@/components/override/FlatListStyled';
 import APP_ROUTES from '@/constants/APP_ROUTES';

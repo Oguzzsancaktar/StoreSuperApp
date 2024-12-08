@@ -1,5 +1,6 @@
 import { DismissKeyboardWrapper } from '@/components/containers';
 import SafeAreaContainer from '@/components/containers/SafeAreaContainer';
+import APP_ROUTES from '@/constants/APP_ROUTES';
 import { SessionProvider } from '@/contexts/AuthContext';
 import { DrawerProvider } from '@/contexts/DrawerContext';
 import { InputFocusProvider } from '@/contexts/InputFocusContext';
@@ -58,7 +59,8 @@ function RootLayoutNav() {
 
   useEffect(() => {
     if (segments?.includes('+not-found' as never)) {
-      router.push('/(public)/welcome');
+      console.log('pushed welcome from here');
+      router.push(APP_ROUTES.PUBLIC.WELCOME);
     }
   }, []);
 

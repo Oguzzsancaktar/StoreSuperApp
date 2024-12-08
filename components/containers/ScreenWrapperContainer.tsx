@@ -5,7 +5,7 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { TextStyled } from '../typography';
 
-interface IProps {
+export interface IScreenWrapperContainerProps {
   children?: React.ReactNode;
   showGoBack?: boolean;
   headerTitle?: string;
@@ -15,7 +15,7 @@ interface IProps {
   isTabBarActive?: boolean;
   customGoBackEvent?: () => void;
 }
-const ScreenWrapperContainer: React.FC<IProps> = ({
+const ScreenWrapperContainer: React.FC<IScreenWrapperContainerProps> = ({
   children,
   showGoBack = false,
   leftElement,

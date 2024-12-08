@@ -51,7 +51,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
     APP_STORAGE_KEYS.REFRESH_TOKEN_EXPIRY
   );
 
-  console.log('session', session);
   const signIn = ({
     token,
     refreshToken,
@@ -88,7 +87,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
       return newToken;
     } catch (error) {
-      signOut();
       throw error;
     }
   };
@@ -105,19 +103,21 @@ export function SessionProvider({ children }: PropsWithChildren) {
   );
 
   // Axios response interceptor for handling 401 errors
-  apiClient.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-      const originalRequest = error.config;
-      if (error.response?.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-        const newToken = await refreshAuthToken();
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
-        return apiClient(originalRequest);
-      }
-      return Promise.reject(error);
-    }
-  );
+  // apiClient.interceptors.response.use(
+  //   (response) => response,
+  //   async (error) => {
+  //     console.log('------errr SessionProvider -----', error);
+
+  //     const originalRequest = error.config;
+  //     if (error.response?.status === 401 && !originalRequest._retry) {
+  //       originalRequest._retry = true;
+  //       const newToken = await refreshAuthToken();
+  //       originalRequest.headers.Authorization = `Bearer ${newToken}`;
+  //       return apiClient(originalRequest);
+  //     }
+  //     return Promise.reject(error);
+  //   }
+  // );
 
   return (
     <AuthContext.Provider

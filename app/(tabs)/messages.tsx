@@ -1,5 +1,8 @@
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
+import EmptyState from '@/components/feedback/EmptyState';
+import Preloader from '@/components/feedback/Preloader';
+import Unauthorized from '@/components/feedback/Unauthorized';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import ImageStyled from '@/components/images/ImageStyled';
 import FlatListStyled from '@/components/override/FlatListStyled';
@@ -23,7 +26,8 @@ const MessagesScreen = () => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
 
-  const { data: chatListData } = useGetChatListQuery();
+  const { data: chatListData, isLoading: chatListIsLoading } =
+    useGetChatListQuery();
 
   const renderItem = ({ item }: { item: IChatConversation }) => {
     const handleClick = () => {
@@ -105,16 +109,14 @@ const MessagesScreen = () => {
     );
   };
 
-  console.log('chatListData', chatListData);
-
-  if (!chatListData) {
-    // @todo preloadaer
-    return <ScreenWrapperContainer />;
-  }
-
   if (!session) {
-    return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;
+    return <Unauthorized isTabBarActive={true} />;
   }
+
+  if (chatListIsLoading) {
+    return <Preloader isTabBarActive={true} />;
+  }
+
   return (
     <ScreenWrapperContainer>
       <InnerCommonContainer>
@@ -158,7 +160,7 @@ const MessagesScreen = () => {
           contentContainerStyle={{
             paddingBottom: APP_STYLE_VALUES.SPACE_SIZES.sp13,
           }}
-          data={[...chatListData]}
+          data={chatListData}
         />
       </InnerCommonContainer>
     </ScreenWrapperContainer>
