@@ -395,6 +395,7 @@ const WizardListingCreate = () => {
 
   return (
     <FormWizard
+      isTabBarActive={true}
       isLoading={uploadListingMediaIsLoading || createListingIsLoading}
       isNextDisabled={!values?.categoryId}
       values={values}

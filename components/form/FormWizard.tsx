@@ -25,6 +25,8 @@ export interface IFormWizardProps {
   defaultValues: Record<string, any>;
   values: Record<string, any>;
   isLoading?: boolean;
+
+  isTabBarActive?: boolean;
   setValues: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   onSubmit(values: Record<string, any>): void;
 }
@@ -34,6 +36,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   isNextDisabled = false,
   steps,
   defaultValues,
+  isTabBarActive,
   isLoading,
   onSubmit,
   setValues,
@@ -87,7 +90,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
     <ScreenWrapperContainer
       showGoBack={steps.length > 1}
       customGoBackEvent={goPrevStep}
-      isTabBarActive={true}
+      isTabBarActive={isTabBarActive}
       rightElement={
         steps.length > 1 ? (
           <WizardStepIndicator

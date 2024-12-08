@@ -26,6 +26,9 @@ const SignupScreen = () => {
   const steps: IFormWizardStepProps[] = [
     {
       id: 'STEP_1',
+      stepTitle: 'Create your account',
+      stepDescription:
+        'Create an account to find cool things in your area or sell your own stuff.',
       fields: [
         { ...APP_INPUT_FIELDS.INPUT_EMAIL },
         { ...APP_INPUT_FIELDS.INPUT_PASSWORD },
@@ -46,18 +49,7 @@ const SignupScreen = () => {
 
   return (
     <ScreenWrapperContainer showGoBack={true}>
-      <View style={{ paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp5 }}>
-        <TextStyled fontSize="h4" fontWeight="bold" customColor="primary">
-          Create your account
-        </TextStyled>
-        <TextStyled fontSize="md" fontWeight="semibold">
-          Create an account to find cool things in your area or sell your own
-          stuff.
-        </TextStyled>
-        {/* <SRegisterIllustration /> */}
-      </View>
-
-      <InnerCommonContainer>
+      <View style={{ flex: 1, height: '100%' }}>
         <FormWizard
           values={values as Record<string, any>}
           setValues={
@@ -71,9 +63,9 @@ const SignupScreen = () => {
           defaultValues={defaultValues}
           onSubmit={handleSubmit}
         />
+      </View>
 
-        <CardAlternativeAuth authType={'REGISTER'} />
-      </InnerCommonContainer>
+      <CardAlternativeAuth authType={'REGISTER'} />
     </ScreenWrapperContainer>
   );
 };
