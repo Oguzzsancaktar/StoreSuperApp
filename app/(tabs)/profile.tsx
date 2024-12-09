@@ -146,6 +146,7 @@ const ProfileScreen = () => {
             <CardSellerProfileInfo scrollY={scrollY} />
 
             <Animated.ScrollView
+              showsVerticalScrollIndicator={false}
               onScroll={Animated.event(
                 [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                 { useNativeDriver: false } // Yükseklik animasyonu için "false"

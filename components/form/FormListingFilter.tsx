@@ -14,17 +14,14 @@ import { InnerCommonContainer } from '../containers';
 const FormListingFilter = () => {
   const { filterValues, setFilterValues } = useListingFilter();
 
-  const { isDrawerOpen, toggleDrawer } = useDrawerState();
+  const { toggleDrawer } = useDrawerState();
 
-  console.log('filterValues', filterValues);
   const { data: filterOptionData } = useGetListingFiltersQuery(
     filterValues.category || '',
     {
       skip: !filterValues.category,
     }
   );
-
-  const [values, setValues] = useState<Record<string, any>>(filterValues);
 
   const fields: Array<IInputProps> = useMemo(
     () => [

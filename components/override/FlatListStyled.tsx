@@ -55,7 +55,11 @@ const FlatListStyled = <T,>({
           keyboardShouldPersistTaps={'never'}
           showsVerticalScrollIndicator={false}
           data={data}
-          renderItem={renderItem}
+          renderItem={(renderer) => (
+            <View onStartShouldSetResponder={() => true}>
+              {renderItem && renderItem(renderer)}
+            </View>
+          )}
           keyExtractor={(item, idx) => idx.toString()}
           scrollEnabled={true}
           nestedScrollEnabled={true}
