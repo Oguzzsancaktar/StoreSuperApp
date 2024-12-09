@@ -50,11 +50,10 @@ const ProfileScreen = () => {
         style={[
           themedStyles.cardStyles.default,
           {
-            marginTop: -40,
             padding: 0,
             paddingVertical: 0,
             borderWidth: 0,
-            height: APP_STYLE_VALUES.WH_SIZES.xl5,
+            height: APP_STYLE_VALUES.WH_SIZES.xl11,
           },
         ]}
       >
@@ -75,11 +74,14 @@ const ProfileScreen = () => {
           <View
             style={[
               commonStyles.flexStyles.rowBetween,
-              { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+              {
+                marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp12,
+                gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+              },
             ]}
           >
             {/* @todo add it to button compoennt for icon */}
-            <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xl4 }}>
+            <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xl8 }}>
               <ButtonStyled
                 variant="badgeOutlined"
                 onPress={() => router.push(APP_ROUTES.DRAWER.FAVORITES)}

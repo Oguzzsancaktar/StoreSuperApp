@@ -91,7 +91,7 @@ const MessagesDetailScreen = () => {
             padding: APP_STYLE_VALUES.SPACE_SIZES.sp3,
             paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2,
             marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-            minWidth: APP_STYLE_VALUES.WH_SIZES.xl3,
+            minWidth: APP_STYLE_VALUES.WH_SIZES.xl6,
           },
           item.senderId === userJwtDecoded.Id
             ? {

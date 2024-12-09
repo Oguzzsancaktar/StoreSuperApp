@@ -112,7 +112,7 @@ const InputImageUploader: React.FC<IProps> = ({
           overflow: 'visible',
           backgroundColor: COMMON_COLOURS.primaryOpacity05,
           borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
-          height: APP_STYLE_VALUES.WH_SIZES.xl4,
+          height: APP_STYLE_VALUES.WH_SIZES.xl8,
           paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2,
         },
       ]}
@@ -182,8 +182,8 @@ const InputImageUploader: React.FC<IProps> = ({
                 {
                   flex: 1,
                   borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
-                  height: APP_STYLE_VALUES.WH_SIZES.xl2,
-                  minWidth: APP_STYLE_VALUES.WH_SIZES.xl2,
+                  height: APP_STYLE_VALUES.WH_SIZES.xl4,
+                  minWidth: APP_STYLE_VALUES.WH_SIZES.xl4,
                 },
               ]}
             >
@@ -215,9 +215,9 @@ const InputImageUploader: React.FC<IProps> = ({
                 commonStyles.flexStyles.colCenter,
                 {
                   flex: 1,
-                  height: APP_STYLE_VALUES.WH_SIZES.xl2,
+                  height: APP_STYLE_VALUES.WH_SIZES.xl4,
                   borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
-                  minWidth: APP_STYLE_VALUES.WH_SIZES.xl2,
+                  minWidth: APP_STYLE_VALUES.WH_SIZES.xl4,
                 },
               ]}
             >

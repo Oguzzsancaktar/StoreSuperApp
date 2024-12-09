@@ -108,7 +108,7 @@ const InputStyled: React.FC<IProps> = ({
           isFocused && themedStyles.inputStyles.inputFocused,
           { padding: 0, margin: 0, alignItems: 'center' },
           type === 'textarea' && {
-            height: APP_STYLE_VALUES.WH_SIZES.xl2,
+            height: APP_STYLE_VALUES.WH_SIZES.xl4,
           },
         ]}
       >
@@ -138,7 +138,7 @@ const InputStyled: React.FC<IProps> = ({
             },
             type === 'textarea' && {
               padding: themedStyles.inputStyles.default.padding,
-              height: APP_STYLE_VALUES.WH_SIZES.xl2,
+              height: APP_STYLE_VALUES.WH_SIZES.xl4,
             },
           ]}
           autoCorrect={false}

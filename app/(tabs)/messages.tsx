@@ -74,7 +74,7 @@ const MessagesScreen = () => {
             </View>
             <View
               style={{
-                width: APP_STYLE_VALUES.WH_SIZES.xl2,
+                width: APP_STYLE_VALUES.WH_SIZES.xl4,
               }}
             >
               <TextStyled

@@ -35,6 +35,7 @@ const DrawerGlobal = () => {
 
       <View
         style={{
+          height: '100%',
           flex: 1,
           backgroundColor: theme.appBackground,
           marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp8,
@@ -53,7 +54,7 @@ const DrawerGlobal = () => {
           />
         </View>
 
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, height: '100%' }}>
           <FormListingFilter />
         </View>
       </View>

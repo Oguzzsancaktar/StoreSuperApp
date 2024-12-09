@@ -12,9 +12,12 @@ interface IProps {
 }
 
 const SafeAreaContainer: React.FC<IProps> = ({ children, isTopEdgeActive }) => {
-  const { theme, useSafeAreaState } = useAppTheme();
+  const { theme, isDark } = useAppTheme();
 
-  console.log('isTopEdgeActive', isTopEdgeActive);
+  console.log(
+    'isTopEdgeActive',
+    theme.appBackground === APP_THEMES.light.appBackground ? 'dark' : 'light'
+  );
 
   return (
     <SafeAreaProvider>
@@ -22,11 +25,7 @@ const SafeAreaContainer: React.FC<IProps> = ({ children, isTopEdgeActive }) => {
         translucent
         animated
         backgroundColor="transparent"
-        style={
-          theme.appBackground === APP_THEMES.light.appBackground
-            ? 'dark'
-            : 'light'
-        }
+        style={isDark ? 'light' : 'dark'}
       />
 
       <SafeAreaView

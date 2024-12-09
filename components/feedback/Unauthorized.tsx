@@ -35,7 +35,7 @@ const Unauthorized: React.FC<IProps> = ({
             Authorize Login FOr See Results
           </TextStyled>
           <ImageStyled
-            height={APP_STYLE_VALUES.WH_SIZES.xl3}
+            height={APP_STYLE_VALUES.WH_SIZES.xl6}
             imageId="LISTING_ESTATE_DEFAULT"
           />
           <ButtonLogout />

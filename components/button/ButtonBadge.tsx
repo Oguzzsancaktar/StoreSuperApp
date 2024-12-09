@@ -11,7 +11,7 @@ const ButtonBadge: React.FC<IProps> = ({ text, onClick }) => {
     <View
       style={{
         width: 'auto',
-        minWidth: APP_STYLE_VALUES.WH_SIZES.xl2,
+        minWidth: APP_STYLE_VALUES.WH_SIZES.xl4,
         flex: 1,
       }}
     >

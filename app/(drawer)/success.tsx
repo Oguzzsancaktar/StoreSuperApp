@@ -47,7 +47,7 @@ const SuccessScreen: React.FC<IProps> = () => {
         >
           <View
             style={{
-              height: APP_STYLE_VALUES.WH_SIZES.xl3,
+              height: APP_STYLE_VALUES.WH_SIZES.xl6,
             }}
           >
             <SvgAnimSuccessCheck />

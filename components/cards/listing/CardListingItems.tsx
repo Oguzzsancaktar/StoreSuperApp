@@ -94,7 +94,7 @@ const CardListingItems = () => {
         </View>
         <View
           style={{
-            width: APP_STYLE_VALUES.WH_SIZES.xl3,
+            width: APP_STYLE_VALUES.WH_SIZES.xl6,
           }}
         >
           <FilterStuffType

@@ -15,7 +15,7 @@ const MapGeoLoaction: React.FC<IProps> = ({ geoLocation }) => {
     <View
       style={[
         {
-          height: APP_STYLE_VALUES.WH_SIZES.xl3,
+          height: APP_STYLE_VALUES.WH_SIZES.xl6,
           borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.md,
           overflow: 'hidden',
         },

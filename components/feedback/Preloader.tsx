@@ -27,7 +27,7 @@ const Preloader: React.FC<IProps> = ({ isTabBarActive }) => {
             },
           ]}
         >
-          <SvgAnimLoadingSpinner size={APP_STYLE_VALUES.WH_SIZES.xl4} />
+          <SvgAnimLoadingSpinner size={APP_STYLE_VALUES.WH_SIZES.xl8} />
         </View>
       </InnerCommonContainer>
     </ScreenWrapperContainer>

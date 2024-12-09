@@ -38,8 +38,8 @@ const CardListingCategories: React.FC<IProps> = ({
             key={index}
             style={{
               flex: 1,
-              height: APP_STYLE_VALUES.WH_SIZES.xl4,
-              minWidth: APP_STYLE_VALUES.WH_SIZES.xl3,
+              height: APP_STYLE_VALUES.WH_SIZES.xl8,
+              minWidth: APP_STYLE_VALUES.WH_SIZES.xl6,
             }}
           >
             <CardListingCategoryItem

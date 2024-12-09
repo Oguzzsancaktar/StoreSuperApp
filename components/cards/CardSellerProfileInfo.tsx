@@ -36,7 +36,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
 
   const avatarSize = scrollY.interpolate({
     inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
-    outputRange: [APP_STYLE_VALUES.WH_SIZES.xl3, APP_STYLE_VALUES.WH_SIZES.xl],
+    outputRange: [APP_STYLE_VALUES.WH_SIZES.xl6, APP_STYLE_VALUES.WH_SIZES.xl],
     extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
   });
 
@@ -49,7 +49,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
   const avatarMargin = scrollY.interpolate({
     inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
     outputRange: [
-      -APP_STYLE_VALUES.WH_SIZES.xl2 / 2,
+      -APP_STYLE_VALUES.WH_SIZES.xl4 / 2,
       APP_STYLE_VALUES.WH_SIZES.sm,
     ],
     extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
@@ -63,7 +63,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
 
   const cardSize = scrollY.interpolate({
     inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
-    outputRange: [APP_STYLE_VALUES.WH_SIZES.xl4, APP_STYLE_VALUES.WH_SIZES.xl2],
+    outputRange: [APP_STYLE_VALUES.WH_SIZES.xl8, APP_STYLE_VALUES.WH_SIZES.xl4],
     extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
   });
 
@@ -188,7 +188,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
               >
                 <ImageIconCircle
                   icon={<SvgAnimLoadingSpinner color={theme.white} />}
-                  size={APP_STYLE_VALUES.WH_SIZES.xl3}
+                  size={APP_STYLE_VALUES.WH_SIZES.xl6}
                 />
               </View>
             )}

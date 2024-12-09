@@ -54,7 +54,7 @@ const CardNewestPostings = () => {
 
         <View
           style={{
-            width: APP_STYLE_VALUES.WH_SIZES.xl3,
+            width: APP_STYLE_VALUES.WH_SIZES.xl6,
             marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp2,
           }}
         >
