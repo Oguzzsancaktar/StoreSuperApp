@@ -46,6 +46,9 @@ const SPACE_SIZES = {
   sp13: 65,
   sp15: 75,
   sp20: 100,
+  sp23: 115,
+  sp25: 125,
+
 }
 
 

@@ -1,4 +1,11 @@
-import { View, Text, Pressable, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  TouchableOpacity,
+  Animated,
+  DimensionValue,
+} from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
@@ -11,7 +18,7 @@ interface IProps {
   gradientBg?: boolean;
   borderColor?: keyof IAppTheme;
   bgColor?: keyof IAppTheme;
-  size?: number;
+  size?: number | DimensionValue;
   radius?: number;
   onPress?: () => void;
 }

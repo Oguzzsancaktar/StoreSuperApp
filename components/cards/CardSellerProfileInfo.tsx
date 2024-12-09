@@ -1,7 +1,6 @@
-import { View } from 'react-native';
+import { Animated, View } from 'react-native';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import useThemedStyles from '@/hooks/useThemedStyles';
-import ImageStyled from '../images/ImageStyled';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import { TextStyled } from '../typography';
@@ -11,24 +10,90 @@ import {
   useGetCurrentUserListingsQuery,
 } from '@/services/accountServices';
 import ImageIconCircle from '../images/ImageIconCircle';
-import IconUser from '../svg/icon/IconUser';
 import dateUtils from '@/utils/dateUtils';
 import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { ButtonStyled } from '../button';
 import InputImageUploader from '../input/InputImageUploader';
 import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
+import ImageUserProfile from '../images/ImageUserProfile';
+import { useState } from 'react';
 
-const CardSellerProfileInfo = () => {
+interface IProps {
+  scrollY: Animated.Value;
+}
+const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
+  const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
 
+  const [uploadProfileImage, { isLoading: uploadImageIsLoading }] =
+    useAddCurrentUserImageMutation();
+
   const { data: currentUserListingData } = useGetCurrentUserListingsQuery();
   const { data: currentUserData } = useGetCurrentUserInformationQuery();
 
-  const [uploadProfileImage, { isLoading: uploadImageIsLoading }] =
-    useAddCurrentUserImageMutation();
+  const avatarSize = scrollY.interpolate({
+    inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
+    outputRange: [APP_STYLE_VALUES.WH_SIZES.xl3, APP_STYLE_VALUES.WH_SIZES.xl],
+    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+  });
+
+  const avatarPosition = scrollY.interpolate({
+    inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
+    outputRange: [0, -120],
+    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+  });
+
+  const avatarMargin = scrollY.interpolate({
+    inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
+    outputRange: [
+      -APP_STYLE_VALUES.WH_SIZES.xl2 / 2,
+      APP_STYLE_VALUES.WH_SIZES.sm,
+    ],
+    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+  });
+
+  const uploadScale = scrollY.interpolate({
+    inputRange: [0, 50], // 0'dan 150 birim scrolle kadar
+    outputRange: [1, 0],
+    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+  });
+
+  const cardSize = scrollY.interpolate({
+    inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
+    outputRange: [APP_STYLE_VALUES.WH_SIZES.xl4, APP_STYLE_VALUES.WH_SIZES.xl2],
+    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+  });
+
+  const cardMargin = scrollY.interpolate({
+    inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
+    outputRange: [
+      -APP_STYLE_VALUES.SPACE_SIZES.sp15,
+      -APP_STYLE_VALUES.SPACE_SIZES.sp23,
+    ],
+    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+  });
+
+  const toggleAnimation = () => {
+    if (isAnimationStarted) {
+      // Elemanı tekrar göster
+      setIsAnimationStarted(false); // DOM'a tekrar ekle
+      Animated.timing(scrollY, {
+        toValue: 0, // İlk duruma geri dön
+        duration: 300,
+        useNativeDriver: false,
+      }).start();
+    } else {
+      // Elemanı gizle
+      Animated.timing(scrollY, {
+        toValue: 1, // Gizlenme durumuna geç
+        duration: 300,
+        useNativeDriver: false,
+      }).start(() => setIsAnimationStarted(true)); // Animasyon sonunda gizle
+    }
+  };
 
   const handleImageUpload = async (selectedImages: any[]) => {
     const formDataForMedia = new FormData();
@@ -37,7 +102,6 @@ const CardSellerProfileInfo = () => {
     if (file) {
       formDataForMedia.append('file', file, file.name);
     }
-
     try {
       const uploadedMediaUrls = await uploadProfileImage(
         formDataForMedia as any
@@ -50,37 +114,39 @@ const CardSellerProfileInfo = () => {
   };
 
   return (
-    <View
+    <Animated.View
       style={[
         themedStyles.cardStyles.default,
         commonStyles.flexStyles.colCenter,
         {
           borderWidth: 0,
+          height: cardSize,
           overflow: 'visible',
           width: '100%',
-          marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp15,
+          marginTop: cardMargin,
         },
       ]}
     >
-      <View
+      <Animated.View
         style={[
           commonStyles.flexStyles.colCenter,
           {
             marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp10,
-            height: APP_STYLE_VALUES.WH_SIZES.xl3,
+            marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
             overflow: 'visible',
             width: '100%',
           },
         ]}
       >
-        <View
+        <Animated.View
           style={[
             {
-              marginTop: -APP_STYLE_VALUES.WH_SIZES.xl3 / 2,
+              left: avatarPosition,
+              marginTop: avatarMargin,
             },
           ]}
         >
-          <View
+          <Animated.View
             style={[
               commonStyles.absolutePositionStyles.absoluteFill,
               {
@@ -89,6 +155,7 @@ const CardSellerProfileInfo = () => {
                 zIndex: 1,
                 width: APP_STYLE_VALUES.WH_SIZES.xs,
                 height: APP_STYLE_VALUES.WH_SIZES.xs,
+                opacity: uploadScale,
               },
             ]}
           >
@@ -97,15 +164,15 @@ const CardSellerProfileInfo = () => {
               maxMedia={1}
               onChange={handleImageUpload}
             />
-          </View>
+          </Animated.View>
 
-          <View
+          <Animated.View
             style={[
               {
                 overflow: 'hidden',
                 borderColor: theme.grayScale100,
-                width: APP_STYLE_VALUES.WH_SIZES.xl3,
-                height: APP_STYLE_VALUES.WH_SIZES.xl3,
+                width: avatarSize,
+                height: avatarSize,
                 borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
               },
             ]}
@@ -114,7 +181,9 @@ const CardSellerProfileInfo = () => {
               <View
                 style={[
                   commonStyles.absolutePositionStyles.absoluteFill,
-                  { zIndex: 1 },
+                  {
+                    zIndex: 1,
+                  },
                 ]}
               >
                 <ImageIconCircle
@@ -123,24 +192,13 @@ const CardSellerProfileInfo = () => {
                 />
               </View>
             )}
-
-            {currentUserData?.image ? (
-              <ImageStyled url={currentUserData.image} />
-            ) : (
-              <ImageIconCircle
-                icon={
-                  <IconUser
-                    width={APP_STYLE_VALUES.WH_SIZES.lg}
-                    height={APP_STYLE_VALUES.WH_SIZES.lg}
-                    color={theme.white}
-                  />
-                }
-                size={APP_STYLE_VALUES.WH_SIZES.xl3}
-              />
-            )}
-          </View>
-        </View>
-      </View>
+            <ImageUserProfile
+              url={currentUserData?.image}
+              iconSize={APP_STYLE_VALUES.WH_SIZES.lg}
+            />
+          </Animated.View>
+        </Animated.View>
+      </Animated.View>
 
       {currentUserData ? (
         <>
@@ -234,7 +292,7 @@ const CardSellerProfileInfo = () => {
           />
         </View>
       )}
-    </View>
+    </Animated.View>
   );
 };
 
