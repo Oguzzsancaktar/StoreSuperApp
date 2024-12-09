@@ -61,7 +61,6 @@ const FlatListStyled = <T,>({
             </View>
           )}
           keyExtractor={(item, idx) => idx.toString()}
-          scrollEnabled={true}
           nestedScrollEnabled={true}
           contentContainerStyle={[
             {

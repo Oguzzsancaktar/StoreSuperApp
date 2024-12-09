@@ -1,5 +1,4 @@
 import { ButtonStyled } from '@/components/button';
-import CardNewestPostings from '@/components/cards/CardNewestPostings';
 import CardSellerProfileInfo from '@/components/cards/CardSellerProfileInfo';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
@@ -14,19 +13,11 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import useThemedStyles from '@/hooks/useThemedStyles';
 import { useGetCurrentUserListingsQuery } from '@/services/accountServices';
-import { router, usePathname } from 'expo-router';
-import {
-  View,
-  TouchableOpacity,
-  ScrollView,
-  Animated,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import { router } from 'expo-router';
+import { View, TouchableOpacity, Animated } from 'react-native';
 import CardPostItem from '@/components/cards/CardPostItem';
 import FlatListStyled from '@/components/override/FlatListStyled';
 import APP_ROUTES from '@/constants/APP_ROUTES';
-import ScrollViewStyled from '@/components/override/ScrollViewStyled';
 import { useSession } from '@/contexts/AuthContext';
 import Unauthorized from '@/components/feedback/Unauthorized';
 import { useRef } from 'react';
@@ -158,6 +149,7 @@ const ProfileScreen = () => {
                 style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}
               >
                 <FlatListStyled
+                  scrollEnabled={false}
                   showGradients={false}
                   data={currentUserListingData}
                   renderItem={({ item }) => <CardPostItem post={item} />}
