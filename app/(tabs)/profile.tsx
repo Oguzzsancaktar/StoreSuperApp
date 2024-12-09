@@ -40,8 +40,6 @@ const ProfileScreen = () => {
 
   const scrollY = useRef(new Animated.Value(0)).current;
 
-  console.log('scrollY', scrollY);
-
   const handleSettingsPress = () => {
     router.push(APP_ROUTES.DRAWER.SETTINGS);
   };
@@ -49,14 +47,14 @@ const ProfileScreen = () => {
   return (
     <ScreenWrapperContainer>
       <View
-        onStartShouldSetResponder={() => true} // @todo fix drag problem
         style={[
           themedStyles.cardStyles.default,
           {
+            marginTop: -40,
             padding: 0,
             paddingVertical: 0,
             borderWidth: 0,
-            height: APP_STYLE_VALUES.WH_SIZES.xl4,
+            height: APP_STYLE_VALUES.WH_SIZES.xl5,
           },
         ]}
       >
@@ -137,7 +135,12 @@ const ProfileScreen = () => {
 
       <InnerCommonContainer>
         {session ? (
-          <View style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
+          <View
+            style={{
+              flex: 1,
+              gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+            }}
+          >
             <CardSellerProfileInfo scrollY={scrollY} />
 
             <Animated.ScrollView

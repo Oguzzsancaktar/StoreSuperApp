@@ -57,6 +57,8 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const segments = useSegments();
 
+  console.log('segments', segments);
+
   useEffect(() => {
     if (segments?.includes('+not-found' as never)) {
       console.log('pushed welcome from here');
@@ -71,7 +73,9 @@ function RootLayoutNav() {
           <DismissKeyboardWrapper>
             <SessionProvider>
               <DrawerProvider>
-                <SafeAreaContainer>
+                <SafeAreaContainer
+                  isTopEdgeActive={!segments?.includes('profile' as never)}
+                >
                   <Slot />
                 </SafeAreaContainer>
               </DrawerProvider>
