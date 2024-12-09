@@ -62,7 +62,7 @@ const ButtonStyled: React.FC<IProps> = ({
             <TextStyled
               // @todo handle for other scenarios where the color is not white
               customColor={
-                variant === 'buttonPrimarySolid' ? 'white' : 'grayScale900'
+                variant === 'primarySolid' ? 'white' : 'grayScale900'
               }
               textAlignment="center"
               textShadow="textShadowSm"

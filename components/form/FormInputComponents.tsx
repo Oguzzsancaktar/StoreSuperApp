@@ -18,6 +18,7 @@ interface IProps extends Omit<IInputProps, 'required'> {
   onChange(...event: any[]): void;
   onBlur(): void;
   value: any;
+  showReset?: boolean;
   formInstance: UseFormReturn<Record<string, any>, any, undefined>;
 }
 const FormInputComponents: React.FC<IProps> = ({
@@ -26,6 +27,7 @@ const FormInputComponents: React.FC<IProps> = ({
   onChange,
   value,
   label,
+  showReset,
   options = [],
   placeholder,
   name,
@@ -40,6 +42,7 @@ const FormInputComponents: React.FC<IProps> = ({
   const InputComponent = useMemo(() => {
     let component = (
       <InputStyled
+        showReset={showReset}
         name={name}
         type={type}
         label={label}
@@ -55,11 +58,10 @@ const FormInputComponents: React.FC<IProps> = ({
       case 'date':
         component = (
           <InputDatePickerStyled
+            onChange={onChange}
             name={name}
             type={type}
             label={label}
-            onBlur={onBlur}
-            onChangeText={onChange}
             value={value}
             placeholder={placeholder}
           />
@@ -132,10 +134,11 @@ const FormInputComponents: React.FC<IProps> = ({
         component = (() => {
           let selectComponent = (
             <InputSelectStyled
+              showReset={showReset}
               label={label}
               handleSelect={onChange}
               options={options}
-              variant="transparent"
+              variant="grayOutlined"
               value={value}
             />
           );
@@ -170,10 +173,11 @@ const FormInputComponents: React.FC<IProps> = ({
             default:
               selectComponent = (
                 <InputSelectStyled
+                  showReset={showReset}
                   label={label}
                   handleSelect={onChange}
                   options={options}
-                  variant="transparent"
+                  variant="grayOutlined"
                   value={value}
                 />
               );

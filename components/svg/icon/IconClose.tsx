@@ -2,7 +2,7 @@ import { IIconProps } from '@/interfaces/app';
 import React from 'react';
 import { Path, Svg } from 'react-native-svg';
 
-const IconClose: React.FC<IIconProps> = ({ color }) => {
+const IconClose: React.FC<IIconProps> = ({ color = 'red' }) => {
   return (
     <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
       <Path

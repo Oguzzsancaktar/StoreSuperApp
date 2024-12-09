@@ -74,6 +74,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
               placeholder,
               options,
               maxMedia,
+              showReset,
               customStyle,
             }) => {
               const validationRules =
@@ -91,6 +92,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                       return (
                         <View style={[{ width: '100%' }, customStyle || {}]}>
                           <FormInputComponents
+                            showReset={showReset}
                             formInstance={formInstance}
                             name={name}
                             type={type}
@@ -143,7 +145,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
             isLoading={isLoading}
             disabled={isNextDisabled}
             onPress={handleSubmit(onSubmit)}
-            variant="buttonPrimarySolid"
+            variant="primarySolid"
             text={isLastStep ? submitKey : 'Next'}
           />
         </View>

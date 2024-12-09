@@ -24,7 +24,7 @@ const InputSelectCountry: React.FC<IProps> = ({ handleSelect, value }) => {
   return (
     <InputSelectStyled
       label="Countries"
-      variant="transparent"
+      variant="primarySolid"
       options={countryOptions}
       value={value}
       handleSelect={handleSelect}

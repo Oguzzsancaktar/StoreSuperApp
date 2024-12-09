@@ -32,7 +32,7 @@ const InputSelectDistrict: React.FC<IProps> = ({
   return (
     <InputSelectStyled
       label="Districts"
-      variant="transparent"
+      variant="primarySolid"
       options={districtOptions}
       handleSelect={handleSelect}
       value={value}

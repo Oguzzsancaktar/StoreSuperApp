@@ -16,6 +16,7 @@ interface IProps extends Omit<IInputProps, 'required'> {
   handleFocus?: (val: boolean) => void;
   handleBlur?: (val: boolean) => void;
   onChange: (event: DateTimePickerEvent, date?: Date | undefined) => void;
+  value: Date;
 }
 
 const InputDatePickerStyled: React.FC<IProps> = ({
@@ -23,6 +24,7 @@ const InputDatePickerStyled: React.FC<IProps> = ({
   label,
   type,
   name,
+  value,
   handleFocus,
   handleBlur,
   onChange,
@@ -103,7 +105,7 @@ const InputDatePickerStyled: React.FC<IProps> = ({
         <DateTimePicker
           {...props}
           testID={name}
-          value={new Date()}
+          value={value || new Date()}
           mode="date"
           display="default"
           themeVariant={isDark ? 'dark' : 'light'}

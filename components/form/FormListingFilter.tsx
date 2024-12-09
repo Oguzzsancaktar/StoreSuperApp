@@ -8,7 +8,6 @@ import { IFormWizardStepProps } from './FormWizard';
 import EListingFilterOptionComponentType from '@/interfaces/enums/EListingFilterOptionComponentType';
 import { IInputProps } from '@/interfaces/app';
 import { useDrawerState } from '@/contexts/DrawerContext';
-import ScrollViewStyled from '../override/ScrollViewStyled';
 import { InnerCommonContainer } from '../containers';
 
 const FormListingFilter = () => {
@@ -32,6 +31,7 @@ const FormListingFilter = () => {
           required: false,
           type: EListingFilterOptionComponentType[filter.filterType],
           placeholder: filter.placeholder,
+          showReset: true,
           options: map(filter.values, (val) => {
             return {
               value: val.value,

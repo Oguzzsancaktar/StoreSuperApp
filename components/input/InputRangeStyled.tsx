@@ -58,11 +58,11 @@ const InputRangeStyled: React.FC<IProps> = ({
         ]}
       >
         <MultiSlider
-          values={value || [0, 100]}
+          values={value || [0, 1000000]}
           onValuesChange={(values) => onChange(values)} // Değer değişikliği
           min={0} // Minimum değer
-          max={100} // Maksimum değer
-          step={1} // Adım büyüklüğü
+          max={1000000} // Maksimum değer
+          step={100} // Adım büyüklüğü
           enableLabel={true}
           customLabel={({
             oneMarkerValue,
@@ -82,10 +82,10 @@ const InputRangeStyled: React.FC<IProps> = ({
                       position: 'absolute',
                       left:
                         oneMarkerLeftPosition -
-                        (APP_STYLE_VALUES.WH_SIZES.xl -
+                        (APP_STYLE_VALUES.WH_SIZES.xl3 -
                           APP_STYLE_VALUES.SPACE_SIZES.sp2) /
                           2,
-                      width: APP_STYLE_VALUES.WH_SIZES.xl,
+                      width: APP_STYLE_VALUES.WH_SIZES.xl3,
                     },
                   ]}
                 >
@@ -94,7 +94,7 @@ const InputRangeStyled: React.FC<IProps> = ({
                     fontSize="md"
                     fontWeight="regular"
                   >
-                    {oneMarkerValue + 'M'}
+                    {oneMarkerValue}
                   </TextStyled>
                 </View>
 
@@ -108,10 +108,10 @@ const InputRangeStyled: React.FC<IProps> = ({
                       position: 'absolute',
                       left:
                         twoMarkerLeftPosition -
-                        (APP_STYLE_VALUES.WH_SIZES.xl -
+                        (APP_STYLE_VALUES.WH_SIZES.xl3 -
                           APP_STYLE_VALUES.SPACE_SIZES.sp2) /
                           2,
-                      width: APP_STYLE_VALUES.WH_SIZES.xl,
+                      width: APP_STYLE_VALUES.WH_SIZES.xl3,
                     },
                   ]}
                 >
@@ -120,7 +120,7 @@ const InputRangeStyled: React.FC<IProps> = ({
                     fontSize="md"
                     fontWeight="regular"
                   >
-                    {twoMarkerValue + 'M'}
+                    {twoMarkerValue}
                   </TextStyled>
                 </View>
               </>

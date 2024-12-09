@@ -29,7 +29,7 @@ const InputSelectCity: React.FC<IProps> = ({
   return (
     <InputSelectStyled
       label="Cities"
-      variant="transparent"
+      variant="primarySolid"
       options={cityOptions}
       handleSelect={handleSelect}
       value={value}

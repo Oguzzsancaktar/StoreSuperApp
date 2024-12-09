@@ -143,7 +143,7 @@ const useThemedStyles = () => {
 
   const buttonStyles: StyleSheet.NamedStyles<IButtonStylesheet> = StyleSheet.create({
 
-    buttonPrimarySolid: {
+    primarySolid: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.primary,
       borderColor: COMMON_COLOURS.primaryDarken10,
@@ -164,7 +164,7 @@ const useThemedStyles = () => {
     },
 
 
-    buttonPrimarySolidPressed: {
+    primarySolidPressed: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.primary,
       borderColor: COMMON_COLOURS.primaryDarken10,
@@ -182,7 +182,7 @@ const useThemedStyles = () => {
       alignItems: "center",
       ...shadowStyles.dropShadowSm
     },
-    buttonPrimarySolidDisabled: {
+    primarySolidDisabled: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.primary,
       borderColor: COMMON_COLOURS.primaryDarken10,
@@ -213,21 +213,39 @@ const useThemedStyles = () => {
       borderColor: theme.primary,
     },
 
-    buttonPrimaryOutlined: {
+    primaryOutlined: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: COMMON_COLOURS.transparent,
       borderColor: theme.primary,
     },
-    buttonPrimaryOutlinedPressed: {
+    primaryOutlinedPressed: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.primary + 20,
       borderColor: theme.primary,
     },
-    buttonPrimaryOutlinedDisabled: {
+    primaryOutlinedDisabled: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.appBackground,
       opacity: 0.5,
       borderColor: theme.primary,
+    },
+
+
+    grayOutlined: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: COMMON_COLOURS.transparent,
+      borderColor: theme.grayScale400,
+    },
+    grayOutlinedPressed: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale400 + 20,
+      borderColor: theme.grayScale400,
+    },
+    grayOutlinedDisabled: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.appBackground,
+      opacity: 0.5,
+      borderColor: theme.grayScale400,
     },
   })
 

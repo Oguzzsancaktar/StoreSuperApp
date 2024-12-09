@@ -1,9 +1,10 @@
 import ISelectOption from '@/interfaces/theme/ISelectOption';
 import { View } from 'react-native';
 import InputSelectStyled from '../input/InputSelectStyled';
+import { IButtonStylesheet } from '@/interfaces/theme';
 
 interface IProps {
-  variant?: 'transparent' | 'solid';
+  variant?: keyof IButtonStylesheet;
   options: ISelectOption[];
   value: ISelectOption | undefined;
   onChange: (selected: ISelectOption) => void;
@@ -13,7 +14,7 @@ const FilterStuffType: React.FC<IProps> = ({
   options,
   onChange,
   value,
-  variant = 'solid',
+  variant = 'primarySolid',
 }) => {
   const handleSelect = (selectedItem: ISelectOption) => {
     onChange(selectedItem);
