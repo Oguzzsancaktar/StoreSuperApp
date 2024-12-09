@@ -147,7 +147,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
                 </TextStyled>
               </View>
 
-              <View
+              {/* <View
                 style={[
                   commonStyles.flexStyles.colStart,
                   themedStyles.cardStyles.medium,
@@ -173,7 +173,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
                   {find(post?.options, (option) => option.name === 'Surface')
                     ?.value || ''}
                 </TextStyled>
-              </View>
+              </View> */}
             </View>
           </View>
         </View>

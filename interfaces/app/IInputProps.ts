@@ -10,6 +10,7 @@ export default interface IInputProps {
   required: boolean
   label?: string
   showReset?: boolean
+  searchable?: boolean;
   options?: ISelectOption[]
   placeholder?: React.ComponentProps<typeof TextInput>["placeholder"]
   maxMedia?: number

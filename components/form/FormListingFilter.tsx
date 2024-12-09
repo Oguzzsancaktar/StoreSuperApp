@@ -32,6 +32,7 @@ const FormListingFilter = () => {
           type: EListingFilterOptionComponentType[filter.filterType],
           placeholder: filter.placeholder,
           showReset: true,
+          searchable: true,
           options: map(filter.values, (val) => {
             return {
               value: val.value,

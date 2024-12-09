@@ -23,6 +23,7 @@ const InputSelectCountry: React.FC<IProps> = ({ handleSelect, value }) => {
 
   return (
     <InputSelectStyled
+      searchable={true}
       label="Countries"
       variant="primarySolid"
       options={countryOptions}

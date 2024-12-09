@@ -18,7 +18,6 @@ interface IProps extends Omit<IInputProps, 'required'> {
   onChange(...event: any[]): void;
   onBlur(): void;
   value: any;
-  showReset?: boolean;
   formInstance: UseFormReturn<Record<string, any>, any, undefined>;
 }
 const FormInputComponents: React.FC<IProps> = ({
@@ -28,6 +27,7 @@ const FormInputComponents: React.FC<IProps> = ({
   value,
   label,
   showReset,
+  searchable,
   options = [],
   placeholder,
   name,
@@ -42,7 +42,6 @@ const FormInputComponents: React.FC<IProps> = ({
   const InputComponent = useMemo(() => {
     let component = (
       <InputStyled
-        showReset={showReset}
         name={name}
         type={type}
         label={label}
@@ -134,6 +133,7 @@ const FormInputComponents: React.FC<IProps> = ({
         component = (() => {
           let selectComponent = (
             <InputSelectStyled
+              searchable={searchable}
               showReset={showReset}
               label={label}
               handleSelect={onChange}
@@ -173,6 +173,7 @@ const FormInputComponents: React.FC<IProps> = ({
             default:
               selectComponent = (
                 <InputSelectStyled
+                  searchable={searchable}
                   showReset={showReset}
                   label={label}
                   handleSelect={onChange}

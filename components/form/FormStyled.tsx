@@ -75,6 +75,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
               options,
               maxMedia,
               showReset,
+              searchable,
               customStyle,
             }) => {
               const validationRules =
@@ -93,6 +94,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                         <View style={[{ width: '100%' }, customStyle || {}]}>
                           <FormInputComponents
                             showReset={showReset}
+                            searchable={searchable}
                             formInstance={formInstance}
                             name={name}
                             type={type}

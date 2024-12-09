@@ -18,6 +18,8 @@ interface IProps {
   value?: ISelectOption;
   variant: keyof IButtonStylesheet;
   showReset?: boolean;
+
+  searchable?: boolean;
   handleSelect(selected: ISelectOption | null): void;
 }
 
@@ -27,6 +29,7 @@ const InputSelectStyled: React.FC<IProps> = ({
   value,
   variant,
   showReset,
+  searchable = false,
   handleSelect,
 }) => {
   const commonStyles = useCommonStyles();
@@ -59,6 +62,7 @@ const InputSelectStyled: React.FC<IProps> = ({
         ]}
       >
         <Dropdown
+          search={searchable}
           autoScroll={false}
           data={options}
           labelField="label"
@@ -92,6 +96,13 @@ const InputSelectStyled: React.FC<IProps> = ({
             fontSize: APP_TYPOGRAPHY.fontSizes.h6,
             color: theme.grayScale900,
           }}
+          inputSearchStyle={[
+            themedStyles.inputStyles.default,
+            {
+              margin: 0,
+              borderWidth: 0,
+            },
+          ]}
           iconColor={theme.grayScale900}
           activeColor={theme.grayScale300}
           itemContainerStyle={{}}

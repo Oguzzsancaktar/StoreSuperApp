@@ -59,7 +59,7 @@ const CardNewestPostings = () => {
           }}
         >
           <FilterStuffType
-            variant="transparent"
+            variant="badgeOutlined"
             value={find(
               listingCategoryOptions,
               (category) => category.value === newestCategory

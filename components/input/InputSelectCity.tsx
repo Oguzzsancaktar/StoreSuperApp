@@ -28,6 +28,7 @@ const InputSelectCity: React.FC<IProps> = ({
 
   return (
     <InputSelectStyled
+      searchable={true}
       label="Cities"
       variant="primarySolid"
       options={cityOptions}
