@@ -50,7 +50,7 @@ const FilterModalStuffType = () => {
           (find(APP_ADVERT_TYPE_OPTIONS, (v) => v.value === selectedValue)
             ?.label || '')
         }
-        variant="buttonPrimarySolid"
+        variant="primarySolid"
         onPress={() => setIsVisible(true)}
       />
 

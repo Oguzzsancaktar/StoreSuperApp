@@ -77,7 +77,7 @@ const SuccessScreen: React.FC<IProps> = () => {
             {showExtraButton && (
               <ButtonStyled
                 onPress={() => router.navigate(extraButtonHref as Href)}
-                variant="buttonPrimaryOutlined"
+                variant="primaryOutlined"
                 gradientBg={true}
                 text={extraButtonText as string}
               />
@@ -85,7 +85,7 @@ const SuccessScreen: React.FC<IProps> = () => {
 
             <ButtonStyled
               onPress={() => router.navigate(href as Href)}
-              variant="buttonPrimaryOutlined"
+              variant="primaryOutlined"
               gradientBg={true}
               text="Homepage"
             />

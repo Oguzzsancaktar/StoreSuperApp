@@ -196,10 +196,7 @@ const ListingDetailPage = () => {
 
         {/* @todo add it to button compoennt for icon */}
         <View style={{ flex: 1 }}>
-          <ButtonStyled
-            variant="buttonPrimarySolid"
-            onPress={handleSendMessageClick}
-          >
+          <ButtonStyled variant="primarySolid" onPress={handleSendMessageClick}>
             <View
               style={[
                 commonStyles.flexStyles.rowCenterWrap,

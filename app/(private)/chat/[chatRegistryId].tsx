@@ -155,7 +155,13 @@ const MessagesDetailScreen = () => {
   return (
     <ScreenWrapperContainer
       showGoBack={true}
-      leftElement={<ImageUserProfile url={listingDetailData?.user?.image} />}
+      leftElement={
+        <ImageUserProfile
+          height={APP_STYLE_VALUES.WH_SIZES.sm}
+          width={APP_STYLE_VALUES.WH_SIZES.sm}
+          url={listingDetailData?.user?.image}
+        />
+      }
       headerTitle={
         listingDetailData.user?.lastName && listingDetailData.user?.firstName
           ? (listingDetailData.user?.firstName || '') +
@@ -178,9 +184,9 @@ const MessagesDetailScreen = () => {
             style={[
               themedStyles.borderStyles.dashedPrimary,
               {
-                maxWidth: APP_STYLE_VALUES.WH_SIZES.xl5,
+                minWidth: APP_STYLE_VALUES.WH_SIZES.xl5,
                 borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
-                margin: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
                 marginHorizontal: 'auto',
                 padding: APP_STYLE_VALUES.SPACE_SIZES.sp3,
               },
@@ -223,6 +229,7 @@ const MessagesDetailScreen = () => {
           </Pressable>
 
           <FlatListStyled
+            showGradients
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={{
               flexGrow: 1,

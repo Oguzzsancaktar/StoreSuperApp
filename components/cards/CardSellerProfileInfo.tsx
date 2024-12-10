@@ -151,8 +151,9 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
               commonStyles.absolutePositionStyles.absoluteFill,
               {
                 top: 'auto',
-                left: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+                left: 'auto',
                 zIndex: 1,
+                marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp4,
                 width: APP_STYLE_VALUES.WH_SIZES.xs,
                 height: APP_STYLE_VALUES.WH_SIZES.xs,
                 opacity: uploadScale,
@@ -206,7 +207,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
             style={[
               commonStyles.flexStyles.colCenter,
               {
-                marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp4,
+                marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp2,
               },
             ]}
           >
@@ -287,7 +288,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
               router.push(APP_ROUTES.PUBLIC.LOGIN);
             }}
             text={'Login'}
-            variant="buttonPrimaryOutlined"
+            variant="primaryOutlined"
             gradientBg
           />
         </View>

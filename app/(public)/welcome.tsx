@@ -84,14 +84,14 @@ const WelcomeScreen = () => {
                 handleSignButtonClick('LOGIN');
               }}
               text={'Login'}
-              variant="buttonPrimarySolid"
+              variant="primarySolid"
             />
 
             <ButtonStyled
               gradientBg={true}
               onPress={() => handleSignButtonClick('REGISTER')}
               text="Register"
-              variant={'buttonPrimaryOutlined'}
+              variant={'primaryOutlined'}
             />
 
             <TextStyled fontSize="xl" fontWeight="regular">

@@ -26,7 +26,7 @@ const ButtonLogout: React.FC<IProps> = () => {
     <ButtonStyled
       onPress={handlePress}
       gradientBg={true}
-      variant="buttonPrimaryOutlined"
+      variant="primaryOutlined"
     >
       <View
         style={[
