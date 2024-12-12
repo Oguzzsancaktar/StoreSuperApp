@@ -17,16 +17,16 @@ import { ButtonStyled } from '../button';
 import InputImageUploader from '../input/InputImageUploader';
 import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
 import ImageUserProfile from '../images/ImageUserProfile';
-import { useState } from 'react';
+import { useSession } from '@/contexts/AuthContext';
 
 interface IProps {
   scrollY: Animated.Value;
 }
 const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
-  const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
+  const { session } = useSession();
 
   const [uploadProfileImage, { isLoading: uploadImageIsLoading }] =
     useAddCurrentUserImageMutation();
@@ -76,29 +76,14 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
     extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
   });
 
-  const toggleAnimation = () => {
-    if (isAnimationStarted) {
-      // Elemanı tekrar göster
-      setIsAnimationStarted(false); // DOM'a tekrar ekle
-      Animated.timing(scrollY, {
-        toValue: 0, // İlk duruma geri dön
-        duration: 300,
-        useNativeDriver: false,
-      }).start();
-    } else {
-      // Elemanı gizle
-      Animated.timing(scrollY, {
-        toValue: 1, // Gizlenme durumuna geç
-        duration: 300,
-        useNativeDriver: false,
-      }).start(() => setIsAnimationStarted(true)); // Animasyon sonunda gizle
-    }
-  };
-
   const handleImageUpload = async (selectedImages: any[]) => {
     const formDataForMedia = new FormData();
 
     const file = selectedImages[0];
+    if (!session || !file) {
+      return;
+    }
+
     if (file) {
       formDataForMedia.append('file', file, file.name);
     }
@@ -106,8 +91,6 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
       const uploadedMediaUrls = await uploadProfileImage(
         formDataForMedia as any
       ).unwrap();
-
-      console.log('uploadedMediaUrls', uploadedMediaUrls);
     } catch (err) {
       console.log('err', err);
     }
@@ -207,7 +190,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
             style={[
               commonStyles.flexStyles.colCenter,
               {
-                marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp0,
               },
             ]}
           >
@@ -234,22 +217,53 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
             ]}
           >
             <View style={[commonStyles.flexStyles.colCenter]}>
-              <TextStyled fontSize="sm" fontWeight="semibold">
+              <TextStyled fontSize="sm" fontWeight="medium">
                 Post Count
               </TextStyled>
-              <TextStyled fontSize="xs" fontWeight="medium">
+              <TextStyled
+                fontSize="md"
+                fontWeight="semibold"
+                customColor="grayScale900"
+              >
                 {currentUserListingData?.length?.toString() || ''}
               </TextStyled>
             </View>
 
+            <View
+              style={[
+                commonStyles.flexStyles.colCenter,
+                themedStyles.borderStyles.rightSeperator,
+                themedStyles.borderStyles.leftSeperator,
+
+                {
+                  paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+                },
+              ]}
+            >
+              <TextStyled fontSize="sm" fontWeight="medium">
+                Language
+              </TextStyled>
+              <TextStyled
+                fontSize="md"
+                fontWeight="semibold"
+                customColor="grayScale900"
+              >
+                {currentUserData?.language || 'English'}
+              </TextStyled>
+            </View>
+
             <View style={[commonStyles.flexStyles.colCenter]}>
-              <TextStyled fontSize="sm" fontWeight="semibold">
+              <TextStyled fontSize="sm" fontWeight="medium">
                 Register Date
               </TextStyled>
-              <TextStyled fontSize="xs" fontWeight="medium">
+              <TextStyled
+                fontSize="md"
+                fontWeight="semibold"
+                customColor="grayScale900"
+              >
                 {dateUtils.formatDateForMoment(
                   currentUserData.created,
-                  'DATE_MOMENT_NAME'
+                  'DATE_MOMENT'
                 )}
               </TextStyled>
             </View>

@@ -10,8 +10,6 @@ import { useMemo, useState } from 'react';
 import ISelectOption from '@/interfaces/theme/ISelectOption';
 import { useGetNewestPostsQuery } from '@/services/listingServices';
 import ListFlatStyled from '../override/FlatListStyled';
-import Preloader from '../feedback/Preloader';
-import Unauthorized from '../feedback/Unauthorized';
 
 const CardNewestPostings = () => {
   const commonStyles = useCommonStyles();
@@ -33,14 +31,6 @@ const CardNewestPostings = () => {
     useGetNewestPostsQuery({
       categoryId: newestCategory as string,
     });
-
-  if (!listingCategoriesData || !newestPostData) {
-    return <Unauthorized showGoBack={false} isTabBarActive={true} />;
-  }
-
-  if (newestPostDataIsLoading) {
-    return <Preloader isTabBarActive={true} />;
-  }
 
   return (
     <View style={{ height: '100%' }}>
@@ -79,6 +69,7 @@ const CardNewestPostings = () => {
       </View>
 
       <ListFlatStyled
+        isLoading={newestPostDataIsLoading}
         onStartShouldSetResponder={() => true}
         data={newestPostData}
         renderItem={({ item }) => <CardPostItem post={item} />}

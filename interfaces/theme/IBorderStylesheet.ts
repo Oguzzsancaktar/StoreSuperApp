@@ -7,6 +7,8 @@ interface IBorderStylesheet {
   dashedPrimary: StyleSheet.NamedStyles<any>;
   bottomUnderline: StyleSheet.NamedStyles<any>;
   rightSeperator: StyleSheet.NamedStyles<any>;
+  leftSeperator: StyleSheet.NamedStyles<any>;
+
 }
 
 export default IBorderStylesheet;

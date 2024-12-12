@@ -38,11 +38,16 @@ const WizardListingCreate = () => {
     useUploadListingMediaMutation();
 
   const { data: listingCategorySubData } = useGetListingCategorySubsQuery(
-    values?.categoryId
+    values?.categoryId,
+    {
+      skip: !values?.categoryId,
+    }
   );
 
   const { data: listingCategoryOptionsData } =
-    useGetListingCategoryOptionsQuery(values?.categoryId);
+    useGetListingCategoryOptionsQuery(values?.categoryId, {
+      skip: !values?.categoryId,
+    });
 
   const subCategoryOptions: ISelectOption[] = useMemo(() => {
     return map(listingCategorySubData, (subCat) => {

@@ -179,9 +179,9 @@ const listingApiSlice = createApi({
   }),
 })
 
-const { useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery } = listingApiSlice
+const { useGetListingItemsQuery, useLazyGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery } = listingApiSlice
 
-export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery }
+export { listingApiSlice, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery, useLazyGetListingItemsQuery }
 
 
 

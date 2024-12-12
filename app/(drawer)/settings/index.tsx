@@ -15,6 +15,7 @@ import ButtonLogout from '@/components/button/ButtonLogout';
 import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { useSession } from '@/contexts/AuthContext';
+import * as WebBrowser from 'expo-web-browser';
 
 export interface ISettingItemProps {
   icon: IIconNames;
@@ -43,7 +44,9 @@ const SettingsScreen = () => {
         text: 'Personal Informations',
         right: 'chevron',
         onPress: () => {
-          router.push(APP_ROUTES.DRAWER.SETTINGS_UPDATE_INFORMATIONS);
+          WebBrowser.openBrowserAsync('https://setuka24.com/policy' as string);
+
+          // router.push(APP_ROUTES.DRAWER.SETTINGS_UPDATE_INFORMATIONS);
         },
         priv: true,
       },
@@ -51,7 +54,9 @@ const SettingsScreen = () => {
         icon: 'IconPrivacy',
         text: 'Privacy Policy',
         right: 'chevron',
-        onPress: () => {},
+        onPress: () => {
+          router.push(APP_ROUTES.DRAWER.PRIVACY_POLICY);
+        },
       },
       {
         icon: 'IconBell',
@@ -71,7 +76,9 @@ const SettingsScreen = () => {
         icon: 'IconChatSupport',
         text: 'Contact Us',
         right: 'chevron',
-        onPress: () => {},
+        onPress: () => {
+          WebBrowser.openBrowserAsync('https://setuka24.com/policy' as string);
+        },
       },
     ],
     [toggleTheme]

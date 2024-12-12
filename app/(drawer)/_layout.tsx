@@ -18,6 +18,13 @@ export default function PublicLayout() {
       />
 
       <Stack.Screen
+        name="settings/privacyPolicy"
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
         name="settings/updateInformations"
         options={{
           headerShown: false,

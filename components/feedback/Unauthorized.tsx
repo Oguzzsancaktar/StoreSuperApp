@@ -31,9 +31,15 @@ const Unauthorized: React.FC<IProps> = ({
             },
           ]}
         >
-          <TextStyled fontSize="h3" customColor="primary" fontWeight="bold">
-            Login For More.
-          </TextStyled>
+          <View style={[commonStyles.flexStyles.colCenter]}>
+            <TextStyled fontSize="h4" customColor="primary" fontWeight="bold">
+              Already have an account?
+            </TextStyled>
+
+            <TextStyled fontSize="h6" fontWeight="regular">
+              Sign in into your account to see more.
+            </TextStyled>
+          </View>
 
           <View
             style={{

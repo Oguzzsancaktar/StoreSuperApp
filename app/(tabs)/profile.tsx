@@ -28,13 +28,12 @@ const ProfileScreen = () => {
   const { theme } = useAppTheme();
   const { session } = useSession();
 
-  console.log('session', session);
-  const { data: currentUserListingData } = useGetCurrentUserListingsQuery(
-    undefined,
-    {
-      skip: !session,
-    }
-  );
+  const {
+    data: currentUserListingData,
+    isLoading: currentUserListingsIsLoading,
+  } = useGetCurrentUserListingsQuery(undefined, {
+    skip: !session,
+  });
 
   const scrollY = useRef(new Animated.Value(0)).current;
 
@@ -51,7 +50,9 @@ const ProfileScreen = () => {
             padding: 0,
             paddingVertical: 0,
             borderWidth: 0,
-            height: APP_STYLE_VALUES.WH_SIZES.xl11,
+            height: !session
+              ? APP_STYLE_VALUES.WH_SIZES.xl5
+              : APP_STYLE_VALUES.WH_SIZES.xl11,
           },
         ]}
       >
@@ -63,6 +64,8 @@ const ProfileScreen = () => {
               flex: 1,
               height: '100%',
               width: '100%',
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
             },
           ]}
         >
@@ -162,6 +165,7 @@ const ProfileScreen = () => {
                 style={{ flex: 1, gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}
               >
                 <FlatListStyled
+                  isLoading={currentUserListingsIsLoading}
                   scrollEnabled={false}
                   showGradients={false}
                   data={currentUserListingData}

@@ -20,7 +20,6 @@ const ImageUserProfile: React.FC<IProps> = ({
 }) => {
   const { theme } = useAppTheme();
 
-  console.log('width', width);
   return url ? (
     <View style={{ width, height }}>
       <ImageStyled url={url} />

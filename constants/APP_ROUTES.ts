@@ -11,6 +11,7 @@ export interface IAppRoutes {
 const APP_ROUTES: IAppRoutes = {
   DRAWER: {
     SETTINGS_UPDATE_INFORMATIONS: "/(drawer)/settings/updateInformations",
+    PRIVACY_POLICY: "/(drawer)/settings/privacyPolicy",
 
     SETTINGS: "/(drawer)/settings",
     FAVORITES: "/(drawer)/favorites",

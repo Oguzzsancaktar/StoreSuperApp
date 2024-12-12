@@ -19,7 +19,7 @@ const EmptyState = () => {
           },
         ]}
       >
-        <TextStyled fontSize="h6" customColor="primary" fontWeight="bold">
+        <TextStyled fontSize="h4" customColor="primary" fontWeight="bold">
           Currently no data found
         </TextStyled>
 

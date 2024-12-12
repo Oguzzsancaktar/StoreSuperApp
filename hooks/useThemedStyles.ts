@@ -60,8 +60,11 @@ const useThemedStyles = () => {
     rightSeperator: {
       borderRightWidth: 2,
       borderColor: theme.grayScale200,
+    },
+    leftSeperator: {
+      borderLeftWidth: 2,
+      borderColor: theme.grayScale200,
     }
-
   })
 
   const cardStyles: StyleSheet.NamedStyles<ICardStylesheet> = StyleSheet.create({

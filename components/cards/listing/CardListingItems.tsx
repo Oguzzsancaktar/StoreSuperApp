@@ -17,7 +17,6 @@ import IconFilter from '@/components/svg/icon/IconFilter';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import { useDrawerState } from '@/contexts/DrawerContext';
 import FlatListStyled from '@/components/override/FlatListStyled';
-import Preloader from '@/components/feedback/Preloader';
 
 const CardListingItems = () => {
   const { theme } = useAppTheme();
@@ -59,10 +58,6 @@ const CardListingItems = () => {
   const handleChange = (text: string) => {
     setFilterValues({ ...filterValues, query: text });
   };
-
-  if (isListingItemsLoading) {
-    return <Preloader isTabBarActive={true} />;
-  }
 
   return (
     <View style={{ height: '100%' }}>
@@ -147,6 +142,7 @@ const CardListingItems = () => {
       </View>
 
       <FlatListStyled
+        isLoading={isListingItemsLoading}
         data={listingItemsData?.items}
         renderItem={({ item }) => <CardPostItem post={item} />}
       ></FlatListStyled>

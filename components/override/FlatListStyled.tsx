@@ -4,12 +4,15 @@ import { GradientBackground } from '../svg/background';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import EmptyState from '../feedback/EmptyState';
+import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
 
 interface IProps<T> extends FlatListProps<T> {
   showGradients?: boolean;
+  isLoading?: boolean;
 }
 
 const FlatListStyled = <T,>({
+  isLoading,
   data,
   showGradients = true,
   renderItem,
@@ -49,7 +52,9 @@ const FlatListStyled = <T,>({
         </>
       )}
 
-      {data?.length ? (
+      {isLoading ? (
+        <SvgAnimLoadingSpinner />
+      ) : data?.length ? (
         <FlatList
           {...others}
           keyboardShouldPersistTaps={'never'}

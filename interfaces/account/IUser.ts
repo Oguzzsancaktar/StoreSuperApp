@@ -10,4 +10,5 @@ export default interface IUser {
   lastName: string
   listingAmount: 0
   phoneNumber: string
+  language?: string
 }
