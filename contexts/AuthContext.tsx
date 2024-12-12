@@ -14,19 +14,13 @@ import APP_ROUTES from '@/constants/APP_ROUTES';
 import { useDispatch } from 'react-redux';
 import { ACCOUNT_API_TAG, accountApiSlice } from '@/services/accountServices';
 
-const AuthContext = createContext<{
-  signIn: (loginResult: ILoginResult) => void;
-  signOut: () => void;
-  session?: string | null;
-  isLoading: boolean;
-}>({
-  signIn: () => null,
-  signOut: () => null,
-  session: null,
+const AuthContext = createContext({
+  signIn: (loginResult: ILoginResult) => {},
+  signOut: () => {},
+  session: null as string | null,
   isLoading: false,
 });
 
-// This hook can be used to access the user info.
 export function useSession() {
   const value = useContext(AuthContext);
   if (process.env.NODE_ENV !== 'production') {
@@ -34,7 +28,6 @@ export function useSession() {
       throw new Error('useSession must be wrapped in a <SessionProvider />');
     }
   }
-
   return value;
 }
 
@@ -44,9 +37,9 @@ export function SessionProvider({ children }: PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState(
     APP_STORAGE_KEYS.AUTH_SESSION
   );
-  const [refreshToken, setRefreshToken] = useStorageState(
-    APP_STORAGE_KEYS.REFRESH_TOKEN
-  );
+
+  const [[isRefreshTokenLoading, refreshToken], setRefreshToken] =
+    useStorageState(APP_STORAGE_KEYS.REFRESH_TOKEN);
   const [refreshTokenExpiryTime, setRefreshTokenExpiryTime] = useStorageState(
     APP_STORAGE_KEYS.REFRESH_TOKEN_EXPIRY
   );
@@ -62,6 +55,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
   };
 
   const signOut = () => {
+    console.log('signOut worked');
     dispatch(accountApiSlice.util.invalidateTags([ACCOUNT_API_TAG]));
     dispatch(accountApiSlice.util.resetApiState());
 
@@ -72,9 +66,24 @@ export function SessionProvider({ children }: PropsWithChildren) {
     router.push(APP_ROUTES.PUBLIC.WELCOME);
   };
 
+  let isRefreshing = false;
+  let refreshSubscribers: Array<(token: string) => void> = [];
+
+  function onRefreshed(newToken: string) {
+    refreshSubscribers.forEach((callback) => callback(newToken));
+    refreshSubscribers = [];
+  }
+
+  function addRefreshSubscriber(callback: (token: string) => void) {
+    refreshSubscribers.push(callback);
+  }
+
   const refreshAuthToken = async () => {
     try {
-      const response = await apiClient.post('/refresh', { refreshToken });
+      const response = await apiClient.post('/refresh-token', {
+        token: session,
+        refreshToken,
+      });
       const {
         token: newToken,
         refreshToken: newRefreshToken,
@@ -87,13 +96,14 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
       return newToken;
     } catch (error) {
+      console.log('error refresh');
+      signOut();
       throw error;
     }
   };
 
-  // Axios interceptor to add token to each request
   apiClient.interceptors.request.use(
-    async (config) => {
+    (config) => {
       if (session) {
         config.headers.Authorization = `Bearer ${session}`;
       }
@@ -102,22 +112,45 @@ export function SessionProvider({ children }: PropsWithChildren) {
     (error) => Promise.reject(error)
   );
 
-  // Axios response interceptor for handling 401 errors
-  // apiClient.interceptors.response.use(
-  //   (response) => response,
-  //   async (error) => {
-  //     console.log('------errr SessionProvider -----', error);
+  apiClient.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const originalRequest = error.config;
+      setSession(null);
 
-  //     const originalRequest = error.config;
-  //     if (error.response?.status === 401 && !originalRequest._retry) {
-  //       originalRequest._retry = true;
-  //       const newToken = await refreshAuthToken();
-  //       originalRequest.headers.Authorization = `Bearer ${newToken}`;
-  //       return apiClient(originalRequest);
-  //     }
-  //     return Promise.reject(error);
-  //   }
-  // );
+      if (error.response?.status === 401 && !originalRequest._retry) {
+        console.log('----', isRefreshing);
+
+        if (isRefreshing) {
+          return new Promise((resolve) => {
+            addRefreshSubscriber((newToken) => {
+              originalRequest.headers.Authorization = `Bearer ${newToken}`;
+              resolve(apiClient(originalRequest));
+            });
+          });
+        }
+
+        originalRequest._retry = true;
+        isRefreshing = true;
+
+        try {
+          const newToken = await refreshAuthToken();
+          isRefreshing = false;
+          onRefreshed(newToken);
+
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+          return apiClient(originalRequest);
+        } catch (refreshError) {
+          console.log('refreshErrorrefreshError', refreshError);
+          isRefreshing = false;
+          signOut();
+          return Promise.reject(refreshError);
+        }
+      }
+
+      return Promise.reject(error);
+    }
+  );
 
   return (
     <AuthContext.Provider

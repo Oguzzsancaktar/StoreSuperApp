@@ -57,11 +57,8 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const segments = useSegments();
 
-  console.log('segments', segments);
-
   useEffect(() => {
     if (segments?.includes('+not-found' as never)) {
-      console.log('pushed welcome from here');
       router.push(APP_ROUTES.PUBLIC.WELCOME);
     }
   }, []);

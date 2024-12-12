@@ -14,11 +14,6 @@ interface IProps {
 const SafeAreaContainer: React.FC<IProps> = ({ children, isTopEdgeActive }) => {
   const { theme, isDark } = useAppTheme();
 
-  console.log(
-    'isTopEdgeActive',
-    theme.appBackground === APP_THEMES.light.appBackground ? 'dark' : 'light'
-  );
-
   return (
     <SafeAreaProvider>
       <StatusBar

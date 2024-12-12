@@ -47,14 +47,22 @@ const FormListingFilter = () => {
 
   const defaultValues = { ...filterValues };
 
-  const handleSubmit = async (values: Record<string, any>) => {
+  const handleSubmit = (values: Record<string, any>) => {
+    // reset state
+    if (Object.keys(values).length === 0) {
+      console.log('reset---');
+      return setFilterValues({ category: filterValues?.category });
+    }
     setFilterValues({ ...filterValues, ...values });
     toggleDrawer();
   };
 
+  console.log('filterValues22', filterValues);
+
   return (
     <InnerCommonContainer>
       <FormStyled
+        showReset={true}
         fields={fields}
         submitKey="Apply"
         defaultValues={defaultValues}

@@ -20,6 +20,7 @@ export interface IProps {
   isCurrentCustom?: boolean;
   isNextDisabled?: boolean;
   isLoading?: boolean;
+  showReset?: boolean;
 }
 
 const FormStyled: React.FC<Readonly<IProps>> = ({
@@ -31,6 +32,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   isCurrentCustom,
   isNextDisabled,
   isLoading,
+  showReset,
 }) => {
   const commonStyles = useCommonStyles();
 
@@ -139,10 +141,23 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
             commonStyles.flexStyles.colCenter,
             {
               gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-              height: APP_STYLE_VALUES.WH_SIZES.lg,
+              height: showReset
+                ? 2 * APP_STYLE_VALUES.WH_SIZES.lg +
+                  APP_STYLE_VALUES.SPACE_SIZES.sp2
+                : APP_STYLE_VALUES.WH_SIZES.lg,
             },
           ]}
         >
+          {showReset && (
+            <ButtonStyled
+              isLoading={isLoading}
+              disabled={isNextDisabled}
+              onPress={() => onSubmit({})}
+              variant="primaryOutlined"
+              text={'Reset'}
+            />
+          )}
+
           <ButtonStyled
             isLoading={isLoading}
             disabled={isNextDisabled}

@@ -5,7 +5,6 @@ import Animated, {
   withSpring,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { FontAwesome } from '@expo/vector-icons';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
@@ -26,12 +25,11 @@ const InputCheckboxStyled: React.FC<IProps> = ({
 }) => {
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
-  const [checked, setChecked] = useState(isChecked);
-  const animation = useSharedValue(checked ? 1 : 0);
+  const animation = useSharedValue(isChecked ? 1 : 0);
 
   const handleToggle = () => {
-    const newValue = !checked;
-    setChecked(newValue);
+    const newValue = !isChecked;
+
     animation.value = withSpring(newValue ? 1 : 0, {
       damping: 20,
       stiffness: 150,
@@ -79,7 +77,7 @@ const InputCheckboxStyled: React.FC<IProps> = ({
             animatedStyle,
           ]}
         >
-          {checked && <IconCheck color={theme.white} />}
+          {isChecked && <IconCheck color={theme.white} />}
         </Animated.View>
 
         {label && (

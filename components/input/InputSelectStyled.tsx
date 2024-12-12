@@ -113,7 +113,8 @@ const InputSelectStyled: React.FC<IProps> = ({
         {showReset && (
           <ImageIconCircle
             onPress={handleResetClick}
-            gradientBg
+            gradientBg={true}
+            bgColor="transparent"
             borderColor="error"
             size={APP_STYLE_VALUES.WH_SIZES.lg}
             icon={<IconClose color={theme.primary} />}
