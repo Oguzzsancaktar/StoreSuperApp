@@ -231,22 +231,166 @@ const useThemedStyles = () => {
     },
 
 
-    grayOutlined: {
+    gray100Outlined: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: COMMON_COLOURS.transparent,
+      borderColor: theme.grayScale100,
+    },
+    gray100OutlinedPressed: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale100 + 20,
+      borderColor: theme.grayScale100,
+    },
+    gray100OutlinedDisabled: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.appBackground,
+      opacity: 0.5,
+      borderColor: theme.grayScale100,
+    },
+
+
+    gray200Outlined: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: COMMON_COLOURS.transparent,
+      borderColor: theme.grayScale200,
+    },
+    gray200OutlinedPressed: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale200 + 20,
+      borderColor: theme.grayScale200,
+    },
+    gray200OutlinedDisabled: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.appBackground,
+      opacity: 0.5,
+      borderColor: theme.grayScale200,
+    },
+
+
+    gray300Outlined: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: COMMON_COLOURS.transparent,
+      borderColor: theme.grayScale300,
+    },
+    gray300OutlinedPressed: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale300 + 20,
+      borderColor: theme.grayScale300,
+    },
+    gray300OutlinedDisabled: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.appBackground,
+      opacity: 0.5,
+      borderColor: theme.grayScale300,
+    },
+
+
+    gray400Outlined: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: COMMON_COLOURS.transparent,
       borderColor: theme.grayScale400,
     },
-    grayOutlinedPressed: {
+    gray400OutlinedPressed: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.grayScale400 + 20,
       borderColor: theme.grayScale400,
     },
-    grayOutlinedDisabled: {
+    gray400OutlinedDisabled: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.appBackground,
       opacity: 0.5,
-      borderColor: theme.grayScale400,
+      borderColor: theme.grayScale100,
     },
+
+
+    gray500Outlined: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: COMMON_COLOURS.transparent,
+      borderColor: theme.grayScale500,
+    },
+    gray500OutlinedPressed: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale500 + 20,
+      borderColor: theme.grayScale500,
+    },
+    gray500OutlinedDisabled: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.appBackground,
+      opacity: 0.5,
+      borderColor: theme.grayScale500,
+    },
+
+
+    gray600Outlined: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: COMMON_COLOURS.transparent,
+      borderColor: theme.grayScale600,
+    },
+    gray600OutlinedPressed: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale600 + 20,
+      borderColor: theme.grayScale600,
+    },
+    gray600OutlinedDisabled: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.appBackground,
+      opacity: 0.5,
+      borderColor: theme.grayScale600,
+    },
+
+
+    gray700Outlined: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: COMMON_COLOURS.transparent,
+      borderColor: theme.grayScale700,
+    },
+    gray700OutlinedPressed: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale700 + 20,
+      borderColor: theme.grayScale700,
+    },
+    gray700OutlinedDisabled: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.appBackground,
+      opacity: 0.5,
+      borderColor: theme.grayScale700,
+    },
+
+
+    gray800Outlined: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: COMMON_COLOURS.transparent,
+      borderColor: theme.grayScale800,
+    },
+    gray800OutlinedPressed: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale800 + 20,
+      borderColor: theme.grayScale800,
+    },
+    gray800OutlinedDisabled: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.appBackground,
+      opacity: 0.5,
+      borderColor: theme.grayScale800,
+    },
+
+    gray900Outlined: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: COMMON_COLOURS.transparent,
+      borderColor: theme.grayScale900,
+    },
+    gray900OutlinedPressed: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale900 + 20,
+      borderColor: theme.grayScale900,
+    },
+    gray900OutlinedDisabled: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.appBackground,
+      opacity: 0.5,
+      borderColor: theme.grayScale900,
+    },
+
   })
 
   const containerStyles = StyleSheet.create({

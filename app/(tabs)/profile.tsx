@@ -27,7 +27,14 @@ const ProfileScreen = () => {
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
   const { session } = useSession();
-  const { data: currentUserListingData } = useGetCurrentUserListingsQuery();
+
+  console.log('session', session);
+  const { data: currentUserListingData } = useGetCurrentUserListingsQuery(
+    undefined,
+    {
+      skip: !session,
+    }
+  );
 
   const scrollY = useRef(new Animated.Value(0)).current;
 
@@ -48,6 +55,7 @@ const ProfileScreen = () => {
           },
         ]}
       >
+        {/* Card Background  */}
         <View
           style={[
             commonStyles.absolutePositionStyles.absoluteFill,
@@ -61,6 +69,7 @@ const ProfileScreen = () => {
           <ImageStyled imageId="BANNER_PROFILE_DEFAULT" />
         </View>
 
+        {/* Top Card */}
         <InnerCommonContainer>
           <View
             style={[
@@ -72,41 +81,44 @@ const ProfileScreen = () => {
             ]}
           >
             {/* @todo add it to button compoennt for icon */}
+
             <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xl8 }}>
-              <ButtonStyled
-                variant="badgeOutlined"
-                onPress={() => router.push(APP_ROUTES.DRAWER.FAVORITES)}
-              >
-                <View
-                  style={[
-                    commonStyles.flexStyles.rowCenterWrap,
-                    {
-                      width: '100%',
-                      gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                    },
-                  ]}
+              {session && (
+                <ButtonStyled
+                  variant="badgeOutlined"
+                  onPress={() => router.push(APP_ROUTES.DRAWER.FAVORITES)}
                 >
                   <View
                     style={[
-                      commonStyles.flexStyles.rowStart,
-                      { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+                      commonStyles.flexStyles.rowCenterWrap,
+                      {
+                        width: '100%',
+                        gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                      },
                     ]}
                   >
-                    <IconHeart color={theme.grayScale900} />
+                    <View
+                      style={[
+                        commonStyles.flexStyles.rowStart,
+                        { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+                      ]}
+                    >
+                      <IconHeart color={theme.grayScale900} />
 
-                    <View>
-                      <TextStyled
-                        textAlignment="left"
-                        fontSize="lg"
-                        fontWeight="semibold"
-                        customColor="grayScale900"
-                      >
-                        Favorites
-                      </TextStyled>
+                      <View>
+                        <TextStyled
+                          textAlignment="left"
+                          fontSize="lg"
+                          fontWeight="semibold"
+                          customColor="grayScale900"
+                        >
+                          Favorites
+                        </TextStyled>
+                      </View>
                     </View>
                   </View>
-                </View>
-              </ButtonStyled>
+                </ButtonStyled>
+              )}
             </View>
             <View
               style={[
@@ -114,8 +126,9 @@ const ProfileScreen = () => {
                 { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
               ]}
             >
-              <ImageIconCircle icon={<IconBookmark color={theme.white} />} />
-
+              {session && (
+                <ImageIconCircle icon={<IconBookmark color={theme.white} />} />
+              )}
               <TouchableOpacity onPress={handleSettingsPress}>
                 <ImageIconCircle
                   icon={<IconSettingCog color={theme.white} />}
@@ -126,8 +139,8 @@ const ProfileScreen = () => {
         </InnerCommonContainer>
       </View>
 
-      <InnerCommonContainer>
-        {session ? (
+      {session ? (
+        <InnerCommonContainer>
           <View
             style={{
               flex: 1,
@@ -157,10 +170,10 @@ const ProfileScreen = () => {
               </View>
             </Animated.ScrollView>
           </View>
-        ) : (
-          <Unauthorized showGoBack={false} />
-        )}
-      </InnerCommonContainer>
+        </InnerCommonContainer>
+      ) : (
+        <Unauthorized showGoBack={false} />
+      )}
     </ScreenWrapperContainer>
   );
 };

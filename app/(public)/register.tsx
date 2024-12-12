@@ -2,7 +2,6 @@ import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContain
 import { InnerCommonContainer } from '@/components/containers';
 import { FormWizard } from '@/components/form';
 import { IFormWizardStepProps } from '@/components/form/FormWizard';
-import SRegisterIllustration from '@/components/svg/illustrations/SRegisterIllustration';
 import { TextStyled } from '@/components/typography';
 import { Pressable, View } from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';

@@ -77,9 +77,9 @@ const CardListingItems = () => {
       >
         <ImageIconCircle
           onPress={handleFilterClick}
-          gradientBg={true}
+          gradientBg={false}
           radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
-          borderColor="primary"
+          borderColor="grayScale200"
           bgColor="appBackground"
           size={APP_STYLE_VALUES.WH_SIZES.lg}
           icon={<IconFilter color={theme.grayScale900} />}
@@ -98,6 +98,7 @@ const CardListingItems = () => {
           }}
         >
           <FilterStuffType
+            variant="gray200Outlined"
             value={find(
               listingCategoryOptions,
               (category) => category.value === filterValues?.category

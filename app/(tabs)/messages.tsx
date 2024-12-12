@@ -110,7 +110,7 @@ const MessagesScreen = () => {
   };
 
   if (!session) {
-    return <Unauthorized isTabBarActive={true} />;
+    return <Unauthorized showGoBack={false} isTabBarActive={true} />;
   }
 
   if (chatListIsLoading) {
@@ -137,7 +137,7 @@ const MessagesScreen = () => {
               customColor="grayScale900"
               textAlignment="left"
             >
-              Mesajlar
+              Messages
             </TextStyled>
           </View>
 

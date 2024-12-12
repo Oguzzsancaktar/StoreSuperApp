@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 import { InnerCommonContainer } from '../containers';
-import ImageStyled from '../images/ImageStyled';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { TextStyled } from '../typography';
+import SNoDataIllustration from '@/components/svg/illustrations/SNoDataIllustration';
 
 const EmptyState = () => {
   const commonStyles = useCommonStyles();
@@ -20,12 +20,17 @@ const EmptyState = () => {
         ]}
       >
         <TextStyled fontSize="h6" customColor="primary" fontWeight="bold">
-          This List İs Emty
+          Currently no data found
         </TextStyled>
-        <ImageStyled
-          height={APP_STYLE_VALUES.WH_SIZES.xl6}
-          imageId="LISTING_ESTATE_DEFAULT"
-        />
+
+        <View
+          style={{
+            width: APP_STYLE_VALUES.WH_SIZES.xl10,
+            height: APP_STYLE_VALUES.WH_SIZES.xl10,
+          }}
+        >
+          <SNoDataIllustration />
+        </View>
       </View>
     </InnerCommonContainer>
   );

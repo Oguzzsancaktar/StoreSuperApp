@@ -63,7 +63,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
     setRefreshToken(null);
     setRefreshTokenExpiryTime(null);
     apiClient.defaults.headers.common['Authorization'] = '';
-    router.push(APP_ROUTES.PUBLIC.WELCOME);
   };
 
   let isRefreshing = false;

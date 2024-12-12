@@ -7,8 +7,8 @@ import { TextStyled } from '../typography';
 import ButtonLogout from '../button/ButtonLogout';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import { View } from 'react-native';
-import ImageStyled from '../images/ImageStyled';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import SUnautorizedIllustration from '../svg/illustrations/SUnautorizedIllustration';
 
 interface IProps extends IScreenWrapperContainerProps {}
 const Unauthorized: React.FC<IProps> = ({
@@ -32,12 +32,18 @@ const Unauthorized: React.FC<IProps> = ({
           ]}
         >
           <TextStyled fontSize="h3" customColor="primary" fontWeight="bold">
-            Authorize Login FOr See Results
+            Login For More.
           </TextStyled>
-          <ImageStyled
-            height={APP_STYLE_VALUES.WH_SIZES.xl6}
-            imageId="LISTING_ESTATE_DEFAULT"
-          />
+
+          <View
+            style={{
+              width: APP_STYLE_VALUES.WH_SIZES.xl10,
+              height: APP_STYLE_VALUES.WH_SIZES.xl10,
+            }}
+          >
+            <SUnautorizedIllustration />
+          </View>
+
           <ButtonLogout />
         </View>
       </InnerCommonContainer>

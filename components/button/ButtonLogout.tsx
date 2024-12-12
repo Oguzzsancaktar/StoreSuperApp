@@ -17,9 +17,10 @@ const ButtonLogout: React.FC<IProps> = () => {
 
   const handlePress = () => {
     if (!session) {
-      router.replace(APP_ROUTES.PUBLIC.WELCOME);
+      router.replace(APP_ROUTES.PUBLIC.LOGIN);
     } else {
       signOut();
+      router.push(APP_ROUTES.PUBLIC.WELCOME);
     }
   };
   return (
