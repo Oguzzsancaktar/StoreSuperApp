@@ -172,8 +172,8 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           customColor="grayScale400"
         >
           {authType === 'REGISTER'
-            ? 'Already Have Account?'
-            : 'Dont Have Account yet?'}
+            ? 'Already have an account?'
+            : "Don't have an account yet?"}
         </TextStyled>
 
         <Link

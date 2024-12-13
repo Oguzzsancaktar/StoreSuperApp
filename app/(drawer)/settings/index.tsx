@@ -44,9 +44,7 @@ const SettingsScreen = () => {
         text: 'Personal Informations',
         right: 'chevron',
         onPress: () => {
-          WebBrowser.openBrowserAsync('https://setuka24.com/policy' as string);
-
-          // router.push(APP_ROUTES.DRAWER.SETTINGS_UPDATE_INFORMATIONS);
+          router.push(APP_ROUTES.DRAWER.SETTINGS_UPDATE_INFORMATIONS);
         },
         priv: true,
       },
@@ -55,7 +53,9 @@ const SettingsScreen = () => {
         text: 'Privacy Policy',
         right: 'chevron',
         onPress: () => {
-          router.push(APP_ROUTES.DRAWER.PRIVACY_POLICY);
+          WebBrowser.openBrowserAsync('https://setuka24.com/policy' as string);
+
+          // router.push(APP_ROUTES.DRAWER.PRIVACY_POLICY);
         },
       },
       {

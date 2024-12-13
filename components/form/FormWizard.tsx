@@ -25,6 +25,7 @@ export interface IFormWizardProps {
   defaultValues: Record<string, any>;
   values: Record<string, any>;
   isLoading?: boolean;
+  showReset?: boolean;
 
   isTabBarActive?: boolean;
   setValues: React.Dispatch<React.SetStateAction<Record<string, any>>>;
@@ -40,6 +41,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   isLoading,
   onSubmit,
   setValues,
+  showReset,
   values,
 }) => {
   const commonStyles = useCommonStyles();
@@ -133,6 +135,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
           {activeStep?.customStep && activeStep.customStep}
 
           <FormStyled
+            showReset={showReset}
             submitKey={submitKey}
             isLoading={isLoading}
             isNextDisabled={isNextDisabled}

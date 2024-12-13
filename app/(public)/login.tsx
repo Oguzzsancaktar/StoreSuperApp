@@ -9,14 +9,13 @@ import { useLoginAccountMutation } from '@/services/accountServices';
 import { useSession } from '@/contexts/AuthContext';
 import CardAlternativeAuth from '@/components/cards/auth/CardAlternativeAuth';
 import { toastError } from '@/utils/toastUtils';
-import { router } from 'expo-router';
 
 const steps: IFormWizardStepProps[] = [
   {
     id: 'STEP_1',
-    stepTitle: 'With Setuka24 you list with Ease & find with purpose',
+    stepTitle: 'List & Find with ease',
     stepDescription:
-      'Login into your account, to find cool things in your area or sell your own stuff.',
+      'Login and find cool things in your area or sell your own stuff.',
     fields: [
       { ...APP_INPUT_FIELDS.INPUT_EMAIL },
       { ...APP_INPUT_FIELDS.INPUT_PASSWORD },

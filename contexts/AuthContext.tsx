@@ -49,6 +49,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
     refreshToken,
     refreshTokenExpiryTime,
   }: ILoginResult) => {
+    apiClient.defaults.headers.common['Authorization'] = token;
     setSession(token);
     setRefreshToken(refreshToken);
     setRefreshTokenExpiryTime(refreshTokenExpiryTime);
@@ -56,13 +57,21 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
   const signOut = () => {
     console.log('signOut worked');
-    dispatch(accountApiSlice.util.invalidateTags([ACCOUNT_API_TAG]));
-    dispatch(accountApiSlice.util.resetApiState());
+    dispatch(accountApiSlice.util.resetApiState()); // Cache'i sıfırla
+    // dispatch(accountApiSlice.util.invalidateTags([ACCOUNT_API_TAG]));
+    // dispatch(accountApiSlice.util.resetApiState());
 
     setSession(null);
     setRefreshToken(null);
     setRefreshTokenExpiryTime(null);
+
     apiClient.defaults.headers.common['Authorization'] = '';
+    delete apiClient.defaults.headers.common['Authorization'];
+
+    apiClient.interceptors.request.use((config) => {
+      config.headers.Authorization = ''; // Header'ı tamamen kaldırın
+      return config;
+    });
   };
 
   let isRefreshing = false;
@@ -103,8 +112,15 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
   apiClient.interceptors.request.use(
     (config) => {
+      console.log(
+        'Authorization Header:',
+        config.headers.Authorization,
+        session
+      );
       if (session) {
         config.headers.Authorization = `Bearer ${session}`;
+      } else {
+        delete config.headers.Authorization;
       }
       return config;
     },
