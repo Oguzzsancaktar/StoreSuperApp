@@ -10,7 +10,7 @@ export interface IAppRoutes {
 
 const APP_ROUTES: IAppRoutes = {
   DRAWER: {
-    SETTINGS_UPDATE_INFORMATIONS: "/(drawer)/settings/updateInformations",
+
     PRIVACY_POLICY: "/(drawer)/settings/privacyPolicy",
 
     SETTINGS: "/(drawer)/settings",
@@ -18,6 +18,8 @@ const APP_ROUTES: IAppRoutes = {
     SUCCESS: "/(drawer)/success",
   },
   PRIVATE: {
+
+    SETTINGS_UPDATE_INFORMATIONS: "/(private)/settings/updateInformations",
     SETTINGS_PERSONAL_INFORMATIONS: "/(private)/settings/personalInformations",
     SETTINGS_CONTACT_INFORMATIONS: "/(private)/settings/contactInformations",
     SETTINGS_ADDRESS_INFORMATIONS: "/(private)/settings/addressInformations",

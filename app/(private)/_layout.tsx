@@ -18,6 +18,13 @@ export default function PrivateLayout() {
       />
 
       <Stack.Screen
+        name="settings/updateInformations"
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
         name="settings/addressInformations"
         options={{
           headerShown: false,

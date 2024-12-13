@@ -36,15 +36,17 @@ const SettingsScreen = () => {
         icon: 'IconUser',
         text: 'Account Settings',
         right: 'chevron',
-        onPress: () => {},
+        onPress: () => {
+          router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_INFORMATIONS);
+        },
         priv: true,
       },
       {
         icon: 'IconEdit',
-        text: 'Personal Informations',
+        text: 'Information Settings',
         right: 'chevron',
         onPress: () => {
-          router.push(APP_ROUTES.DRAWER.SETTINGS_UPDATE_INFORMATIONS);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_INFORMATIONS);
         },
         priv: true,
       },

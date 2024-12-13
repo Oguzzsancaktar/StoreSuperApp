@@ -25,13 +25,6 @@ export default function PublicLayout() {
       />
 
       <Stack.Screen
-        name="settings/updateInformations"
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
         name="success"
         options={{
           headerShown: false,
