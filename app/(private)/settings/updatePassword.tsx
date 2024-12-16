@@ -13,47 +13,39 @@ import { IIconNames } from '@/interfaces/app';
 import { useMemo } from 'react';
 import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
-import FormContactInformation from '@/components/form/FormContactInformation';
+import FormUpdatePassword from '@/components/form/FormUpdatePassword';
 
-export interface IAddressItemProps {
+export interface ISettingItemProps {
   icon: IIconNames;
   text: string;
   right: 'chevron' | 'switch';
   onPress: () => void;
 }
 
-const UpdateContactInformationScreen = () => {
+const UpdateAccountScreen = () => {
   const { theme, toggleTheme } = useAppTheme();
   const commonStyles = useCommonStyles();
 
-  const Address_ITEMS: IAddressItemProps[] = useMemo(
+  const SETTING_ITEMS: ISettingItemProps[] = useMemo(
     () => [
       {
         icon: 'IconUser',
-        text: 'Personal Information',
+        text: 'Change Password',
         right: 'chevron',
         onPress: () => {
-          router.push(APP_ROUTES.PUBLIC.ADDRESS_PERSONAL_INFORMATIONS);
+          router.push(APP_ROUTES.DRAWER.SETTINGS_UPDATE_PASSWORD);
         },
       },
       {
         icon: 'IconPhone',
-        text: 'Contact Information',
+        text: 'Delete Account',
         right: 'chevron',
         onPress: () => {
-          router.push(APP_ROUTES.PUBLIC.ADDRESS_CONTACT_INFORMATIONS);
-        },
-      },
-      {
-        icon: 'IconLocation',
-        text: 'Address Information',
-        right: 'chevron',
-        onPress: () => {
-          router.push(APP_ROUTES.PUBLIC.ADDRESS_ADDRESS_INFORMATIONS);
+          router.push(APP_ROUTES.DRAWER.SETTINGS_UPDATE_PASSWORD);
         },
       },
     ],
-    [toggleTheme]
+    []
   );
 
   return (
@@ -62,9 +54,10 @@ const UpdateContactInformationScreen = () => {
         <View
           style={[
             commonStyles.flexStyles.colStart,
+
             {
-              width: '100%',
               height: '100%',
+              width: '100%',
               gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
             },
           ]}
@@ -83,17 +76,21 @@ const UpdateContactInformationScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Contact Informations
+              Change Password
             </TextStyled>
           </View>
 
           <View
             style={[
               commonStyles.flexStyles.colStart,
-              { flex: 1, width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+              {
+                flex: 1,
+                width: '100%',
+                gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+              },
             ]}
           >
-            <FormContactInformation />
+            <FormUpdatePassword />
           </View>
         </View>
       </InnerCommonContainer>
@@ -101,4 +98,4 @@ const UpdateContactInformationScreen = () => {
   );
 };
 
-export default UpdateContactInformationScreen;
+export default UpdateAccountScreen;

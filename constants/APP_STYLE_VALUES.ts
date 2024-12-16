@@ -21,6 +21,7 @@ const WH_SIZES = {
 }
 
 const RADIUS_SIZES = {
+  xl: 20,
   lg: 16,
   md: 12,
   sm: 8,

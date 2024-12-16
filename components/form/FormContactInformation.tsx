@@ -11,12 +11,11 @@ import { useMemo } from 'react';
 import { toastSuccess } from '@/utils/toastUtils';
 
 const fields: Array<IInputProps> = [
-  { ...APP_INPUT_FIELDS.INPUT_FISTNAME },
-  { ...APP_INPUT_FIELDS.INPUT_LASTNAME },
-  { ...APP_INPUT_FIELDS.INPUT_SELECT_LANGUAGE },
+  { ...APP_INPUT_FIELDS.INPUT_EMAIL },
+  { ...APP_INPUT_FIELDS.INPUT_PHONE },
 ];
 
-const FormPersonalInformation = () => {
+const FormContactInformation = () => {
   const { session } = useSession();
   const [updateUserInformations, { isLoading: updateInformationIsLoading }] =
     usePutUpdateUserInformationsMutation();
@@ -29,18 +28,16 @@ const FormPersonalInformation = () => {
   }, [session]);
 
   const defaultValues = {
-    firstName: currentUserData?.firstName || userTokenInfo?.Name,
-    lastName: currentUserData?.lastName || userTokenInfo?.Surname,
-    language: currentUserData?.language,
+    phoneNumber: currentUserData?.phoneNumber,
+    email: currentUserData?.email,
   };
 
   const handleSubmit = async (values: Record<string, any>) => {
     try {
       const tempUserInfo = {
         id: userTokenInfo.Id,
-        firstName: values?.firstName,
-        lastName: values?.lastName,
-        language: values?.language?.value,
+        phoneNumber: values?.phoneNumber,
+        email: values?.email,
       };
       const result = await updateUserInformations(tempUserInfo as any);
       toastSuccess('Informations updated successfully.');
@@ -62,4 +59,4 @@ const FormPersonalInformation = () => {
   );
 };
 
-export default FormPersonalInformation;
+export default FormContactInformation;

@@ -80,10 +80,13 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
   const refreshAuthToken = async () => {
     try {
+      signOut();
+
       const response = await apiClient.post('/refresh-token', {
         token: session,
         refreshToken,
       });
+
       const {
         token: newToken,
         refreshToken: newRefreshToken,
@@ -123,7 +126,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
-
         if (error.response?.status === 401 && !originalRequest._retry) {
           if (isRefreshing) {
             return new Promise((resolve) => {

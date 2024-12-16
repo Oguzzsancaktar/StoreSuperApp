@@ -19,6 +19,9 @@ const APP_ROUTES: IAppRoutes = {
   },
   PRIVATE: {
 
+    SETTINGS_UPDATE_ACCOUNT: "/(private)/settings/updateAccount",
+    SETTINGS_UPDATE_PASSWORD: "/(private)/settings/updatePassword",
+
     SETTINGS_UPDATE_INFORMATIONS: "/(private)/settings/updateInformations",
     SETTINGS_PERSONAL_INFORMATIONS: "/(private)/settings/personalInformations",
     SETTINGS_CONTACT_INFORMATIONS: "/(private)/settings/contactInformations",

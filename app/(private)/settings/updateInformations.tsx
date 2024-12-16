@@ -32,7 +32,7 @@ const UpdateInformationScreen = () => {
         text: 'Personal Information',
         right: 'chevron',
         onPress: () => {
-          router.push(APP_ROUTES.DRAWER.SETTINGS_PERSONAL_INFORMATIONS);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS_PERSONAL_INFORMATIONS);
         },
       },
       {
@@ -40,7 +40,7 @@ const UpdateInformationScreen = () => {
         text: 'Contact Information',
         right: 'chevron',
         onPress: () => {
-          router.push(APP_ROUTES.DRAWER.SETTINGS_CONTACT_INFORMATIONS);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS_CONTACT_INFORMATIONS);
         },
       },
       {
@@ -48,7 +48,7 @@ const UpdateInformationScreen = () => {
         text: 'Address Information',
         right: 'chevron',
         onPress: () => {
-          router.push(APP_ROUTES.DRAWER.SETTINGS_ADDRESS_INFORMATIONS);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS_ADDRESS_INFORMATIONS);
         },
       },
     ],

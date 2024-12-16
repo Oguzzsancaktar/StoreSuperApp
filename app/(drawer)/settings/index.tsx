@@ -12,7 +12,7 @@ import { map } from 'lodash';
 import { IIconNames } from '@/interfaces/app';
 import { useMemo } from 'react';
 import ButtonLogout from '@/components/button/ButtonLogout';
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { useSession } from '@/contexts/AuthContext';
 import * as WebBrowser from 'expo-web-browser';
@@ -37,7 +37,7 @@ const SettingsScreen = () => {
         text: 'Account Settings',
         right: 'chevron',
         onPress: () => {
-          router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_INFORMATIONS);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_ACCOUNT);
         },
         priv: true,
       },

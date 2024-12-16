@@ -1,9 +1,14 @@
 import { StyleSheet } from "react-native";
 
 interface IButtonStylesheet {
+  transparent: StyleSheet.NamedStyles<any>;
+  transparentPressed: StyleSheet.NamedStyles<any>;
+  transparentDisabled: StyleSheet.NamedStyles<any>;
+
   badgeOutlined: StyleSheet.NamedStyles<any>;
   badgePrimarySolid: StyleSheet.NamedStyles<any>;
   badgeGrayscale600Solid: StyleSheet.NamedStyles<any>;
+
   primarySolid: StyleSheet.NamedStyles<any>;
   primarySolidPressed: StyleSheet.NamedStyles<any>;
   primarySolidDisabled: StyleSheet.NamedStyles<any>;

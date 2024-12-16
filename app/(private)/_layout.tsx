@@ -16,28 +16,37 @@ export default function PrivateLayout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="settings/updateAccount"
+        options={{
+          headerShown: false,
+        }}
+      />
 
+      <Stack.Screen
+        name="settings/updatePassword"
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="settings/updateInformations"
         options={{
           headerShown: false,
         }}
       />
-
       <Stack.Screen
         name="settings/addressInformations"
         options={{
           headerShown: false,
         }}
       />
-
       <Stack.Screen
         name="settings/contactInformations"
         options={{
           headerShown: false,
         }}
       />
-
       <Stack.Screen
         name="settings/personalInformations"
         options={{

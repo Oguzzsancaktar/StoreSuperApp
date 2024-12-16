@@ -1,9 +1,11 @@
 import { DismissKeyboardWrapper } from '@/components/containers';
 import SafeAreaContainer from '@/components/containers/SafeAreaContainer';
+import ModalGlobal from '@/components/modal/ModalGlobal';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { SessionProvider } from '@/contexts/AuthContext';
 import { DrawerProvider } from '@/contexts/DrawerContext';
 import { InputFocusProvider } from '@/contexts/InputFocusContext';
+import { ModalProvider } from '@/contexts/ModalContext';
 import { ThemeProvider, useAppTheme } from '@/contexts/ThemeContext';
 import { store } from '@/store/store';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -70,11 +72,14 @@ function RootLayoutNav() {
           <DismissKeyboardWrapper>
             <SessionProvider>
               <DrawerProvider>
-                <SafeAreaContainer
-                  isTopEdgeActive={!segments?.includes('profile' as never)}
-                >
-                  <Slot />
-                </SafeAreaContainer>
+                <ModalProvider>
+                  <ModalGlobal />
+                  <SafeAreaContainer
+                    isTopEdgeActive={!segments?.includes('profile' as never)}
+                  >
+                    <Slot />
+                  </SafeAreaContainer>
+                </ModalProvider>
               </DrawerProvider>
             </SessionProvider>
           </DismissKeyboardWrapper>

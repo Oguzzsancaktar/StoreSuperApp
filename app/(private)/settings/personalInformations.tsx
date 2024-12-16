@@ -7,12 +7,7 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import IconSettingCog from '@/components/svg/icon/IconSettingCog';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
-import CardLinkItem from '@/components/cards/CardLinkItem';
-import { map } from 'lodash';
 import { IIconNames } from '@/interfaces/app';
-import { useMemo } from 'react';
-import { router } from 'expo-router';
-import APP_ROUTES from '@/constants/APP_ROUTES';
 import FormPersonalInformation from '@/components/form/FormPersonalInformation';
 
 export interface ISettingItemProps {

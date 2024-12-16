@@ -146,6 +146,26 @@ const useThemedStyles = () => {
 
   const buttonStyles: StyleSheet.NamedStyles<IButtonStylesheet> = StyleSheet.create({
 
+    transparent: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: COMMON_COLOURS.transparent,
+      borderColor: COMMON_COLOURS.transparent,
+
+    },
+    transparentPressed: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.primary + 20,
+      borderColor: COMMON_COLOURS.transparent,
+    },
+    transparentDisabled: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.grayScale500,
+      opacity: 0.5,
+      borderColor: COMMON_COLOURS.transparent,
+    },
+
+
+
     primarySolid: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.primary,

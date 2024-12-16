@@ -1,6 +1,6 @@
 import { TouchableOpacity } from 'react-native';
 import IconChevronLeft from '../svg/icon/IconChevronLeft';
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import ImageIconCircle from '../images/ImageIconCircle';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
@@ -12,12 +12,19 @@ interface IProps {
 
 const ButtonGoBack: React.FC<IProps> = ({ customEvent, isCircular = true }) => {
   const { theme } = useAppTheme();
+  const navigation = useNavigation();
+
+  console.log('navigation', navigation.canGoBack());
 
   const handlePress = () => {
     if (customEvent) {
       customEvent();
     } else {
-      router.back();
+      if (navigation.canGoBack()) {
+        navigation.goBack();
+      } else {
+        // router.back();
+      }
     }
   };
 

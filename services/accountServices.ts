@@ -6,6 +6,7 @@ import { createApi, EndpointBuilder } from '@reduxjs/toolkit/query/react'
 import ILoginDTO from '@/interfaces/account/ILoginDTO';
 import ILoginResult from '@/interfaces/account/ILoginResult';
 import IUser from '@/interfaces/account/IUser';
+import IPassordUpdateDTO from '@/interfaces/account/IPassordUpdateDTO';
 
 
 const ACCOUNT_API_REDUCER_PATH = 'accountAPI'
@@ -16,6 +17,22 @@ type IBuilder = EndpointBuilder<
   typeof ACCOUNT_API_TAG,
   typeof ACCOUNT_API_REDUCER_PATH
 >
+
+
+const updatePassword = (builder: IBuilder) => {
+  return builder.mutation<string[], IPassordUpdateDTO>({
+    query(data) {
+      return {
+        url: `/account/change-password`,
+        method: 'POST',
+        data
+      }
+    },
+    invalidatesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
 
 const registerAccount = (builder: IBuilder) => {
   return builder.mutation<string[], IRegisterDTO>({
@@ -62,6 +79,36 @@ const loginWithGoogle = (builder: IBuilder) => {
 
 
 // User
+const deleteUser = (builder: IBuilder) => {
+  return builder.mutation<any, string>({
+    query(id) {
+      return {
+        url: `/users`,
+        method: 'DELETE',
+        data: {
+          userId: id
+        }
+      }
+    },
+    invalidatesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
+const putUpdateUserInformations = (builder: IBuilder) => {
+  return builder.mutation<IUser, Pick<IUser, "id" | "firstName" | "language" | "lastName" | "email" | "phoneNumber">>({
+    query(data) {
+      return {
+        url: `/users`,
+        method: 'PUT',
+        data
+      }
+    },
+    invalidatesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
 const getCurrentUserInformation = (builder: IBuilder) => {
   return builder.query<IUser, void>({
     query() {
@@ -107,18 +154,41 @@ const accountApiSlice = createApi({
   tagTypes: [ACCOUNT_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
+    updatePassword: updatePassword(builder),
     registerAccount: registerAccount(builder),
     loginAccount: loginAccount(builder),
     loginWithGoogle: loginWithGoogle(builder),
     getCurrentUserInformation: getCurrentUserInformation(builder),
     getCurrentUserListings: getCurrentUserListings(builder),
-    addCurrentUserImage: addCurrentUserImage(builder)
+    addCurrentUserImage: addCurrentUserImage(builder),
+    deleteUser: deleteUser(builder),
+    putUpdateUserInformations: putUpdateUserInformations(builder)
   }),
 })
 
-const { useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery, useGetCurrentUserListingsQuery, useAddCurrentUserImageMutation } = accountApiSlice
+const {
+  useDeleteUserMutation,
+  useUpdatePasswordMutation,
+  useRegisterAccountMutation,
+  useLoginAccountMutation,
+  useLoginWithGoogleMutation,
+  useGetCurrentUserInformationQuery,
+  useGetCurrentUserListingsQuery,
+  useAddCurrentUserImageMutation,
+  usePutUpdateUserInformationsMutation } = accountApiSlice
 
-export { accountApiSlice, useRegisterAccountMutation, useLoginAccountMutation, useLoginWithGoogleMutation, useGetCurrentUserInformationQuery, useGetCurrentUserListingsQuery, useAddCurrentUserImageMutation }
+export {
+  accountApiSlice,
+  useDeleteUserMutation,
+  useUpdatePasswordMutation,
+  useRegisterAccountMutation,
+  useLoginAccountMutation,
+  useLoginWithGoogleMutation,
+  useGetCurrentUserInformationQuery,
+  useGetCurrentUserListingsQuery,
+  useAddCurrentUserImageMutation,
+  usePutUpdateUserInformationsMutation
+}
 
 
 
