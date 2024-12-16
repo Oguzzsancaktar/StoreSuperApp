@@ -18,6 +18,13 @@ export default function DrawerLayout() {
       />
 
       <Stack.Screen
+        name="[profileId]"
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
         name="settings/privacyPolicy"
         options={{
           headerShown: false,

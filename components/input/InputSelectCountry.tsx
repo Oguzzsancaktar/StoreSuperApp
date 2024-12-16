@@ -25,7 +25,7 @@ const InputSelectCountry: React.FC<IProps> = ({ handleSelect, value }) => {
     <InputSelectStyled
       searchable={true}
       label="Countries"
-      variant="primarySolid"
+      variant="gray200Outlined"
       options={countryOptions}
       value={value}
       handleSelect={handleSelect}

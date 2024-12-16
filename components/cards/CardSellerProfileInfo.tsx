@@ -8,6 +8,7 @@ import {
   useAddCurrentUserImageMutation,
   useGetCurrentUserInformationQuery,
   useGetCurrentUserListingsQuery,
+  useGetUserProfileQuery,
 } from '@/services/accountServices';
 import ImageIconCircle from '../images/ImageIconCircle';
 import dateUtils from '@/utils/dateUtils';
@@ -18,11 +19,14 @@ import InputImageUploader from '../input/InputImageUploader';
 import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
 import ImageUserProfile from '../images/ImageUserProfile';
 import { useSession } from '@/contexts/AuthContext';
+import IUser from '@/interfaces/account/IUser';
+import { useMemo } from 'react';
 
 interface IProps {
   scrollY: Animated.Value;
+  profileId?: IUser['id'];
 }
-const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
+const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
   const { theme } = useAppTheme();
@@ -33,6 +37,17 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
 
   const { data: currentUserListingData } = useGetCurrentUserListingsQuery();
   const { data: currentUserData } = useGetCurrentUserInformationQuery();
+
+  const {
+    data: selectedUserProfileData,
+    isLoading: selectedUsersProfileIsLoading,
+  } = useGetUserProfileQuery(profileId || '', {
+    skip: !profileId,
+  });
+
+  const userProfileData = useMemo(() => {
+    return profileId ? selectedUserProfileData : currentUserData;
+  }, [profileId, selectedUserProfileData, currentUserData]);
 
   const avatarSize = scrollY.interpolate({
     inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
@@ -177,14 +192,14 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
               </View>
             )}
             <ImageUserProfile
-              url={currentUserData?.image}
+              url={userProfileData?.image}
               iconSize={APP_STYLE_VALUES.WH_SIZES.lg}
             />
           </Animated.View>
         </Animated.View>
       </Animated.View>
 
-      {currentUserData ? (
+      {userProfileData ? (
         <>
           <View
             style={[
@@ -196,13 +211,13 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
           >
             <View>
               <TextStyled fontSize="h6" fontWeight="semibold">
-                {currentUserData?.firstName || ''}{' '}
-                {currentUserData?.lastName || ''}
+                {userProfileData?.firstName || ''}{' '}
+                {userProfileData?.lastName || ''}
               </TextStyled>
             </View>
             <View style={[{ marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp1 }]}>
               <TextStyled fontSize="md" fontWeight="medium">
-                {currentUserData.email.toLowerCase()}
+                {userProfileData.email.toLowerCase()}
               </TextStyled>
             </View>
           </View>
@@ -248,7 +263,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
                 fontWeight="semibold"
                 customColor="grayScale900"
               >
-                {currentUserData?.language || 'English'}
+                {userProfileData?.language || 'English'}
               </TextStyled>
             </View>
 
@@ -262,7 +277,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY }) => {
                 customColor="grayScale900"
               >
                 {dateUtils.formatDateForMoment(
-                  currentUserData.created,
+                  userProfileData.created,
                   'DATE_MOMENT'
                 )}
               </TextStyled>

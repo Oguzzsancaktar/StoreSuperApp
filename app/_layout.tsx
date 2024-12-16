@@ -65,6 +65,7 @@ function RootLayoutNav() {
     }
   }, []);
 
+  console.log('segments', segments);
   return (
     <Provider store={store}>
       <ThemeProvider>
@@ -75,7 +76,12 @@ function RootLayoutNav() {
                 <ModalProvider>
                   <ModalGlobal />
                   <SafeAreaContainer
-                    isTopEdgeActive={!segments?.includes('profile' as never)}
+                    isTopEdgeActive={
+                      !(
+                        segments?.includes('profile' as never) ||
+                        segments?.includes('[profileId]' as never)
+                      )
+                    }
                   >
                     <Slot />
                   </SafeAreaContainer>

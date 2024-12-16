@@ -30,7 +30,7 @@ const InputSelectCity: React.FC<IProps> = ({
     <InputSelectStyled
       searchable={true}
       label="Cities"
-      variant="primarySolid"
+      variant="gray200Outlined"
       options={cityOptions}
       handleSelect={handleSelect}
       value={value}

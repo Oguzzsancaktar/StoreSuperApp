@@ -30,10 +30,11 @@ const FilterStuffType: React.FC<IProps> = ({
       ]}
     >
       <InputSelectStyled
+        placeholder="All"
         handleSelect={handleSelect}
         options={options}
         variant={variant}
-        value={value ?? options[0]}
+        value={value ?? undefined}
       />
     </View>
   );

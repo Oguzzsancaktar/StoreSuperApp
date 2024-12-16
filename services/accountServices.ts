@@ -79,6 +79,20 @@ const loginWithGoogle = (builder: IBuilder) => {
 
 
 // User
+const getUserProfile = (builder: IBuilder) => {
+  return builder.query<IUser, string>({
+    query(id) {
+      return {
+        url: `/users/${id}/profile`,
+        method: 'GET',
+
+      }
+    },
+    providesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
 const deleteUser = (builder: IBuilder) => {
   return builder.mutation<any, string>({
     query(id) {
@@ -154,6 +168,7 @@ const accountApiSlice = createApi({
   tagTypes: [ACCOUNT_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
+    getUserProfile: getUserProfile(builder),
     updatePassword: updatePassword(builder),
     registerAccount: registerAccount(builder),
     loginAccount: loginAccount(builder),
@@ -167,6 +182,7 @@ const accountApiSlice = createApi({
 })
 
 const {
+  useGetUserProfileQuery,
   useDeleteUserMutation,
   useUpdatePasswordMutation,
   useRegisterAccountMutation,
@@ -179,6 +195,7 @@ const {
 
 export {
   accountApiSlice,
+  useGetUserProfileQuery,
   useDeleteUserMutation,
   useUpdatePasswordMutation,
   useRegisterAccountMutation,

@@ -8,10 +8,12 @@ import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
 
 interface IProps<T> extends FlatListProps<T> {
   showGradients?: boolean;
+  allowEmpty?: boolean;
   isLoading?: boolean;
 }
 
 const FlatListStyled = <T,>({
+  allowEmpty = false,
   isLoading,
   data,
   showGradients = true,
@@ -76,7 +78,7 @@ const FlatListStyled = <T,>({
           ]}
         />
       ) : (
-        <EmptyState />
+        !allowEmpty && <EmptyState />
       )}
     </View>
   );

@@ -33,7 +33,7 @@ const InputSelectDistrict: React.FC<IProps> = ({
     <InputSelectStyled
       searchable={true}
       label="Districts"
-      variant="primarySolid"
+      variant="gray200Outlined"
       options={districtOptions}
       handleSelect={handleSelect}
       value={value}

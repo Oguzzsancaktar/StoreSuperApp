@@ -11,6 +11,7 @@ import { IButtonStylesheet } from '@/interfaces/theme';
 import ImageIconCircle from '../images/ImageIconCircle';
 import IconClose from '../svg/icon/IconClose';
 import useCommonStyles from '@/hooks/useCommonStyles';
+import { DropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model';
 
 interface IProps {
   label?: string;
@@ -18,9 +19,11 @@ interface IProps {
   value?: ISelectOption;
   variant: keyof IButtonStylesheet;
   showReset?: boolean;
-
+  placeholder?: string;
   searchable?: boolean;
   handleSelect(selected: ISelectOption | null): void;
+  renderRightIcon?: DropdownProps<ISelectOption>['renderRightIcon'];
+  containerStyle?: DropdownProps<ISelectOption>['containerStyle'];
 }
 
 const InputSelectStyled: React.FC<IProps> = ({
@@ -31,6 +34,9 @@ const InputSelectStyled: React.FC<IProps> = ({
   showReset,
   searchable = false,
   handleSelect,
+  renderRightIcon,
+  placeholder,
+  containerStyle,
 }) => {
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
@@ -62,12 +68,14 @@ const InputSelectStyled: React.FC<IProps> = ({
         ]}
       >
         <Dropdown
+          renderRightIcon={renderRightIcon}
           search={searchable}
           autoScroll={false}
           data={options}
           labelField="label"
           valueField="value"
           value={value}
+          placeholder={placeholder}
           onChange={handleSelect}
           style={[
             themedStyles.inputStyles.default,
@@ -87,6 +95,7 @@ const InputSelectStyled: React.FC<IProps> = ({
               paddingVertical: 0,
               backgroundColor: theme.grayScale100,
             },
+            containerStyle,
           ]}
           placeholderStyle={{
             fontSize: APP_TYPOGRAPHY.fontSizes.h6,

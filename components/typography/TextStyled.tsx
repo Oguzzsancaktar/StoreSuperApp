@@ -15,9 +15,11 @@ interface IProps {
   customColor?: keyof IAppTheme;
   children: string | string[] | number;
   numberOfLines?: number;
+  textTransform?: TextStyle['textTransform'];
 }
 
 const TextStyled: React.FC<IProps> = ({
+  textTransform = 'none',
   textAlignment,
   textShadow,
   children,
@@ -34,6 +36,7 @@ const TextStyled: React.FC<IProps> = ({
     const { fontSizes, fontWeights } = APP_TYPOGRAPHY;
 
     let tempStyles: StyleProp<TextStyle> = {
+      textTransform: textTransform,
       width: '100%',
       lineHeight: fontSizes[fontSize] * 1.5,
       textAlign: textAlignment || 'center',
@@ -54,7 +57,15 @@ const TextStyled: React.FC<IProps> = ({
     }
 
     return tempStyles;
-  }, [theme, customColor, textShadow, fontSize, fontWeight]);
+  }, [
+    theme,
+    customColor,
+    textShadow,
+    fontSize,
+    fontWeight,
+    textTransform,
+    textAlignment,
+  ]);
 
   return (
     <View style={[commonStyles.flexStyles.colCenter, { width: '100%' }]}>

@@ -1,6 +1,6 @@
 import useCommonStyles from '@/hooks/useCommonStyles';
 import useThemedStyles from '@/hooks/useThemedStyles';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import ImageIconCircle from '../images/ImageIconCircle';
 import { TextStyled } from '../typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
@@ -10,6 +10,7 @@ import IUser from '@/interfaces/account/IUser';
 import moment from 'moment';
 import APP_FORMATS from '@/constants/APP_FORMATS';
 import { useAppTheme } from '@/contexts/ThemeContext';
+import { Href, router } from 'expo-router';
 
 interface IProps {
   user: IUser;
@@ -25,8 +26,15 @@ const CardSellerInfo: React.FC<IProps> = ({
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
 
+  const handleCardPress = () => {
+    router.push(('/(drawer)/' + user?.id) as Href);
+  };
+
   return (
-    <View style={themedStyles.cardStyles.default}>
+    <Pressable
+      onPress={handleCardPress}
+      style={themedStyles.cardStyles.default}
+    >
       {(allowMessaging || allowPhoneCalls) && (
         <View
           style={[
@@ -116,7 +124,7 @@ const CardSellerInfo: React.FC<IProps> = ({
           </TextStyled>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

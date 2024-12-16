@@ -201,7 +201,13 @@ const InputImageUploader: React.FC<IProps> = ({
                 <ImageIconCircle
                   size={APP_STYLE_VALUES.WH_SIZES.xs2}
                   bgColor="grayScale200"
-                  icon={<IconTrash color={theme.white} />}
+                  icon={
+                    <IconTrash
+                      width={APP_STYLE_VALUES.WH_SIZES.xs3}
+                      height={APP_STYLE_VALUES.WH_SIZES.xs3}
+                      color={theme.error}
+                    />
+                  }
                 />
               </TouchableOpacity>
               <ImageStyled key={index} url={image.uri} />

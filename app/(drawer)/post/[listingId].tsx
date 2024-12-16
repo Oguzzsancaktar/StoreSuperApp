@@ -6,28 +6,25 @@ import CardSellerInfo from '@/components/cards/CardSellerInfo';
 import CardListingDetailOptions from '@/components/cards/listing/CardListingDetailOptions';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
+import EmptyState from '@/components/feedback/EmptyState';
+import Preloader from '@/components/feedback/Preloader';
 import ImageCarousel from '@/components/images/ImageCarousel';
-import ImageIconCircle from '@/components/images/ImageIconCircle';
 import MapGeoLoaction from '@/components/map/MapGeoLoaction';
 import ScrollViewStyled from '@/components/override/ScrollViewStyled';
 import IconLocation from '@/components/svg/icon/IconLocation';
 import IconSendMessage from '@/components/svg/icon/IconSendMessage';
-import IconUser from '@/components/svg/icon/IconUser';
 import { TextStyled } from '@/components/typography';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useSession } from '@/contexts/AuthContext';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import IUser from '@/interfaces/account/IUser';
-import {
-  useGetListingItemDetailsQuery,
-  useGetViewCountQuery,
-} from '@/services/listingServices';
+import { useGetListingItemDetailsQuery } from '@/services/listingServices';
 import { toastWarning } from '@/utils/toastUtils';
 import { router, useLocalSearchParams } from 'expo-router';
 import { map } from 'lodash';
 import { useMemo } from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 
 const ListingDetailPage = () => {
   const commonStyles = useCommonStyles();
@@ -56,8 +53,12 @@ const ListingDetailPage = () => {
     return map(listingItemDetailData?.media, (m) => m.url);
   }, [listingItemDetailData]);
 
-  if (isLoading || !listingItemDetailData) {
-    return <ScreenWrapperContainer>{null}</ScreenWrapperContainer>;
+  if (isLoading) {
+    return <Preloader />;
+  }
+
+  if (!listingItemDetailData) {
+    return <EmptyState />;
   }
 
   return (
@@ -77,7 +78,12 @@ const ListingDetailPage = () => {
       <ScrollViewStyled>
         <InnerCommonContainer>
           <View style={[commonStyles.flexStyles.colStart, { width: '100%' }]}>
-            <TextStyled fontSize="h3" fontWeight="bold" textAlignment="left">
+            <TextStyled
+              textTransform="capitalize"
+              fontSize="h3"
+              fontWeight="bold"
+              textAlignment="left"
+            >
               {listingItemDetailData?.name || ''}
             </TextStyled>
 

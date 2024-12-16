@@ -33,7 +33,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
   };
 
   return (
-    <View style={[themedStyles.cardStyles.default, {}]}>
+    <View style={[themedStyles.cardStyles.default, { overflow: 'visible' }]}>
       <View
         style={[
           commonStyles.absolutePositionStyles.absoluteFill,
@@ -105,6 +105,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
               ]}
             >
               <TextStyled
+                textTransform="capitalize"
                 fontSize="md"
                 fontWeight="medium"
                 textAlignment="left"

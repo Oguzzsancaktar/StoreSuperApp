@@ -175,7 +175,7 @@ const MessagesDetailScreen = () => {
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           keyboardVerticalOffset={
-            Platform.OS === 'ios' ? APP_STYLE_VALUES.SPACE_SIZES.sp13 : 0
+            Platform.OS === 'ios' ? APP_STYLE_VALUES.SPACE_SIZES.sp30 : 0
           }
           style={{ flex: 1 }}
         >
@@ -202,6 +202,7 @@ const MessagesDetailScreen = () => {
               ]}
             >
               <ImageStyled
+                url={listingDetailData.media[0]?.url}
                 width={APP_STYLE_VALUES.WH_SIZES.xs}
                 height={APP_STYLE_VALUES.WH_SIZES.xs}
               />
@@ -229,7 +230,8 @@ const MessagesDetailScreen = () => {
           </Pressable>
 
           <FlatListStyled
-            showGradients
+            showGradients={false}
+            allowEmpty={true}
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={{
               flexGrow: 1,
@@ -255,7 +257,7 @@ const MessagesDetailScreen = () => {
               ]}
               value={newMessage}
               onChangeText={setNewMessage}
-              placeholder="Mesaj yazın..."
+              placeholder="Enter your message..."
             />
 
             <ImageIconCircle

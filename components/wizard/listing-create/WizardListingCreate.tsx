@@ -389,7 +389,8 @@ const WizardListingCreate = () => {
             href: APP_ROUTES.TABS.TIMELINE as string,
             showExtraButton: 'true',
             extraButtonText: 'Go to listing',
-            extraButtonHref: ('/(private)/post/' + createdListingId) as string,
+            // @todo path route
+            extraButtonHref: ('/(drawer)/post/' + createdListingId) as string,
           },
         });
       } catch (error) {

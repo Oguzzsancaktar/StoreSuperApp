@@ -17,6 +17,8 @@ import { toastWarning } from '@/utils/toastUtils';
 import IconEyeShowFilled from '../svg/icon/filled/IconEyeShowFilled';
 import { TextStyled } from '../typography';
 import useThemedStyles from '@/hooks/useThemedStyles';
+import IconOptions from '../svg/icon/IconOptions';
+import ButtonListingActionDropdown from '../button/ButtonListingActionDropdown';
 
 interface IProps {
   listingId: IListingPost['id'];
@@ -143,6 +145,8 @@ const CardListingActions: React.FC<IProps> = ({
         </View>
       )}
 
+      <ButtonListingActionDropdown />
+
       <ImageIconCircle
         onPress={handleFavorite}
         bgColor="transparent"
@@ -162,7 +166,7 @@ const CardListingActions: React.FC<IProps> = ({
         <IconBookmark
           width={APP_STYLE_VALUES.WH_SIZES.xs2}
           height={APP_STYLE_VALUES.WH_SIZES.xs2}
-          color={theme.grayScale800}
+          color={theme.grayScale500}
         />
       }
     /> */}
