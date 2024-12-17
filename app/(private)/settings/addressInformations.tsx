@@ -13,6 +13,7 @@ import { IIconNames } from '@/interfaces/app';
 import { useMemo } from 'react';
 import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
+import FormAddressInformation from '@/components/form/FormAddressInformation';
 
 export interface ISettingItemProps {
   icon: IIconNames;
@@ -25,43 +26,17 @@ const UpdateAddressInformationScreen = () => {
   const { theme, toggleTheme } = useAppTheme();
   const commonStyles = useCommonStyles();
 
-  const SETTING_ITEMS: ISettingItemProps[] = useMemo(
-    () => [
-      {
-        icon: 'IconUser',
-        text: 'Personal Information',
-        right: 'chevron',
-        onPress: () => {
-          router.push(APP_ROUTES.DRAWER.SETTINGS_PERSONAL_INFORMATIONS);
-        },
-      },
-      {
-        icon: 'IconPhone',
-        text: 'Contact Information',
-        right: 'chevron',
-        onPress: () => {
-          router.push(APP_ROUTES.DRAWER.SETTINGS_CONTACT_INFORMATIONS);
-        },
-      },
-      {
-        icon: 'IconLocation',
-        text: 'Address Information',
-        right: 'chevron',
-        onPress: () => {
-          router.push(APP_ROUTES.DRAWER.SETTINGS_ADDRESS_INFORMATIONS);
-        },
-      },
-    ],
-    [toggleTheme]
-  );
-
   return (
     <ScreenWrapperContainer showGoBack={true}>
       <InnerCommonContainer>
         <View
           style={[
             commonStyles.flexStyles.colStart,
-            { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+            {
+              width: '100%',
+              height: '100%',
+              gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            },
           ]}
         >
           <View style={[commonStyles.flexStyles.colCenter, { width: '100%' }]}>
@@ -78,27 +53,17 @@ const UpdateAddressInformationScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Address Informations
+              Address Information
             </TextStyled>
           </View>
 
           <View
             style={[
               commonStyles.flexStyles.colStart,
-              { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+              { flex: 1, width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
             ]}
           >
-            {map(SETTING_ITEMS, ({ text, icon, right, onPress }, index) => {
-              return (
-                <CardLinkItem
-                  key={index}
-                  icon={icon}
-                  text={text}
-                  right={right}
-                  onPress={onPress}
-                />
-              );
-            })}
+            <FormAddressInformation />
           </View>
         </View>
       </InnerCommonContainer>

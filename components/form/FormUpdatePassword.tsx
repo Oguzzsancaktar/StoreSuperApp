@@ -17,6 +17,7 @@ const fields: Array<IInputProps> = [
 const FormUpdatePassword = () => {
   const { session } = useSession();
 
+  // @todo get from hook
   const userTokenInfo = useMemo(() => {
     const info = jwtUtils.userJwtDecode(session ?? '');
     return info;

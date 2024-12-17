@@ -48,7 +48,7 @@ const PersonalInformationScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Personal Informations
+              Personal information
             </TextStyled>
           </View>
 

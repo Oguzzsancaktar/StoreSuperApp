@@ -43,7 +43,7 @@ const SettingsScreen = () => {
       },
       {
         icon: 'IconEdit',
-        text: 'Information Settings',
+        text: 'Profile Information',
         right: 'chevron',
         onPress: () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_INFORMATIONS);

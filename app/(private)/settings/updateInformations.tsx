@@ -13,6 +13,7 @@ import { IIconNames } from '@/interfaces/app';
 import { useMemo } from 'react';
 import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
+import IconEdit from '@/components/svg/icon/IconEdit';
 
 export interface ISettingItemProps {
   icon: IIconNames;
@@ -43,14 +44,14 @@ const UpdateInformationScreen = () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS_CONTACT_INFORMATIONS);
         },
       },
-      {
-        icon: 'IconLocation',
-        text: 'Address Information',
-        right: 'chevron',
-        onPress: () => {
-          router.push(APP_ROUTES.PRIVATE.SETTINGS_ADDRESS_INFORMATIONS);
-        },
-      },
+      // {
+      //   icon: 'IconLocation',
+      //   text: 'Address Information',
+      //   right: 'chevron',
+      //   onPress: () => {
+      //     router.push(APP_ROUTES.PRIVATE.SETTINGS_ADDRESS_INFORMATIONS);
+      //   },
+      // },
     ],
     [toggleTheme]
   );
@@ -69,7 +70,7 @@ const UpdateInformationScreen = () => {
               size={APP_STYLE_VALUES.WH_SIZES.xl}
               bgColor="primary"
               icon={
-                <IconSettingCog
+                <IconEdit
                   color={theme.white}
                   width={APP_STYLE_VALUES.WH_SIZES.sm}
                   height={APP_STYLE_VALUES.WH_SIZES.sm}
@@ -78,7 +79,7 @@ const UpdateInformationScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Update Informations
+              Update information
             </TextStyled>
           </View>
 

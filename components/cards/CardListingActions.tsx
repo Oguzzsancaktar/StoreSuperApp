@@ -1,5 +1,5 @@
 import { View, Text, Platform, Share } from 'react-native';
-import React from 'react';
+import React, { useMemo } from 'react';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import ImageIconCircle from '../images/ImageIconCircle';
@@ -17,21 +17,15 @@ import { toastWarning } from '@/utils/toastUtils';
 import IconEyeShowFilled from '../svg/icon/filled/IconEyeShowFilled';
 import { TextStyled } from '../typography';
 import useThemedStyles from '@/hooks/useThemedStyles';
-import IconOptions from '../svg/icon/IconOptions';
 import ButtonListingActionDropdown from '../button/ButtonListingActionDropdown';
+import jwtUtils from '@/utils/jwtUtils';
 
 interface IProps {
-  listingId: IListingPost['id'];
-  isFavorite: boolean;
-  listingTitle: string;
+  post: IListingPost;
   showViewCount?: boolean;
-  favoriteCount: number;
 }
 const CardListingActions: React.FC<IProps> = ({
-  favoriteCount,
-  isFavorite,
-  listingTitle,
-  listingId,
+  post,
   showViewCount = false,
 }) => {
   const { session } = useSession();
@@ -39,7 +33,12 @@ const CardListingActions: React.FC<IProps> = ({
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
 
-  const { data: postViewData } = useGetViewCountQuery(listingId as string);
+  const userTokenInfo = useMemo(() => {
+    const info = session ? jwtUtils.userJwtDecode(session) : undefined;
+    return info;
+  }, [session]);
+
+  const { data: postViewData } = useGetViewCountQuery(post?.id as string);
 
   const [addFavorite] = useAddListingFavoriteMutation();
   const [deleteFavorite] = useRemoveListingFavoriteMutation();
@@ -51,10 +50,10 @@ const CardListingActions: React.FC<IProps> = ({
         return;
       }
 
-      if (isFavorite) {
-        const result = await deleteFavorite({ id: listingId });
+      if (post?.isFavorite) {
+        const result = await deleteFavorite({ id: post?.id });
       } else {
-        const result = await addFavorite({ listingId });
+        const result = await addFavorite({ listingId: post?.id });
       }
     } catch (error) {
       console.log('err addToFavorite', error);
@@ -64,8 +63,8 @@ const CardListingActions: React.FC<IProps> = ({
   const handleSharePlatformSpecific = async () => {
     try {
       const result = await Share.share({
-        message: listingTitle,
-        url: 'https://setuka24.com/listing-details/' + listingId,
+        message: post?.name,
+        url: 'https://setuka24.com/listing-details/' + post?.id,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -138,14 +137,16 @@ const CardListingActions: React.FC<IProps> = ({
                 fontWeight="medium"
                 customColor="grayScale900"
               >
-                {favoriteCount}
+                {post?.favoriteCount}
               </TextStyled>
             </View>
           </View>
         </View>
       )}
 
-      <ButtonListingActionDropdown />
+      {post?.user?.email === userTokenInfo?.Email && (
+        <ButtonListingActionDropdown post={post} />
+      )}
 
       <ImageIconCircle
         onPress={handleFavorite}
@@ -155,7 +156,7 @@ const CardListingActions: React.FC<IProps> = ({
           <IconHeartFilled
             width={APP_STYLE_VALUES.WH_SIZES.xs2}
             height={APP_STYLE_VALUES.WH_SIZES.xs2}
-            color={isFavorite ? theme.primary : theme.grayScale500}
+            color={post?.isFavorite ? theme.primary : theme.grayScale500}
           />
         }
       />

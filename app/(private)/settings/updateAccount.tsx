@@ -5,7 +5,6 @@ import { TextStyled } from '@/components/typography';
 import { View } from 'react-native';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useAppTheme } from '@/contexts/ThemeContext';
-import IconSettingCog from '@/components/svg/icon/IconSettingCog';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import CardLinkItem from '@/components/cards/CardLinkItem';
 import { map } from 'lodash';
@@ -14,6 +13,7 @@ import { useMemo } from 'react';
 import { router } from 'expo-router';
 import APP_ROUTES from '@/constants/APP_ROUTES';
 import { useModalState } from '@/contexts/ModalContext';
+import IconUser from '@/components/svg/icon/IconUser';
 
 export interface ISettingItemProps {
   icon: IIconNames;
@@ -30,7 +30,7 @@ const UpdateAccountScreen = () => {
   const SETTING_ITEMS: ISettingItemProps[] = useMemo(
     () => [
       {
-        icon: 'IconUser',
+        icon: 'IconKey',
         text: 'Change Password',
         right: 'chevron',
         onPress: () => {
@@ -38,7 +38,7 @@ const UpdateAccountScreen = () => {
         },
       },
       {
-        icon: 'IconPhone',
+        icon: 'IconTrash',
         text: 'Delete Account',
         right: 'chevron',
         onPress: () => {
@@ -63,7 +63,7 @@ const UpdateAccountScreen = () => {
               size={APP_STYLE_VALUES.WH_SIZES.xl}
               bgColor="primary"
               icon={
-                <IconSettingCog
+                <IconUser
                   color={theme.white}
                   width={APP_STYLE_VALUES.WH_SIZES.sm}
                   height={APP_STYLE_VALUES.WH_SIZES.sm}
@@ -72,7 +72,7 @@ const UpdateAccountScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Update Accounts
+              Update Account
             </TextStyled>
           </View>
 

@@ -15,14 +15,10 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import FlatListStyled from '../override/FlatListStyled';
 import CardSellerProfileInfo from '../cards/CardSellerProfileInfo';
 import ImageIconCircle from '../images/ImageIconCircle';
-import IconBookmark from '../svg/icon/IconBookmark';
 import IconSettingCog from '../svg/icon/IconSettingCog';
 import CardPostItem from '../cards/CardPostItem';
 import { useRef } from 'react';
-import {
-  useGetCurrentUserListingsQuery,
-  useGetUserProfileQuery,
-} from '@/services/accountServices';
+import { useGetCurrentUserListingsQuery } from '@/services/accountServices';
 import IUser from '@/interfaces/account/IUser';
 import { useGetUsersListingItemsQuery } from '@/services/listingServices';
 

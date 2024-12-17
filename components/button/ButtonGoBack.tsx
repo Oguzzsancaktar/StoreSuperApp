@@ -14,8 +14,6 @@ const ButtonGoBack: React.FC<IProps> = ({ customEvent, isCircular = true }) => {
   const { theme } = useAppTheme();
   const navigation = useNavigation();
 
-  console.log('navigation', navigation.canGoBack());
-
   const handlePress = () => {
     if (customEvent) {
       customEvent();

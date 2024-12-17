@@ -83,7 +83,7 @@ const UpdateContactInformationScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Contact Informations
+              Contact information
             </TextStyled>
           </View>
 

@@ -96,6 +96,20 @@ const createListing = (builder: IBuilder) => {
 }
 
 
+const deleteListing = (builder: IBuilder) => {
+  return builder.mutation<IListingPost["id"], string>({
+    query(listingId) {
+      return {
+        url: `/listings/${listingId}`,
+        method: 'DELETE',
+      }
+    },
+    invalidatesTags: [LISTING_API_TAG],
+  })
+}
+
+
+
 
 const getListingFavorites = (builder: IBuilder) => {
   return builder.query<IListingFavorite[], void>({
@@ -181,6 +195,7 @@ const listingApiSlice = createApi({
   tagTypes: [LISTING_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
+    deleteListing: deleteListing(builder),
     getUsersListingItems: getUsersListingItems(builder),
     getListingItems: getListingItems(builder),
     getNewestPosts: getNewestPosts(builder),
@@ -194,9 +209,9 @@ const listingApiSlice = createApi({
   }),
 })
 
-const { useGetUsersListingItemsQuery, useGetListingItemsQuery, useLazyGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery } = listingApiSlice
+const { useDeleteListingMutation, useGetUsersListingItemsQuery, useGetListingItemsQuery, useLazyGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery } = listingApiSlice
 
-export { listingApiSlice, useGetUsersListingItemsQuery, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery, useLazyGetListingItemsQuery }
+export { listingApiSlice, useDeleteListingMutation, useGetUsersListingItemsQuery, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery, useLazyGetListingItemsQuery }
 
 
 

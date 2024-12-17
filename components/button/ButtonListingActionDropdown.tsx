@@ -5,22 +5,32 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import ISelectOption from '@/interfaces/theme/ISelectOption';
 import InputSelectStyled from '../input/InputSelectStyled';
 import { View } from 'react-native';
+import IListingPost from '@/interfaces/listing/IListingPost';
+import { Href, router } from 'expo-router';
+import { useDeleteListingMutation } from '@/services/listingServices';
+import { toastSuccess } from '@/utils/toastUtils';
 
 const data = [
   { label: 'Visit Profile', value: 'profile' },
   { label: 'Delete Listing', value: 'delete' },
-  { label: 'Edit Listing', value: 'edit' },
+  // { label: 'Edit Listing', value: 'edit' },
 ];
 
-const ButtonListingActionDropdown = () => {
+interface IProps {
+  post: IListingPost;
+}
+const ButtonListingActionDropdown: React.FC<IProps> = ({ post }) => {
   const { theme } = useAppTheme();
-  const handleSelect = (item: ISelectOption) => {
+  const [deleteListing] = useDeleteListingMutation();
+
+  const handleSelect = async (item: ISelectOption) => {
     switch (item.value) {
       case 'profile':
-        alert('Profile ');
+        router.push(('/(drawer)/' + post?.user?.id) as Href);
         break;
       case 'delete':
-        alert('delete');
+        await deleteListing(post.id);
+        toastSuccess('Listing deleted successfully.');
         break;
       case 'edit':
         alert('Paylaş');
@@ -30,6 +40,8 @@ const ButtonListingActionDropdown = () => {
         break;
     }
   };
+
+  // @todo padding need to be dynamic define variant
 
   return (
     <View style={{ width: APP_STYLE_VALUES.WH_SIZES.md }}>
@@ -47,7 +59,7 @@ const ButtonListingActionDropdown = () => {
             }
           />
         )}
-        containerStyle={{ width: 200 }}
+        containerStyle={{ width: APP_STYLE_VALUES.WH_SIZES.xl6 }}
         options={data}
         handleSelect={handleSelect}
         variant="transparent"

@@ -1,6 +1,7 @@
-import { ButtonGoBack, ButtonStyled } from '@/components/button';
 import { InnerCommonContainer } from '@/components/containers';
 import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
+import EmptyState from '@/components/feedback/EmptyState';
+import Preloader from '@/components/feedback/Preloader';
 import ImageIconCircle from '@/components/images/ImageIconCircle';
 import ImageStyled from '@/components/images/ImageStyled';
 import ImageUserProfile from '@/components/images/ImageUserProfile';
@@ -8,9 +9,7 @@ import { InputStyled } from '@/components/input';
 import FlatListStyled from '@/components/override/FlatListStyled';
 import IconOptions from '@/components/svg/icon/IconOptions';
 import IconSendMessage from '@/components/svg/icon/IconSendMessage';
-import IconUser from '@/components/svg/icon/IconUser';
 import { TextStyled } from '@/components/typography';
-import APP_ROUTES from '@/constants/APP_ROUTES';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { useSession } from '@/contexts/AuthContext';
 import { useAppTheme } from '@/contexts/ThemeContext';
@@ -41,16 +40,13 @@ const MessagesDetailScreen = () => {
   const { theme } = useAppTheme();
   const { chatRegistryId, listingId } = useLocalSearchParams();
 
-  const { data: listingDetailData } = useGetListingItemDetailsQuery(
-    listingId as string,
-    { skip: !listingId }
-  );
+  const { data: listingDetailData, isLoading: listingDetailIsLoading } =
+    useGetListingItemDetailsQuery(listingId as string, { skip: !listingId });
 
   const userJwtDecoded = jwtUtils.userJwtDecode(session ?? '');
 
-  const { data: messagesData } = useGetChatMessagesQuery(
-    chatRegistryId as string
-  );
+  const { data: messagesData, isLoading: messagesIsLoading } =
+    useGetChatMessagesQuery(chatRegistryId as string);
 
   const [createMessage] = useCreateMessageMutation();
   const [newMessage, setNewMessage] = useState('');
@@ -144,12 +140,12 @@ const MessagesDetailScreen = () => {
     </View>
   );
 
-  // if (!session) {
-  //   return <Redirect href={APP_ROUTES.PUBLIC.WELCOME} />;
-  // }
+  if (listingDetailIsLoading || messagesIsLoading) {
+    return <Preloader />;
+  }
 
   if (!messagesData || !listingDetailData) {
-    return null;
+    return <EmptyState />;
   }
 
   return (

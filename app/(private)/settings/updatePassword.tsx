@@ -26,28 +26,6 @@ const UpdateAccountScreen = () => {
   const { theme, toggleTheme } = useAppTheme();
   const commonStyles = useCommonStyles();
 
-  const SETTING_ITEMS: ISettingItemProps[] = useMemo(
-    () => [
-      {
-        icon: 'IconUser',
-        text: 'Change Password',
-        right: 'chevron',
-        onPress: () => {
-          router.push(APP_ROUTES.DRAWER.SETTINGS_UPDATE_PASSWORD);
-        },
-      },
-      {
-        icon: 'IconPhone',
-        text: 'Delete Account',
-        right: 'chevron',
-        onPress: () => {
-          router.push(APP_ROUTES.DRAWER.SETTINGS_UPDATE_PASSWORD);
-        },
-      },
-    ],
-    []
-  );
-
   return (
     <ScreenWrapperContainer showGoBack={true}>
       <InnerCommonContainer>

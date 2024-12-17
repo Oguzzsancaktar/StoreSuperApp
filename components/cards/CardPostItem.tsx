@@ -1,5 +1,5 @@
 import useThemedStyles from '@/hooks/useThemedStyles';
-import { View, Text, TouchableOpacity, Pressable } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { TextStyled } from '../typography';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import ImageStyled from '../images/ImageStyled';
@@ -7,7 +7,6 @@ import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
 import { Href, router } from 'expo-router';
 import IListingPost from '@/interfaces/listing/IListingPost';
 import dateUtils from '@/utils/dateUtils';
-import { find } from 'lodash';
 import stringUtils from '@/utils/stringUtils';
 import { useAppTheme } from '@/contexts/ThemeContext';
 import IconLocation from '../svg/icon/IconLocation';
@@ -33,7 +32,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
   };
 
   return (
-    <View style={[themedStyles.cardStyles.default, { overflow: 'visible' }]}>
+    <View style={[themedStyles.cardStyles.default]}>
       <View
         style={[
           commonStyles.absolutePositionStyles.absoluteFill,
@@ -284,12 +283,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
           </View>
         </View>
 
-        <CardListingActions
-          favoriteCount={post.favoriteCount}
-          listingTitle={post.name}
-          listingId={post.id}
-          isFavorite={post.isFavorite}
-        />
+        <CardListingActions post={post} />
       </View>
     </View>
   );

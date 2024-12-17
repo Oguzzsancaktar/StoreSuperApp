@@ -43,7 +43,7 @@ const FormPersonalInformation = () => {
         language: values?.language?.value,
       };
       const result = await updateUserInformations(tempUserInfo as any);
-      toastSuccess('Informations updated successfully.');
+      toastSuccess('information updated successfully.');
       console.log('result', result);
     } catch (error) {
       console.log('Error updateUserInformations', error);

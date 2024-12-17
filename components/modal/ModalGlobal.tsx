@@ -29,7 +29,6 @@ const ModalGlobal = () => {
   const { isModalOpen, toggleModal } = useModalState();
 
   const { session, signOut } = useSession();
-  console.log('session', session);
   const userTokenInfo = useMemo(() => {
     const info = session ? jwtUtils.userJwtDecode(session) : undefined;
     return info;

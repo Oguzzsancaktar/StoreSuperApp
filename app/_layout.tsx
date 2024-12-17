@@ -65,7 +65,6 @@ function RootLayoutNav() {
     }
   }, []);
 
-  console.log('segments', segments);
   return (
     <Provider store={store}>
       <ThemeProvider>
