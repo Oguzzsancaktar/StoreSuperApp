@@ -1,52 +1,56 @@
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import { InnerCommonContainer } from '@/components/containers';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { TextStyled } from '@/components/typography';
-import { View } from 'react-native';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import ImageIconCircle from '@/components/images/ImageIconCircle';
-import CardLinkItem from '@/components/cards/CardLinkItem';
-import { map } from 'lodash';
-import { IIconNames } from '@/interfaces/app';
-import { useMemo } from 'react';
-import { router } from 'expo-router';
-import APP_ROUTES from '@/constants/APP_ROUTES';
-import { useModalState } from '@/contexts/ModalContext';
-import IconUser from '@/components/svg/icon/IconUser';
+import { useMemo } from "react";
+import { View } from "react-native";
+
+import { router } from "expo-router";
+import { map } from "lodash";
+
+import CardLinkItem from "@/components/cards/CardLinkItem";
+import { InnerCommonContainer } from "@/components/containers";
+import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import ImageIconCircle from "@/components/images/ImageIconCircle";
+import IconUser from "@/components/svg/icon/IconUser";
+import { TextStyled } from "@/components/typography";
+import APP_ROUTES from "@/constants/APP_ROUTES";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useModalState } from "@/contexts/ModalContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IIconNames } from "@/interfaces/app";
 
 export interface ISettingItemProps {
   icon: IIconNames;
   text: string;
-  right: 'chevron' | 'switch';
+  right: "chevron" | "switch";
   onPress: () => void;
 }
 
 const UpdateAccountScreen = () => {
-  const { theme, toggleTheme } = useAppTheme();
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
+    themeContext: { theme, toggleTheme },
+  } = useAppStyles();
+
   const { isModalOpen, toggleModal } = useModalState();
 
   const SETTING_ITEMS: ISettingItemProps[] = useMemo(
     () => [
       {
-        icon: 'IconKey',
-        text: 'Change Password',
-        right: 'chevron',
+        icon: "IconKey",
+        text: "Change Password",
+        right: "chevron",
         onPress: () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_PASSWORD);
         },
       },
       {
-        icon: 'IconTrash',
-        text: 'Delete Account',
-        right: 'chevron',
+        icon: "IconTrash",
+        text: "Delete Account",
+        right: "chevron",
         onPress: () => {
           toggleModal();
         },
       },
     ],
-    []
+    [],
   );
 
   return (
@@ -55,10 +59,10 @@ const UpdateAccountScreen = () => {
         <View
           style={[
             commonStyles.flexStyles.colStart,
-            { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+            { width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
           ]}
         >
-          <View style={[commonStyles.flexStyles.colCenter, { width: '100%' }]}>
+          <View style={[commonStyles.flexStyles.colCenter, { width: "100%" }]}>
             <ImageIconCircle
               size={APP_STYLE_VALUES.WH_SIZES.xl}
               bgColor="primary"
@@ -79,7 +83,7 @@ const UpdateAccountScreen = () => {
           <View
             style={[
               commonStyles.flexStyles.colStart,
-              { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+              { width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
             ]}
           >
             {map(SETTING_ITEMS, ({ text, icon, right, onPress }, index) => {

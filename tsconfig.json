@@ -4,7 +4,12 @@
     "jsx": "react-jsx",
     "typeRoots": [
       "./node_modules/@types",
-      "./src/types"
+      "./src/types",
+      "./node_modules/@types/react-native"
+    ],
+    "types": [
+      "react-native",
+      "node"
     ],
     "strict": true,
     "paths": {

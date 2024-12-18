@@ -1,37 +1,40 @@
-import { ButtonStyled } from '@/components/button';
-import CardListingActions from '@/components/cards/CardListingActions';
-import CardPostCategory from '@/components/cards/CardPostCategory';
-import CardPostPrice from '@/components/cards/CardPostPrice';
-import CardSellerInfo from '@/components/cards/CardSellerInfo';
-import CardListingDetailOptions from '@/components/cards/listing/CardListingDetailOptions';
-import { InnerCommonContainer } from '@/components/containers';
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import EmptyState from '@/components/feedback/EmptyState';
-import Preloader from '@/components/feedback/Preloader';
-import ImageCarousel from '@/components/images/ImageCarousel';
-import MapGeoLoaction from '@/components/map/MapGeoLoaction';
-import ScrollViewStyled from '@/components/override/ScrollViewStyled';
-import IconCalendar from '@/components/svg/icon/IconCalendar';
-import IconLocation from '@/components/svg/icon/IconLocation';
-import IconSendMessage from '@/components/svg/icon/IconSendMessage';
-import { TextStyled } from '@/components/typography';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useSession } from '@/contexts/AuthContext';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import IUser from '@/interfaces/account/IUser';
-import { useGetListingItemDetailsQuery } from '@/services/listingServices';
-import dateUtils from '@/utils/dateUtils';
-import { toastWarning } from '@/utils/toastUtils';
-import { router, useLocalSearchParams } from 'expo-router';
-import { map } from 'lodash';
-import { useMemo } from 'react';
-import { View } from 'react-native';
+import { useMemo } from "react";
+import { View } from "react-native";
+
+import { router, useLocalSearchParams } from "expo-router";
+import { map } from "lodash";
+
+import { ButtonStyled } from "@/components/button";
+import CardListingActions from "@/components/cards/CardListingActions";
+import CardPostCategory from "@/components/cards/CardPostCategory";
+import CardPostPrice from "@/components/cards/CardPostPrice";
+import CardSellerInfo from "@/components/cards/CardSellerInfo";
+import CardListingDetailOptions from "@/components/cards/listing/CardListingDetailOptions";
+import { InnerCommonContainer } from "@/components/containers";
+import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import EmptyState from "@/components/feedback/EmptyState";
+import Preloader from "@/components/feedback/Preloader";
+import ImageCarousel from "@/components/images/ImageCarousel";
+import MapGeoLoaction from "@/components/map/MapGeoLoaction";
+import ScrollViewStyled from "@/components/override/ScrollViewStyled";
+import IconCalendar from "@/components/svg/icon/IconCalendar";
+import IconLocation from "@/components/svg/icon/IconLocation";
+import IconSendMessage from "@/components/svg/icon/IconSendMessage";
+import { TextStyled } from "@/components/typography";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import IUser from "@/interfaces/account/IUser";
+import { useGetListingItemDetailsQuery } from "@/services/listingServices";
+import dateUtils from "@/utils/dateUtils";
+import { toastWarning } from "@/utils/toastUtils";
 
 const ListingDetailPage = () => {
-  const commonStyles = useCommonStyles();
-  const { session } = useSession();
-  const { theme } = useAppTheme();
+  const {
+    commonStyles,
+    themeContext: { theme },
+  } = useAppStyles();
+  const { authToken } = useAppAuthSession();
 
   const { listingId } = useLocalSearchParams();
 
@@ -39,19 +42,19 @@ const ListingDetailPage = () => {
     useGetListingItemDetailsQuery(listingId as string);
 
   const handleSendMessageClick = () => {
-    if (!session) {
-      toastWarning('Login For Message');
+    if (!authToken) {
+      toastWarning("Login For Message");
       return;
     }
 
     router.push({
       // @todo fix find best practice for constant all routes
-      pathname: ('/(private)/chat/' + 'new') as any,
+      pathname: ("/(private)/chat/" + "new") as any,
       params: { listingId: listingId },
     });
   };
 
-  console.log('listingItemDetailData', listingItemDetailData);
+  console.log("listingItemDetailData", listingItemDetailData);
   const mediaUrls = useMemo(() => {
     return map(listingItemDetailData?.media, (m) => m.url);
   }, [listingItemDetailData]);
@@ -73,7 +76,7 @@ const ListingDetailPage = () => {
       }
     >
       <ScrollViewStyled>
-        <View style={{ width: '100%', height: 300 }}>
+        <View style={{ width: "100%", height: 300 }}>
           <ImageCarousel imageUrls={mediaUrls} />
         </View>
 
@@ -81,7 +84,7 @@ const ListingDetailPage = () => {
           <View
             style={[
               commonStyles.flexStyles.colStart,
-              { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+              { width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
             ]}
           >
             <TextStyled
@@ -90,7 +93,7 @@ const ListingDetailPage = () => {
               fontWeight="bold"
               textAlignment="left"
             >
-              {listingItemDetailData?.name || ''}
+              {listingItemDetailData?.name || ""}
             </TextStyled>
 
             <View
@@ -106,9 +109,9 @@ const ListingDetailPage = () => {
                   commonStyles.flexStyles.rowStart,
                   {
                     flex: 1,
-                    width: '100%',
+                    width: "100%",
                     gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                    alignItems: 'center',
+                    alignItems: "center",
                   },
                 ]}
               >
@@ -118,13 +121,13 @@ const ListingDetailPage = () => {
                 <TextStyled
                   fontSize="sm"
                   fontWeight="regular"
-                  customColor={'grayScale500'}
+                  customColor={"grayScale500"}
                   textAlignment="left"
                   numberOfLines={1}
                 >
                   {listingItemDetailData?.listingAddress &&
                     listingItemDetailData?.listingAddress?.countryName +
-                      ' ' +
+                      " " +
                       listingItemDetailData?.listingAddress?.cityName}
                 </TextStyled>
               </View>
@@ -135,7 +138,7 @@ const ListingDetailPage = () => {
                   {
                     width: APP_STYLE_VALUES.WH_SIZES.xl5,
                     gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                    alignItems: 'center',
+                    alignItems: "center",
                   },
                 ]}
               >
@@ -145,13 +148,13 @@ const ListingDetailPage = () => {
                 <TextStyled
                   fontSize="sm"
                   fontWeight="regular"
-                  customColor={'grayScale500'}
+                  customColor={"grayScale500"}
                   textAlignment="left"
                   numberOfLines={1}
                 >
                   {dateUtils.formatDateForMoment(
-                    listingItemDetailData?.created ?? '',
-                    'DATE_MOMENT_MONTH_NAME'
+                    listingItemDetailData?.created ?? "",
+                    "DATE_MOMENT_MONTH_NAME",
                   )}
                 </TextStyled>
               </View>
@@ -164,7 +167,7 @@ const ListingDetailPage = () => {
             style={[
               commonStyles.flexStyles.colStart,
               {
-                width: '100%',
+                width: "100%",
                 gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
               },
             ]}
@@ -182,7 +185,7 @@ const ListingDetailPage = () => {
             <View
               style={{
                 gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                width: '100%',
+                width: "100%",
               }}
             >
               <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
@@ -193,11 +196,11 @@ const ListingDetailPage = () => {
                 fontWeight="medium"
                 textAlignment="left"
               >
-                {listingItemDetailData?.description || ''}
+                {listingItemDetailData?.description || ""}
               </TextStyled>
             </View>
 
-            <View style={{ width: '100%' }}>
+            <View style={{ width: "100%" }}>
               <MapGeoLoaction
                 geoLocation={{
                   latitude: listingItemDetailData.listingAddress?.latitude,
@@ -206,7 +209,7 @@ const ListingDetailPage = () => {
               />
             </View>
 
-            <View style={{ width: '100%' }}>
+            <View style={{ width: "100%" }}>
               <CardSellerInfo
                 allowMessaging={listingItemDetailData.allowMessaging}
                 allowPhoneCalls={listingItemDetailData.allowPhoneCalls}
@@ -242,7 +245,7 @@ const ListingDetailPage = () => {
             <View
               style={[
                 commonStyles.flexStyles.rowCenterWrap,
-                { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+                { width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
               ]}
             >
               <View

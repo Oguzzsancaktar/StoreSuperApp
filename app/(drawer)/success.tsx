@@ -1,13 +1,15 @@
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import { InnerCommonContainer } from '@/components/containers';
-import { TextStyled } from '@/components/typography';
-import { View } from 'react-native';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import SvgAnimSuccessCheck from '@/components/svg/animation/SvgAnimSuccessCheck';
-import { ButtonStyled } from '@/components/button';
-import { Href, router, useLocalSearchParams } from 'expo-router';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { WelcomeBackgroundPattern } from '@/components/svg/background';
+import { View } from "react-native";
+
+import { Href, router, useLocalSearchParams } from "expo-router";
+
+import { ButtonStyled } from "@/components/button";
+import { InnerCommonContainer } from "@/components/containers";
+import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import SvgAnimSuccessCheck from "@/components/svg/animation/SvgAnimSuccessCheck";
+import { WelcomeBackgroundPattern } from "@/components/svg/background";
+import { TextStyled } from "@/components/typography";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
 
 interface IProps {}
 
@@ -26,7 +28,7 @@ const SuccessScreen: React.FC<IProps> = () => {
     extraButtonText,
     extraButtonHref,
   } = useLocalSearchParams();
-  const commonStyles = useCommonStyles();
+  const { commonStyles } = useAppStyles();
   return (
     <ScreenWrapperContainer>
       <View
@@ -72,7 +74,7 @@ const SuccessScreen: React.FC<IProps> = () => {
           </View>
 
           <View
-            style={{ width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 }}
+            style={{ width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 }}
           >
             {showExtraButton && (
               <ButtonStyled

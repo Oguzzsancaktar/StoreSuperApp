@@ -1,16 +1,17 @@
-import useCommonStyles from '@/hooks/useCommonStyles';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { Pressable, View } from 'react-native';
-import ImageIconCircle from '../images/ImageIconCircle';
-import { TextStyled } from '../typography';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconUser from '../svg/icon/IconUser';
-import IconChatSupport from '../svg/icon/IconChatSupport';
-import IUser from '@/interfaces/account/IUser';
-import moment from 'moment';
-import APP_FORMATS from '@/constants/APP_FORMATS';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import { Href, router } from 'expo-router';
+import { Pressable, View } from "react-native";
+
+import { Href, router } from "expo-router";
+import moment from "moment";
+
+import APP_FORMATS from "@/constants/APP_FORMATS";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import IUser from "@/interfaces/account/IUser";
+
+import ImageIconCircle from "../images/ImageIconCircle";
+import IconChatSupport from "../svg/icon/IconChatSupport";
+import IconUser from "../svg/icon/IconUser";
+import { TextStyled } from "../typography";
 
 interface IProps {
   user: IUser;
@@ -22,12 +23,14 @@ const CardSellerInfo: React.FC<IProps> = ({
   allowMessaging = false,
   user = {} as IUser,
 }) => {
-  const { theme } = useAppTheme();
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   const handleCardPress = () => {
-    router.push(('/(drawer)/' + user?.id) as Href);
+    router.push(("/(drawer)/" + user?.id) as Href);
   };
 
   return (
@@ -53,14 +56,14 @@ const CardSellerInfo: React.FC<IProps> = ({
             ]}
           >
             <ImageIconCircle
-              bgColor={'grayScale300'}
+              bgColor={"grayScale300"}
               icon={<IconChatSupport color={theme.grayScale900} />}
             />
           </View>
 
           <View
             style={
-              (commonStyles.flexStyles.colStart, { width: '100%', flex: 1 })
+              (commonStyles.flexStyles.colStart, { width: "100%", flex: 1 })
             }
           >
             <TextStyled
@@ -73,11 +76,11 @@ const CardSellerInfo: React.FC<IProps> = ({
             </TextStyled>
             <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
               {(allowPhoneCalls && user?.phoneNumber && user?.phoneNumber) ||
-                ''}
+                ""}
             </TextStyled>
 
             <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
-              {(allowMessaging && user?.email && user?.email) || ''}
+              {(allowMessaging && user?.email && user?.email) || ""}
             </TextStyled>
           </View>
         </View>
@@ -94,7 +97,7 @@ const CardSellerInfo: React.FC<IProps> = ({
       >
         <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
           <ImageIconCircle
-            bgColor={'grayScale300'}
+            bgColor={"grayScale300"}
             icon={<IconUser color={theme.grayScale900} />}
           />
         </View>
@@ -110,8 +113,8 @@ const CardSellerInfo: React.FC<IProps> = ({
           <View>
             <TextStyled fontSize="h4" fontWeight="bold">
               {user?.firstName && user?.lastName
-                ? user?.firstName + ' ' + user?.lastName
-                : ''}
+                ? user?.firstName + " " + user?.lastName
+                : ""}
             </TextStyled>
           </View>
           <TextStyled
@@ -119,7 +122,7 @@ const CardSellerInfo: React.FC<IProps> = ({
             fontWeight="medium"
             customColor="grayScale500"
           >
-            Member since,{' '}
+            Member since,{" "}
             {moment(user.created).format(APP_FORMATS.DATE_MOMENT_NAME)}
           </TextStyled>
         </View>

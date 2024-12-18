@@ -1,16 +1,21 @@
-import { useWindowDimensions, View } from 'react-native';
-import { BlurView } from '@react-native-community/blur';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import FormListingFilter from '../form/FormListingFilter';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import { useDrawerState } from '@/contexts/DrawerContext';
-import ImageIconCircle from '../images/ImageIconCircle';
-import IconClose from '../svg/icon/IconClose';
+import { View, useWindowDimensions } from "react-native";
+
+import { BlurView } from "@react-native-community/blur";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useDrawerState } from "@/contexts/DrawerContext";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import FormListingFilter from "../form/FormListingFilter";
+import ImageIconCircle from "../images/ImageIconCircle";
+import IconClose from "../svg/icon/IconClose";
 
 const DrawerGlobal = () => {
-  const commonStyles = useCommonStyles();
-  const { theme, isDark } = useAppTheme();
+  const {
+    commonStyles,
+
+    themeContext: { theme, isDark },
+  } = useAppStyles();
 
   const { isDrawerOpen, toggleDrawer } = useDrawerState();
   const { height } = useWindowDimensions();
@@ -24,20 +29,20 @@ const DrawerGlobal = () => {
         commonStyles.absolutePositionStyles.absoluteFill,
         {
           height: height - APP_STYLE_VALUES.WH_SIZES.xl2,
-          position: 'absolute',
+          position: "absolute",
           zIndex: 9,
         },
       ]}
     >
       <BlurView
         style={commonStyles.absolutePositionStyles.absoluteFill}
-        blurType={isDark ? 'ultraThinMaterialDark' : 'xlight'}
+        blurType={isDark ? "ultraThinMaterialDark" : "xlight"}
         blurAmount={2}
       />
 
       <View
         style={{
-          height: '100%',
+          height: "100%",
           flex: 1,
           backgroundColor: theme.appBackground,
           marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp8,
@@ -56,7 +61,7 @@ const DrawerGlobal = () => {
           />
         </View>
 
-        <View style={{ flex: 1, height: '100%' }}>
+        <View style={{ flex: 1, height: "100%" }}>
           <FormListingFilter />
         </View>
       </View>

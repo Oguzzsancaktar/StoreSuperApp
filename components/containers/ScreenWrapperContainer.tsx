@@ -1,9 +1,10 @@
-import { View } from 'react-native';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { ButtonGoBack } from '../button';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { TextStyled } from '../typography';
+import { View } from "react-native";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import { ButtonGoBack } from "../button";
+import { TextStyled } from "../typography";
 
 export interface IScreenWrapperContainerProps {
   children?: React.ReactNode;
@@ -25,8 +26,11 @@ const ScreenWrapperContainer: React.FC<IScreenWrapperContainerProps> = ({
   isTabBarActive,
   customGoBackEvent,
 }) => {
-  const themedStyles = useThemedStyles();
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
   return (
     <View style={[themedStyles.containerStyles.screenWrapperContainer]}>
       {(showGoBack || headerTitle || rightElement) && (

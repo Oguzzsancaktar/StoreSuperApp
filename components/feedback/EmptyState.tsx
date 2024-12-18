@@ -1,13 +1,15 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import { InnerCommonContainer } from '../containers';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { TextStyled } from '../typography';
-import SNoDataIllustration from '@/components/svg/illustrations/SNoDataIllustration';
+import { View } from "react-native";
+
+import SNoDataIllustration from "@/components/svg/illustrations/SNoDataIllustration";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import { InnerCommonContainer } from "../containers";
+import { TextStyled } from "../typography";
 
 const EmptyState = () => {
-  const commonStyles = useCommonStyles();
+  const { commonStyles } = useAppStyles();
+
   return (
     <InnerCommonContainer>
       <View
@@ -15,7 +17,7 @@ const EmptyState = () => {
           commonStyles.flexStyles.colCenter,
           {
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp6,
-            height: '100%',
+            height: "100%",
           },
         ]}
       >

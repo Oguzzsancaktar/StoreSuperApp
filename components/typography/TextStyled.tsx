@@ -1,26 +1,26 @@
-import { useMemo } from 'react';
-import { Text, StyleProp, TextStyle, View, ViewStyle } from 'react-native';
-import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
-import { IAppTheme, IShadowStylesheet } from '@/interfaces/theme';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import { startsWith } from 'lodash';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import useCommonStyles from '@/hooks/useCommonStyles';
+import { useMemo } from "react";
+import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
+
+import { startsWith } from "lodash";
+
+import APP_TYPOGRAPHY from "@/constants/APP_TYPOGRAPHY";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IAppTheme, IShadowStylesheet } from "@/interfaces/theme";
 
 interface IProps {
-  textAlignment?: 'left' | 'center' | 'right';
+  textAlignment?: "left" | "center" | "right";
   textShadow?: keyof IShadowStylesheet;
   fontSize: keyof typeof APP_TYPOGRAPHY.fontSizes;
   fontWeight: keyof typeof APP_TYPOGRAPHY.fontWeights;
   customColor?: keyof IAppTheme;
   children: string | string[] | number;
   numberOfLines?: number;
-  textTransform?: TextStyle['textTransform'];
+  textTransform?: TextStyle["textTransform"];
   customStyle?: StyleProp<ViewStyle>;
 }
 
 const TextStyled: React.FC<IProps> = ({
-  textTransform = 'none',
+  textTransform = "none",
   textAlignment,
   textShadow,
   children,
@@ -30,31 +30,33 @@ const TextStyled: React.FC<IProps> = ({
   numberOfLines,
   customStyle,
 }) => {
-  const { theme } = useAppTheme();
-  const { shadowStyles } = useThemedStyles();
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme, toggleTheme },
+  } = useAppStyles();
 
   const textStyles = useMemo(() => {
     const { fontSizes, fontWeights } = APP_TYPOGRAPHY;
 
     let tempStyles: StyleProp<TextStyle> = {
       textTransform: textTransform,
-      width: '100%',
+      width: "100%",
       lineHeight: fontSizes[fontSize] * 1.5,
-      textAlign: textAlignment || 'center',
+      textAlign: textAlignment || "center",
       fontSize: fontSizes[fontSize],
       fontFamily: fontWeights[fontWeight],
       color: customColor
         ? theme[customColor]
-        : startsWith(fontSize, 'h')
-        ? theme.grayScale900
-        : theme.grayScale600,
+        : startsWith(fontSize, "h")
+          ? theme.grayScale900
+          : theme.grayScale600,
     };
 
     if (textShadow) {
       tempStyles = {
         ...tempStyles,
-        ...shadowStyles[textShadow],
+        ...themedStyles.shadowStyles[textShadow],
       };
     }
 
@@ -77,7 +79,7 @@ const TextStyled: React.FC<IProps> = ({
       style={[
         commonStyles.flexStyles.colCenter,
         {
-          width: '100%',
+          width: "100%",
         },
         customStyle,
       ]}

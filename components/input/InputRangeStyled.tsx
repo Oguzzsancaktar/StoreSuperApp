@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import { IInputProps } from '@/interfaces/app';
-import { View, StyleSheet, LayoutChangeEvent } from 'react-native';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import { TextStyled } from '../typography';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import useThemedStyles from '@/hooks/useThemedStyles';
+import { useState } from "react";
+import { LayoutChangeEvent, StyleSheet, View } from "react-native";
 
-interface IProps extends Omit<IInputProps, 'required' | 'type'> {
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IInputProps } from "@/interfaces/app";
+
+import { TextStyled } from "../typography";
+
+interface IProps extends Omit<IInputProps, "required" | "type"> {
   value: number[];
   onChange(value: number[]): void;
 }
@@ -21,9 +22,11 @@ const InputRangeStyled: React.FC<IProps> = ({
   onChange,
   ...props
 }) => {
-  const { theme } = useAppTheme();
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   const [parentSizes, setParentSizes] = useState({ width: 0, height: 0 });
 
@@ -53,7 +56,7 @@ const InputRangeStyled: React.FC<IProps> = ({
           {
             flex: 1,
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-            alignItems: 'center',
+            alignItems: "center",
           },
         ]}
       >
@@ -79,7 +82,7 @@ const InputRangeStyled: React.FC<IProps> = ({
                       paddingVertical: 0,
                       paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp1,
                       height: APP_STYLE_VALUES.WH_SIZES.xs2,
-                      position: 'absolute',
+                      position: "absolute",
                       left:
                         oneMarkerLeftPosition -
                         (APP_STYLE_VALUES.WH_SIZES.xl3 -
@@ -105,7 +108,7 @@ const InputRangeStyled: React.FC<IProps> = ({
                       paddingVertical: 0,
                       paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp2,
                       height: APP_STYLE_VALUES.WH_SIZES.xs2,
-                      position: 'absolute',
+                      position: "absolute",
                       left:
                         twoMarkerLeftPosition -
                         (APP_STYLE_VALUES.WH_SIZES.xl3 -
@@ -144,9 +147,9 @@ const InputRangeStyled: React.FC<IProps> = ({
             borderRadius: 10,
           }}
           containerStyle={{
-            justifyContent: 'flex-end',
+            justifyContent: "flex-end",
             flex: 1,
-            width: '100%',
+            width: "100%",
             height: APP_STYLE_VALUES.WH_SIZES.md,
           }}
           trackStyle={{
@@ -161,9 +164,9 @@ const InputRangeStyled: React.FC<IProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f5f5f5",
   },
   label: {
     fontSize: 18,

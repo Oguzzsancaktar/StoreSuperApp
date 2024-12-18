@@ -1,22 +1,28 @@
-import { View } from 'react-native';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import ButtonBadge from '../button/ButtonBadge';
-import { useGetMostSearchedKeysQuery } from '@/services/listingFilterServices';
-import { useListingFilter } from '@/contexts/ListingFilterContext';
-import { map } from 'lodash';
+import { View } from "react-native";
+
+import { map } from "lodash";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useListingFilter } from "@/contexts/ListingFilterContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import { useGetMostSearchedKeysQuery } from "@/services/listingFilterServices";
+
+import ButtonBadge from "../button/ButtonBadge";
+import { TextStyled } from "../typography";
 
 const CardMostSearchedWords = () => {
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
 
+    themeContext,
+  } = useAppStyles();
   const { filterValues, setFilterValues } = useListingFilter();
 
   const { data: mostSearchedKeysData } = useGetMostSearchedKeysQuery(
     {
-      categoryId: filterValues?.category || '',
+      categoryId: filterValues?.category || "",
     },
-    { skip: !filterValues?.category }
+    { skip: !filterValues?.category },
   );
 
   const handleKeyClick = (key: string) => {

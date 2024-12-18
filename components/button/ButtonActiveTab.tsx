@@ -1,12 +1,13 @@
-import { Href, useRouter } from 'expo-router';
-import { TouchableOpacity, useWindowDimensions, View } from 'react-native';
-import { TextStyled } from '../typography';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import APP_ROUTES from '@/constants/APP_ROUTES';
-import { COMMON_COLOURS } from '@/constants/APP_THEMES';
-import { useMemo } from 'react';
+import { useMemo } from "react";
+import { TouchableOpacity, View, useWindowDimensions } from "react-native";
+
+import { Href, useRouter } from "expo-router";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { COMMON_COLOURS } from "@/constants/APP_THEMES";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import { TextStyled } from "../typography";
 
 interface IProps {
   icon: any;
@@ -15,14 +16,16 @@ interface IProps {
   to: Href<string | object>;
 }
 const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
-  const { theme, setUseSafeArea } = useAppTheme();
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
+    themeContext: { theme, toggleTheme },
+  } = useAppStyles();
   const { height, width } = useWindowDimensions();
 
   const router = useRouter();
 
   const isPrimaryButton = useMemo(() => {
-    return to === '/addPost';
+    return to === "/addPost";
   }, [to]);
   const handlePress = () => {
     // if (to === '/profile') {
@@ -39,8 +42,8 @@ const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
       style={[
         commonStyles.flexStyles.colCenter,
         {
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
           backgroundColor: isPrimaryButton
             ? theme.primary
             : COMMON_COLOURS.transparent,
@@ -52,7 +55,7 @@ const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
                 APP_STYLE_VALUES.SPACE_SIZES.sp2 * 2) /
               4,
           marginTop: isPrimaryButton ? -APP_STYLE_VALUES.SPACE_SIZES.sp2 : 0,
-          height: isPrimaryButton ? APP_STYLE_VALUES.WH_SIZES.lg : '100%',
+          height: isPrimaryButton ? APP_STYLE_VALUES.WH_SIZES.lg : "100%",
           padding: APP_STYLE_VALUES.SPACE_SIZES.sp1,
           borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
         },
@@ -72,16 +75,16 @@ const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
             isActive && !isPrimaryButton
               ? theme.primary
               : isPrimaryButton
-              ? theme.white
-              : theme.grayScale900,
+                ? theme.white
+                : theme.grayScale900,
         })}
       </View>
 
-      {text !== '' && (
+      {text !== "" && (
         <TextStyled
           fontSize="sm"
           fontWeight="medium"
-          customColor={isActive ? 'primary' : 'grayScale900'}
+          customColor={isActive ? "primary" : "grayScale900"}
         >
           {text}
         </TextStyled>

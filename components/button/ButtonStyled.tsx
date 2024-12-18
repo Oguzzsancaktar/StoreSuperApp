@@ -1,13 +1,13 @@
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { Pressable, View } from 'react-native';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { IButtonStylesheet } from '@/interfaces/theme';
-import React, { ReactNode } from 'react';
-import { GradientBackground } from '../svg/background';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+import React, { ReactNode } from "react";
+import { Pressable, View } from "react-native";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IButtonStylesheet } from "@/interfaces/theme";
+
+import SvgAnimLoadingSpinner from "../svg/animation/SvgAnimLoadingSpinner";
+import { GradientBackground } from "../svg/background";
+import { TextStyled } from "../typography";
 
 interface IProps {
   disabled?: boolean;
@@ -28,16 +28,18 @@ const ButtonStyled: React.FC<IProps> = ({
   children,
   isLoading,
 }) => {
-  const { theme } = useAppTheme();
-  const themedStyles = useThemedStyles();
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   return (
     <View
       style={{
-        width: '100%',
+        width: "100%",
         borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
-        overflow: 'hidden',
+        overflow: "hidden",
       }}
     >
       {gradientBg && <GradientBackground />}
@@ -48,13 +50,13 @@ const ButtonStyled: React.FC<IProps> = ({
         style={({ pressed }) => [
           themedStyles.buttonStyles[
             disabled || isLoading
-              ? ((variant + 'Disabled') as keyof IButtonStylesheet)
+              ? ((variant + "Disabled") as keyof IButtonStylesheet)
               : pressed
-              ? ((variant + 'Pressed') as keyof IButtonStylesheet)
-              : variant
+                ? ((variant + "Pressed") as keyof IButtonStylesheet)
+                : variant
           ],
           commonStyles.flexStyles.rowCenterWrap,
-          { alignContent: 'center' },
+          { alignContent: "center" },
         ]}
       >
         <View style={[commonStyles.flexStyles.flexCenter, { flex: 1 }]}>
@@ -62,7 +64,7 @@ const ButtonStyled: React.FC<IProps> = ({
             <TextStyled
               // @todo handle for other scenarios where the color is not white
               customColor={
-                variant === 'primarySolid' ? 'white' : 'grayScale900'
+                variant === "primarySolid" ? "white" : "grayScale900"
               }
               textAlignment="center"
               textShadow="textShadowSm"
@@ -81,7 +83,7 @@ const ButtonStyled: React.FC<IProps> = ({
                 commonStyles.absolutePositionStyles.absoluteFill,
                 commonStyles.flexStyles.flexCenter,
                 {
-                  left: 'auto',
+                  left: "auto",
                 },
               ]}
             >

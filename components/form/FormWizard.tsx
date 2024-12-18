@@ -1,14 +1,17 @@
-import { ReactNode, useMemo, useState } from 'react';
-import FormStyled from './FormStyled';
-import { IInputProps } from '@/interfaces/app';
-import { View } from 'react-native';
-import { TextStyled } from '../typography';
-import { InnerCommonContainer } from '../containers';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { router } from 'expo-router';
-import ScreenWrapperContainer from '../containers/ScreenWrapperContainer';
-import WizardStepIndicator from '../wizard/WizardStepIndicator';
+import { ReactNode, useMemo, useState } from "react";
+import { View } from "react-native";
+
+import { router } from "expo-router";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IInputProps } from "@/interfaces/app";
+
+import { InnerCommonContainer } from "../containers";
+import ScreenWrapperContainer from "../containers/ScreenWrapperContainer";
+import { TextStyled } from "../typography";
+import WizardStepIndicator from "../wizard/WizardStepIndicator";
+import FormStyled from "./FormStyled";
 
 export interface IFormWizardStepProps {
   id: string;
@@ -32,7 +35,7 @@ export interface IFormWizardProps {
 }
 
 const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
-  submitKey = 'Submit',
+  submitKey = "Submit",
   isNextDisabled = false,
   steps,
   defaultValues,
@@ -43,15 +46,16 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   showReset,
   values,
 }) => {
-  const commonStyles = useCommonStyles();
+  const { commonStyles } = useAppStyles();
+
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const activeStep = useMemo(
     () => steps[activeStepIndex],
-    [activeStepIndex, steps]
+    [activeStepIndex, steps],
   );
   const isLastStep = useMemo(
     () => activeStepIndex === steps.length - 1,
-    [activeStepIndex, steps.length]
+    [activeStepIndex, steps.length],
   );
 
   const mergedDefaultValues = useMemo(() => {
@@ -111,8 +115,8 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
             commonStyles.flexStyles.colBetween,
             {
               flex: 1,
-              height: '100%',
-              width: '100%',
+              height: "100%",
+              width: "100%",
             },
           ]}
         >

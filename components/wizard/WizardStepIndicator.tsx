@@ -1,7 +1,9 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { TextStyled } from '../typography';
+import React from "react";
+import { View } from "react-native";
+
+import useAppStyles from "@/hooks/useAppStyles";
+
+import { TextStyled } from "../typography";
 
 interface IProps {
   activeIndex: number;
@@ -9,7 +11,7 @@ interface IProps {
 }
 
 const WizardStepIndicator: React.FC<IProps> = ({ activeIndex, stepSize }) => {
-  const commonStyles = useCommonStyles();
+  const { commonStyles } = useAppStyles();
   return (
     <View style={[commonStyles.flexStyles.rowStart]}>
       <View>
@@ -27,7 +29,7 @@ const WizardStepIndicator: React.FC<IProps> = ({ activeIndex, stepSize }) => {
           fontWeight="medium"
           customColor="grayScale400"
         >
-          {'/' + stepSize}
+          {"/" + stepSize}
         </TextStyled>
       </View>
     </View>

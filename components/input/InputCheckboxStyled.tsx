@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { View, Pressable, StyleSheet } from 'react-native';
+import React from "react";
+import { Pressable, View } from "react-native";
 import Animated, {
+  useAnimatedStyle,
   useSharedValue,
   withSpring,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import IconCheck from '../svg/icon/IconCheck';
-import { useAppTheme } from '@/contexts/ThemeContext';
+} from "react-native-reanimated";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import IconCheck from "../svg/icon/IconCheck";
+import { TextStyled } from "../typography";
 
 interface IProps {
   label?: string;
@@ -23,8 +24,11 @@ const InputCheckboxStyled: React.FC<IProps> = ({
   isChecked,
   onToggle,
 }) => {
-  const { theme } = useAppTheme();
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
+    themeContext: { theme },
+  } = useAppStyles();
+
   const animation = useSharedValue(isChecked ? 1 : 0);
 
   const handleToggle = () => {
@@ -60,7 +64,7 @@ const InputCheckboxStyled: React.FC<IProps> = ({
         style={[
           commonStyles.flexStyles.rowStart,
           {
-            alignItems: 'center',
+            alignItems: "center",
             marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
           },
         ]}

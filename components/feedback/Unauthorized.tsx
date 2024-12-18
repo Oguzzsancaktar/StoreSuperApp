@@ -1,21 +1,23 @@
-import React from 'react';
+import React from "react";
+import { View } from "react-native";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import ButtonLogout from "../button/ButtonLogout";
+import { InnerCommonContainer } from "../containers";
 import ScreenWrapperContainer, {
   IScreenWrapperContainerProps,
-} from '../containers/ScreenWrapperContainer';
-import { InnerCommonContainer } from '../containers';
-import { TextStyled } from '../typography';
-import ButtonLogout from '../button/ButtonLogout';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { View } from 'react-native';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import SUnautorizedIllustration from '../svg/illustrations/SUnautorizedIllustration';
+} from "../containers/ScreenWrapperContainer";
+import SUnautorizedIllustration from "../svg/illustrations/SUnautorizedIllustration";
+import { TextStyled } from "../typography";
 
 interface IProps extends IScreenWrapperContainerProps {}
 const Unauthorized: React.FC<IProps> = ({
   isTabBarActive,
   showGoBack = true,
 }) => {
-  const commonStyles = useCommonStyles();
+  const { commonStyles } = useAppStyles();
   return (
     <ScreenWrapperContainer
       showGoBack={showGoBack}
@@ -27,7 +29,7 @@ const Unauthorized: React.FC<IProps> = ({
             commonStyles.flexStyles.colCenter,
             {
               gap: APP_STYLE_VALUES.SPACE_SIZES.sp6,
-              height: '100%',
+              height: "100%",
             },
           ]}
         >

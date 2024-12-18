@@ -1,17 +1,17 @@
-import React from 'react';
-import { Dropdown } from 'react-native-element-dropdown';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import ISelectOption from '@/interfaces/theme/ISelectOption';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
-import { View } from 'react-native';
-import { TextStyled } from '../typography';
-import { IButtonStylesheet } from '@/interfaces/theme';
-import ImageIconCircle from '../images/ImageIconCircle';
-import IconClose from '../svg/icon/IconClose';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { DropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model';
+import React from "react";
+import { View } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+import { DropdownProps } from "react-native-element-dropdown/lib/typescript/components/Dropdown/model";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import APP_TYPOGRAPHY from "@/constants/APP_TYPOGRAPHY";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IButtonStylesheet } from "@/interfaces/theme";
+import ISelectOption from "@/interfaces/theme/ISelectOption";
+
+import ImageIconCircle from "../images/ImageIconCircle";
+import IconClose from "../svg/icon/IconClose";
+import { TextStyled } from "../typography";
 
 interface IProps {
   label?: string;
@@ -22,8 +22,8 @@ interface IProps {
   placeholder?: string;
   searchable?: boolean;
   handleSelect(selected: ISelectOption | null): void;
-  renderRightIcon?: DropdownProps<ISelectOption>['renderRightIcon'];
-  containerStyle?: DropdownProps<ISelectOption>['containerStyle'];
+  renderRightIcon?: DropdownProps<ISelectOption>["renderRightIcon"];
+  containerStyle?: DropdownProps<ISelectOption>["containerStyle"];
 }
 
 const InputSelectStyled: React.FC<IProps> = ({
@@ -38,9 +38,11 @@ const InputSelectStyled: React.FC<IProps> = ({
   placeholder,
   containerStyle,
 }) => {
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
-  const { theme } = useAppTheme();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   const handleResetClick = () => {
     handleSelect(null);
@@ -83,13 +85,13 @@ const InputSelectStyled: React.FC<IProps> = ({
 
             {
               flex: 1,
-              width: '100%',
+              width: "100%",
               paddingHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp3,
             },
           ]}
           containerStyle={[
             {
-              overflow: 'hidden',
+              overflow: "hidden",
               borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
               padding: 0,
               paddingVertical: 0,

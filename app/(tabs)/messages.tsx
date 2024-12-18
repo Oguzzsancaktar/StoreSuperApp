@@ -1,31 +1,30 @@
-import { InnerCommonContainer } from '@/components/containers';
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import EmptyState from '@/components/feedback/EmptyState';
-import Preloader from '@/components/feedback/Preloader';
-import Unauthorized from '@/components/feedback/Unauthorized';
-import ImageIconCircle from '@/components/images/ImageIconCircle';
-import ImageStyled from '@/components/images/ImageStyled';
-import FlatListStyled from '@/components/override/FlatListStyled';
-import IconBell from '@/components/svg/icon/IconBell';
-import IconTrash from '@/components/svg/icon/IconTrash';
-import { TextStyled } from '@/components/typography';
-import APP_ROUTES from '@/constants/APP_ROUTES';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useSession } from '@/contexts/AuthContext';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import IChatConversation from '@/interfaces/chat/IChatConversation';
-import { useGetChatListQuery } from '@/services/chatServices';
-import { Redirect, router } from 'expo-router';
-import { Pressable, View } from 'react-native';
+import { Pressable, View } from "react-native";
+
+import { router } from "expo-router";
+
+import { InnerCommonContainer } from "@/components/containers";
+import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import Preloader from "@/components/feedback/Preloader";
+import Unauthorized from "@/components/feedback/Unauthorized";
+import ImageIconCircle from "@/components/images/ImageIconCircle";
+import ImageStyled from "@/components/images/ImageStyled";
+import FlatListStyled from "@/components/override/FlatListStyled";
+import IconBell from "@/components/svg/icon/IconBell";
+import IconTrash from "@/components/svg/icon/IconTrash";
+import { TextStyled } from "@/components/typography";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import IChatConversation from "@/interfaces/chat/IChatConversation";
+import { useGetChatListQuery } from "@/services/chatServices";
 
 const MessagesScreen = () => {
-  const { session } = useSession();
-  const { theme } = useAppTheme();
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
-
+  const { authToken } = useAppAuthSession();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme, toggleTheme },
+  } = useAppStyles();
   const { data: chatListData, isLoading: chatListIsLoading } =
     useGetChatListQuery();
 
@@ -33,7 +32,7 @@ const MessagesScreen = () => {
     const handleClick = () => {
       router.push({
         // @todo fix find best practice for constant all routes
-        pathname: ('/(private)/chat/' + item.chatRegistryId) as any,
+        pathname: ("/(private)/chat/" + item.chatRegistryId) as any,
         params: { listingId: item.listingId },
       });
     };
@@ -55,7 +54,7 @@ const MessagesScreen = () => {
             borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.full,
             width: APP_STYLE_VALUES.WH_SIZES.lg,
             height: APP_STYLE_VALUES.WH_SIZES.lg,
-            overflow: 'hidden',
+            overflow: "hidden",
           }}
         >
           <ImageStyled url={item.coverImage} />
@@ -87,7 +86,7 @@ const MessagesScreen = () => {
               </TextStyled>
             </View>
           </View>
-          <View style={[commonStyles.flexStyles.rowBetween, { width: '100%' }]}>
+          <View style={[commonStyles.flexStyles.rowBetween, { width: "100%" }]}>
             <View>
               <TextStyled
                 fontSize="md"
@@ -109,7 +108,7 @@ const MessagesScreen = () => {
     );
   };
 
-  if (!session) {
+  if (!authToken) {
     return <Unauthorized showGoBack={false} isTabBarActive={true} />;
   }
 

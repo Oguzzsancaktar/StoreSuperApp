@@ -1,12 +1,12 @@
-import CardListingCategories from '@/components/cards/listing/CardListingCategories';
-import CardListingItems from '@/components/cards/listing/CardListingItems';
-import { InnerCommonContainer } from '@/components/containers';
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useListingFilter } from '@/contexts/ListingFilterContext';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { useMemo } from 'react';
-import { View } from 'react-native';
+import { useMemo } from "react";
+import { View } from "react-native";
+
+import CardListingCategories from "@/components/cards/listing/CardListingCategories";
+import CardListingItems from "@/components/cards/listing/CardListingItems";
+import { InnerCommonContainer } from "@/components/containers";
+import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useListingFilter } from "@/contexts/ListingFilterContext";
 
 const PostScreenActiveComponent = () => {
   const { filterValues, setFilterValues } = useListingFilter();
@@ -14,7 +14,7 @@ const PostScreenActiveComponent = () => {
   const activeTab = useMemo(() => {
     let tab = (
       <CardListingCategories
-        selectedCategory={filterValues?.category || ''}
+        selectedCategory={filterValues?.category || ""}
         handleSelectCategory={(categoryId) =>
           setFilterValues({ ...filterValues, category: categoryId })
         }
@@ -25,7 +25,7 @@ const PostScreenActiveComponent = () => {
     } else {
       tab = (
         <CardListingCategories
-          selectedCategory={filterValues?.category || ''}
+          selectedCategory={filterValues?.category || ""}
           handleSelectCategory={(categoryId) =>
             setFilterValues({ ...filterValues, category: categoryId })
           }
@@ -46,7 +46,6 @@ const PostScreenActiveComponent = () => {
 };
 
 const PostListScreen = () => {
-  const commonStyles = useCommonStyles();
   return (
     <ScreenWrapperContainer>
       <PostScreenActiveComponent />

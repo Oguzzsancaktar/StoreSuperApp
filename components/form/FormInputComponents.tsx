@@ -1,20 +1,22 @@
-import React, { useMemo } from 'react';
-import InputImageUploader from '../input/InputImageUploader';
-import InputSelectStyled from '../input/InputSelectStyled';
-import InputSelectCountry from '../input/InputSelectCountry';
-import InputSelectCity from '../input/InputSelectCity';
-import { IInputProps } from '@/interfaces/app';
-import InputCheckboxStyled from '../input/InputCheckboxStyled';
-import { InputStyled } from '../input';
-import { UseFormReturn } from 'react-hook-form';
-import InputCheckboxMultipleStyled from '../input/InputCheckboxMultipleStyled';
-import InputSelectDistrict from '../input/InputSelectDistrict';
-import InputSwitchStyled from '../input/InputSwitchStyled';
-import InputMinMaxStyled from '../input/InputMinMaxStyled';
-import InputRangeStyled from '../input/InputRangeStyled';
-import InputDatePickerStyled from '../input/InputDatePickerStyled';
+import React, { useMemo } from "react";
+import { UseFormReturn } from "react-hook-form";
 
-interface IProps extends Omit<IInputProps, 'required'> {
+import { IInputProps } from "@/interfaces/app";
+
+import { InputStyled } from "../input";
+import InputCheckboxMultipleStyled from "../input/InputCheckboxMultipleStyled";
+import InputCheckboxStyled from "../input/InputCheckboxStyled";
+import InputDatePickerStyled from "../input/InputDatePickerStyled";
+import InputImageUploader from "../input/InputImageUploader";
+import InputMinMaxStyled from "../input/InputMinMaxStyled";
+import InputRangeStyled from "../input/InputRangeStyled";
+import InputSelectCity from "../input/InputSelectCity";
+import InputSelectCountry from "../input/InputSelectCountry";
+import InputSelectDistrict from "../input/InputSelectDistrict";
+import InputSelectStyled from "../input/InputSelectStyled";
+import InputSwitchStyled from "../input/InputSwitchStyled";
+
+interface IProps extends Omit<IInputProps, "required"> {
   onChange(...event: any[]): void;
   onBlur(): void;
   value: any;
@@ -36,8 +38,8 @@ const FormInputComponents: React.FC<IProps> = ({
 }) => {
   const { watch } = formInstance;
 
-  const selectedCountry = watch('country');
-  const selectedCity = watch('city');
+  const selectedCountry = watch("country");
+  const selectedCity = watch("city");
 
   const InputComponent = useMemo(() => {
     let component = (
@@ -54,7 +56,7 @@ const FormInputComponents: React.FC<IProps> = ({
     );
 
     switch (type) {
-      case 'date':
+      case "date":
         component = (
           <InputDatePickerStyled
             onChange={onChange}
@@ -67,7 +69,7 @@ const FormInputComponents: React.FC<IProps> = ({
         );
         break;
 
-      case 'range':
+      case "range":
         component = (
           <InputRangeStyled
             label={label}
@@ -78,7 +80,7 @@ const FormInputComponents: React.FC<IProps> = ({
         );
         break;
 
-      case 'input-min-max':
+      case "input-min-max":
         component = (
           <InputMinMaxStyled
             label={label}
@@ -89,7 +91,7 @@ const FormInputComponents: React.FC<IProps> = ({
         );
         break;
 
-      case 'checklist':
+      case "checklist":
         component = (
           <InputCheckboxMultipleStyled
             value={value}
@@ -99,7 +101,7 @@ const FormInputComponents: React.FC<IProps> = ({
           />
         );
         break;
-      case 'upload':
+      case "upload":
         component = (
           <InputImageUploader
             label={label}
@@ -109,7 +111,7 @@ const FormInputComponents: React.FC<IProps> = ({
           />
         );
         break;
-      case 'checkbox':
+      case "checkbox":
         component = (
           <InputCheckboxStyled
             label={label}
@@ -119,7 +121,7 @@ const FormInputComponents: React.FC<IProps> = ({
           />
         );
         break;
-      case 'switch':
+      case "switch":
         component = (
           <InputSwitchStyled
             label={label}
@@ -128,8 +130,8 @@ const FormInputComponents: React.FC<IProps> = ({
           />
         );
         break;
-      case 'select':
-      case 'select2':
+      case "select":
+      case "select2":
         component = (() => {
           let selectComponent = (
             <InputSelectStyled
@@ -138,19 +140,19 @@ const FormInputComponents: React.FC<IProps> = ({
               label={label}
               handleSelect={onChange}
               options={options}
-              variant="grayOutlined"
+              variant="gray200Outlined"
               value={value}
             />
           );
 
           switch (name) {
-            case 'country':
+            case "country":
               selectComponent = (
                 <InputSelectCountry handleSelect={onChange} value={value} />
               );
               break;
 
-            case 'city':
+            case "city":
               selectComponent = (
                 <InputSelectCity
                   countryId={selectedCountry?.value}
@@ -160,7 +162,7 @@ const FormInputComponents: React.FC<IProps> = ({
               );
               break;
 
-            case 'district':
+            case "district":
               selectComponent = (
                 <InputSelectDistrict
                   cityId={selectedCity?.value}
@@ -178,7 +180,7 @@ const FormInputComponents: React.FC<IProps> = ({
                   label={label}
                   handleSelect={onChange}
                   options={options}
-                  variant="grayOutlined"
+                  variant="gray200Outlined"
                   value={value}
                 />
               );

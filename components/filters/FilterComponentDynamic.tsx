@@ -1,19 +1,17 @@
-import { View, Text } from 'react-native';
-import React, { useMemo } from 'react';
-import IListingCategoryOption from '@/interfaces/listing/IListingCategoryOption';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IListingFilterOption from '@/interfaces/listing/IListingFilterOption';
+import React, { useMemo } from "react";
+import { View } from "react-native";
+
+import useAppStyles from "@/hooks/useAppStyles";
+import IListingFilterOption from "@/interfaces/listing/IListingFilterOption";
+
+import { TextStyled } from "../typography";
 
 interface IProps {
   option: IListingFilterOption;
 }
 
 const FilterComponentDynamic: React.FC<IProps> = ({ option }) => {
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
+  const { themedStyles } = useAppStyles();
 
   const DynamicComponent = useMemo(() => {
     let component = (

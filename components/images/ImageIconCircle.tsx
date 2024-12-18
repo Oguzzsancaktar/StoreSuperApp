@@ -1,17 +1,12 @@
-import {
-  View,
-  Text,
-  Pressable,
-  TouchableOpacity,
-  Animated,
-  DimensionValue,
-} from 'react-native';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { IAppTheme } from '@/interfaces/theme';
-import { BlurView } from '@react-native-community/blur';
-import { GradientBackground } from '../svg/background';
+import { DimensionValue, TouchableOpacity } from "react-native";
+
+import { BlurView } from "@react-native-community/blur";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IAppTheme } from "@/interfaces/theme";
+
+import { GradientBackground } from "../svg/background";
 
 interface IProps {
   icon: JSX.Element;
@@ -31,8 +26,10 @@ const ImageIconCircle: React.FC<IProps> = ({
   gradientBg,
   onPress,
 }) => {
-  const commonStyles = useCommonStyles();
-  const { theme, isDark } = useAppTheme();
+  const {
+    commonStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   return (
     <TouchableOpacity
@@ -45,7 +42,7 @@ const ImageIconCircle: React.FC<IProps> = ({
           width: size,
           height: size,
           borderRadius: radius,
-          overflow: 'hidden',
+          overflow: "hidden",
         },
         borderColor && {
           borderWidth: 1,
@@ -59,9 +56,9 @@ const ImageIconCircle: React.FC<IProps> = ({
         <BlurView
           style={[
             commonStyles.flexStyles.colCenter,
-            { flex: 1, width: '100%', height: '100%' },
+            { flex: 1, width: "100%", height: "100%" },
           ]}
-          blurType={'dark'}
+          blurType={"dark"}
           blurAmount={2}
           reducedTransparencyFallbackColor="white"
         >

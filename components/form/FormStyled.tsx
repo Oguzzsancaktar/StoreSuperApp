@@ -1,15 +1,18 @@
-import { Fragment, useEffect, useMemo } from 'react';
-import { FormProvider, useForm, Controller, useWatch } from 'react-hook-form';
-import { ButtonStyled } from '../button';
-import { KeyboardAvoidingView, Platform, View } from 'react-native';
-import { map } from 'lodash';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { IInputProps } from '@/interfaces/app';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import FormInputComponents from './FormInputComponents';
-import validationUtils from '@/utils/validationUtils';
-import ScrollViewStyled from '../override/ScrollViewStyled';
+import { Fragment, useEffect, useMemo } from "react";
+import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
+import { KeyboardAvoidingView, Platform, View } from "react-native";
+
+import { map } from "lodash";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IInputProps } from "@/interfaces/app";
+import validationUtils from "@/utils/validationUtils";
+
+import { ButtonStyled } from "../button";
+import ScrollViewStyled from "../override/ScrollViewStyled";
+import { TextStyled } from "../typography";
+import FormInputComponents from "./FormInputComponents";
 
 export interface IProps {
   submitKey: string;
@@ -30,7 +33,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   fields,
   defaultValues,
   onSubmit,
-  isLastStep = 'true',
+  isLastStep = "true",
   isCurrentCustom,
   isNextDisabled,
   isLoading,
@@ -38,7 +41,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   setValues,
   values,
 }) => {
-  const commonStyles = useCommonStyles();
+  const { commonStyles } = useAppStyles();
 
   const formInstance = useForm({
     defaultValues: useMemo(() => defaultValues, [defaultValues]),
@@ -51,7 +54,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
     reset,
   } = formInstance;
 
-  console.log('values', values);
+  console.log("values", values);
 
   const watchedValues = useWatch({ control });
   useEffect(() => {
@@ -66,16 +69,16 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={
-        Platform.OS === 'ios' ? APP_STYLE_VALUES.SPACE_SIZES.sp30 : 0
+        Platform.OS === "ios" ? APP_STYLE_VALUES.SPACE_SIZES.sp30 : 0
       }
-      style={{ width: '100%', flex: isCurrentCustom ? undefined : 1 }}
+      style={{ width: "100%", flex: isCurrentCustom ? undefined : 1 }}
     >
       <FormProvider {...formInstance}>
         <View
           style={{
-            width: '100%',
+            width: "100%",
             flex: isCurrentCustom ? undefined : 1,
           }}
         >
@@ -112,7 +115,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                       }}
                       render={({ field: { onChange, onBlur, value } }) => {
                         return (
-                          <View style={[{ width: '100%' }, customStyle || {}]}>
+                          <View style={[{ width: "100%" }, customStyle || {}]}>
                             <FormInputComponents
                               showReset={showReset}
                               searchable={searchable}
@@ -145,13 +148,13 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                           fontSize="md"
                           fontWeight="regular"
                         >
-                          {label || ''} is invalid.
+                          {label || ""} is invalid.
                         </TextStyled>
                       </View>
                     )}
                   </Fragment>
                 );
-              }
+              },
             )}
           </ScrollViewStyled>
 
@@ -173,7 +176,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                   disabled={isNextDisabled}
                   onPress={() => onSubmit({})}
                   variant="primaryOutlined"
-                  text={'Reset'}
+                  text={"Reset"}
                 />
               </View>
             )}
@@ -183,7 +186,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                 disabled={isNextDisabled}
                 onPress={handleSubmit(onSubmit)}
                 variant="primarySolid"
-                text={isLastStep ? submitKey : 'Next'}
+                text={isLastStep ? submitKey : "Next"}
               />
             </View>
           </View>

@@ -1,30 +1,31 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import IListingPost from '@/interfaces/listing/IListingPost';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { TextStyled } from '@/components/typography';
-import { map } from 'lodash';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import ImageIconCircle from '@/components/images/ImageIconCircle';
-import IconFAQ from '@/components/svg/icon/IconFAQ';
-import IconTechnical from '@/components/svg/icon/IconTechnical';
-import { useAppTheme } from '@/contexts/ThemeContext';
+import React from "react";
+import { View } from "react-native";
+
+import { map } from "lodash";
+
+import ImageIconCircle from "@/components/images/ImageIconCircle";
+import IconTechnical from "@/components/svg/icon/IconTechnical";
+import { TextStyled } from "@/components/typography";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import IListingPost from "@/interfaces/listing/IListingPost";
 
 interface IProps {
-  options: IListingPost['options'];
+  options: IListingPost["options"];
 }
 const CardListingDetailOptions: React.FC<IProps> = ({ options }) => {
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
-  const { theme } = useAppTheme();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
   return (
     <View
       style={[
         themedStyles.cardStyles.default,
         {
           gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-          width: '100%',
+          width: "100%",
         },
       ]}
     >
@@ -38,7 +39,7 @@ const CardListingDetailOptions: React.FC<IProps> = ({ options }) => {
       >
         <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
           <ImageIconCircle
-            bgColor={'grayScale300'}
+            bgColor={"grayScale300"}
             icon={<IconTechnical color={theme.grayScale900} />}
           />
         </View>
@@ -62,7 +63,7 @@ const CardListingDetailOptions: React.FC<IProps> = ({ options }) => {
             ]}
             key={index}
           >
-            <View style={{ flex: 1, width: '100%' }}>
+            <View style={{ flex: 1, width: "100%" }}>
               <TextStyled
                 fontSize="h6"
                 textAlignment="left"
@@ -79,7 +80,7 @@ const CardListingDetailOptions: React.FC<IProps> = ({ options }) => {
                     style={[
                       commonStyles.flexStyles.flexCenter,
                       themedStyles.buttonStyles.badgeOutlined,
-                      { width: '100%' },
+                      { width: "100%" },
                     ]}
                     key={j}
                   >

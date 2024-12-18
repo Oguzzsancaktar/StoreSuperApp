@@ -1,7 +1,8 @@
-import { View, Text, ScrollView, StyleProp, ViewStyle } from 'react-native';
-import React from 'react';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import useCommonStyles from '@/hooks/useCommonStyles';
+import React from "react";
+import { ScrollView, StyleProp, Text, View, ViewStyle } from "react-native";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
 
 interface IProps {
   children: React.ReactNode;
@@ -11,7 +12,7 @@ const ScrollViewStyled: React.FC<IProps> = ({
   children,
   contentContainerStyle,
 }) => {
-  const commonStyles = useCommonStyles();
+  const { commonStyles } = useAppStyles();
   return (
     <ScrollView
       nestedScrollEnabled
@@ -24,7 +25,7 @@ const ScrollViewStyled: React.FC<IProps> = ({
         style={[
           commonStyles.flexStyles.colStart,
           {
-            width: '100%',
+            width: "100%",
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
           },
         ]}

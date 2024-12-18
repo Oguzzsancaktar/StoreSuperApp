@@ -1,37 +1,40 @@
-import { Animated, View } from 'react-native';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import { TextStyled } from '../typography';
+import { useMemo } from "react";
+import { Animated, View } from "react-native";
+
+import { router } from "expo-router";
+
+import APP_ROUTES from "@/constants/APP_ROUTES";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import IUser from "@/interfaces/account/IUser";
 import {
   useAddCurrentUserImageMutation,
   useGetCurrentUserInformationQuery,
   useGetCurrentUserListingsQuery,
   useGetUserProfileQuery,
-} from '@/services/accountServices';
-import ImageIconCircle from '../images/ImageIconCircle';
-import dateUtils from '@/utils/dateUtils';
-import { router } from 'expo-router';
-import APP_ROUTES from '@/constants/APP_ROUTES';
-import { ButtonStyled } from '../button';
-import InputImageUploader from '../input/InputImageUploader';
-import SvgAnimLoadingSpinner from '../svg/animation/SvgAnimLoadingSpinner';
-import ImageUserProfile from '../images/ImageUserProfile';
-import { useSession } from '@/contexts/AuthContext';
-import IUser from '@/interfaces/account/IUser';
-import { useMemo } from 'react';
-import Preloader from '../feedback/Preloader';
+} from "@/services/accountServices";
+import dateUtils from "@/utils/dateUtils";
+
+import { ButtonStyled } from "../button";
+import Preloader from "../feedback/Preloader";
+import ImageIconCircle from "../images/ImageIconCircle";
+import ImageUserProfile from "../images/ImageUserProfile";
+import InputImageUploader from "../input/InputImageUploader";
+import SvgAnimLoadingSpinner from "../svg/animation/SvgAnimLoadingSpinner";
+import { TextStyled } from "../typography";
 
 interface IProps {
   scrollY: Animated.Value;
-  profileId?: IUser['id'];
+  profileId?: IUser["id"];
 }
 const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
-  const { theme } = useAppTheme();
-  const { session } = useSession();
+  const { authToken } = useAppAuthSession();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   const [uploadProfileImage, { isLoading: uploadImageIsLoading }] =
     useAddCurrentUserImageMutation();
@@ -43,7 +46,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
   const {
     data: selectedUserProfileData,
     isLoading: selectedUsersProfileIsLoading,
-  } = useGetUserProfileQuery(profileId || '', {
+  } = useGetUserProfileQuery(profileId || "", {
     skip: !profileId,
   });
 
@@ -54,13 +57,13 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
   const avatarSize = scrollY.interpolate({
     inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
     outputRange: [APP_STYLE_VALUES.WH_SIZES.xl6, APP_STYLE_VALUES.WH_SIZES.xl],
-    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+    extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
   });
 
   const avatarPosition = scrollY.interpolate({
     inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
     outputRange: [0, -120],
-    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+    extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
   });
 
   const avatarMargin = scrollY.interpolate({
@@ -69,19 +72,19 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
       -APP_STYLE_VALUES.WH_SIZES.xl4 / 2,
       APP_STYLE_VALUES.WH_SIZES.sm,
     ],
-    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+    extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
   });
 
   const uploadScale = scrollY.interpolate({
     inputRange: [0, 50], // 0'dan 150 birim scrolle kadar
     outputRange: [1, 0],
-    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+    extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
   });
 
   const cardSize = scrollY.interpolate({
     inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
     outputRange: [APP_STYLE_VALUES.WH_SIZES.xl8, APP_STYLE_VALUES.WH_SIZES.xl4],
-    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+    extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
   });
 
   const cardMargin = scrollY.interpolate({
@@ -90,26 +93,26 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
       -APP_STYLE_VALUES.SPACE_SIZES.sp15,
       -APP_STYLE_VALUES.SPACE_SIZES.sp23,
     ],
-    extrapolate: 'clamp', // Değerleri bu aralık dışında sınırla
+    extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
   });
 
   const handleImageUpload = async (selectedImages: any[]) => {
     const formDataForMedia = new FormData();
 
     const file = selectedImages[0];
-    if (!session || !file) {
+    if (!authToken || !file) {
       return;
     }
 
     if (file) {
-      formDataForMedia.append('file', file, file.name);
+      formDataForMedia.append("file", file, file.name);
     }
     try {
       const uploadedMediaUrls = await uploadProfileImage(
-        formDataForMedia as any
+        formDataForMedia as any,
       ).unwrap();
     } catch (err) {
-      console.log('err', err);
+      console.log("err", err);
     }
   };
 
@@ -124,8 +127,8 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
         {
           borderWidth: 0,
           height: cardSize,
-          overflow: 'visible',
-          width: '100%',
+          overflow: "visible",
+          width: "100%",
           marginTop: cardMargin,
         },
       ]}
@@ -136,8 +139,8 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
           {
             marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp10,
             marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-            overflow: 'visible',
-            width: '100%',
+            overflow: "visible",
+            width: "100%",
           },
         ]}
       >
@@ -153,8 +156,8 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
             style={[
               commonStyles.absolutePositionStyles.absoluteFill,
               {
-                top: 'auto',
-                left: 'auto',
+                top: "auto",
+                left: "auto",
                 zIndex: 1,
                 marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp4,
                 width: APP_STYLE_VALUES.WH_SIZES.xs,
@@ -173,7 +176,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
           <Animated.View
             style={[
               {
-                overflow: 'hidden',
+                overflow: "hidden",
                 borderColor: theme.grayScale100,
                 width: avatarSize,
                 height: avatarSize,
@@ -216,8 +219,8 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
           >
             <View>
               <TextStyled fontSize="h6" fontWeight="semibold">
-                {userProfileData?.firstName || ''}{' '}
-                {userProfileData?.lastName || ''}
+                {userProfileData?.firstName || ""}{" "}
+                {userProfileData?.lastName || ""}
               </TextStyled>
             </View>
             <View style={[{ marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp1 }]}>
@@ -245,7 +248,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
                 fontWeight="semibold"
                 customColor="grayScale900"
               >
-                {currentUserListingData?.length?.toString() || ''}
+                {currentUserListingData?.length?.toString() || ""}
               </TextStyled>
             </View>
 
@@ -268,7 +271,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
                 fontWeight="semibold"
                 customColor="grayScale900"
               >
-                {userProfileData?.language || 'English'}
+                {userProfileData?.language || "English"}
               </TextStyled>
             </View>
 
@@ -283,7 +286,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
               >
                 {dateUtils.formatDateForMoment(
                   userProfileData.created,
-                  'DATE_MOMENT'
+                  "DATE_MOMENT",
                 )}
               </TextStyled>
             </View>
@@ -300,7 +303,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
           <View
             style={[
               commonStyles.flexStyles.colCenter,
-              { flex: 1, width: '100%' },
+              { flex: 1, width: "100%" },
             ]}
           >
             {/* <TextStyled fontSize="sm" fontWeight="medium">
@@ -312,7 +315,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
           </View>
         </>
       ) : (
-        <View style={{ width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
+        <View style={{ width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
           <TextStyled fontSize="h4" fontWeight="bold">
             Sign in to see profile
           </TextStyled>
@@ -321,7 +324,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
             onPress={() => {
               router.push(APP_ROUTES.PUBLIC.LOGIN);
             }}
-            text={'Login'}
+            text={"Login"}
             variant="primaryOutlined"
             gradientBg
           />

@@ -1,36 +1,39 @@
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { View, TouchableOpacity } from 'react-native';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import ImageStyled from '../images/ImageStyled';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { Href, router } from 'expo-router';
-import IListingPost from '@/interfaces/listing/IListingPost';
-import dateUtils from '@/utils/dateUtils';
-import stringUtils from '@/utils/stringUtils';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import IconLocation from '../svg/icon/IconLocation';
-import IconEyeShowFilled from '../svg/icon/filled/IconEyeShowFilled';
-import IconHeartFilled from '../svg/icon/filled/IconHeartFilled';
-import CardListingActions from './CardListingActions';
-import { useGetViewCountQuery } from '@/services/listingServices';
-import IconCalendar from '../svg/icon/IconCalendar';
-import { ButtonStyled } from '../button';
+import { TouchableOpacity, View } from "react-native";
+
+import { Href, router } from "expo-router";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import IListingPost from "@/interfaces/listing/IListingPost";
+import { useGetViewCountQuery } from "@/services/listingServices";
+import dateUtils from "@/utils/dateUtils";
+import stringUtils from "@/utils/stringUtils";
+
+import { ButtonStyled } from "../button";
+import ImageStyled from "../images/ImageStyled";
+import IconCalendar from "../svg/icon/IconCalendar";
+import IconLocation from "../svg/icon/IconLocation";
+import IconEyeShowFilled from "../svg/icon/filled/IconEyeShowFilled";
+import IconHeartFilled from "../svg/icon/filled/IconHeartFilled";
+import { TextStyled } from "../typography";
+import CardListingActions from "./CardListingActions";
 
 interface IProps {
   post: IListingPost;
 }
 
 const CardPostItem: React.FC<IProps> = ({ post }) => {
-  const { theme } = useAppTheme();
-  const themedStyles = useThemedStyles();
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   const { data: postViewData } = useGetViewCountQuery(post.id);
 
   const handlePress = () => {
     // @todo create structure for dynamic route to APP_ROUTES
-    router.push(('/(drawer)/post/' + post.id) as Href);
+    router.push(("/(drawer)/post/" + post.id) as Href);
   };
 
   return (
@@ -129,9 +132,9 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
               commonStyles.flexStyles.rowStart,
               {
                 flex: 1,
-                width: '100%',
+                width: "100%",
                 gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                alignItems: 'center',
+                alignItems: "center",
               },
             ]}
           >
@@ -141,13 +144,13 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
             <TextStyled
               fontSize="sm"
               fontWeight="regular"
-              customColor={'grayScale500'}
+              customColor={"grayScale500"}
               textAlignment="left"
               numberOfLines={1}
             >
               {post?.listingAddress &&
                 post?.listingAddress?.countryName +
-                  ' ' +
+                  " " +
                   post?.listingAddress?.cityName}
             </TextStyled>
           </View>
@@ -158,7 +161,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
               {
                 width: APP_STYLE_VALUES.WH_SIZES.xl5,
                 gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                alignItems: 'center',
+                alignItems: "center",
               },
             ]}
           >
@@ -168,13 +171,13 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
             <TextStyled
               fontSize="sm"
               fontWeight="regular"
-              customColor={'grayScale500'}
+              customColor={"grayScale500"}
               textAlignment="left"
               numberOfLines={1}
             >
               {dateUtils.formatDateForMoment(
-                post?.created ?? '',
-                'DATE_MOMENT_MONTH_NAME'
+                post?.created ?? "",
+                "DATE_MOMENT_MONTH_NAME",
               )}
             </TextStyled>
           </View>
@@ -223,7 +226,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
                 fontWeight="medium"
                 customColor="grayScale900"
               >
-                {postViewData || ''}
+                {postViewData || ""}
               </TextStyled>
             </View>
           </View>

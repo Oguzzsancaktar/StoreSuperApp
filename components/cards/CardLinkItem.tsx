@@ -1,29 +1,32 @@
-import { ButtonStyled } from '../button';
-import { TextStyled } from '../typography';
-import { ISettingItemProps } from '@/app/(drawer)/settings';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { getIconWithProps } from '../svg/icon';
-import { View } from 'react-native';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import InputSwitchStyled from '../input/InputSwitchStyled';
-import APP_THEMES, { COMMON_COLOURS } from '@/constants/APP_THEMES';
+import { View } from "react-native";
+
+import { ISettingItemProps } from "@/app/(drawer)/settings";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import APP_THEMES from "@/constants/APP_THEMES";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import { ButtonStyled } from "../button";
+import InputSwitchStyled from "../input/InputSwitchStyled";
+import { getIconWithProps } from "../svg/icon";
+import { TextStyled } from "../typography";
 
 interface IProps extends ISettingItemProps {}
 const CardLinkItem: React.FC<IProps> = ({ text, icon, right, onPress }) => {
-  const commonStyles = useCommonStyles();
-  const { theme } = useAppTheme();
+  const {
+    commonStyles,
 
+    themeContext: { theme },
+  } = useAppStyles();
   return (
     <ButtonStyled onPress={onPress} variant="primaryOutlined">
       <View
         style={[
           commonStyles.flexStyles.rowBetween,
           {
-            height: '100%',
-            width: '100%',
+            height: "100%",
+            width: "100%",
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-            alignItems: 'center',
+            alignItems: "center",
           },
         ]}
       >
@@ -31,7 +34,7 @@ const CardLinkItem: React.FC<IProps> = ({ text, icon, right, onPress }) => {
           style={[
             commonStyles.flexStyles.rowStart,
             {
-              alignItems: 'center',
+              alignItems: "center",
               gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
             },
           ]}
@@ -49,8 +52,8 @@ const CardLinkItem: React.FC<IProps> = ({ text, icon, right, onPress }) => {
           </View>
         </View>
 
-        {right === 'chevron' ? (
-          getIconWithProps('IconChevronRight', { color: theme.grayScale400 })
+        {right === "chevron" ? (
+          getIconWithProps("IconChevronRight", { color: theme.grayScale400 })
         ) : (
           <InputSwitchStyled
             onToggle={onPress}

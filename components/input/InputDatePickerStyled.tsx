@@ -1,18 +1,19 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { IInputProps } from '@/interfaces/app';
-import { View, TextInput, Pressable } from 'react-native';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import { TextStyled } from '../typography';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { getIconWithProps } from '../svg/icon';
-import { useInputFocus } from '@/contexts/InputFocusContext';
+import { useEffect, useRef, useState } from "react";
+import { Pressable, TextInput, View } from "react-native";
+
 import DateTimePicker, {
   DateTimePickerEvent,
-} from '@react-native-community/datetimepicker';
+} from "@react-native-community/datetimepicker";
 
-interface IProps extends Omit<IInputProps, 'required'> {
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useInputFocus } from "@/contexts/InputFocusContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IInputProps } from "@/interfaces/app";
+
+import { getIconWithProps } from "../svg/icon";
+import { TextStyled } from "../typography";
+
+interface IProps extends Omit<IInputProps, "required"> {
   handleFocus?: (val: boolean) => void;
   handleBlur?: (val: boolean) => void;
   onChange: (event: DateTimePickerEvent, date?: Date | undefined) => void;
@@ -30,12 +31,15 @@ const InputDatePickerStyled: React.FC<IProps> = ({
   onChange,
   ...props
 }) => {
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme, isDark },
+  } = useAppStyles();
+
   const inputRef = useRef<TextInput>(null);
   const { registerInput, unregisterInput } = useInputFocus();
 
-  const { theme, isDark } = useAppTheme();
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleOnFocus = () => {
@@ -85,8 +89,8 @@ const InputDatePickerStyled: React.FC<IProps> = ({
           commonStyles.flexStyles.rowStart,
           themedStyles.inputStyles.default,
           isFocused && themedStyles.inputStyles.inputFocused,
-          { padding: 0, margin: 0, alignItems: 'center' },
-          type === 'textarea' && {
+          { padding: 0, margin: 0, alignItems: "center" },
+          type === "textarea" && {
             height: APP_STYLE_VALUES.WH_SIZES.xl4,
           },
         ]}
@@ -97,7 +101,7 @@ const InputDatePickerStyled: React.FC<IProps> = ({
             { width: APP_STYLE_VALUES.WH_SIZES.md },
           ]}
         >
-          {getIconWithProps('IconCalendar', {
+          {getIconWithProps("IconCalendar", {
             color: isFocused ? theme.primary : theme.grayScale600,
           })}
         </View>
@@ -108,7 +112,7 @@ const InputDatePickerStyled: React.FC<IProps> = ({
           value={value || new Date()}
           mode="date"
           display="default"
-          themeVariant={isDark ? 'dark' : 'light'}
+          themeVariant={isDark ? "dark" : "light"}
           onChange={onChange}
           textColor={theme.grayScale900}
           accentColor={theme.primary}

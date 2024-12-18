@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
 
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import ISelectOption from '@/interfaces/theme/ISelectOption';
-import { map } from 'lodash';
-import InputCheckboxStyled from './InputCheckboxStyled';
+import { map } from "lodash";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import ISelectOption from "@/interfaces/theme/ISelectOption";
+
+import { TextStyled } from "../typography";
+import InputCheckboxStyled from "./InputCheckboxStyled";
 
 type ICheckOption = (ISelectOption & { isChecked: boolean })[];
 interface IProps {
@@ -23,11 +25,15 @@ const InputCheckboxMultipleStyled: React.FC<IProps> = ({
   onChange,
   value,
 }) => {
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   const [values, setValues] = useState<ICheckOption>(value);
 
-  const handleToggle = (valId: ISelectOption['value'], check: boolean) => {
+  const handleToggle = (valId: ISelectOption["value"], check: boolean) => {
     const updated = map(values, (val) => {
       if (val.value === valId) {
         return {
@@ -80,7 +86,7 @@ const InputCheckboxMultipleStyled: React.FC<IProps> = ({
           commonStyles.flexStyles.rowWrap,
           {
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-            alignItems: 'center',
+            alignItems: "center",
             marginVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2,
           },
         ]}

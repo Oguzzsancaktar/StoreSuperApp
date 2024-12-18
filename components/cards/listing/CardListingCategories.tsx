@@ -1,24 +1,25 @@
-import useCommonStyles from '@/hooks/useCommonStyles';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { map } from 'lodash';
-import { View } from 'react-native';
-import CardListingCategoryItem from './CardListingCategoryItem';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useGetListingCategoriesQuery } from '@/services/listingFilterServices';
-import IListingCategory from '@/interfaces/listing/IListingCategory';
+import { View } from "react-native";
+
+import { map } from "lodash";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import IListingCategory from "@/interfaces/listing/IListingCategory";
+import { useGetListingCategoriesQuery } from "@/services/listingFilterServices";
+
+import CardListingCategoryItem from "./CardListingCategoryItem";
 
 interface IProps {
   showDescriptions?: boolean;
-  selectedCategory: IListingCategory['id'];
-  handleSelectCategory(categoryId: IListingCategory['id']): void;
+  selectedCategory: IListingCategory["id"];
+  handleSelectCategory(categoryId: IListingCategory["id"]): void;
 }
 const CardListingCategories: React.FC<IProps> = ({
   showDescriptions = false,
   handleSelectCategory,
   selectedCategory,
 }) => {
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
+  const { commonStyles } = useAppStyles();
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
 

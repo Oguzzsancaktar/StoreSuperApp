@@ -1,12 +1,14 @@
-import { useSession } from '@/contexts/AuthContext';
-import { FormStyled } from '.';
-import APP_INPUT_FIELDS from '@/constants/APP_INPUT_FIELDS';
-import IPassordUpdateDTO from '@/interfaces/account/IPassordUpdateDTO';
-import { IInputProps } from '@/interfaces/app';
-import { useUpdatePasswordMutation } from '@/services/accountServices';
-import { useMemo } from 'react';
-import jwtUtils from '@/utils/jwtUtils';
-import { toastSuccess } from '@/utils/toastUtils';
+import { useMemo } from "react";
+
+import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
+import { useAppAuthSession } from "@/contexts/AuthContext";
+import IPassordUpdateDTO from "@/interfaces/account/IPassordUpdateDTO";
+import { IInputProps } from "@/interfaces/app";
+import { useUpdatePasswordMutation } from "@/services/accountServices";
+import jwtUtils from "@/utils/jwtUtils";
+import { toastSuccess } from "@/utils/toastUtils";
+
+import { FormStyled } from ".";
 
 const fields: Array<IInputProps> = [
   { ...APP_INPUT_FIELDS.INPUT_OLD_PASSWORD },
@@ -15,20 +17,20 @@ const fields: Array<IInputProps> = [
 ];
 
 const FormUpdatePassword = () => {
-  const { session } = useSession();
+  const { authToken } = useAppAuthSession();
 
   // @todo get from hook
   const userTokenInfo = useMemo(() => {
-    const info = jwtUtils.userJwtDecode(session ?? '');
+    const info = jwtUtils.userJwtDecode(authToken ?? "");
     return info;
-  }, [session]);
+  }, [authToken]);
 
   const [updatePassword, { isLoading: updatePasswordIsLoading }] =
     useUpdatePasswordMutation();
   const defaultValues = {};
 
   const handleSubmit = async (values: Record<string, any>) => {
-    console.log('Password change values', values);
+    console.log("Password change values", values);
 
     try {
       const tempPasswordDTO: IPassordUpdateDTO = {
@@ -38,10 +40,10 @@ const FormUpdatePassword = () => {
         confirmNewPassword: values?.confirmPassword,
       };
       const result = await updatePassword(tempPasswordDTO);
-      toastSuccess('Password updated successfully.');
-      console.log('result', result);
+      toastSuccess("Password updated successfully.");
+      console.log("result", result);
     } catch (error) {
-      console.log('Error updateUserInformations', error);
+      console.log("Error updateUserInformations", error);
     }
   };
 

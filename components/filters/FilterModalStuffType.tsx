@@ -1,34 +1,39 @@
-import useThemedStyles from '@/hooks/useThemedStyles';
-import ISelectOption from '@/interfaces/theme/ISelectOption';
-import { useState } from 'react';
+import { useState } from "react";
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
   FlatList,
+  Modal,
   StyleSheet,
-} from 'react-native';
-import { find } from 'lodash';
-import { ButtonStyled } from '../button';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { BlurView } from '@react-native-community/blur';
-import { Dropdown } from 'react-native-element-dropdown';
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+
+import { BlurView } from "@react-native-community/blur";
+import { find } from "lodash";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import ISelectOption from "@/interfaces/theme/ISelectOption";
+
+import { ButtonStyled } from "../button";
+import { TextStyled } from "../typography";
 
 const APP_ADVERT_TYPE_OPTIONS: ISelectOption[] = [
-  { label: 'Real Estate', value: 'realEstate' },
-  { label: 'Car', value: 'car' },
-  { label: 'Electronic', value: 'electronic' },
+  { label: "Real Estate", value: "realEstate" },
+  { label: "Car", value: "car" },
+  { label: "Electronic", value: "electronic" },
 ];
 
 const FilterModalStuffType = () => {
-  const themedStyles = useThemedStyles();
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
+
   const [isVisible, setIsVisible] = useState(false);
   const [selectedValue, setSelectedValue] =
-    useState<ISelectOption['value']>('realEstate');
+    useState<ISelectOption["value"]>("realEstate");
 
   const handleSelect = (selectedItem: ISelectOption) => {
     setSelectedValue(selectedItem.value);
@@ -46,9 +51,9 @@ const FilterModalStuffType = () => {
     <View style={{ flex: 1 }}>
       <ButtonStyled
         text={
-          'in ' +
+          "in " +
           (find(APP_ADVERT_TYPE_OPTIONS, (v) => v.value === selectedValue)
-            ?.label || '')
+            ?.label || "")
         }
         variant="primarySolid"
         onPress={() => setIsVisible(true)}
@@ -76,7 +81,6 @@ const FilterModalStuffType = () => {
           <View style={[themedStyles.cardStyles.default, styles.dropdown]}>
             <FlatList
               data={APP_ADVERT_TYPE_OPTIONS}
-              keyExtractor={(item) => item.value}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={[
@@ -101,8 +105,8 @@ const FilterModalStuffType = () => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   dropdown: {
     width: 200,

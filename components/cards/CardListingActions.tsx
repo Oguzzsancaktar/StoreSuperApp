@@ -1,24 +1,24 @@
-import { View, Text, Platform, Share } from 'react-native';
-import React, { useMemo } from 'react';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import ImageIconCircle from '../images/ImageIconCircle';
-import IconHeartFilled from '../svg/icon/filled/IconHeartFilled';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import IconShare from '../svg/icon/IconShare';
+import React, { useMemo } from "react";
+import { Share, View } from "react-native";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import IListingPost from "@/interfaces/listing/IListingPost";
 import {
   useAddListingFavoriteMutation,
   useGetViewCountQuery,
   useRemoveListingFavoriteMutation,
-} from '@/services/listingServices';
-import IListingPost from '@/interfaces/listing/IListingPost';
-import { useSession } from '@/contexts/AuthContext';
-import { toastWarning } from '@/utils/toastUtils';
-import IconEyeShowFilled from '../svg/icon/filled/IconEyeShowFilled';
-import { TextStyled } from '../typography';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import ButtonListingActionDropdown from '../button/ButtonListingActionDropdown';
-import jwtUtils from '@/utils/jwtUtils';
+} from "@/services/listingServices";
+import jwtUtils from "@/utils/jwtUtils";
+import { toastWarning } from "@/utils/toastUtils";
+
+import ButtonListingActionDropdown from "../button/ButtonListingActionDropdown";
+import ImageIconCircle from "../images/ImageIconCircle";
+import IconShare from "../svg/icon/IconShare";
+import IconEyeShowFilled from "../svg/icon/filled/IconEyeShowFilled";
+import IconHeartFilled from "../svg/icon/filled/IconHeartFilled";
+import { TextStyled } from "../typography";
 
 interface IProps {
   post: IListingPost;
@@ -28,15 +28,17 @@ const CardListingActions: React.FC<IProps> = ({
   post,
   showViewCount = false,
 }) => {
-  const { session } = useSession();
-  const { theme } = useAppTheme();
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
+  const { authToken } = useAppAuthSession();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme, toggleTheme },
+  } = useAppStyles();
 
   const userTokenInfo = useMemo(() => {
-    const info = session ? jwtUtils.userJwtDecode(session) : undefined;
+    const info = authToken ? jwtUtils.userJwtDecode(authToken) : undefined;
     return info;
-  }, [session]);
+  }, [authToken]);
 
   const { data: postViewData } = useGetViewCountQuery(post?.id as string);
 
@@ -45,8 +47,8 @@ const CardListingActions: React.FC<IProps> = ({
 
   const handleFavorite = async () => {
     try {
-      if (!session) {
-        toastWarning('Login For Favorite');
+      if (!authToken) {
+        toastWarning("Login For Favorite");
         return;
       }
 
@@ -56,7 +58,7 @@ const CardListingActions: React.FC<IProps> = ({
         const result = await addFavorite({ listingId: post?.id });
       }
     } catch (error) {
-      console.log('err addToFavorite', error);
+      console.log("err addToFavorite", error);
     }
   };
 
@@ -64,22 +66,22 @@ const CardListingActions: React.FC<IProps> = ({
     try {
       const result = await Share.share({
         message: post?.name,
-        url: 'https://setuka24.com/listing-details/' + post?.id,
+        url: "https://setuka24.com/listing-details/" + post?.id,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
           // Belirli bir aktivite türüyle paylaşıldı
-          console.log('Paylaşılan aktivite türü:', result.activityType);
+          console.log("Paylaşılan aktivite türü:", result.activityType);
         } else {
           // Paylaşım başarılı
-          console.log('İçerik başarıyla paylaşıldı.');
+          console.log("İçerik başarıyla paylaşıldı.");
         }
       } else if (result.action === Share.dismissedAction) {
         // Paylaşım iptal edildi
-        console.log('Paylaşım iptal edildi.');
+        console.log("Paylaşım iptal edildi.");
       }
     } catch (error) {
-      console.error('Paylaşım sırasında bir hata oluştu:', error);
+      console.error("Paylaşım sırasında bir hata oluştu:", error);
     }
   };
 
@@ -117,7 +119,7 @@ const CardListingActions: React.FC<IProps> = ({
                 fontWeight="medium"
                 customColor="grayScale900"
               >
-                {postViewData || ''}
+                {postViewData || ""}
               </TextStyled>
             </View>
           </View>

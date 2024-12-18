@@ -1,29 +1,30 @@
 import {
+  type PropsWithChildren,
   createContext,
   useContext,
   useEffect,
-  type PropsWithChildren,
-} from 'react';
-import APP_STORAGE_KEYS from '@/constants/APP_STORAGE_KEYS';
-import { useStorageState } from '@/hooks/useStorageState';
+} from "react";
+import { useDispatch } from "react-redux";
 
-import ILoginResult from '@/interfaces/account/ILoginResult';
-import apiClient from '@/config/axiosInstance';
-import { useDispatch } from 'react-redux';
-import { accountApiSlice } from '@/services/accountServices';
+import apiClient from "@/config/axiosInstance";
+import APP_STORAGE_KEYS from "@/constants/APP_STORAGE_KEYS";
+import { useStorageState } from "@/hooks/useStorageState";
+import ILoginResult from "@/interfaces/account/ILoginResult";
+import { accountApiSlice } from "@/services/accountServices";
 
 const AuthContext = createContext({
   signIn: (loginResult: ILoginResult) => {},
   signOut: () => {},
-  session: null as string | null,
-  isLoading: false,
+  authToken: null as string | null,
 });
 
-export function useSession() {
+export function useAppAuthSession() {
   const value = useContext(AuthContext);
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     if (!value) {
-      throw new Error('useSession must be wrapped in a <SessionProvider />');
+      throw new Error(
+        "useAppAuthSession must be wrapped in a <SessionProvider />",
+      );
     }
   }
   return value;
@@ -32,14 +33,14 @@ export function useSession() {
 export function SessionProvider({ children }: PropsWithChildren) {
   const dispatch = useDispatch();
 
-  const [[isLoading, session], setSession] = useStorageState(
-    APP_STORAGE_KEYS.AUTH_SESSION
+  const [[authTokenIsLoading, authToken], setSession] = useStorageState(
+    APP_STORAGE_KEYS.AUTH_TOKEN,
   );
 
   const [[isRefreshTokenLoading, refreshToken], setRefreshToken] =
     useStorageState(APP_STORAGE_KEYS.REFRESH_TOKEN);
   const [refreshTokenExpiryTime, setRefreshTokenExpiryTime] = useStorageState(
-    APP_STORAGE_KEYS.REFRESH_TOKEN_EXPIRY
+    APP_STORAGE_KEYS.REFRESH_TOKEN_EXPIRY,
   );
 
   const signIn = ({
@@ -50,11 +51,11 @@ export function SessionProvider({ children }: PropsWithChildren) {
     setSession(token);
     setRefreshToken(refreshToken);
     setRefreshTokenExpiryTime(refreshTokenExpiryTime);
-    apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   };
 
   const signOut = () => {
-    console.log('signOut worked');
+    console.log("signOut worked");
 
     // Reset Redux state and local storage
     dispatch(accountApiSlice.util.resetApiState());
@@ -63,7 +64,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
     setRefreshTokenExpiryTime(null);
 
     // Remove Authorization header
-    delete apiClient.defaults.headers.common['Authorization'];
+    delete apiClient.defaults.headers.common["Authorization"];
   };
 
   let isRefreshing = false;
@@ -82,8 +83,8 @@ export function SessionProvider({ children }: PropsWithChildren) {
     try {
       signOut();
 
-      const response = await apiClient.post('/refresh-token', {
-        token: session,
+      const response = await apiClient.post("/refresh-token", {
+        token: authToken,
         refreshToken,
       });
 
@@ -97,11 +98,11 @@ export function SessionProvider({ children }: PropsWithChildren) {
       setRefreshToken(newRefreshToken);
       setRefreshTokenExpiryTime(newExpiry);
 
-      apiClient.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+      apiClient.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
 
       return newToken;
     } catch (error) {
-      console.error('Failed to refresh token', error);
+      console.error("Failed to refresh token", error);
       signOut();
       throw error;
     }
@@ -111,14 +112,14 @@ export function SessionProvider({ children }: PropsWithChildren) {
     // Add request interceptor
     const requestInterceptor = apiClient.interceptors.request.use(
       (config) => {
-        if (session) {
-          config.headers.Authorization = `Bearer ${session}`;
+        if (authToken) {
+          config.headers.Authorization = `Bearer ${authToken}`;
         } else {
           delete config.headers.Authorization;
         }
         return config;
       },
-      (error) => Promise.reject(error)
+      (error) => Promise.reject(error),
     );
 
     // Add response interceptor
@@ -154,7 +155,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
         }
 
         return Promise.reject(error);
-      }
+      },
     );
 
     // Cleanup interceptors on unmount
@@ -162,15 +163,14 @@ export function SessionProvider({ children }: PropsWithChildren) {
       apiClient.interceptors.request.eject(requestInterceptor);
       apiClient.interceptors.response.eject(responseInterceptor);
     };
-  }, [session]);
+  }, [authToken]);
 
   return (
     <AuthContext.Provider
       value={{
         signIn,
         signOut,
-        session,
-        isLoading,
+        authToken,
       }}
     >
       {children}

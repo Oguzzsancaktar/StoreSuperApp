@@ -1,42 +1,44 @@
-import { View, Text, Animated, TouchableOpacity } from 'react-native';
-import Unauthorized from '../feedback/Unauthorized';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { useSession } from '@/contexts/AuthContext';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import ImageStyled from '../images/ImageStyled';
-import { InnerCommonContainer } from '../containers';
-import { ButtonGoBack, ButtonStyled } from '../button';
-import { router } from 'expo-router';
-import APP_ROUTES from '@/constants/APP_ROUTES';
-import IconHeart from '../svg/icon/IconHeart';
-import { TextStyled } from '../typography';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import FlatListStyled from '../override/FlatListStyled';
-import CardSellerProfileInfo from '../cards/CardSellerProfileInfo';
-import ImageIconCircle from '../images/ImageIconCircle';
-import IconSettingCog from '../svg/icon/IconSettingCog';
-import CardPostItem from '../cards/CardPostItem';
-import { useRef } from 'react';
-import { useGetCurrentUserListingsQuery } from '@/services/accountServices';
-import IUser from '@/interfaces/account/IUser';
-import { useGetUsersListingItemsQuery } from '@/services/listingServices';
+import { useRef } from "react";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
+
+import { router } from "expo-router";
+
+import APP_ROUTES from "@/constants/APP_ROUTES";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import IUser from "@/interfaces/account/IUser";
+import { useGetCurrentUserListingsQuery } from "@/services/accountServices";
+import { useGetUsersListingItemsQuery } from "@/services/listingServices";
+
+import { ButtonGoBack, ButtonStyled } from "../button";
+import CardPostItem from "../cards/CardPostItem";
+import CardSellerProfileInfo from "../cards/CardSellerProfileInfo";
+import { InnerCommonContainer } from "../containers";
+import Unauthorized from "../feedback/Unauthorized";
+import ImageIconCircle from "../images/ImageIconCircle";
+import ImageStyled from "../images/ImageStyled";
+import FlatListStyled from "../override/FlatListStyled";
+import IconHeart from "../svg/icon/IconHeart";
+import IconSettingCog from "../svg/icon/IconSettingCog";
+import { TextStyled } from "../typography";
 
 interface IProps {
-  profileId?: IUser['id'];
+  profileId?: IUser["id"];
 }
 const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
 
-  const { session } = useSession();
-  const themedStyles = useThemedStyles();
-  const commonStyles = useCommonStyles();
-  const { theme } = useAppTheme();
-
+  const { authToken } = useAppAuthSession();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
   const {
     data: selectedUsersListingsData,
     isLoading: selectedUsersListingsIsLoading,
-  } = useGetUsersListingItemsQuery(profileId || '', {
+  } = useGetUsersListingItemsQuery(profileId || "", {
     skip: !profileId,
   });
 
@@ -44,7 +46,7 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
     data: currentUserListingData,
     isLoading: currentUserListingsIsLoading,
   } = useGetCurrentUserListingsQuery(undefined, {
-    skip: !session,
+    skip: !authToken,
   });
 
   const handleSettingsPress = () => {
@@ -60,7 +62,7 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
             padding: 0,
             paddingVertical: 0,
             borderWidth: 0,
-            height: !session
+            height: !authToken
               ? APP_STYLE_VALUES.WH_SIZES.xl5
               : APP_STYLE_VALUES.WH_SIZES.xl11,
           },
@@ -72,8 +74,8 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
             commonStyles.absolutePositionStyles.absoluteFill,
             {
               flex: 1,
-              height: '100%',
-              width: '100%',
+              height: "100%",
+              width: "100%",
               borderTopLeftRadius: 0,
               borderTopRightRadius: 0,
             },
@@ -97,7 +99,7 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
             {!profileId ? (
               <>
                 <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xl8 }}>
-                  {session && (
+                  {authToken && (
                     <ButtonStyled
                       variant="badgeOutlined"
                       onPress={() => router.push(APP_ROUTES.DRAWER.FAVORITES)}
@@ -106,7 +108,7 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
                         style={[
                           commonStyles.flexStyles.rowCenterWrap,
                           {
-                            width: '100%',
+                            width: "100%",
                             gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
                           },
                         ]}
@@ -140,7 +142,7 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
                     { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
                   ]}
                 >
-                  {/* {session && (
+                  {/* {authToken  && (
                     <ImageIconCircle
                       icon={<IconBookmark color={theme.white} />}
                     />
@@ -159,7 +161,7 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
         </InnerCommonContainer>
       </View>
 
-      {session ? (
+      {authToken ? (
         <InnerCommonContainer>
           <View
             style={{
@@ -173,7 +175,7 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
               showsVerticalScrollIndicator={false}
               onScroll={Animated.event(
                 [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                { useNativeDriver: false } // Yükseklik animasyonu için "false"
+                { useNativeDriver: false }, // Yükseklik animasyonu için "false"
               )}
               scrollEventThrottle={16} // Daha pürüzsüz bir animasyon
             >

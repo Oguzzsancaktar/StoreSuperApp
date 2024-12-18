@@ -1,20 +1,22 @@
-import useCommonStyles from '@/hooks/useCommonStyles';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { View } from 'react-native';
-import ImageIconCircle from '../images/ImageIconCircle';
-import { TextStyled } from '../typography';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconTag from '../svg/icon/IconTag';
-import { useAppTheme } from '@/contexts/ThemeContext';
+import { View } from "react-native";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import ImageIconCircle from "../images/ImageIconCircle";
+import IconTag from "../svg/icon/IconTag";
+import { TextStyled } from "../typography";
 
 interface IProps {
   negotiable: boolean;
   formattedPrice: string;
 }
 const CardPostPrice: React.FC<IProps> = ({ negotiable, formattedPrice }) => {
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
-  const { theme } = useAppTheme();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   return (
     <View
@@ -37,7 +39,7 @@ const CardPostPrice: React.FC<IProps> = ({ negotiable, formattedPrice }) => {
       >
         <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
           <ImageIconCircle
-            bgColor={'grayScale300'}
+            bgColor={"grayScale300"}
             icon={<IconTag color={theme.grayScale900} />}
           />
         </View>
@@ -53,7 +55,7 @@ const CardPostPrice: React.FC<IProps> = ({ negotiable, formattedPrice }) => {
               customColor="grayScale500"
               textAlignment="left"
             >
-              {negotiable ? 'Negotiable' : 'Not Negotiable'}
+              {negotiable ? "Negotiable" : "Not Negotiable"}
             </TextStyled>
           </View>
         </View>

@@ -1,6 +1,7 @@
-import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { COMMON_COLOURS } from '@/constants/APP_THEMES';
+import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
+
+import { COMMON_COLOURS } from "@/constants/APP_THEMES";
+import useAppStyles from "@/hooks/useAppStyles";
 
 interface IProps {
   startColor?: string;
@@ -11,10 +12,10 @@ interface IProps {
 const GradientBackground: React.FC<IProps> = ({
   startColor = COMMON_COLOURS.primary,
   endColor = COMMON_COLOURS.transparent,
-  startOpacity = '0.2',
-  endOpacity = '0',
+  startOpacity = "0.2",
+  endOpacity = "0",
 }) => {
-  const commonStyles = useCommonStyles();
+  const { commonStyles } = useAppStyles();
   return (
     <Svg
       height="100%"
@@ -22,7 +23,7 @@ const GradientBackground: React.FC<IProps> = ({
       style={[
         commonStyles.absolutePositionStyles.absoluteFill,
         {
-          overflow: 'hidden',
+          overflow: "hidden",
           flex: 1,
         },
       ]}

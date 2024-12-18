@@ -1,22 +1,26 @@
-import { StyleSheet, View } from 'react-native';
-import ButtonStyled from './ButtonStyled';
-import IconLogout from '../svg/icon/IconLogout';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import { useSession } from '@/contexts/AuthContext';
-import { router } from 'expo-router';
-import APP_ROUTES from '@/constants/APP_ROUTES';
+import { View } from "react-native";
+
+import { router } from "expo-router";
+
+import APP_ROUTES from "@/constants/APP_ROUTES";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import IconLogout from "../svg/icon/IconLogout";
+import { TextStyled } from "../typography";
+import ButtonStyled from "./ButtonStyled";
 
 interface IProps {}
 const ButtonLogout: React.FC<IProps> = () => {
-  const commonStyles = useCommonStyles();
-  const { theme } = useAppTheme();
-  const { session, signOut } = useSession();
+  const { authToken, signOut } = useAppAuthSession();
+  const {
+    commonStyles,
+    themeContext: { theme, toggleTheme },
+  } = useAppStyles();
 
   const handlePress = () => {
-    if (!session) {
+    if (!authToken) {
       router.replace(APP_ROUTES.PUBLIC.LOGIN);
     } else {
       signOut();
@@ -32,7 +36,7 @@ const ButtonLogout: React.FC<IProps> = () => {
       <View
         style={[
           commonStyles.flexStyles.rowCenterWrap,
-          { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+          { width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
         ]}
       >
         <View
@@ -41,7 +45,7 @@ const ButtonLogout: React.FC<IProps> = () => {
             { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
           ]}
         >
-          {session && <IconLogout color={theme.grayScale900} />}
+          {authToken && <IconLogout color={theme.grayScale900} />}
           <View>
             <TextStyled
               textAlignment="left"
@@ -49,7 +53,7 @@ const ButtonLogout: React.FC<IProps> = () => {
               fontWeight="semibold"
               customColor="grayScale900"
             >
-              {session ? 'Logout' : 'Login'}
+              {authToken ? "Logout" : "Login"}
             </TextStyled>
           </View>
         </View>

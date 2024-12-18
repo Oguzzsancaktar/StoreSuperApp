@@ -1,10 +1,11 @@
-import { useSession } from '@/contexts/AuthContext';
-import { Redirect, Stack } from 'expo-router';
+import { Redirect, Stack } from "expo-router";
+
+import { useAppAuthSession } from "@/contexts/AuthContext";
 
 export default function PrivateLayout() {
-  const { session } = useSession();
+  const { authToken } = useAppAuthSession();
 
-  if (!session) {
+  if (!authToken) {
     return <Redirect href="/login" />;
   }
 

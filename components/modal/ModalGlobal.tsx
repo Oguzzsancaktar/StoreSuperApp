@@ -1,52 +1,50 @@
-import useThemedStyles from '@/hooks/useThemedStyles';
-import {
-  View,
-  TouchableOpacity,
-  Modal,
-  StyleSheet,
-  Pressable,
-} from 'react-native';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { BlurView } from '@react-native-community/blur';
-import { useModalState } from '@/contexts/ModalContext';
-import { ButtonStyled } from '../button';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconDeleteAccount from '../svg/icon/IconDeleteAccount';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import ImageIconCircle from '../images/ImageIconCircle';
-import IconClose from '../svg/icon/IconClose';
-import { useDeleteUserMutation } from '@/services/accountServices';
-import { useMemo } from 'react';
-import { useSession } from '@/contexts/AuthContext';
-import jwtUtils from '@/utils/jwtUtils';
-import { toastWarning } from '@/utils/toastUtils';
+import { useMemo } from "react";
+import { Modal, Pressable, View } from "react-native";
+
+import { BlurView } from "@react-native-community/blur";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
+import { useModalState } from "@/contexts/ModalContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import { useDeleteUserMutation } from "@/services/accountServices";
+import jwtUtils from "@/utils/jwtUtils";
+import { toastWarning } from "@/utils/toastUtils";
+
+import { ButtonStyled } from "../button";
+import ImageIconCircle from "../images/ImageIconCircle";
+import IconClose from "../svg/icon/IconClose";
+import IconDeleteAccount from "../svg/icon/IconDeleteAccount";
+import { TextStyled } from "../typography";
 
 const ModalGlobal = () => {
-  const { theme } = useAppTheme();
-  const themedStyles = useThemedStyles();
-  const commonStyles = useCommonStyles();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
+
   const { isModalOpen, toggleModal } = useModalState();
 
-  const { session, signOut } = useSession();
+  const { authToken, signOut } = useAppAuthSession();
   const userTokenInfo = useMemo(() => {
-    const info = session ? jwtUtils.userJwtDecode(session) : undefined;
+    const info = authToken ? jwtUtils.userJwtDecode(authToken) : undefined;
     return info;
-  }, [session]);
+  }, [authToken]);
 
   const [deleteUser] = useDeleteUserMutation();
 
   const handleConfirm = async () => {
     try {
-      const result = await deleteUser(userTokenInfo?.Id || '');
+      const result = await deleteUser(userTokenInfo?.Id || "");
       toggleModal();
-      toastWarning('');
+      toastWarning("");
       if (!result.error) {
         signOut();
       }
-      console.log('result', result);
+      console.log("result", result);
     } catch (error) {
-      console.log('error when deleteUser', error);
+      console.log("error when deleteUser", error);
     }
   };
 
@@ -82,7 +80,7 @@ const ModalGlobal = () => {
             },
           ]}
         >
-          <View style={{ alignSelf: 'flex-end' }}>
+          <View style={{ alignSelf: "flex-end" }}>
             <ImageIconCircle
               size={APP_STYLE_VALUES.WH_SIZES.sm}
               icon={<IconClose color={theme.grayScale900} />}
@@ -100,7 +98,7 @@ const ModalGlobal = () => {
           </TextStyled>
 
           <View
-            style={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp2, width: '100%' }}
+            style={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp2, width: "100%" }}
           >
             <ButtonStyled
               onPress={handleConfirm}

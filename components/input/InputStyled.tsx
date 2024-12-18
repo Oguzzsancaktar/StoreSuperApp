@@ -1,19 +1,19 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { IIconNames, IInputProps } from '@/interfaces/app';
-import { View, TextInput, Pressable } from 'react-native';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import { TextStyled } from '../typography';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { getIconWithProps } from '../svg/icon';
-import IconEyeHide from '../svg/icon/IconEyeHide';
-import IconEyeShow from '../svg/icon/IconEyeShow';
-import { useInputFocus } from '@/contexts/InputFocusContext';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Pressable, TextInput, View } from "react-native";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useInputFocus } from "@/contexts/InputFocusContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IIconNames, IInputProps } from "@/interfaces/app";
+
+import { getIconWithProps } from "../svg/icon";
+import IconEyeHide from "../svg/icon/IconEyeHide";
+import IconEyeShow from "../svg/icon/IconEyeShow";
+import { TextStyled } from "../typography";
 
 interface IProps
   extends React.ComponentProps<typeof TextInput>,
-    Omit<IInputProps, 'required'> {
+    Omit<IInputProps, "required"> {
   handleFocus?: (val: boolean) => void;
   handleBlur?: (val: boolean) => void;
 }
@@ -27,15 +27,18 @@ const InputStyled: React.FC<IProps> = ({
   handleBlur,
   ...props
 }) => {
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
+
   const inputRef = useRef<TextInput>(null);
   const { registerInput, unregisterInput } = useInputFocus();
 
-  const { theme } = useAppTheme();
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [hideInputValue, setHideInputValue] = useState<boolean>(
-    name?.toLowerCase()?.includes('password')
+    name?.toLowerCase()?.includes("password"),
   );
 
   const handleOnFocus = () => {
@@ -52,29 +55,29 @@ const InputStyled: React.FC<IProps> = ({
     let iconName: IIconNames | null = null;
 
     switch (name) {
-      case 'email':
-        iconName = 'IconEmail';
+      case "email":
+        iconName = "IconEmail";
         break;
-      case 'firstName':
-        iconName = 'IconUser';
+      case "firstName":
+        iconName = "IconUser";
         break;
-      case 'lastName':
-        iconName = 'IconUser';
+      case "lastName":
+        iconName = "IconUser";
         break;
-      case 'phoneNumber':
-        iconName = 'IconPhone';
+      case "phoneNumber":
+        iconName = "IconPhone";
         break;
-      case 'birthday':
-        iconName = 'IconCalendar';
+      case "birthday":
+        iconName = "IconCalendar";
         break;
-      case 'password':
-        iconName = 'IconLock';
+      case "password":
+        iconName = "IconLock";
         break;
-      case 'oldPassword':
-        iconName = 'IconLock';
+      case "oldPassword":
+        iconName = "IconLock";
         break;
-      case 'confirmPassword':
-        iconName = 'IconLock';
+      case "confirmPassword":
+        iconName = "IconLock";
         break;
     }
 
@@ -112,8 +115,8 @@ const InputStyled: React.FC<IProps> = ({
           commonStyles.flexStyles.rowStart,
           themedStyles.inputStyles.default,
           isFocused && themedStyles.inputStyles.inputFocused,
-          { padding: 0, margin: 0, alignItems: 'center' },
-          type === 'textarea' && {
+          { padding: 0, margin: 0, alignItems: "center" },
+          type === "textarea" && {
             height: APP_STYLE_VALUES.WH_SIZES.xl4,
           },
         ]}
@@ -142,23 +145,23 @@ const InputStyled: React.FC<IProps> = ({
                 : 0,
               flex: 1,
             },
-            type === 'textarea' && {
+            type === "textarea" && {
               padding: themedStyles.inputStyles.default.padding,
               height: APP_STYLE_VALUES.WH_SIZES.xl4,
             },
           ]}
           autoCorrect={false}
-          autoCapitalize={'none'}
+          autoCapitalize={"none"}
           secureTextEntry={hideInputValue}
-          multiline={type === 'textarea'}
+          multiline={type === "textarea"}
           placeholderTextColor={theme.grayScale500}
           placeholder={placeholder}
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
-          keyboardType={type === 'number' ? 'numeric' : 'default'}
+          keyboardType={type === "number" ? "numeric" : "default"}
         />
 
-        {name?.toLowerCase()?.includes('password') && (
+        {name?.toLowerCase()?.includes("password") && (
           <Pressable
             onPress={() => setHideInputValue((prev) => !prev)}
             style={[

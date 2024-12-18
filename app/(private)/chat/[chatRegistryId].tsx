@@ -1,72 +1,74 @@
-import { InnerCommonContainer } from '@/components/containers';
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import EmptyState from '@/components/feedback/EmptyState';
-import Preloader from '@/components/feedback/Preloader';
-import ImageIconCircle from '@/components/images/ImageIconCircle';
-import ImageStyled from '@/components/images/ImageStyled';
-import ImageUserProfile from '@/components/images/ImageUserProfile';
-import { InputStyled } from '@/components/input';
-import FlatListStyled from '@/components/override/FlatListStyled';
-import IconOptions from '@/components/svg/icon/IconOptions';
-import IconSendMessage from '@/components/svg/icon/IconSendMessage';
-import { TextStyled } from '@/components/typography';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useSession } from '@/contexts/AuthContext';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import IChatCreateDTO from '@/interfaces/chat/IChatCreateDTO';
-import IChatMessage from '@/interfaces/chat/IChatMessage';
-import {
-  useCreateMessageMutation,
-  useGetChatMessagesQuery,
-} from '@/services/chatServices';
-import { useGetListingItemDetailsQuery } from '@/services/listingServices';
-import jwtUtils from '@/utils/jwtUtils';
-import { Href, Redirect, router, useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
   Pressable,
   View,
-} from 'react-native';
+} from "react-native";
+
+import { Href, Redirect, router, useLocalSearchParams } from "expo-router";
+
+import { InnerCommonContainer } from "@/components/containers";
+import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import EmptyState from "@/components/feedback/EmptyState";
+import Preloader from "@/components/feedback/Preloader";
+import ImageIconCircle from "@/components/images/ImageIconCircle";
+import ImageStyled from "@/components/images/ImageStyled";
+import ImageUserProfile from "@/components/images/ImageUserProfile";
+import { InputStyled } from "@/components/input";
+import FlatListStyled from "@/components/override/FlatListStyled";
+import IconOptions from "@/components/svg/icon/IconOptions";
+import IconSendMessage from "@/components/svg/icon/IconSendMessage";
+import { TextStyled } from "@/components/typography";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import IChatCreateDTO from "@/interfaces/chat/IChatCreateDTO";
+import IChatMessage from "@/interfaces/chat/IChatMessage";
+import {
+  useCreateMessageMutation,
+  useGetChatMessagesQuery,
+} from "@/services/chatServices";
+import { useGetListingItemDetailsQuery } from "@/services/listingServices";
+import jwtUtils from "@/utils/jwtUtils";
 
 const MessagesDetailScreen = () => {
-  const { session } = useSession();
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
-  const { theme } = useAppTheme();
+  const { authToken } = useAppAuthSession();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme, toggleTheme },
+  } = useAppStyles();
   const { chatRegistryId, listingId } = useLocalSearchParams();
 
   const { data: listingDetailData, isLoading: listingDetailIsLoading } =
     useGetListingItemDetailsQuery(listingId as string, { skip: !listingId });
 
-  const userJwtDecoded = jwtUtils.userJwtDecode(session ?? '');
+  const userJwtDecoded = jwtUtils.userJwtDecode(authToken ?? "");
 
   const { data: messagesData, isLoading: messagesIsLoading } =
     useGetChatMessagesQuery(chatRegistryId as string);
 
   const [createMessage] = useCreateMessageMutation();
-  const [newMessage, setNewMessage] = useState('');
+  const [newMessage, setNewMessage] = useState("");
 
   const handleAdvertClick = () => {
-    router.push(('/(drawer)/post/' + listingId) as Href);
+    router.push(("/(drawer)/post/" + listingId) as Href);
   };
 
   const sendMessage = async () => {
     if (newMessage.trim()) {
       try {
         const tempMessage: IChatCreateDTO = {
-          listingId: (listingId as string) || '',
+          listingId: (listingId as string) || "",
           message: newMessage,
         };
         const messageCreateResult = createMessage(tempMessage).unwrap();
       } catch (error) {
-        console.log('eeee', error);
+        console.log("eeee", error);
       }
-      setNewMessage('');
+      setNewMessage("");
       Keyboard.dismiss();
     }
   };
@@ -82,7 +84,7 @@ const MessagesDetailScreen = () => {
         style={[
           themedStyles.borderStyles.default,
           {
-            maxWidth: '100%',
+            maxWidth: "100%",
             borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
             padding: APP_STYLE_VALUES.SPACE_SIZES.sp3,
             paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2,
@@ -94,15 +96,15 @@ const MessagesDetailScreen = () => {
                 borderColor: theme.primary,
                 backgroundColor: theme.primaryOpacity10,
                 borderBottomRightRadius: 0,
-                alignSelf: 'flex-end',
+                alignSelf: "flex-end",
               }
             : {
                 borderBottomLeftRadius: 0,
-                alignSelf: 'flex-start',
+                alignSelf: "flex-start",
               },
         ]}
       >
-        <View style={{ height: 'auto', maxWidth: '100%' }}>
+        <View style={{ height: "auto", maxWidth: "100%" }}>
           <TextStyled
             textAlignment="left"
             fontSize="md"
@@ -119,10 +121,10 @@ const MessagesDetailScreen = () => {
           { marginHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp1 },
           item.senderId === userJwtDecoded.Id
             ? {
-                alignSelf: 'flex-end',
+                alignSelf: "flex-end",
               }
             : {
-                alignSelf: 'flex-start',
+                alignSelf: "flex-start",
               },
         ]}
       >
@@ -160,18 +162,18 @@ const MessagesDetailScreen = () => {
       }
       headerTitle={
         listingDetailData.user?.lastName && listingDetailData.user?.firstName
-          ? (listingDetailData.user?.firstName || '') +
-            ' ' +
-            (listingDetailData.user?.lastName || '')
+          ? (listingDetailData.user?.firstName || "") +
+            " " +
+            (listingDetailData.user?.lastName || "")
           : listingDetailData.user.email
       }
       rightElement={<IconOptions color={theme.grayScale900} />}
     >
       <InnerCommonContainer>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={
-            Platform.OS === 'ios' ? APP_STYLE_VALUES.SPACE_SIZES.sp30 : 0
+            Platform.OS === "ios" ? APP_STYLE_VALUES.SPACE_SIZES.sp30 : 0
           }
           style={{ flex: 1 }}
         >
@@ -183,7 +185,7 @@ const MessagesDetailScreen = () => {
                 minWidth: APP_STYLE_VALUES.WH_SIZES.xl5,
                 borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
                 marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                marginHorizontal: 'auto',
+                marginHorizontal: "auto",
                 padding: APP_STYLE_VALUES.SPACE_SIZES.sp3,
               },
             ]}
@@ -249,7 +251,7 @@ const MessagesDetailScreen = () => {
               type="text"
               style={[
                 themedStyles.inputStyles.default,
-                { flex: 1, backgroundColor: 'transparent' },
+                { flex: 1, backgroundColor: "transparent" },
               ]}
               value={newMessage}
               onChangeText={setNewMessage}

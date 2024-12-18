@@ -1,89 +1,92 @@
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import { InnerCommonContainer } from '@/components/containers';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { TextStyled } from '@/components/typography';
-import { View } from 'react-native';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import IconSettingCog from '@/components/svg/icon/IconSettingCog';
-import ImageIconCircle from '@/components/images/ImageIconCircle';
-import CardLinkItem from '@/components/cards/CardLinkItem';
-import { map } from 'lodash';
-import { IIconNames } from '@/interfaces/app';
-import { useMemo } from 'react';
-import ButtonLogout from '@/components/button/ButtonLogout';
-import { router, useNavigation } from 'expo-router';
-import APP_ROUTES from '@/constants/APP_ROUTES';
-import { useSession } from '@/contexts/AuthContext';
-import * as WebBrowser from 'expo-web-browser';
+import { useMemo } from "react";
+import { View } from "react-native";
+
+import { router, useNavigation } from "expo-router";
+import * as WebBrowser from "expo-web-browser";
+import { map } from "lodash";
+
+import ButtonLogout from "@/components/button/ButtonLogout";
+import CardLinkItem from "@/components/cards/CardLinkItem";
+import { InnerCommonContainer } from "@/components/containers";
+import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import ImageIconCircle from "@/components/images/ImageIconCircle";
+import IconSettingCog from "@/components/svg/icon/IconSettingCog";
+import { TextStyled } from "@/components/typography";
+import APP_ROUTES from "@/constants/APP_ROUTES";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IIconNames } from "@/interfaces/app";
 
 export interface ISettingItemProps {
   icon: IIconNames;
   text: string;
-  right: 'chevron' | 'switch';
+  right: "chevron" | "switch";
   priv?: boolean;
   onPress: () => void;
 }
 
 const SettingsScreen = () => {
-  const { session } = useSession();
-  const { theme, toggleTheme } = useAppTheme();
-  const commonStyles = useCommonStyles();
+  const { authToken } = useAppAuthSession();
+  const {
+    commonStyles,
+    themeContext: { theme, toggleTheme },
+  } = useAppStyles();
 
   const SETTING_ITEMS: ISettingItemProps[] = useMemo(
     () => [
       {
-        icon: 'IconUser',
-        text: 'Account Settings',
-        right: 'chevron',
+        icon: "IconUser",
+        text: "Account Settings",
+        right: "chevron",
         onPress: () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_ACCOUNT);
         },
         priv: true,
       },
       {
-        icon: 'IconEdit',
-        text: 'Profile Information',
-        right: 'chevron',
+        icon: "IconEdit",
+        text: "Profile Information",
+        right: "chevron",
         onPress: () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_INFORMATIONS);
         },
         priv: true,
       },
       {
-        icon: 'IconPrivacy',
-        text: 'Privacy Policy',
-        right: 'chevron',
+        icon: "IconPrivacy",
+        text: "Privacy Policy",
+        right: "chevron",
         onPress: () => {
-          WebBrowser.openBrowserAsync('https://setuka24.com/policy' as string);
+          WebBrowser.openBrowserAsync("https://setuka24.com/policy" as string);
 
           // router.push(APP_ROUTES.DRAWER.PRIVACY_POLICY);
         },
       },
       {
-        icon: 'IconBell',
-        text: 'Notifications',
-        right: 'switch',
+        icon: "IconBell",
+        text: "Notifications",
+        right: "switch",
         onPress: () => {},
       },
       {
-        icon: 'IconTheme',
-        text: 'Dark Mode',
-        right: 'switch',
+        icon: "IconTheme",
+        text: "Dark Mode",
+        right: "switch",
         onPress: () => {
           toggleTheme();
         },
       },
       {
-        icon: 'IconChatSupport',
-        text: 'Contact Us',
-        right: 'chevron',
+        icon: "IconChatSupport",
+        text: "Contact Us",
+        right: "chevron",
         onPress: () => {
-          WebBrowser.openBrowserAsync('https://setuka24.com/policy' as string);
+          WebBrowser.openBrowserAsync("https://setuka24.com/policy" as string);
         },
       },
     ],
-    [toggleTheme]
+    [toggleTheme],
   );
 
   return (
@@ -92,10 +95,10 @@ const SettingsScreen = () => {
         <View
           style={[
             commonStyles.flexStyles.colStart,
-            { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+            { width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
           ]}
         >
-          <View style={[commonStyles.flexStyles.colCenter, { width: '100%' }]}>
+          <View style={[commonStyles.flexStyles.colCenter, { width: "100%" }]}>
             <ImageIconCircle
               size={APP_STYLE_VALUES.WH_SIZES.xl}
               bgColor="primary"
@@ -116,13 +119,13 @@ const SettingsScreen = () => {
           <View
             style={[
               commonStyles.flexStyles.colStart,
-              { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+              { width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
             ]}
           >
             {map(
               SETTING_ITEMS,
               ({ text, icon, right, onPress, priv }, index) => {
-                if (priv && !session) {
+                if (priv && !authToken) {
                   return null;
                 }
 
@@ -135,7 +138,7 @@ const SettingsScreen = () => {
                     onPress={onPress}
                   />
                 );
-              }
+              },
             )}
           </View>
         </View>

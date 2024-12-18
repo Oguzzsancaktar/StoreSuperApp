@@ -1,33 +1,35 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 import {
-  View,
-  Image,
   Dimensions,
-  StyleSheet,
-  Pressable,
-  TouchableOpacity,
   LayoutChangeEvent,
-} from 'react-native';
-import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
-import Lightbox from 'react-native-lightbox-v2';
-import ImageStyled from './ImageStyled';
-import { map } from 'lodash';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import useCommonStyles from '@/hooks/useCommonStyles';
+  TouchableOpacity,
+  View,
+} from "react-native";
+import Lightbox from "react-native-lightbox-v2";
+import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
-const { width } = Dimensions.get('window');
+import { map } from "lodash";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import ImageStyled from "./ImageStyled";
+
+const { width } = Dimensions.get("window");
 
 interface IProps {
   imageUrls: string[];
 }
 
 const ImageCarousel: React.FC<IProps> = ({ imageUrls }) => {
+  const {
+    commonStyles,
+
+    themeContext: { theme },
+  } = useAppStyles();
+
   const [isLightBoxOpen, setIsLightBoxOpen] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const commonStyles = useCommonStyles();
-  const { theme } = useAppTheme();
 
   const carouselRef = useRef<ICarouselInstance>(null);
 
@@ -70,7 +72,7 @@ const ImageCarousel: React.FC<IProps> = ({ imageUrls }) => {
               swipeToDismiss={false}
             >
               <ImageStyled
-                resizeMode={isLightBoxOpen ? 'contain' : 'cover'}
+                resizeMode={isLightBoxOpen ? "contain" : "cover"}
                 url={item}
               />
             </Lightbox>
@@ -84,7 +86,7 @@ const ImageCarousel: React.FC<IProps> = ({ imageUrls }) => {
           commonStyles.absolutePositionStyles.absoluteFill,
           {
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-            top: 'auto',
+            top: "auto",
           },
         ]}
       >

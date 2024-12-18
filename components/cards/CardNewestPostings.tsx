@@ -1,18 +1,21 @@
-import { View, ScrollView } from 'react-native';
-import CardPostItem from './CardPostItem';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { TextStyled } from '../typography';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { useGetListingCategoriesQuery } from '@/services/listingFilterServices';
-import { find, map } from 'lodash';
-import FilterStuffType from '../filters/FilterStuffType';
-import { useMemo, useState } from 'react';
-import ISelectOption from '@/interfaces/theme/ISelectOption';
-import { useGetNewestPostsQuery } from '@/services/listingServices';
-import ListFlatStyled from '../override/FlatListStyled';
+import { useMemo, useState } from "react";
+import { View } from "react-native";
+
+import { find, map } from "lodash";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import ISelectOption from "@/interfaces/theme/ISelectOption";
+import { useGetListingCategoriesQuery } from "@/services/listingFilterServices";
+import { useGetNewestPostsQuery } from "@/services/listingServices";
+
+import FilterStuffType from "../filters/FilterStuffType";
+import ListFlatStyled from "../override/FlatListStyled";
+import { TextStyled } from "../typography";
+import CardPostItem from "./CardPostItem";
 
 const CardNewestPostings = () => {
-  const commonStyles = useCommonStyles();
+  const { commonStyles } = useAppStyles();
 
   const { data: listingCategoriesData, error: listingCategoriesError } =
     useGetListingCategoriesQuery();
@@ -24,7 +27,7 @@ const CardNewestPostings = () => {
   }, [listingCategoriesData]);
 
   const [newestCategory, setNewestCategory] = useState(
-    listingCategoryOptions[0]?.value
+    listingCategoryOptions[0]?.value,
   );
 
   const { data: newestPostData, isLoading: newestPostDataIsLoading } =
@@ -33,7 +36,7 @@ const CardNewestPostings = () => {
     });
 
   return (
-    <View style={{ height: '100%' }}>
+    <View style={{ height: "100%" }}>
       <View
         style={[
           commonStyles.flexStyles.rowBetween,
@@ -58,7 +61,7 @@ const CardNewestPostings = () => {
             variant="badgeOutlined"
             value={find(
               listingCategoryOptions,
-              (category) => category.value === newestCategory
+              (category) => category.value === newestCategory,
             )}
             onChange={(option: ISelectOption) =>
               setNewestCategory(option.value)

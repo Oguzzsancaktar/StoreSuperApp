@@ -1,23 +1,25 @@
-import { TouchableOpacity, View } from 'react-native';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import { WelcomeBackgroundPattern } from '@/components/svg/background';
-import TextStyled from '@/components/typography/TextStyled';
-import { TextScanEffect } from '@/components/typography';
-import { ButtonStyled } from '@/components/button';
-import { InnerCommonContainer } from '@/components/containers';
-import useCommonStyles from '@/hooks/useCommonStyles';
-import { Href, Link, Redirect, router } from 'expo-router';
-import APP_ROUTES from '@/constants/APP_ROUTES';
-import { getIconWithProps } from '@/components/svg/icon';
-import { useSession } from '@/contexts/AuthContext';
-import { toastError } from '@/utils/toastUtils';
+import { View } from "react-native";
+
+import { Href, Link, router } from "expo-router";
+
+import { ButtonStyled } from "@/components/button";
+import { InnerCommonContainer } from "@/components/containers";
+import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import { WelcomeBackgroundPattern } from "@/components/svg/background";
+import { getIconWithProps } from "@/components/svg/icon";
+import { TextScanEffect } from "@/components/typography";
+import TextStyled from "@/components/typography/TextStyled";
+import APP_ROUTES from "@/constants/APP_ROUTES";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
 
 const WelcomeScreen = () => {
-  const commonStyles = useCommonStyles();
-  const { theme, toggleTheme } = useAppTheme();
+  const {
+    commonStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
-  const handleSignButtonClick = (type: 'REGISTER' | 'LOGIN') => {
+  const handleSignButtonClick = (type: "REGISTER" | "LOGIN") => {
     router.push(APP_ROUTES.PUBLIC[type] as Href<string | object>);
   };
 
@@ -35,26 +37,20 @@ const WelcomeScreen = () => {
       <InnerCommonContainer>
         <View
           style={[
-            commonStyles.maxWidthStyles.maxWidthXl,
             commonStyles.flexStyles.selfCenter,
             commonStyles.flexStyles.colBetween,
-            { flex: 1, width: '100%' },
+            { flex: 1, width: "100%" },
           ]}
         >
-          <View
-            style={[
-              commonStyles.flexStyles.flexCenter,
-              commonStyles.spacingStyles.g7,
-            ]}
-          >
+          <View style={[commonStyles.flexStyles.flexCenter]}>
             <View
               style={[
                 commonStyles.flexStyles.selfCenter,
                 commonStyles.flexStyles.rowCenterWrap,
-                commonStyles.maxWidthStyles.maxWidthSm,
+                { maxWidth: APP_STYLE_VALUES.WH_SIZES.xl10 },
               ]}
             >
-              {getIconWithProps('IconLogoPrimary', { color: theme.primary })}
+              {getIconWithProps("IconLogoPrimary", { color: theme.primary })}
 
               <TextStyled
                 fontSize="xl"
@@ -64,7 +60,9 @@ const WelcomeScreen = () => {
                 Sell What You Have,
               </TextStyled>
               <View
-                style={[commonStyles.spacingStyles.m1, { marginBottom: 0 }]}
+                style={[
+                  { margin: APP_STYLE_VALUES.SPACE_SIZES.sp1, marginBottom: 0 },
+                ]}
               >
                 <TextScanEffect />
               </View>
@@ -78,20 +76,20 @@ const WelcomeScreen = () => {
             </View>
           </View>
 
-          <View style={[commonStyles.spacingStyles.g3]}>
+          <View style={[{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp3 }]}>
             <ButtonStyled
               onPress={() => {
-                handleSignButtonClick('LOGIN');
+                handleSignButtonClick("LOGIN");
               }}
-              text={'Login'}
+              text={"Login"}
               variant="primarySolid"
             />
 
             <ButtonStyled
               gradientBg={true}
-              onPress={() => handleSignButtonClick('REGISTER')}
+              onPress={() => handleSignButtonClick("REGISTER")}
               text="Register"
-              variant={'primaryOutlined'}
+              variant={"primaryOutlined"}
             />
 
             <TextStyled fontSize="xl" fontWeight="regular">

@@ -1,18 +1,18 @@
-import { View } from 'react-native';
-import TextStyled from '@/components/typography/TextStyled';
-import { ScanTextPattern } from '../svg/background';
-import useCommonStyles from '@/hooks/useCommonStyles';
+import { View } from "react-native";
+
+import TextStyled from "@/components/typography/TextStyled";
+import useAppStyles from "@/hooks/useAppStyles";
 
 const TextScanEffect = () => {
-  const commonStyles = useCommonStyles();
+  const { commonStyles } = useAppStyles();
 
   return (
     <View
       style={[
         commonStyles.flexStyles.selfCenter,
-        commonStyles.maxWidthStyles.maxWidthSm,
-        commonStyles.spacingStyles.p1,
-        { paddingVertical: 0 },
+        {
+          paddingVertical: 0,
+        },
       ]}
     >
       <TextStyled fontSize="xl" fontWeight="regular" customColor="grayScale600">

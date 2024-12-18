@@ -1,27 +1,27 @@
 // contexts/ThemeContext.tsx
-
 import React, {
-  createContext,
-  useContext,
-  useState,
   ReactNode,
-  useMemo,
+  createContext,
   useCallback,
-} from 'react';
-import APP_THEMES from '@/constants/APP_THEMES';
-import { IAppTheme } from '@/interfaces/theme';
-import APP_STORAGE_KEYS from '@/constants/APP_STORAGE_KEYS';
-import { useStorageState } from '@/hooks/useStorageState';
-import ToastManager from 'toastify-react-native';
-import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+
+import ToastManager from "toastify-react-native";
+
+import APP_STORAGE_KEYS from "@/constants/APP_STORAGE_KEYS";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import APP_THEMES from "@/constants/APP_THEMES";
+import APP_TYPOGRAPHY from "@/constants/APP_TYPOGRAPHY";
+import { useStorageState } from "@/hooks/useStorageState";
+import { IAppTheme } from "@/interfaces/theme";
 
 interface ThemeContextType {
   theme: IAppTheme;
   toggleTheme: () => void;
-  useSafeAreaState: boolean;
+
   isDark: boolean;
-  setUseSafeArea: (value: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -29,24 +29,18 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [useSafeAreaState, setUseSafeAreaState] = useState<boolean>(true);
-
-  const setUseSafeArea = useCallback((value: boolean) => {
-    setUseSafeAreaState(value);
-  }, []);
-
-  const [[isLoading, session], setSession] = useStorageState(
-    APP_STORAGE_KEYS.APP_THEME
+  const [[isLoading, authToken], setSession] = useStorageState(
+    APP_STORAGE_KEYS.APP_THEME,
   );
-  const oppositeTheme = session === 'dark' ? 'light' : 'dark';
+  const oppositeTheme = authToken === "dark" ? "light" : "dark";
 
   const toggleTheme = () => {
     setSession(oppositeTheme);
   };
 
   const theme = useMemo(
-    () => APP_THEMES[(session as typeof oppositeTheme) || 'dark'],
-    [session]
+    () => APP_THEMES[(authToken as typeof oppositeTheme) || "dark"],
+    [authToken],
   );
 
   const isDark = useMemo(() => {
@@ -58,21 +52,20 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
       value={{
         theme,
         toggleTheme,
-        useSafeAreaState,
-        setUseSafeArea,
+
         isDark,
       }}
     >
       {/* @todo  seperate the provider for toasts. */}
       <ToastManager
-        animationIn={'slideInLeft'}
-        animationOut={'slideOutRight'}
+        animationIn={"slideInLeft"}
+        animationOut={"slideOutRight"}
         textStyle={{
           marginBottom: -5,
-          fontFamily: 'BRShapeMedium',
+          fontFamily: "BRShapeMedium",
           fontSize: APP_TYPOGRAPHY.fontSizes.md,
         }}
-        theme={session ?? 'light'}
+        theme={authToken ?? "light"}
         height={APP_STYLE_VALUES.WH_SIZES.md}
         style={{ paddingVertical: 0 }}
         showProgressBar={false}
@@ -87,7 +80,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
 export const useAppTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    throw new Error("useTheme must be used within a ThemeProvider");
   }
   return context;
 };

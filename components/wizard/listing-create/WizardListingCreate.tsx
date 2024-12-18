@@ -1,30 +1,32 @@
-import { FormWizard } from '@/components/form';
-import { IFormWizardStepProps } from '@/components/form/FormWizard';
-import { View, ViewStyle } from 'react-native';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import CardListingCategories from '@/components/cards/listing/CardListingCategories';
-import { useMemo, useState } from 'react';
-import IListingCategory from '@/interfaces/listing/IListingCategory';
+import { useMemo, useState } from "react";
+import { View, ViewStyle } from "react-native";
+
+import { router } from "expo-router";
+import { forEach, map } from "lodash";
+
+import CardListingCategories from "@/components/cards/listing/CardListingCategories";
+import { FormWizard } from "@/components/form";
+import { IFormWizardStepProps } from "@/components/form/FormWizard";
+import APP_ROUTES from "@/constants/APP_ROUTES";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import useAppStyles from "@/hooks/useAppStyles";
+import { IInputProps } from "@/interfaces/app";
+import EListingOptionComponentType from "@/interfaces/enums/EListingOptionComponentType";
+import IListingCategory from "@/interfaces/listing/IListingCategory";
+import IListingCreateDTO from "@/interfaces/listing/IListingCreateDTO";
+import IListingOptionCreateDTO from "@/interfaces/listing/IListingOptionCreateDTO";
+import ISelectOption from "@/interfaces/theme/ISelectOption";
 import {
   useGetListingCategoryOptionsQuery,
   useGetListingCategorySubsQuery,
-} from '@/services/listingFilterServices';
-import ISelectOption from '@/interfaces/theme/ISelectOption';
-import { each, forEach, map, reduce } from 'lodash';
-import EListingOptionComponentType from '@/interfaces/enums/EListingOptionComponentType';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import { IInputProps } from '@/interfaces/app';
-import IListingCreateDTO from '@/interfaces/listing/IListingCreateDTO';
-import IListingOptionCreateDTO from '@/interfaces/listing/IListingOptionCreateDTO';
+} from "@/services/listingFilterServices";
 import {
-  useUploadListingMediaMutation,
   useCreateListingMutation,
-} from '@/services/listingServices';
-import { router } from 'expo-router';
-import APP_ROUTES from '@/constants/APP_ROUTES';
+  useUploadListingMediaMutation,
+} from "@/services/listingServices";
 
 const WizardListingCreate = () => {
-  const themedStyles = useThemedStyles();
+  const { themedStyles } = useAppStyles();
 
   const defaultValues = {};
   const [values, setValues] = useState<Record<string, any>>({});
@@ -41,14 +43,14 @@ const WizardListingCreate = () => {
     values?.categoryId,
     {
       skip: !values?.categoryId,
-    }
+    },
   );
 
   const { data: listingCategoryChildSubData } = useGetListingCategorySubsQuery(
     values?.subCategory?.value,
     {
       skip: !values?.subCategory,
-    }
+    },
   );
 
   const { data: listingCategoryOptionsData } =
@@ -74,15 +76,15 @@ const WizardListingCreate = () => {
     });
   }, [listingCategoryChildSubData]);
 
-  console.log('----', subsSubCategoryOptions, listingCategorySubData);
+  console.log("----", subsSubCategoryOptions, listingCategorySubData);
 
   const haveSubCategory = useMemo(() => {
     return listingCategorySubData ? listingCategorySubData[0]?.hasChild : false;
   }, [listingCategorySubData]);
 
-  console.log('haveSubCategory', haveSubCategory);
+  console.log("haveSubCategory", haveSubCategory);
 
-  const handleCategorySelect = (categoryId: IListingCategory['id']) => {
+  const handleCategorySelect = (categoryId: IListingCategory["id"]) => {
     setValues((prev) => {
       return { categoryId };
     });
@@ -91,10 +93,10 @@ const WizardListingCreate = () => {
   const steps: IFormWizardStepProps[] = useMemo(
     () => [
       {
-        id: 'STEP_0',
+        id: "STEP_0",
         fields: [],
-        stepTitle: 'Listing Category',
-        stepDescription: 'Select listing category...',
+        stepTitle: "Listing Category",
+        stepDescription: "Select listing category...",
         customStep: (
           <View
             style={{ flex: 1, marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}
@@ -109,80 +111,80 @@ const WizardListingCreate = () => {
       },
 
       {
-        id: 'STEP_2',
-        stepTitle: 'General Information',
+        id: "STEP_2",
+        stepTitle: "General Information",
         stepDescription:
-          'Upload photos, enter title and other general information...',
+          "Upload photos, enter title and other general information...",
         fields: [
           {
             required: true,
-            label: 'Add Photos',
-            name: 'media',
-            placeholder: 'Add Media...',
-            type: 'upload',
+            label: "Add Photos",
+            name: "media",
+            placeholder: "Add Media...",
+            type: "upload",
             maxMedia: 6,
           },
           {
             required: true,
-            label: 'Title',
-            name: 'title',
-            placeholder: 'Enter Listing Title...',
-            type: 'text',
+            label: "Title",
+            name: "title",
+            placeholder: "Enter Listing Title...",
+            type: "text",
           },
           {
             required: true,
-            label: 'Description',
-            name: 'description',
-            placeholder: 'Enter listing description...',
-            type: 'textarea',
+            label: "Description",
+            name: "description",
+            placeholder: "Enter listing description...",
+            type: "textarea",
           },
           {
             required: true,
-            label: 'Price',
-            name: 'price',
-            placeholder: 'Enter price...',
-            type: 'number',
+            label: "Price",
+            name: "price",
+            placeholder: "Enter price...",
+            type: "number",
           },
           {
             required: true,
-            label: 'Price Currency',
-            name: 'currency',
-            placeholder: 'Enter price...',
+            label: "Price Currency",
+            name: "currency",
+            placeholder: "Enter price...",
             options: [
-              { label: 'MKD', value: 'MKD' },
-              { label: 'EUR', value: 'EUR' },
+              { label: "MKD", value: "MKD" },
+              { label: "EUR", value: "EUR" },
             ],
-            type: 'select',
+            type: "select",
           },
           {
             required: false,
-            label: 'Negotiable',
-            name: 'negotiable',
-            type: 'switch',
+            label: "Negotiable",
+            name: "negotiable",
+            type: "switch",
           },
         ],
       },
       {
-        id: 'STEP_1',
-        stepTitle: 'Details',
-        stepDescription: 'Select sub category and fill out listing details...',
+        id: "STEP_1",
+        stepTitle: "Details",
+        stepDescription: "Select sub category and fill out listing details...",
         fields: [
           {
             required: true,
-            label: 'Listing Category Sub',
-            name: 'subCategory',
-            placeholder: 'Select estate type...',
-            type: 'select',
+            label: "Listing Category Sub",
+            name: "subCategory",
+            placeholder: "Select estate type...",
+            type: "select",
             options: subCategoryOptions,
           },
 
           haveSubCategory
             ? {
                 required: true,
-                label: 'Listing Category Subs sub',
-                name: 'subChildCategory',
-                placeholder: 'Select subs child type...',
-                type: 'select',
+                label: "Listing Category Subs sub",
+                name: "subChildCategory",
+                placeholder: "Select subs child type...",
+                type: "select",
                 options: subsSubCategoryOptions,
               }
             : null,
@@ -198,7 +200,7 @@ const WizardListingCreate = () => {
               required: false,
               label: option.name,
               name: option.id,
-              placeholder: option.name + '...',
+              placeholder: option.name + "...",
               type: EListingOptionComponentType[option.propertyType],
               options: options,
             } as IInputProps;
@@ -206,64 +208,64 @@ const WizardListingCreate = () => {
         ].filter((field): field is IInputProps => field !== null),
       },
       {
-        id: 'STEP_3',
+        id: "STEP_3",
         stepTitle: "Listing's Location",
-        stepDescription: 'Enter your address information...',
+        stepDescription: "Enter your address information...",
         fields: [
           {
             required: true,
-            label: 'Country',
-            name: 'country',
-            placeholder: 'Select Country',
-            type: 'select',
+            label: "Country",
+            name: "country",
+            placeholder: "Select Country",
+            type: "select",
           },
           {
             required: true,
-            label: 'City',
-            name: 'city',
-            placeholder: 'Select city',
-            type: 'select',
+            label: "City",
+            name: "city",
+            placeholder: "Select city",
+            type: "select",
           },
           {
             required: true,
-            label: 'District',
-            name: 'district',
-            placeholder: 'Select district',
-            type: 'select',
+            label: "District",
+            name: "district",
+            placeholder: "Select district",
+            type: "select",
           },
           {
             required: true,
-            label: 'Zip Code',
-            name: 'zipCode',
-            placeholder: 'Enter Listing Zip Code...',
-            type: 'number',
+            label: "Zip Code",
+            name: "zipCode",
+            placeholder: "Enter Listing Zip Code...",
+            type: "number",
           },
           {
             required: true,
-            label: 'Full Address',
-            name: 'fullAddress',
-            placeholder: 'Enter Full Address...',
-            type: 'textarea',
+            label: "Full Address",
+            name: "fullAddress",
+            placeholder: "Enter Full Address...",
+            type: "textarea",
           },
           {
             required: false,
-            label: 'Show Full Address In Post Details',
-            name: 'showFullAddress',
-            type: 'checkbox',
+            label: "Show Full Address In Post Details",
+            name: "showFullAddress",
+            type: "checkbox",
           },
         ],
       },
       {
-        id: 'STEP_4',
-        stepTitle: 'Communication & Terms',
+        id: "STEP_4",
+        stepTitle: "Communication & Terms",
         stepDescription:
-          'Select your communication preferences & create a listing...',
+          "Select your communication preferences & create a listing...",
         fields: [
           {
             required: false,
-            label: 'Allow messaging',
-            name: 'allowMessaging',
-            type: 'checkbox',
+            label: "Allow messaging",
+            name: "allowMessaging",
+            type: "checkbox",
           },
           {
             customStyle: {
@@ -272,17 +274,17 @@ const WizardListingCreate = () => {
               marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
             } as ViewStyle,
             required: false,
-            label: 'Allow Phone Calls',
-            name: 'allowPhoneCalls',
-            type: 'checkbox',
+            label: "Allow Phone Calls",
+            name: "allowPhoneCalls",
+            type: "checkbox",
           },
           {
             required: true,
-            label: 'Terms & Conditions ',
+            label: "Terms & Conditions ",
             placeholder:
-              'Yes, I accept the Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et',
-            name: 'terms',
-            type: 'checkbox',
+              "Yes, I accept the Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et",
+            name: "terms",
+            type: "checkbox",
           },
         ],
       },
@@ -295,12 +297,12 @@ const WizardListingCreate = () => {
       subsSubCategoryOptions,
       haveSubCategory,
       values,
-    ]
+    ],
   );
 
   const handleSubmit = async (values: Record<string, any>) => {
     const {
-      categoryId = '',
+      categoryId = "",
       allowMessaging = false,
       allowPhoneCalls = false,
       isActive = true,
@@ -308,19 +310,19 @@ const WizardListingCreate = () => {
       city = {},
       country = {},
       district = {},
-      fullAddress = '',
+      fullAddress = "",
       showFullAddress = false,
-      zipCode = '',
+      zipCode = "",
       tags = [],
       translations = [],
       currency = {},
-      description = '',
-      title = '',
+      description = "",
+      title = "",
       media = [],
       options = [],
       price = {},
       negotiable = false,
-      coverImage = '',
+      coverImage = "",
       terms,
       subCategory,
       ...others
@@ -335,7 +337,7 @@ const WizardListingCreate = () => {
         categoryOptionId: k,
       };
       switch (typeof val) {
-        case 'object':
+        case "object":
           if (Array.isArray(val)) {
             tempOption.categoryOptionValueIds = map(val, (v) => v.value);
             tempOption.categoryOptionValueId = null;
@@ -346,13 +348,13 @@ const WizardListingCreate = () => {
             tempOption.categoryOptionValueIds = [];
           }
           break;
-        case 'boolean':
+        case "boolean":
           tempOption.value = val;
           tempOption.categoryOptionValueIds = [];
           tempOption.categoryOptionValueId = null;
 
           break;
-        case 'string':
+        case "string":
           tempOption.value = val;
           tempOption.categoryOptionValueIds = [];
           tempOption.categoryOptionValueId = null;
@@ -377,7 +379,7 @@ const WizardListingCreate = () => {
       negotiable,
       translations: [
         {
-          language: 'en-US', // @todo
+          language: "en-US", // @todo
           description,
           title,
         },
@@ -409,13 +411,13 @@ const WizardListingCreate = () => {
 
       forEach(media, (file) => {
         if (file) {
-          formDataForMedia.append('files', file, file.name); // `files` API'deki alan adıyla eşleşmeli
+          formDataForMedia.append("files", file, file.name); // `files` API'deki alan adıyla eşleşmeli
         }
       });
 
       try {
         const uploadedMediaUrls = await uploadListingMedia(
-          formDataForMedia as any
+          formDataForMedia as any,
         ).unwrap();
 
         listingCreateDTO.media = uploadedMediaUrls;
@@ -427,17 +429,17 @@ const WizardListingCreate = () => {
           // @todo fix find best practice for constant all routes
           pathname: APP_ROUTES.DRAWER.SUCCESS as any,
           params: {
-            title: 'Listing Created',
-            description: 'New Listing Created Successfully',
+            title: "Listing Created",
+            description: "New Listing Created Successfully",
             href: APP_ROUTES.TABS.TIMELINE as string,
-            showExtraButton: 'true',
-            extraButtonText: 'Go to listing',
+            showExtraButton: "true",
+            extraButtonText: "Go to listing",
             // @todo path route
-            extraButtonHref: ('/(drawer)/post/' + createdListingId) as string,
+            extraButtonHref: ("/(drawer)/post/" + createdListingId) as string,
           },
         });
       } catch (error) {
-        console.error('Error submit--> listing form wizard:', error);
+        console.error("Error submit--> listing form wizard:", error);
       }
     }
   };

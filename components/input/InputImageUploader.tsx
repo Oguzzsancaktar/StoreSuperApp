@@ -1,17 +1,18 @@
-import useCommonStyles from '@/hooks/useCommonStyles';
-import useThemedStyles from '@/hooks/useThemedStyles';
-import React, { useEffect, useMemo, useState } from 'react';
-import { View, Alert, Pressable, TouchableOpacity } from 'react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
-import IconUpload from '../svg/icon/IconUpload';
-import { TextStyled } from '../typography';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import { COMMON_COLOURS } from '@/constants/APP_THEMES';
-import { map, filter, findIndex, forEach } from 'lodash';
-import ImageStyled from '../images/ImageStyled';
-import ImageIconCircle from '../images/ImageIconCircle';
-import IconTrash from '../svg/icon/IconTrash';
+import React, { useEffect, useMemo, useState } from "react";
+import { Alert, Pressable, TouchableOpacity, View } from "react-native";
+import { launchImageLibrary } from "react-native-image-picker";
+
+import { filter, findIndex, forEach, map } from "lodash";
+
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { COMMON_COLOURS } from "@/constants/APP_THEMES";
+import useAppStyles from "@/hooks/useAppStyles";
+
+import ImageIconCircle from "../images/ImageIconCircle";
+import ImageStyled from "../images/ImageStyled";
+import IconTrash from "../svg/icon/IconTrash";
+import IconUpload from "../svg/icon/IconUpload";
+import { TextStyled } from "../typography";
 
 interface ImagePickerResponse {
   uri: string;
@@ -34,9 +35,11 @@ const InputImageUploader: React.FC<IProps> = ({
   onChange,
   isUploadButton = false,
 }) => {
-  const commonStyles = useCommonStyles();
-  const themedStyles = useThemedStyles();
-  const { theme } = useAppTheme();
+  const {
+    commonStyles,
+    themedStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   const [selectedImages, setSelectedImages] = useState<
     (ImagePickerResponse | undefined)[]
@@ -50,7 +53,7 @@ const InputImageUploader: React.FC<IProps> = ({
   const pickImage = () => {
     launchImageLibrary(
       {
-        mediaType: 'photo',
+        mediaType: "photo",
         selectionLimit: avaliableSelectionCount,
         maxWidth: 1024,
         maxHeight: 1024,
@@ -58,16 +61,16 @@ const InputImageUploader: React.FC<IProps> = ({
       },
       (response) => {
         if (response.didCancel) {
-          Alert.alert('Cancelled', 'Image selection was cancelled');
+          Alert.alert("Cancelled", "Image selection was cancelled");
         } else if (response.errorCode) {
-          Alert.alert('Error', response.errorMessage || 'Unknown error');
+          Alert.alert("Error", response.errorMessage || "Unknown error");
         } else if (response.assets && response.assets.length > 0) {
           let oldImages = [...selectedImages];
 
           const newImages = map(response.assets, (asset) => ({
-            uri: asset.uri || '',
-            name: asset.fileName || 'image.jpg',
-            type: asset.type || 'image/jpeg',
+            uri: asset.uri || "",
+            name: asset.fileName || "image.jpg",
+            type: asset.type || "image/jpeg",
           }));
 
           forEach(newImages, (newImg) => {
@@ -81,7 +84,7 @@ const InputImageUploader: React.FC<IProps> = ({
             setSelectedImages(() => [...oldImages]);
           }
         }
-      }
+      },
     );
   };
 
@@ -109,7 +112,7 @@ const InputImageUploader: React.FC<IProps> = ({
         commonStyles.flexStyles.colBetween,
         themedStyles.borderStyles.dashedGray,
         {
-          overflow: 'visible',
+          overflow: "visible",
           backgroundColor: COMMON_COLOURS.primaryOpacity05,
           borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
           height: APP_STYLE_VALUES.WH_SIZES.xl8,
@@ -134,10 +137,10 @@ const InputImageUploader: React.FC<IProps> = ({
 
       <View>
         <TextStyled fontSize="sm" fontWeight="medium">
-          {label || 'You can continue without upload...'}
+          {label || "You can continue without upload..."}
         </TextStyled>
         <TextStyled fontSize="xs" fontWeight="regular">
-          Maximum: {maxMedia + ''}
+          Maximum: {maxMedia + ""}
         </TextStyled>
       </View>
     </Pressable>
@@ -157,13 +160,13 @@ const InputImageUploader: React.FC<IProps> = ({
             }}
           >
             <TextStyled textAlignment="left" fontSize="md" fontWeight="regular">
-              {label || 'You can continue without upload...'}
+              {label || "You can continue without upload..."}
             </TextStyled>
           </View>
         )}
         <View>
           <TextStyled fontSize="xs" fontWeight="regular">
-            Maximum: {maxMedia + ''}
+            Maximum: {maxMedia + ""}
           </TextStyled>
         </View>
       </View>
@@ -193,8 +196,8 @@ const InputImageUploader: React.FC<IProps> = ({
                   commonStyles.absolutePositionStyles.absoluteFill,
                   {
                     zIndex: 9,
-                    left: 'auto',
-                    top: 'auto',
+                    left: "auto",
+                    top: "auto",
                   },
                 ]}
               >

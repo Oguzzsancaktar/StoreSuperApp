@@ -1,11 +1,12 @@
-import APP_ROUTES from '@/constants/APP_ROUTES';
-import { useSession } from '@/contexts/AuthContext';
-import { Redirect, router, Stack } from 'expo-router';
+import { Redirect, Stack, router } from "expo-router";
+
+import APP_ROUTES from "@/constants/APP_ROUTES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
 
 export default function PublicLayout() {
-  const { session } = useSession();
+  const { authToken } = useAppAuthSession();
 
-  if (session) {
+  if (authToken) {
     return <Redirect href={APP_ROUTES.TABS.TIMELINE} />;
   }
 
