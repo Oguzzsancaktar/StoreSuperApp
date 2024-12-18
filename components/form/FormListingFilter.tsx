@@ -1,26 +1,27 @@
-import React, { useMemo, useState } from 'react';
-import { View, ScrollView } from 'react-native';
-import { useGetListingFiltersQuery } from '@/services/listingFilterServices';
-import { useListingFilter } from '@/contexts/ListingFilterContext';
-import { map } from 'lodash';
-import { FormStyled, FormWizard } from '.';
-import { IFormWizardStepProps } from './FormWizard';
-import EListingFilterOptionComponentType from '@/interfaces/enums/EListingFilterOptionComponentType';
-import { IInputProps } from '@/interfaces/app';
-import { useDrawerState } from '@/contexts/DrawerContext';
-import { InnerCommonContainer } from '../containers';
+import { useMemo } from "react";
+
+import { map } from "lodash";
+
+import { useDrawerState } from "@/contexts/DrawerContext";
+import { useListingFilter } from "@/contexts/ListingFilterContext";
+import { IInputProps } from "@/interfaces/app";
+import EListingFilterOptionComponentType from "@/interfaces/enums/EListingFilterOptionComponentType";
+import { useGetListingFiltersQuery } from "@/services/listingFilterServices";
+
+import { FormStyled, FormWizard } from ".";
+import { InnerCommonContainer } from "../containers";
+import Preloader from "../feedback/Preloader";
+import { IFormWizardStepProps } from "./FormWizard";
 
 const FormListingFilter = () => {
   const { filterValues, setFilterValues } = useListingFilter();
 
   const { toggleDrawer } = useDrawerState();
 
-  const { data: filterOptionData } = useGetListingFiltersQuery(
-    filterValues.category || '',
-    {
+  const { data: filterOptionData, isLoading: filterOptionsDataIsLoading } =
+    useGetListingFiltersQuery(filterValues.category || "", {
       skip: !filterValues.category,
-    }
-  );
+    });
 
   const fields: Array<IInputProps> = useMemo(
     () => [
@@ -40,9 +41,9 @@ const FormListingFilter = () => {
             };
           }),
         } as IInputProps;
-      }) as IFormWizardStepProps['fields']),
+      }) as IFormWizardStepProps["fields"]),
     ],
-    [filterOptionData]
+    [filterOptionData],
   );
 
   const defaultValues = { ...filterValues };
@@ -50,14 +51,16 @@ const FormListingFilter = () => {
   const handleSubmit = (values: Record<string, any>) => {
     // reset state
     if (Object.keys(values).length === 0) {
-      console.log('reset---');
+      console.log("reset---");
       return setFilterValues({ category: filterValues?.category });
     }
     setFilterValues({ ...filterValues, ...values });
     toggleDrawer();
   };
 
-  console.log('filterValues22', filterValues);
+  if (filterOptionsDataIsLoading) {
+    return <Preloader />;
+  }
 
   return (
     <InnerCommonContainer>

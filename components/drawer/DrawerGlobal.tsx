@@ -13,7 +13,6 @@ import IconClose from "../svg/icon/IconClose";
 const DrawerGlobal = () => {
   const {
     commonStyles,
-
     themeContext: { theme, isDark },
   } = useAppStyles();
 

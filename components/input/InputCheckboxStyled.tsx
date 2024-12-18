@@ -4,6 +4,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
 } from "react-native-reanimated";
 
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
@@ -18,6 +19,7 @@ interface IProps {
   placeholder?: string;
   onToggle(value: boolean): void;
 }
+
 const InputCheckboxStyled: React.FC<IProps> = ({
   label,
   placeholder,
@@ -30,6 +32,7 @@ const InputCheckboxStyled: React.FC<IProps> = ({
   } = useAppStyles();
 
   const animation = useSharedValue(isChecked ? 1 : 0);
+  const iconOpacity = useSharedValue(isChecked ? 1 : 0);
 
   const handleToggle = () => {
     const newValue = !isChecked;
@@ -38,6 +41,12 @@ const InputCheckboxStyled: React.FC<IProps> = ({
       damping: 20,
       stiffness: 150,
     });
+
+    // Animate the icon's opacity with a slight delay after the background animation
+    iconOpacity.value = withTiming(newValue ? 1 : 0, {
+      duration: 200,
+    });
+
     if (onToggle) {
       onToggle(newValue);
     }
@@ -45,20 +54,24 @@ const InputCheckboxStyled: React.FC<IProps> = ({
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      backgroundColor:
-        animation.value === 1 ? theme.primary : theme.grayScale300,
-      borderColor: animation.value === 1 ? theme.primary : theme.grayScale500,
+      backgroundColor: animation.value ? theme.primary : theme.transparent,
+      borderColor: animation.value ? theme.primary : theme.grayScale500,
+      borderWidth: 2,
+    };
+  });
+
+  const iconAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: iconOpacity.value,
     };
   });
 
   return (
     <Pressable
       onPress={handleToggle}
-      style={[
-        {
-          marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-        },
-      ]}
+      style={{
+        marginLeft: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+      }}
     >
       <View
         style={[
@@ -75,13 +88,14 @@ const InputCheckboxStyled: React.FC<IProps> = ({
               width: APP_STYLE_VALUES.WH_SIZES.xs2,
               height: APP_STYLE_VALUES.WH_SIZES.xs2,
               borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.sm,
-              borderWidth: 2,
             },
             commonStyles.flexStyles.colCenter,
             animatedStyle,
           ]}
         >
-          {isChecked && <IconCheck color={theme.white} />}
+          <Animated.View style={iconAnimatedStyle}>
+            {isChecked && <IconCheck color={theme.white} />}
+          </Animated.View>
         </Animated.View>
 
         {label && (
