@@ -200,12 +200,12 @@ const InputImageUploader: React.FC<IProps> = ({
               >
                 <ImageIconCircle
                   size={APP_STYLE_VALUES.WH_SIZES.xs2}
-                  bgColor="grayScale200"
+                  bgColor="error"
                   icon={
                     <IconTrash
                       width={APP_STYLE_VALUES.WH_SIZES.xs3}
                       height={APP_STYLE_VALUES.WH_SIZES.xs3}
-                      color={theme.error}
+                      color={theme.white}
                     />
                   }
                 />

@@ -14,6 +14,8 @@ import IconEyeShowFilled from '../svg/icon/filled/IconEyeShowFilled';
 import IconHeartFilled from '../svg/icon/filled/IconHeartFilled';
 import CardListingActions from './CardListingActions';
 import { useGetViewCountQuery } from '@/services/listingServices';
+import IconCalendar from '../svg/icon/IconCalendar';
+import { ButtonStyled } from '../button';
 
 interface IProps {
   post: IListingPost;
@@ -33,198 +35,163 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
 
   return (
     <View style={[themedStyles.cardStyles.default]}>
-      <View
-        style={[
-          commonStyles.absolutePositionStyles.absoluteFill,
-          themedStyles.buttonStyles.badgePrimarySolid,
-          {
-            width: 140,
-            left: 'auto',
-            borderRadius: 0,
-            borderBottomLeftRadius: APP_STYLE_VALUES.RADIUS_SIZES.sm,
-          },
-        ]}
+      <TouchableOpacity
+        style={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp3 }}
+        onPress={handlePress}
       >
-        <TextStyled fontSize="md" fontWeight="semibold" customColor="white">
-          {dateUtils.formatDateForMoment(
-            post?.created ?? '',
-            'DATE_MOMENT_MONTH_NAME'
-          )}
-        </TextStyled>
-      </View>
-
-      <View
-        style={[
-          commonStyles.absolutePositionStyles.absoluteFill,
-          themedStyles.buttonStyles.badgeGrayscale600Solid,
-          {
-            width: 140,
-            right: 'auto',
-            bottom: 'auto',
-            borderRadius: 0,
-            borderBottomRightRadius: APP_STYLE_VALUES.RADIUS_SIZES.sm,
-          },
-        ]}
-      >
-        <View>
-          <TextStyled
-            fontSize="md"
-            fontWeight="semibold"
-            customColor="grayScale100"
-            textAlignment="left"
-          >
-            {post?.category?.name || post?.tags[0]}
-          </TextStyled>
-        </View>
-      </View>
-
-      <TouchableOpacity style={{}} onPress={handlePress}>
-        <View
-          style={[
-            commonStyles.flexStyles.rowWrap,
-            {
-              marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-              marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-              gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-            },
-          ]}
-        >
-          <View style={{ width: 70, height: 70 }}>
-            <ImageStyled url={post?.media[0]?.url} />
-          </View>
-
-          <View style={[commonStyles.flexStyles.colStart, { flex: 1 }]}>
-            <View
-              style={[
-                commonStyles.flexStyles.colStart,
-                {
-                  flex: 1,
-                  marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                },
-              ]}
-            >
-              <TextStyled
-                textTransform="capitalize"
-                fontSize="md"
-                fontWeight="medium"
-                textAlignment="left"
-                customColor="grayScale900"
-              >
-                {post?.name}
-              </TextStyled>
-            </View>
-
-            <View
-              style={[
-                commonStyles.flexStyles.rowWrap,
-                { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
-              ]}
-            >
-              <View
-                style={[
-                  commonStyles.flexStyles.colStart,
-                  themedStyles.cardStyles.medium,
-                  {
-                    paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                    width: 'auto',
-                  },
-                ]}
-              >
-                <TextStyled
-                  fontSize="md"
-                  fontWeight="semibold"
-                  customColor="grayScale900"
-                >
-                  Price
-                </TextStyled>
-
-                <TextStyled
-                  fontSize="sm"
-                  fontWeight="bold"
-                  customColor="primary"
-                >
-                  {post?.formattedPrice}
-                </TextStyled>
-              </View>
-
-              {/* <View
-                style={[
-                  commonStyles.flexStyles.colStart,
-                  themedStyles.cardStyles.medium,
-                  {
-                    paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                    width: 'auto',
-                  },
-                ]}
-              >
-                <TextStyled
-                  fontSize="md"
-                  fontWeight="semibold"
-                  customColor="grayScale900"
-                >
-                  Surface
-                </TextStyled>
-
-                <TextStyled
-                  fontSize="sm"
-                  fontWeight="bold"
-                  customColor="grayScale600"
-                >
-                  {find(post?.options, (option) => option.name === 'Surface')
-                    ?.value || ''}
-                </TextStyled>
-              </View> */}
-            </View>
-          </View>
-        </View>
-
         <View
           style={[
             commonStyles.flexStyles.rowStart,
             {
-              width: '100%',
-              gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-              alignItems: 'center',
+              gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
             },
           ]}
         >
-          <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xs2 }}>
-            <IconLocation color={theme.grayScale500} />
+          <View
+            style={{
+              width: APP_STYLE_VALUES.WH_SIZES.xl5,
+              height: APP_STYLE_VALUES.WH_SIZES.xl5,
+            }}
+          >
+            <ImageStyled url={post?.media[0]?.url} />
           </View>
 
-          <TextStyled
-            fontSize="sm"
-            fontWeight="regular"
-            customColor={'grayScale500'}
-            textAlignment="left"
+          <View
+            style={[
+              commonStyles.flexStyles.colBetween,
+              { height: APP_STYLE_VALUES.WH_SIZES.xl5, flex: 1 },
+            ]}
           >
-            {post?.listingAddress &&
-              (post?.listingAddress?.countryName || '') +
-                ', ' +
-                (post?.listingAddress?.cityName + '')}
-          </TextStyled>
+            <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xl4 }}>
+              <ButtonStyled variant="badgePrimaryOutlined">
+                <TextStyled
+                  textTransform="capitalize"
+                  fontSize="sm"
+                  fontWeight="regular"
+                  customColor="primary"
+                >
+                  {post?.category?.name || post?.tags[0]}
+                </TextStyled>
+              </ButtonStyled>
+            </View>
+
+            <TextStyled
+              textTransform="capitalize"
+              fontSize="h6"
+              fontWeight="bold"
+              textAlignment="left"
+              customColor="grayScale900"
+              numberOfLines={1}
+            >
+              {post?.name}
+            </TextStyled>
+
+            <View
+              style={[
+                commonStyles.flexStyles.rowBetween,
+                themedStyles.cardStyles.medium,
+                {
+                  height: APP_STYLE_VALUES.WH_SIZES.md,
+                  paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                },
+              ]}
+            >
+              <TextStyled
+                customStyle={{ width: APP_STYLE_VALUES.WH_SIZES.md }}
+                textAlignment="left"
+                fontSize="sm"
+                fontWeight="semibold"
+                customColor="grayScale900"
+              >
+                Price
+              </TextStyled>
+              <TextStyled
+                customStyle={{ flex: 1 }}
+                textAlignment="right"
+                fontSize="lg"
+                fontWeight="bold"
+                customColor="primary"
+              >
+                {post?.formattedPrice}
+              </TextStyled>
+            </View>
+          </View>
         </View>
 
         <View
           style={[
-            {
-              margin: APP_STYLE_VALUES.SPACE_SIZES.sp3,
-              height: 1,
-              backgroundColor: theme.grayScale100,
-            },
+            commonStyles.flexStyles.rowBetween,
+            { gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 },
           ]}
-        />
+        >
+          <View
+            style={[
+              commonStyles.flexStyles.rowStart,
+              {
+                flex: 1,
+                width: '100%',
+                gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                alignItems: 'center',
+              },
+            ]}
+          >
+            <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xs2 }}>
+              <IconLocation color={theme.grayScale500} />
+            </View>
+            <TextStyled
+              fontSize="sm"
+              fontWeight="regular"
+              customColor={'grayScale500'}
+              textAlignment="left"
+              numberOfLines={1}
+            >
+              {post?.listingAddress &&
+                post?.listingAddress?.countryName +
+                  ' ' +
+                  post?.listingAddress?.cityName}
+            </TextStyled>
+          </View>
 
-        <View
-          style={[
+          <View
+            style={[
+              commonStyles.flexStyles.rowStart,
+              {
+                width: APP_STYLE_VALUES.WH_SIZES.xl5,
+                gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                alignItems: 'center',
+              },
+            ]}
+          >
+            <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xs2 }}>
+              <IconCalendar color={theme.grayScale500} />
+            </View>
+            <TextStyled
+              fontSize="sm"
+              fontWeight="regular"
+              customColor={'grayScale500'}
+              textAlignment="left"
+              numberOfLines={1}
+            >
+              {dateUtils.formatDateForMoment(
+                post?.created ?? '',
+                'DATE_MOMENT_MONTH_NAME'
+              )}
+            </TextStyled>
+          </View>
+        </View>
+
+        <TextStyled
+          customStyle={[
             themedStyles.cardStyles.dark,
             { paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
           ]}
+          numberOfLines={3}
+          fontSize="md"
+          fontWeight="medium"
+          textAlignment="left"
         >
-          <TextStyled fontSize="md" fontWeight="semibold" textAlignment="left">
-            {stringUtils.truncateString(post?.description)}
-          </TextStyled>
-        </View>
+          {stringUtils.truncateString(post?.description)}
+        </TextStyled>
       </TouchableOpacity>
 
       <View
@@ -232,7 +199,6 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
           commonStyles.flexStyles.rowBetween,
           {
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-            marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp4,
             marginBottom: -APP_STYLE_VALUES.SPACE_SIZES.sp4,
           },
         ]}
@@ -250,6 +216,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
             ]}
           >
             <IconEyeShowFilled color={theme.grayScale400} />
+            {/* @todo remove view */}
             <View>
               <TextStyled
                 fontSize="md"

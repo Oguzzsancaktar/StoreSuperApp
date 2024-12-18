@@ -88,6 +88,7 @@ const CardListingActions: React.FC<IProps> = ({
       style={[
         commonStyles.flexStyles.rowEnd,
         {
+          height: APP_STYLE_VALUES.WH_SIZES.lg,
           gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
         },
       ]}
@@ -145,7 +146,16 @@ const CardListingActions: React.FC<IProps> = ({
       )}
 
       {post?.user?.email === userTokenInfo?.Email && (
-        <ButtonListingActionDropdown post={post} />
+        <View
+          style={[
+            commonStyles.flexStyles.flexCenter,
+            {
+              height: APP_STYLE_VALUES.WH_SIZES.xs,
+            },
+          ]}
+        >
+          <ButtonListingActionDropdown post={post} />
+        </View>
       )}
 
       <ImageIconCircle

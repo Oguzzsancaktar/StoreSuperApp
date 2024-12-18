@@ -44,6 +44,13 @@ const WizardListingCreate = () => {
     }
   );
 
+  const { data: listingCategoryChildSubData } = useGetListingCategorySubsQuery(
+    values?.subCategory?.value,
+    {
+      skip: !values?.subCategory,
+    }
+  );
+
   const { data: listingCategoryOptionsData } =
     useGetListingCategoryOptionsQuery(values?.categoryId, {
       skip: !values?.categoryId,
@@ -57,6 +64,23 @@ const WizardListingCreate = () => {
       };
     });
   }, [listingCategorySubData]);
+
+  const subsSubCategoryOptions: ISelectOption[] = useMemo(() => {
+    return map(listingCategoryChildSubData, (subCat) => {
+      return {
+        label: subCat.name,
+        value: subCat.id,
+      };
+    });
+  }, [listingCategoryChildSubData]);
+
+  console.log('----', subsSubCategoryOptions, listingCategorySubData);
+
+  const haveSubCategory = useMemo(() => {
+    return listingCategorySubData ? listingCategorySubData[0]?.hasChild : false;
+  }, [listingCategorySubData]);
+
+  console.log('haveSubCategory', haveSubCategory);
 
   const handleCategorySelect = (categoryId: IListingCategory['id']) => {
     setValues((prev) => {
@@ -146,11 +170,22 @@ const WizardListingCreate = () => {
           {
             required: true,
             label: 'Listing Category Sub',
-            name: 'estateType',
+            name: 'subCategory',
             placeholder: 'Select estate type...',
             type: 'select',
             options: subCategoryOptions,
           },
+
+          haveSubCategory
+            ? {
+                required: true,
+                label: 'Listing Category Subs sub',
+                name: 'subChildCategory',
+                placeholder: 'Select subs child type...',
+                type: 'select',
+                options: subsSubCategoryOptions,
+              }
+            : null,
 
           ...map(listingCategoryOptionsData, (option) => {
             const options: ISelectOption[] = map(option.values, (opt) => {
@@ -168,7 +203,7 @@ const WizardListingCreate = () => {
               options: options,
             } as IInputProps;
           }),
-        ],
+        ].filter((field): field is IInputProps => field !== null),
       },
       {
         id: 'STEP_3',
@@ -252,7 +287,15 @@ const WizardListingCreate = () => {
         ],
       },
     ],
-    [handleCategorySelect, listingCategoryOptionsData, values]
+    [
+      handleCategorySelect,
+      listingCategoryOptionsData,
+      listingCategoryChildSubData,
+      subCategoryOptions,
+      subsSubCategoryOptions,
+      haveSubCategory,
+      values,
+    ]
   );
 
   const handleSubmit = async (values: Record<string, any>) => {
@@ -279,7 +322,7 @@ const WizardListingCreate = () => {
       negotiable = false,
       coverImage = '',
       terms,
-      estateType,
+      subCategory,
       ...others
     } = values || {};
 

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Text, StyleProp, TextStyle, View } from 'react-native';
+import { Text, StyleProp, TextStyle, View, ViewStyle } from 'react-native';
 import APP_TYPOGRAPHY from '@/constants/APP_TYPOGRAPHY';
 import { IAppTheme, IShadowStylesheet } from '@/interfaces/theme';
 import { useAppTheme } from '@/contexts/ThemeContext';
@@ -16,6 +16,7 @@ interface IProps {
   children: string | string[] | number;
   numberOfLines?: number;
   textTransform?: TextStyle['textTransform'];
+  customStyle?: StyleProp<ViewStyle>;
 }
 
 const TextStyled: React.FC<IProps> = ({
@@ -27,6 +28,7 @@ const TextStyled: React.FC<IProps> = ({
   fontWeight,
   customColor,
   numberOfLines,
+  customStyle,
 }) => {
   const { theme } = useAppTheme();
   const { shadowStyles } = useThemedStyles();
@@ -59,16 +61,27 @@ const TextStyled: React.FC<IProps> = ({
     return tempStyles;
   }, [
     theme,
-    customColor,
-    textShadow,
-    fontSize,
-    fontWeight,
     textTransform,
     textAlignment,
+    textShadow,
+    children,
+    fontSize,
+    fontWeight,
+    customColor,
+    numberOfLines,
+    customStyle,
   ]);
 
   return (
-    <View style={[commonStyles.flexStyles.colCenter, { width: '100%' }]}>
+    <View
+      style={[
+        commonStyles.flexStyles.colCenter,
+        {
+          width: '100%',
+        },
+        customStyle,
+      ]}
+    >
       <Text numberOfLines={numberOfLines} style={textStyles}>
         {children}
       </Text>

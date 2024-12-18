@@ -26,7 +26,6 @@ export interface IFormWizardProps {
   values: Record<string, any>;
   isLoading?: boolean;
   showReset?: boolean;
-
   isTabBarActive?: boolean;
   setValues: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   onSubmit(values: Record<string, any>): void;
@@ -54,6 +53,10 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
     () => activeStepIndex === steps.length - 1,
     [activeStepIndex, steps.length]
   );
+
+  const mergedDefaultValues = useMemo(() => {
+    return { ...defaultValues, ...values };
+  }, [defaultValues, values]);
 
   // @todo goback loss current step data
   // solve with input blur or select save at same time
@@ -135,16 +138,18 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
           {activeStep?.customStep && activeStep.customStep}
 
           <FormStyled
+            values={values}
             showReset={showReset}
             submitKey={submitKey}
             isLoading={isLoading}
             isNextDisabled={isNextDisabled}
             key={activeStep.id}
             fields={activeStep.fields}
-            defaultValues={{ ...defaultValues, ...values }}
+            defaultValues={mergedDefaultValues}
             onSubmit={handleNextStep}
             isLastStep={isLastStep}
             isCurrentCustom={!!activeStep.customStep}
+            setValues={setValues}
           />
         </View>
       </InnerCommonContainer>

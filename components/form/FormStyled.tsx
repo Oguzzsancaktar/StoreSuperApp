@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useMemo } from 'react';
-import { FormProvider, useForm, Controller } from 'react-hook-form';
+import { FormProvider, useForm, Controller, useWatch } from 'react-hook-form';
 import { ButtonStyled } from '../button';
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import { map } from 'lodash';
@@ -15,12 +15,14 @@ export interface IProps {
   submitKey: string;
   fields: Array<IInputProps>;
   defaultValues: Record<string, any>;
+  values: Record<string, any>;
   onSubmit(values: Record<string, any>): void;
   isLastStep?: boolean;
   isCurrentCustom?: boolean;
   isNextDisabled?: boolean;
   isLoading?: boolean;
   showReset?: boolean;
+  setValues?: (values: Record<string, any>) => void;
 }
 
 const FormStyled: React.FC<Readonly<IProps>> = ({
@@ -33,6 +35,8 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   isNextDisabled,
   isLoading,
   showReset,
+  setValues,
+  values,
 }) => {
   const commonStyles = useCommonStyles();
 
@@ -47,6 +51,15 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
     reset,
   } = formInstance;
 
+  console.log('values', values);
+
+  const watchedValues = useWatch({ control });
+  useEffect(() => {
+    if (setValues && JSON.stringify(watchedValues) !== JSON.stringify(values)) {
+      setValues(watchedValues);
+    }
+  }, [watchedValues, setValues, values]);
+
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues]);
@@ -57,14 +70,13 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
       keyboardVerticalOffset={
         Platform.OS === 'ios' ? APP_STYLE_VALUES.SPACE_SIZES.sp30 : 0
       }
-      style={{ flex: 1 }}
+      style={{ width: '100%', flex: isCurrentCustom ? undefined : 1 }}
     >
       <FormProvider {...formInstance}>
         <View
           style={{
             width: '100%',
             flex: isCurrentCustom ? undefined : 1,
-            height: isCurrentCustom ? APP_STYLE_VALUES.WH_SIZES.lg : undefined,
           }}
         >
           <ScrollViewStyled
@@ -145,33 +157,35 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
 
           <View
             style={[
-              commonStyles.flexStyles.colCenter,
+              commonStyles.flexStyles.rowBetween,
               {
                 gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                height: showReset
-                  ? 2 * APP_STYLE_VALUES.WH_SIZES.lg +
-                    APP_STYLE_VALUES.SPACE_SIZES.sp2
-                  : APP_STYLE_VALUES.WH_SIZES.lg,
+                height:
+                  APP_STYLE_VALUES.WH_SIZES.lg +
+                  APP_STYLE_VALUES.SPACE_SIZES.sp2,
               },
             ]}
           >
             {showReset && (
+              <View style={{ flex: 1 }}>
+                <ButtonStyled
+                  isLoading={isLoading}
+                  disabled={isNextDisabled}
+                  onPress={() => onSubmit({})}
+                  variant="primaryOutlined"
+                  text={'Reset'}
+                />
+              </View>
+            )}
+            <View style={{ flex: 1 }}>
               <ButtonStyled
                 isLoading={isLoading}
                 disabled={isNextDisabled}
-                onPress={() => onSubmit({})}
-                variant="primaryOutlined"
-                text={'Reset'}
+                onPress={handleSubmit(onSubmit)}
+                variant="primarySolid"
+                text={isLastStep ? submitKey : 'Next'}
               />
-            )}
-
-            <ButtonStyled
-              isLoading={isLoading}
-              disabled={isNextDisabled}
-              onPress={handleSubmit(onSubmit)}
-              variant="primarySolid"
-              text={isLastStep ? submitKey : 'Next'}
-            />
+            </View>
           </View>
         </View>
       </FormProvider>

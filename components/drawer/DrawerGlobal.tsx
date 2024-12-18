@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
@@ -13,6 +13,7 @@ const DrawerGlobal = () => {
   const { theme, isDark } = useAppTheme();
 
   const { isDrawerOpen, toggleDrawer } = useDrawerState();
+  const { height } = useWindowDimensions();
 
   if (!isDrawerOpen) {
     return null;
@@ -22,6 +23,7 @@ const DrawerGlobal = () => {
       style={[
         commonStyles.absolutePositionStyles.absoluteFill,
         {
+          height: height - APP_STYLE_VALUES.WH_SIZES.xl2,
           position: 'absolute',
           zIndex: 9,
         },

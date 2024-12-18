@@ -12,11 +12,13 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import IconVehicle from '../svg/icon/IconVehicle';
 import IconCamera from '../svg/icon/IconCamera';
 import IconMegaphone from '../svg/icon/IconMegaphone';
+import IListingPost from '@/interfaces/listing/IListingPost';
 
 interface IProps {
   categories: IListingCategory[];
+  tags: IListingPost['tags'];
 }
-const CardPostCategory: React.FC<IProps> = ({ categories }) => {
+const CardPostCategory: React.FC<IProps> = ({ tags, categories }) => {
   const { theme } = useAppTheme();
   const commonStyles = useCommonStyles();
   const themedStyles = useThemedStyles();
@@ -45,7 +47,6 @@ const CardPostCategory: React.FC<IProps> = ({ categories }) => {
     return icon;
   }, [parentCategory, theme]);
 
-  console.log('categories', parentCategory);
   return (
     <View
       style={[
@@ -70,24 +71,22 @@ const CardPostCategory: React.FC<IProps> = ({ categories }) => {
           {/* <SvgUri uri={parentCategory?.icon || ''} /> */}
         </View>
 
-        <View style={commonStyles.flexStyles.colStart}>
-          <TextStyled fontSize="h4" fontWeight="bold">
+        <View style={[commonStyles.flexStyles.colCenter]}>
+          <TextStyled customStyle={{ flex: 1 }} fontSize="h4" fontWeight="bold">
             {parentCategory?.name || ''}
           </TextStyled>
-          <View>
+          {tags?.length && (
             <TextStyled
               fontSize="sm"
+              textAlignment="left"
               fontWeight="medium"
               customColor="grayScale500"
             >
-              {map(categories, (cat) => {
-                if (cat.parentCategoryId) {
-                  return cat.name + ' ';
-                }
-                return '';
+              {map(tags, (tag) => {
+                return tag + ' ';
               })}
             </TextStyled>
-          </View>
+          )}
         </View>
       </View>
     </View>

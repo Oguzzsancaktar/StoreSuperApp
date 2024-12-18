@@ -44,7 +44,7 @@ const CardNewestPostings = () => {
       >
         <View>
           <TextStyled fontSize="h6" textAlignment="left" fontWeight="semibold">
-            Newest Postings On
+            Newest Postings in
           </TextStyled>
         </View>
 

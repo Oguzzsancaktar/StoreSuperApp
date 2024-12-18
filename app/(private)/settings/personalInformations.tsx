@@ -28,6 +28,7 @@ const PersonalInformationScreen = () => {
           style={[
             commonStyles.flexStyles.colStart,
             {
+              flex: 1,
               height: '100%',
               width: '100%',
               gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,

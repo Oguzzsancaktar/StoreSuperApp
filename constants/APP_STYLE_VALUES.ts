@@ -10,6 +10,7 @@ const WH_SIZES = {
   xl5: 125,
   xl4: 100,
   xl3: 75,
+  xl2: 70,
   xl: 64,
   lg: 56,
   md: 48,

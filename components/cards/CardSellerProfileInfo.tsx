@@ -21,6 +21,7 @@ import ImageUserProfile from '../images/ImageUserProfile';
 import { useSession } from '@/contexts/AuthContext';
 import IUser from '@/interfaces/account/IUser';
 import { useMemo } from 'react';
+import Preloader from '../feedback/Preloader';
 
 interface IProps {
   scrollY: Animated.Value;
@@ -36,7 +37,8 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
     useAddCurrentUserImageMutation();
 
   const { data: currentUserListingData } = useGetCurrentUserListingsQuery();
-  const { data: currentUserData } = useGetCurrentUserInformationQuery();
+  const { data: currentUserData, isLoading: currentUserDataIsLoading } =
+    useGetCurrentUserInformationQuery();
 
   const {
     data: selectedUserProfileData,
@@ -111,6 +113,9 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
     }
   };
 
+  if (currentUserDataIsLoading || selectedUsersProfileIsLoading) {
+    return <Preloader />;
+  }
   return (
     <Animated.View
       style={[

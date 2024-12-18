@@ -9,6 +9,8 @@ interface IButtonStylesheet {
   badgePrimarySolid: StyleSheet.NamedStyles<any>;
   badgeGrayscale600Solid: StyleSheet.NamedStyles<any>;
 
+  badgePrimaryOutlined: StyleSheet.NamedStyles<any>;
+
   primarySolid: StyleSheet.NamedStyles<any>;
   primarySolidPressed: StyleSheet.NamedStyles<any>;
   primarySolidDisabled: StyleSheet.NamedStyles<any>;
@@ -16,6 +18,7 @@ interface IButtonStylesheet {
   primaryOutlined: StyleSheet.NamedStyles<any>;
   primaryOutlinedPressed: StyleSheet.NamedStyles<any>;
   primaryOutlinedDisabled: StyleSheet.NamedStyles<any>;
+
   gray100Outlined: StyleSheet.NamedStyles<any>;
   gray100OutlinedPressed: StyleSheet.NamedStyles<any>;
   gray100OutlinedDisabled: StyleSheet.NamedStyles<any>;

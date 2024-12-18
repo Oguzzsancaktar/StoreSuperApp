@@ -19,12 +19,11 @@ const COMMON_BUTTON_STYLES = {
 
 const COMMON_CARD_STYLES = {
   borderRadius: RADIUS_SIZES.lg,
-  padding: SPACE_SIZES.sp4,
+  padding: SPACE_SIZES.sp3,
   borderWidth: 1,
   overflow: "hidden" as "hidden" | "visible" | undefined,
   position: "relative" as "relative" | "absolute" | "static" | undefined,
   width: "100%" as DimensionValue | undefined,
-  paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp6
 }
 
 
@@ -165,7 +164,6 @@ const useThemedStyles = () => {
     },
 
 
-
     primarySolid: {
       ...COMMON_BUTTON_STYLES,
       backgroundColor: theme.primary,
@@ -185,6 +183,19 @@ const useThemedStyles = () => {
       alignItems: "center",
       ...shadowStyles.dropShadowSm
     },
+
+
+    badgePrimaryOutlined: {
+      ...COMMON_BUTTON_STYLES,
+      backgroundColor: theme.transparent,
+      borderColor: COMMON_COLOURS.primary,
+      height: APP_STYLE_VALUES.WH_SIZES.xs2,
+      padding: APP_STYLE_VALUES.SPACE_SIZES.sp0,
+      display: "flex",
+      alignItems: "center",
+    },
+
+
 
 
     primarySolidPressed: {

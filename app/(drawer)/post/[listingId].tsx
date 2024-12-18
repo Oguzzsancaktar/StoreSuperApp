@@ -11,6 +11,7 @@ import Preloader from '@/components/feedback/Preloader';
 import ImageCarousel from '@/components/images/ImageCarousel';
 import MapGeoLoaction from '@/components/map/MapGeoLoaction';
 import ScrollViewStyled from '@/components/override/ScrollViewStyled';
+import IconCalendar from '@/components/svg/icon/IconCalendar';
 import IconLocation from '@/components/svg/icon/IconLocation';
 import IconSendMessage from '@/components/svg/icon/IconSendMessage';
 import { TextStyled } from '@/components/typography';
@@ -20,6 +21,7 @@ import { useAppTheme } from '@/contexts/ThemeContext';
 import useCommonStyles from '@/hooks/useCommonStyles';
 import IUser from '@/interfaces/account/IUser';
 import { useGetListingItemDetailsQuery } from '@/services/listingServices';
+import dateUtils from '@/utils/dateUtils';
 import { toastWarning } from '@/utils/toastUtils';
 import { router, useLocalSearchParams } from 'expo-router';
 import { map } from 'lodash';
@@ -49,6 +51,7 @@ const ListingDetailPage = () => {
     });
   };
 
+  console.log('listingItemDetailData', listingItemDetailData);
   const mediaUrls = useMemo(() => {
     return map(listingItemDetailData?.media, (m) => m.url);
   }, [listingItemDetailData]);
@@ -66,18 +69,21 @@ const ListingDetailPage = () => {
       showGoBack={true}
       showBorderUnderline={true}
       rightElement={
-        <CardListingActions
-          favoriteCount={listingItemDetailData.favoriteCount}
-          showViewCount={true}
-          listingTitle={listingItemDetailData.name}
-          listingId={listingItemDetailData.id}
-          isFavorite={listingItemDetailData.isFavorite}
-        />
+        <CardListingActions showViewCount={true} post={listingItemDetailData} />
       }
     >
       <ScrollViewStyled>
+        <View style={{ width: '100%', height: 300 }}>
+          <ImageCarousel imageUrls={mediaUrls} />
+        </View>
+
         <InnerCommonContainer>
-          <View style={[commonStyles.flexStyles.colStart, { width: '100%' }]}>
+          <View
+            style={[
+              commonStyles.flexStyles.colStart,
+              { width: '100%', gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
+            ]}
+          >
             <TextStyled
               textTransform="capitalize"
               fontSize="h3"
@@ -89,37 +95,69 @@ const ListingDetailPage = () => {
 
             <View
               style={[
-                commonStyles.flexStyles.rowStart,
+                commonStyles.flexStyles.rowBetween,
                 {
-                  width: '100%',
-                  gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
-                  alignItems: 'center',
+                  gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
                 },
               ]}
             >
-              <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xs2 }}>
-                <IconLocation color={theme.grayScale400} />
+              <View
+                style={[
+                  commonStyles.flexStyles.rowStart,
+                  {
+                    flex: 1,
+                    width: '100%',
+                    gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                    alignItems: 'center',
+                  },
+                ]}
+              >
+                <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xs2 }}>
+                  <IconLocation color={theme.grayScale500} />
+                </View>
+                <TextStyled
+                  fontSize="sm"
+                  fontWeight="regular"
+                  customColor={'grayScale500'}
+                  textAlignment="left"
+                  numberOfLines={1}
+                >
+                  {listingItemDetailData?.listingAddress &&
+                    listingItemDetailData?.listingAddress?.countryName +
+                      ' ' +
+                      listingItemDetailData?.listingAddress?.cityName}
+                </TextStyled>
               </View>
 
-              <View style={[]}>
+              <View
+                style={[
+                  commonStyles.flexStyles.rowStart,
+                  {
+                    width: APP_STYLE_VALUES.WH_SIZES.xl5,
+                    gap: APP_STYLE_VALUES.SPACE_SIZES.sp1,
+                    alignItems: 'center',
+                  },
+                ]}
+              >
+                <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xs2 }}>
+                  <IconCalendar color={theme.grayScale500} />
+                </View>
                 <TextStyled
+                  fontSize="sm"
+                  fontWeight="regular"
+                  customColor={'grayScale500'}
                   textAlignment="left"
-                  fontSize="md"
-                  fontWeight="bold"
-                  customColor={'grayScale400'}
+                  numberOfLines={1}
                 >
-                  {(listingItemDetailData?.listingAddress?.countryName || '') +
-                    ', ' +
-                    (listingItemDetailData?.listingAddress?.cityName + '')}
+                  {dateUtils.formatDateForMoment(
+                    listingItemDetailData?.created ?? '',
+                    'DATE_MOMENT_MONTH_NAME'
+                  )}
                 </TextStyled>
               </View>
             </View>
           </View>
         </InnerCommonContainer>
-
-        <View style={{ width: '100%', height: 300 }}>
-          <ImageCarousel imageUrls={mediaUrls} />
-        </View>
 
         <InnerCommonContainer>
           <View
@@ -131,6 +169,16 @@ const ListingDetailPage = () => {
               },
             ]}
           >
+            <CardPostPrice
+              negotiable={listingItemDetailData?.negotiable}
+              formattedPrice={listingItemDetailData?.formattedPrice}
+            />
+            <CardPostCategory
+              tags={listingItemDetailData.tags}
+              categories={listingItemDetailData?.categories || []}
+            />
+            <CardListingDetailOptions options={listingItemDetailData.options} />
+
             <View
               style={{
                 gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
@@ -148,18 +196,6 @@ const ListingDetailPage = () => {
                 {listingItemDetailData?.description || ''}
               </TextStyled>
             </View>
-            <View style={{ width: '100%' }}>
-              <CardPostPrice
-                negotiable={listingItemDetailData?.negotiable}
-                formattedPrice={listingItemDetailData?.formattedPrice}
-              />
-            </View>
-            <View style={{ width: '100%' }}>
-              <CardPostCategory
-                categories={listingItemDetailData?.categories || []}
-              />
-            </View>
-            <CardListingDetailOptions options={listingItemDetailData.options} />
 
             <View style={{ width: '100%' }}>
               <MapGeoLoaction
