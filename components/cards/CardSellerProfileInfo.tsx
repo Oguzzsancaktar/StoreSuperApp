@@ -62,7 +62,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
 
   const avatarPosition = scrollY.interpolate({
     inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
-    outputRange: [0, -120],
+    outputRange: [0, -140],
     extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
   });
 
@@ -74,8 +74,19 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
     ],
     extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
   });
+  const avatarMarginTop = scrollY.interpolate({
+    inputRange: [0, 150], // 0'dan 150 birim scrolle kadar
+    outputRange: [0, APP_STYLE_VALUES.WH_SIZES.sm],
+    extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
+  });
 
   const uploadScale = scrollY.interpolate({
+    inputRange: [0, 50], // 0'dan 150 birim scrolle kadar
+    outputRange: [1, 0],
+    extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
+  });
+
+  const infoOpacity = scrollY.interpolate({
     inputRange: [0, 50], // 0'dan 150 birim scrolle kadar
     outputRange: [1, 0],
     extrapolate: "clamp", // Değerleri bu aralık dışında sınırla
@@ -176,6 +187,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
           <Animated.View
             style={[
               {
+                marginTop: avatarMarginTop,
                 overflow: "hidden",
                 borderColor: theme.grayScale100,
                 width: avatarSize,
@@ -230,12 +242,13 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
             </View>
           </View>
 
-          <View
+          <Animated.View
             style={[
               commonStyles.flexStyles.rowBetween,
               {
                 gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
                 marginVertical: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+                opacity: infoOpacity,
               },
             ]}
           >
@@ -299,7 +312,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
                 Business
               </TextStyled>
             </View> */}
-          </View>
+          </Animated.View>
           <View
             style={[
               commonStyles.flexStyles.colCenter,
