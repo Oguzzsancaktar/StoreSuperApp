@@ -14,7 +14,12 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ngxmarketplace.setuka24"
+      "bundleIdentifier": "com.ngxmarketplace.setuka24",
+      "splash": {
+        "image": "./assets/images/splash.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#FEF9B0"
+      }
     },
     "android": {
       "adaptiveIcon": {

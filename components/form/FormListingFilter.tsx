@@ -8,15 +8,16 @@ import { IInputProps } from "@/interfaces/app";
 import EListingFilterOptionComponentType from "@/interfaces/enums/EListingFilterOptionComponentType";
 import { useGetListingFiltersQuery } from "@/services/listingFilterServices";
 
-import { FormStyled, FormWizard } from ".";
+import { FormStyled } from ".";
 import { InnerCommonContainer } from "../containers";
 import Preloader from "../feedback/Preloader";
 import { IFormWizardStepProps } from "./FormWizard";
 
 const FormListingFilter = () => {
+  const { toggleDrawer } = useDrawerState();
   const { filterValues, setFilterValues } = useListingFilter();
 
-  const { toggleDrawer } = useDrawerState();
+  console.log("filterValues", filterValues);
 
   const { data: filterOptionData, isLoading: filterOptionsDataIsLoading } =
     useGetListingFiltersQuery(filterValues.category || "", {
@@ -46,8 +47,6 @@ const FormListingFilter = () => {
     [filterOptionData],
   );
 
-  const defaultValues = { ...filterValues };
-
   const handleSubmit = (values: Record<string, any>) => {
     // reset state
     if (Object.keys(values).length === 0) {
@@ -65,10 +64,11 @@ const FormListingFilter = () => {
   return (
     <InnerCommonContainer>
       <FormStyled
+        values={filterValues}
         showReset={true}
         fields={fields}
         submitKey="Apply"
-        defaultValues={defaultValues}
+        setValues={setFilterValues}
         onSubmit={handleSubmit}
       />
     </InnerCommonContainer>

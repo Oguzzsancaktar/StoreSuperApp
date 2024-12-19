@@ -18,9 +18,9 @@ interface IProps {
 const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
   const {
     commonStyles,
-    themeContext: { theme, toggleTheme },
+    themeContext: { theme },
   } = useAppStyles();
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const router = useRouter();
 

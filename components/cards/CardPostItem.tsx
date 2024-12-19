@@ -73,7 +73,9 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
                   fontWeight="regular"
                   customColor="primary"
                 >
-                  {post?.category?.name || post?.tags[0]}
+                  {post?.categories?.shift()?.name ||
+                    post?.category?.name ||
+                    post?.tags[0]}
                 </TextStyled>
               </ButtonStyled>
             </View>
@@ -124,7 +126,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
         <View
           style={[
             commonStyles.flexStyles.rowBetween,
-            { gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 },
+            { gap: APP_STYLE_VALUES.SPACE_SIZES.sp7 },
           ]}
         >
           <View

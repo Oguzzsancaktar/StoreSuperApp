@@ -28,7 +28,6 @@ import {
 const WizardListingCreate = () => {
   const { themedStyles } = useAppStyles();
 
-  const defaultValues = {};
   const [values, setValues] = useState<Record<string, any>>({});
 
   const [
@@ -76,13 +75,9 @@ const WizardListingCreate = () => {
     });
   }, [listingCategoryChildSubData]);
 
-  console.log("----", subsSubCategoryOptions, listingCategorySubData);
-
   const haveSubCategory = useMemo(() => {
     return listingCategorySubData ? listingCategorySubData[0]?.hasChild : false;
   }, [listingCategorySubData]);
-
-  console.log("haveSubCategory", haveSubCategory);
 
   const handleCategorySelect = (categoryId: IListingCategory["id"]) => {
     setValues((prev) => {
@@ -307,6 +302,7 @@ const WizardListingCreate = () => {
       allowPhoneCalls = false,
       isActive = true,
       isDraft = true,
+      subChildCategory = {},
       city = {},
       country = {},
       district = {},
@@ -327,6 +323,8 @@ const WizardListingCreate = () => {
       subCategory,
       ...others
     } = values || {};
+
+    console.log("values", values);
 
     const keys = Object.keys(others);
 
@@ -365,9 +363,8 @@ const WizardListingCreate = () => {
       return tempOption;
     });
 
-    // @todo add lat long api
     const listingCreateDTO: IListingCreateDTO = {
-      categoryId,
+      categoryId: subChildCategory?.value || subCategory?.value || categoryId,
       allowMessaging,
       allowPhoneCalls,
       isActive,
@@ -384,9 +381,7 @@ const WizardListingCreate = () => {
           title,
         },
       ],
-      tags, // @todo implement tags from api
-      // @todo upload photos to blobstorage and add url
-
+      tags,
       options: tempOptions,
       media,
       coverImage: media[0]?.url,
@@ -452,7 +447,6 @@ const WizardListingCreate = () => {
       values={values}
       setValues={setValues}
       steps={steps}
-      defaultValues={defaultValues}
       onSubmit={handleSubmit}
     />
   );

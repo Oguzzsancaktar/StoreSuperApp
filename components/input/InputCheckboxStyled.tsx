@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Pressable, View } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -15,7 +15,7 @@ import { TextStyled } from "../typography";
 
 interface IProps {
   label?: string;
-  isChecked: boolean;
+  isChecked?: boolean;
   placeholder?: string;
   onToggle(value: boolean): void;
 }
@@ -23,7 +23,7 @@ interface IProps {
 const InputCheckboxStyled: React.FC<IProps> = ({
   label,
   placeholder,
-  isChecked,
+  isChecked = false,
   onToggle,
 }) => {
   const {
@@ -34,6 +34,18 @@ const InputCheckboxStyled: React.FC<IProps> = ({
   const animation = useSharedValue(isChecked ? 1 : 0);
   const iconOpacity = useSharedValue(isChecked ? 1 : 0);
 
+  useEffect(() => {
+    // Synchronize animations with external value changes
+    animation.value = withSpring(isChecked ? 1 : 0, {
+      damping: 20,
+      stiffness: 150,
+    });
+
+    iconOpacity.value = withTiming(isChecked ? 1 : 0, {
+      duration: 300,
+    });
+  }, [isChecked]);
+
   const handleToggle = () => {
     const newValue = !isChecked;
 
@@ -42,9 +54,8 @@ const InputCheckboxStyled: React.FC<IProps> = ({
       stiffness: 150,
     });
 
-    // Animate the icon's opacity with a slight delay after the background animation
     iconOpacity.value = withTiming(newValue ? 1 : 0, {
-      duration: 200,
+      duration: 300,
     });
 
     if (onToggle) {
@@ -54,8 +65,9 @@ const InputCheckboxStyled: React.FC<IProps> = ({
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      backgroundColor: animation.value ? theme.primary : theme.transparent,
-      borderColor: animation.value ? theme.primary : theme.grayScale500,
+      backgroundColor:
+        animation.value === 1 ? theme.primary : theme.transparent,
+      borderColor: animation.value === 1 ? theme.primary : theme.grayScale500,
       borderWidth: 2,
     };
   });
@@ -63,6 +75,11 @@ const InputCheckboxStyled: React.FC<IProps> = ({
   const iconAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: iconOpacity.value,
+      transform: [
+        {
+          scale: iconOpacity.value,
+        },
+      ],
     };
   });
 

@@ -17,7 +17,7 @@ import FormInputComponents from "./FormInputComponents";
 export interface IProps {
   submitKey: string;
   fields: Array<IInputProps>;
-  defaultValues: Record<string, any>;
+  defaultValues?: Record<string, any>;
   values: Record<string, any>;
   onSubmit(values: Record<string, any>): void;
   isLastStep?: boolean;
@@ -31,9 +31,9 @@ export interface IProps {
 const FormStyled: React.FC<Readonly<IProps>> = ({
   submitKey,
   fields,
-  defaultValues,
+  defaultValues = {},
   onSubmit,
-  isLastStep = "true",
+  isLastStep = true,
   isCurrentCustom,
   isNextDisabled,
   isLoading,
@@ -44,7 +44,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   const { commonStyles } = useAppStyles();
 
   const formInstance = useForm({
-    defaultValues: useMemo(() => defaultValues, [defaultValues]),
+    defaultValues: useMemo(() => values, [values]),
   });
 
   const {
@@ -57,15 +57,17 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   console.log("values", values);
 
   const watchedValues = useWatch({ control });
-  useEffect(() => {
-    if (setValues && JSON.stringify(watchedValues) !== JSON.stringify(values)) {
-      setValues(watchedValues);
-    }
-  }, [watchedValues, setValues, values]);
 
   useEffect(() => {
-    reset(defaultValues);
-  }, [defaultValues]);
+    if (setValues && JSON.stringify(watchedValues) !== JSON.stringify(values)) {
+      console.log("------", values);
+      setValues({ ...values, ...watchedValues });
+    }
+  }, [watchedValues, setValues]);
+
+  // useEffect(() => {
+  //   reset(defaultValues);
+  // }, [defaultValues]);
 
   return (
     <KeyboardAvoidingView

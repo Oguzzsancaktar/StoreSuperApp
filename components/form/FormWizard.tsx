@@ -25,7 +25,7 @@ export interface IFormWizardProps {
   submitKey?: string;
   steps: IFormWizardStepProps[];
   isNextDisabled?: boolean;
-  defaultValues: Record<string, any>;
+  defaultValues?: Record<string, any>;
   values: Record<string, any>;
   isLoading?: boolean;
   showReset?: boolean;
@@ -38,7 +38,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   submitKey = "Submit",
   isNextDisabled = false,
   steps,
-  defaultValues,
+  defaultValues = {},
   isTabBarActive,
   isLoading,
   onSubmit,
@@ -49,10 +49,12 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   const { commonStyles } = useAppStyles();
 
   const [activeStepIndex, setActiveStepIndex] = useState(0);
+
   const activeStep = useMemo(
     () => steps[activeStepIndex],
     [activeStepIndex, steps],
   );
+
   const isLastStep = useMemo(
     () => activeStepIndex === steps.length - 1,
     [activeStepIndex, steps.length],
@@ -62,13 +64,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
     return { ...defaultValues, ...values };
   }, [defaultValues, values]);
 
-  // @todo goback loss current step data
-  // solve with input blur or select save at same time
-
-  const goPrevStep = (stepValues?: Record<string, any>) => {
-    const newValues = { ...values, ...stepValues };
-    setValues(() => newValues);
-
+  const goPrevStep = () => {
     if (activeStepIndex === 0) {
       return router.back();
     }
@@ -79,7 +75,6 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
     setActiveStepIndex((index) => (index += 1));
   };
 
-  // @todo need to use this for go back but instance not here
   const handleNextStep = (stepValues: Record<string, any>) => {
     const newValues = { ...values, ...stepValues };
     setValues(newValues);
