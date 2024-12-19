@@ -27,36 +27,6 @@ const UpdateContactInformationScreen = () => {
     themeContext: { theme, toggleTheme },
   } = useAppStyles();
 
-  const Address_ITEMS: IAddressItemProps[] = useMemo(
-    () => [
-      {
-        icon: "IconUser",
-        text: "Personal Information",
-        right: "chevron",
-        onPress: () => {
-          router.push(APP_ROUTES.PUBLIC.ADDRESS_PERSONAL_INFORMATIONS);
-        },
-      },
-      {
-        icon: "IconPhone",
-        text: "Contact Information",
-        right: "chevron",
-        onPress: () => {
-          router.push(APP_ROUTES.PUBLIC.ADDRESS_CONTACT_INFORMATIONS);
-        },
-      },
-      {
-        icon: "IconLocation",
-        text: "Address Information",
-        right: "chevron",
-        onPress: () => {
-          router.push(APP_ROUTES.PUBLIC.ADDRESS_ADDRESS_INFORMATIONS);
-        },
-      },
-    ],
-    [toggleTheme],
-  );
-
   return (
     <ScreenWrapperContainer showGoBack={true}>
       <InnerCommonContainer>

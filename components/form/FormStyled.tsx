@@ -17,7 +17,6 @@ import FormInputComponents from "./FormInputComponents";
 export interface IProps {
   submitKey: string;
   fields: Array<IInputProps>;
-  defaultValues?: Record<string, any>;
   values: Record<string, any>;
   onSubmit(values: Record<string, any>): void;
   isLastStep?: boolean;
@@ -31,7 +30,6 @@ export interface IProps {
 const FormStyled: React.FC<Readonly<IProps>> = ({
   submitKey,
   fields,
-  defaultValues = {},
   onSubmit,
   isLastStep = true,
   isCurrentCustom,
@@ -59,14 +57,13 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   useEffect(() => {
     if (setValues && JSON.stringify(watchedValues) !== JSON.stringify(values)) {
       console.log("------", watchedValues, values);
-      delete watchedValues?.categoryId;
       setValues({ ...values, ...watchedValues });
     }
   }, [watchedValues, setValues]);
 
-  // useEffect(() => {
-  //   reset(defaultValues);
-  // }, [defaultValues]);
+  useEffect(() => {
+    reset(values);
+  }, [values]);
 
   return (
     <KeyboardAvoidingView
@@ -175,7 +172,11 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                 <ButtonStyled
                   isLoading={isLoading}
                   disabled={isNextDisabled}
-                  onPress={() => onSubmit({})}
+                  onPress={() => {
+                    setValues && setValues({});
+                    reset();
+                    onSubmit({});
+                  }}
                   variant="primaryOutlined"
                   text={"Reset"}
                 />

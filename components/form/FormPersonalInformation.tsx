@@ -52,11 +52,10 @@ const FormPersonalInformation = () => {
     }
   };
 
-  // @todo create custom scrollwiev
   return (
     <FormStyled
+      values={defaultValues}
       isLoading={updateInformationIsLoading}
-      defaultValues={defaultValues}
       fields={fields}
       onSubmit={handleSubmit}
       submitKey="Save"

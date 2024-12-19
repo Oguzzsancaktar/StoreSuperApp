@@ -1,8 +1,11 @@
-import InputSelectStyled from './InputSelectStyled';
-import { useGetCountriesQuery } from '@/services/listingFilterServices';
-import ISelectOption from '@/interfaces/theme/ISelectOption';
-import { useMemo } from 'react';
-import { map } from 'lodash';
+import { useMemo } from "react";
+
+import { map } from "lodash";
+
+import ISelectOption from "@/interfaces/theme/ISelectOption";
+import { useGetCountriesQuery } from "@/services/listingFilterServices";
+
+import InputSelectStyled from "./InputSelectStyled";
 
 interface IProps {
   value?: ISelectOption;
@@ -23,6 +26,7 @@ const InputSelectCountry: React.FC<IProps> = ({ handleSelect, value }) => {
 
   return (
     <InputSelectStyled
+      showReset={true}
       searchable={true}
       label="Countries"
       variant="gray200Outlined"

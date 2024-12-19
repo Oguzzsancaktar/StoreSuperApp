@@ -1,12 +1,15 @@
-import InputSelectStyled from './InputSelectStyled';
-import { useGetCitiesQuery } from '@/services/listingFilterServices';
-import ISelectOption from '@/interfaces/theme/ISelectOption';
-import { useMemo } from 'react';
-import { map } from 'lodash';
-import ICountry from '@/interfaces/common/address/ICountry';
+import { useMemo } from "react";
+
+import { map } from "lodash";
+
+import ICountry from "@/interfaces/common/address/ICountry";
+import ISelectOption from "@/interfaces/theme/ISelectOption";
+import { useGetCitiesQuery } from "@/services/listingFilterServices";
+
+import InputSelectStyled from "./InputSelectStyled";
 
 interface IProps {
-  countryId: ICountry['id'];
+  countryId: ICountry["id"];
   value?: ISelectOption;
   handleSelect(selected: ISelectOption): void;
 }
@@ -28,6 +31,7 @@ const InputSelectCity: React.FC<IProps> = ({
 
   return (
     <InputSelectStyled
+      showReset={true}
       searchable={true}
       label="Cities"
       variant="gray200Outlined"

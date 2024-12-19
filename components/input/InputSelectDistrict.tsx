@@ -1,15 +1,18 @@
-import InputSelectStyled from './InputSelectStyled';
+import { useMemo } from "react";
+
+import { map } from "lodash";
+
+import ICity from "@/interfaces/common/address/ICity";
+import ISelectOption from "@/interfaces/theme/ISelectOption";
 import {
   useGetCitiesQuery,
   useGetDistrictsQuery,
-} from '@/services/listingFilterServices';
-import ISelectOption from '@/interfaces/theme/ISelectOption';
-import { useMemo } from 'react';
-import { map } from 'lodash';
-import ICity from '@/interfaces/common/address/ICity';
+} from "@/services/listingFilterServices";
+
+import InputSelectStyled from "./InputSelectStyled";
 
 interface IProps {
-  cityId: ICity['id'];
+  cityId: ICity["id"];
   value?: ISelectOption;
   handleSelect(selected: ISelectOption): void;
 }
@@ -31,6 +34,7 @@ const InputSelectDistrict: React.FC<IProps> = ({
 
   return (
     <InputSelectStyled
+      showReset={true}
       searchable={true}
       label="Districts"
       variant="gray200Outlined"

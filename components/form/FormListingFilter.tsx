@@ -17,8 +17,6 @@ const FormListingFilter = () => {
   const { toggleDrawer } = useDrawerState();
   const { filterValues, setFilterValues } = useListingFilter();
 
-  console.log("filterValues", filterValues);
-
   const { data: filterOptionData, isLoading: filterOptionsDataIsLoading } =
     useGetListingFiltersQuery(
       {
@@ -58,7 +56,7 @@ const FormListingFilter = () => {
   const handleSubmit = (values: Record<string, any>) => {
     // reset state
     if (Object.keys(values).length === 0) {
-      console.log("reset---");
+      console.log("reset---", { ...filterValues, ...values });
       return setFilterValues({ category: filterValues?.category });
     }
     setFilterValues({ ...filterValues, ...values });

@@ -56,7 +56,6 @@ const FormAddressInformation = () => {
   return (
     <FormStyled
       isLoading={updateInformationIsLoading}
-      defaultValues={defaultValues}
       fields={fields}
       onSubmit={handleSubmit}
       submitKey="Save"
