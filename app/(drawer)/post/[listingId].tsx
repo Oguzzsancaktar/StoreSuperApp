@@ -54,7 +54,6 @@ const ListingDetailPage = () => {
     });
   };
 
-  console.log("listingItemDetailData", listingItemDetailData);
   const mediaUrls = useMemo(() => {
     return map(listingItemDetailData?.media, (m) => m.url);
   }, [listingItemDetailData]);

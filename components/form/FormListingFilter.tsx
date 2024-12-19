@@ -20,9 +20,15 @@ const FormListingFilter = () => {
   console.log("filterValues", filterValues);
 
   const { data: filterOptionData, isLoading: filterOptionsDataIsLoading } =
-    useGetListingFiltersQuery(filterValues.category || "", {
-      skip: !filterValues.category,
-    });
+    useGetListingFiltersQuery(
+      {
+        categoryId: filterValues?.category,
+        subCategory: filterValues?.subCategoryIds?.value,
+      },
+      {
+        skip: !filterValues.category,
+      },
+    );
 
   const fields: Array<IInputProps> = useMemo(
     () => [

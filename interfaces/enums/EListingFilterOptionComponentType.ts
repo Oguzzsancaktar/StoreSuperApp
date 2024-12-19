@@ -4,6 +4,7 @@ enum EListingFilterOptionComponentType {
   "switch" = 5,
   "select2" = 6,
   "select" = 7,
+  "select3" = 8,
   "range" = 9,
   "date",
 

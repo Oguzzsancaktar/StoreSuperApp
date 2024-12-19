@@ -132,6 +132,7 @@ const FormInputComponents: React.FC<IProps> = ({
         break;
       case "select":
       case "select2":
+      case "select3":
         component = (() => {
           let selectComponent = (
             <InputSelectStyled

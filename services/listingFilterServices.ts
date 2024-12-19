@@ -114,12 +114,14 @@ const getMostSearchedKeys = (builder: IBuilder) => {
 
 
 const getListingFilters = (builder: IBuilder) => {
-  return builder.query<IListingFilterOption[], IListingCategory["id"]>({
-    query(categoryId) {
+  return builder.query<IListingFilterOption[], { categoryId: IListingCategory["id"], subCategory: string }>({
+    query({ categoryId, subCategory }) {
       return {
         url: `/categories-mobile/${categoryId}/filters`,
         method: 'GET',
-
+        params: {
+          subCategory
+        }
       }
     },
     providesTags: [LISTING_FILTER_API_TAG],

@@ -60,10 +60,6 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
     [activeStepIndex, steps.length],
   );
 
-  const mergedDefaultValues = useMemo(() => {
-    return { ...defaultValues, ...values };
-  }, [defaultValues, values]);
-
   const goPrevStep = () => {
     if (activeStepIndex === 0) {
       return router.back();
@@ -76,7 +72,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   };
 
   const handleNextStep = (stepValues: Record<string, any>) => {
-    const newValues = { ...values, ...stepValues };
+    const newValues = { ...stepValues, ...values };
     setValues(newValues);
 
     if (isLastStep) {
@@ -144,7 +140,6 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
             isNextDisabled={isNextDisabled}
             key={activeStep.id}
             fields={activeStep.fields}
-            defaultValues={mergedDefaultValues}
             onSubmit={handleNextStep}
             isLastStep={isLastStep}
             isCurrentCustom={!!activeStep.customStep}

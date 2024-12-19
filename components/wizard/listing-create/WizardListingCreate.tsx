@@ -30,6 +30,7 @@ const WizardListingCreate = () => {
 
   const [values, setValues] = useState<Record<string, any>>({});
 
+  console.log("lis wiz vals", values);
   const [
     createListing,
     { data: createdListingData, isLoading: createListingIsLoading },
@@ -81,6 +82,7 @@ const WizardListingCreate = () => {
 
   const handleCategorySelect = (categoryId: IListingCategory["id"]) => {
     setValues((prev) => {
+      console.log("prev", prev);
       return { categoryId };
     });
   };
@@ -166,7 +168,12 @@ const WizardListingCreate = () => {
         fields: [
           {
             required: true,
-            label: "Listing Category Sub",
+            label:
+              values.categoryId == "be150f8f-4371-4ffe-851d-08dbdf734510"
+                ? "Make"
+                : values.categoryId == "38374e8d-7944-45d7-5d36-08dbdea8608d"
+                  ? "Estate Type"
+                  : "Type",
             name: "subCategory",
             placeholder: "Select estate type...",
             type: "select",
@@ -176,7 +183,7 @@ const WizardListingCreate = () => {
           haveSubCategory
             ? {
                 required: true,
-                label: "Listing Category Subs sub",
+                label: "Model",
                 name: "subChildCategory",
                 placeholder: "Select subs child type...",
                 type: "select",
