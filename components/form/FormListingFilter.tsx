@@ -23,6 +23,8 @@ const FormListingFilter = () => {
     useGetListingFiltersQuery(
       {
         categoryId: filterValues?.category,
+        countryId: filterValues?.country?.value,
+        cityId: filterValues?.city?.value,
         subCategory: filterValues?.subCategoryIds?.value,
       },
       {
