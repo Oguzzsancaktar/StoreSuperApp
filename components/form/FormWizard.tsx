@@ -25,7 +25,6 @@ export interface IFormWizardProps {
   submitKey?: string;
   steps: IFormWizardStepProps[];
   isNextDisabled?: boolean;
-  defaultValues?: Record<string, any>;
   values: Record<string, any>;
   isLoading?: boolean;
   showReset?: boolean;
@@ -38,7 +37,6 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   submitKey = "Submit",
   isNextDisabled = false,
   steps,
-  defaultValues = {},
   isTabBarActive,
   isLoading,
   onSubmit,

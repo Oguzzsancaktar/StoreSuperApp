@@ -11,6 +11,7 @@ interface IListingQueryParams extends IQueryParams {
   query?: string
   modelIds?: any[]
   countryId?: ICountry["id"]
+  cityId?: ICountry["id"]
   districtId?: IDistrict["id"]
   subCategoryIds?: IListingCategorySub["id"][]
   filters?: any[]

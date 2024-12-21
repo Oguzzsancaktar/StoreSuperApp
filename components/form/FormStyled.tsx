@@ -54,12 +54,14 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
 
   const watchedValues = useWatch({ control });
 
+  console.log("valuesvaluesvalues", values);
+
   useEffect(() => {
     if (setValues && JSON.stringify(watchedValues) !== JSON.stringify(values)) {
       console.log("------", watchedValues, values);
       setValues({ ...values, ...watchedValues });
     }
-  }, [watchedValues, setValues]);
+  }, [watchedValues, values, setValues]);
 
   useEffect(() => {
     reset(values);

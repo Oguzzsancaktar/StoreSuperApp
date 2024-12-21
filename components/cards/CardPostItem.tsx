@@ -36,6 +36,8 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
     router.push(("/(drawer)/post/" + post.id) as Href);
   };
 
+  console.log("post", post);
+
   return (
     <View style={[themedStyles.cardStyles.default]}>
       <TouchableOpacity
@@ -73,7 +75,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
                   fontWeight="regular"
                   customColor="primary"
                 >
-                  {post?.categories?.shift()?.name ||
+                  {(post?.categories || [])[0]?.name ||
                     post?.category?.name ||
                     post?.tags[0]}
                 </TextStyled>

@@ -34,13 +34,16 @@ const CardListingItems = () => {
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
 
+  console.log("filterValues", filterValues);
   const { data: listingItemsData, isLoading: isListingItemsLoading } =
     useGetListingItemsQuery(
       {
         minPrice: filterValues?.price ? filterValues?.price[0] : undefined,
         maxPrice: filterValues?.price ? filterValues?.price[1] : undefined,
         subCategoryIds: filterValues?.subCategoryIds?.value,
-        countryId: filterValues?.address?.value || undefined,
+        countryId: filterValues?.country?.value || undefined,
+        cityId: filterValues?.city?.value || undefined,
+        districtId: filterValues?.district?.value || undefined,
         query: filterValues?.query || "",
         categoryId: filterValues?.category || "",
         pageSize: 100,
