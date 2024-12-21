@@ -69,12 +69,10 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
     setActiveStepIndex((index) => (index += 1));
   };
 
-  const handleNextStep = (stepValues: Record<string, any>) => {
-    const newValues = { ...stepValues, ...values };
-    setValues(newValues);
-
+  const handleNextStep = () => {
+    console.log("values", values);
     if (isLastStep) {
-      onSubmit(newValues);
+      onSubmit(values);
     } else {
       goNextStep();
     }

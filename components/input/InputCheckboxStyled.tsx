@@ -26,6 +26,7 @@ const InputCheckboxStyled: React.FC<IProps> = ({
   isChecked = false,
   onToggle,
 }) => {
+  // console.log("labrl", label, isChecked);
   const {
     commonStyles,
     themeContext: { theme },

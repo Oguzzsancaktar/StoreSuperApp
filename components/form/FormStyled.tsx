@@ -42,7 +42,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   const { commonStyles } = useAppStyles();
 
   const formInstance = useForm({
-    defaultValues: useMemo(() => values, [values]),
+    values: values,
   });
 
   const {
@@ -51,21 +51,6 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
     handleSubmit,
     reset,
   } = formInstance;
-
-  const watchedValues = useWatch({ control });
-
-  console.log("valuesvaluesvalues", values);
-
-  useEffect(() => {
-    if (setValues && JSON.stringify(watchedValues) !== JSON.stringify(values)) {
-      console.log("------", watchedValues, values);
-      setValues({ ...values, ...watchedValues });
-    }
-  }, [watchedValues, values, setValues]);
-
-  useEffect(() => {
-    reset(values);
-  }, [values]);
 
   return (
     <KeyboardAvoidingView
@@ -177,7 +162,6 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                   onPress={() => {
                     setValues && setValues({});
                     reset();
-                    onSubmit({});
                   }}
                   variant="primaryOutlined"
                   text={"Reset"}

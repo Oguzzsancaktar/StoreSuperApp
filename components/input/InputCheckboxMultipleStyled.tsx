@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 
-import { map } from "lodash";
+import { filter, includes, map } from "lodash";
 
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
@@ -25,16 +25,29 @@ const InputCheckboxMultipleStyled: React.FC<IProps> = ({
   onChange,
   value,
 }) => {
-  const {
-    commonStyles,
-    themedStyles,
-    themeContext: { theme },
-  } = useAppStyles();
+  const { commonStyles } = useAppStyles();
 
-  const [values, setValues] = useState<ICheckOption>(value);
+  const optionsRevized = useMemo(() => {
+    const tempOptions = map(value || options, (opt) => {
+      const checkedValueIds = map(value, (v) => {
+        if (v?.isChecked) {
+          return v.value;
+        }
+      });
+
+      const isChecked = includes(checkedValueIds, opt.value as string) || false;
+
+      return {
+        ...opt,
+        isChecked,
+      };
+    });
+
+    return tempOptions;
+  }, [options, value]);
 
   const handleToggle = (valId: ISelectOption["value"], check: boolean) => {
-    const updated = map(values, (val) => {
+    const updated = map(optionsRevized, (val) => {
       if (val.value === valId) {
         return {
           ...val,
@@ -44,23 +57,9 @@ const InputCheckboxMultipleStyled: React.FC<IProps> = ({
 
       return val;
     });
-    setValues(updated);
+    onChange(updated);
   };
 
-  useEffect(() => {
-    onChange(values);
-  }, [values]);
-
-  useEffect(() => {
-    const tempValues = map(options, (opt) => {
-      return {
-        ...opt,
-        isChecked: false,
-      };
-    });
-
-    setValues(tempValues);
-  }, [options]);
   return (
     <View
       style={[
@@ -91,7 +90,7 @@ const InputCheckboxMultipleStyled: React.FC<IProps> = ({
           },
         ]}
       >
-        {map(values, (op, index) => (
+        {map(optionsRevized, (op, index) => (
           <InputCheckboxStyled
             key={index}
             isChecked={op.isChecked}

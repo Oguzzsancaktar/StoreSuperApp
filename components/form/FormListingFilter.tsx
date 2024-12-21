@@ -30,6 +30,8 @@ const FormListingFilter = () => {
       },
     );
 
+  console.log("filterOptionData", filterOptionData);
+
   const fields: Array<IInputProps> = useMemo(
     () => [
       ...(map(filterOptionData, (filter) => {
@@ -50,7 +52,7 @@ const FormListingFilter = () => {
         } as IInputProps;
       }) as IFormWizardStepProps["fields"]),
     ],
-    [filterOptionData],
+    [filterOptionData, filterValues],
   );
 
   const handleSubmit = (values: Record<string, any>) => {
