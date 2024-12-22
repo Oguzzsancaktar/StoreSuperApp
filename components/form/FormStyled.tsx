@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo } from "react";
+import { Fragment, useEffect, useMemo, useRef } from "react";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
 
@@ -50,7 +50,50 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
     formState: { errors },
     handleSubmit,
     reset,
+    watch,
   } = formInstance;
+
+  const subCategoryIdsWatched = watch("subCategoryIds");
+  const countryWatched = watch("country");
+  const cityWatched = watch("city");
+
+  const oldTriggerValues = useRef({
+    subCategoryIds: values?.subCategoryIds,
+    country: values?.country,
+    city: values?.city,
+  });
+
+  useEffect(() => {
+    if (setValues) {
+      if (
+        JSON.stringify(oldTriggerValues.current.country) !==
+        JSON.stringify(countryWatched)
+      ) {
+        oldTriggerValues.current.country = countryWatched;
+        setValues({ ...values, country: countryWatched });
+      }
+
+      if (
+        JSON.stringify(oldTriggerValues.current.city) !==
+        JSON.stringify(cityWatched)
+      ) {
+        oldTriggerValues.current.city = cityWatched;
+        setValues({ ...values, city: cityWatched });
+      }
+
+      if (
+        JSON.stringify(oldTriggerValues.current.subCategoryIds) !==
+        JSON.stringify(subCategoryIdsWatched)
+      ) {
+        oldTriggerValues.current.subCategoryIds = subCategoryIdsWatched;
+        setValues({ ...values, subCategoryIds: subCategoryIdsWatched });
+      }
+    }
+  }, [setValues, subCategoryIdsWatched, countryWatched, cityWatched]);
+
+  useEffect(() => {
+    reset(values);
+  }, [values]);
 
   return (
     <KeyboardAvoidingView
@@ -160,8 +203,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                   isLoading={isLoading}
                   disabled={isNextDisabled}
                   onPress={() => {
-                    setValues && setValues({});
-                    reset();
+                    onSubmit({});
                   }}
                   variant="primaryOutlined"
                   text={"Reset"}

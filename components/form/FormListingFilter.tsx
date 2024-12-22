@@ -30,8 +30,6 @@ const FormListingFilter = () => {
       },
     );
 
-  console.log("filterOptionData", filterOptionData);
-
   const fields: Array<IInputProps> = useMemo(
     () => [
       ...(map(filterOptionData, (filter) => {
@@ -58,9 +56,10 @@ const FormListingFilter = () => {
   const handleSubmit = (values: Record<string, any>) => {
     // reset state
     if (Object.keys(values).length === 0) {
-      return setFilterValues({ category: filterValues?.category });
+      setFilterValues({ category: filterValues?.category });
+    } else {
+      setFilterValues({ ...filterValues, ...values });
     }
-    setFilterValues({ ...filterValues, ...values });
     toggleDrawer();
   };
 
