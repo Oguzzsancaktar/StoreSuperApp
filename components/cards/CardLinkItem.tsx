@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import { ISettingItemProps } from "@/app/(drawer)/settings";
+import { ISettingItemProps } from "@/app/(public)/(drawer)/settings";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import APP_THEMES from "@/constants/APP_THEMES";
 import useAppStyles from "@/hooks/useAppStyles";

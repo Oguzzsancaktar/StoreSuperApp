@@ -70,7 +70,6 @@ const LoginScreen = () => {
             >
           }
           steps={steps}
-          defaultValues={defaultValues}
           onSubmit={handleSubmit}
         />
 

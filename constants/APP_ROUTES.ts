@@ -9,16 +9,9 @@ export interface IAppRoutes {
 }
 
 const APP_ROUTES: IAppRoutes = {
-  DRAWER: {
 
-    PRIVACY_POLICY: "/(drawer)/settings/privacyPolicy",
 
-    SETTINGS: "/(drawer)/settings",
-    FAVORITES: "/(drawer)/favorites",
-    SUCCESS: "/(drawer)/success",
-  },
   PRIVATE: {
-
     SETTINGS_UPDATE_ACCOUNT: "/(private)/settings/updateAccount",
     SETTINGS_UPDATE_PASSWORD: "/(private)/settings/updatePassword",
 
@@ -33,6 +26,14 @@ const APP_ROUTES: IAppRoutes = {
     REGISTER: "/(public)/register",
     WELCOME: "/(public)/welcome",
   },
+
+  DRAWER: {
+    PRIVACY_POLICY: "/(public)/(drawer)/settings/privacyPolicy",
+    SETTINGS: "/(public)/(drawer)/settings",
+    FAVORITES: "/(public)/(drawer)/favorites",
+    SUCCESS: "/(public)/(drawer)/success",
+  },
+
   TABS: {
     TIMELINE: "/(tabs)/timeline",
     PROFILE: "/(tabs)/profile"
