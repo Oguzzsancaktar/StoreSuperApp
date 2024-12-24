@@ -5,7 +5,6 @@ import { useAppAuthSession } from "@/contexts/AuthContext";
 import IPassordUpdateDTO from "@/interfaces/account/IPassordUpdateDTO";
 import { IInputProps } from "@/interfaces/app";
 import { useUpdatePasswordMutation } from "@/services/accountServices";
-import jwtUtils from "@/utils/jwtUtils";
 import { toastSuccess } from "@/utils/toastUtils";
 
 import { FormStyled } from ".";
@@ -17,13 +16,7 @@ const fields: Array<IInputProps> = [
 ];
 
 const FormUpdatePassword = () => {
-  const { authToken } = useAppAuthSession();
-
-  // @todo get from hook
-  const userTokenInfo = useMemo(() => {
-    const info = jwtUtils.userJwtDecode(authToken ?? "");
-    return info;
-  }, [authToken]);
+  const { userTokenInfo } = useAppAuthSession();
 
   const [updatePassword, { isLoading: updatePasswordIsLoading }] =
     useUpdatePasswordMutation();
@@ -34,7 +27,7 @@ const FormUpdatePassword = () => {
 
     try {
       const tempPasswordDTO: IPassordUpdateDTO = {
-        userId: userTokenInfo.Id,
+        userId: userTokenInfo?.Id || "",
         password: values?.oldPassword,
         newPassword: values?.password,
         confirmNewPassword: values?.confirmPassword,
@@ -47,11 +40,10 @@ const FormUpdatePassword = () => {
     }
   };
 
-  // @todo create custom scrollwiev
   return (
     <FormStyled
       isLoading={updatePasswordIsLoading}
-      defaultValues={defaultValues}
+      values={defaultValues}
       fields={fields}
       onSubmit={handleSubmit}
       submitKey="Save"

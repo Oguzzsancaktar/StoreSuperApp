@@ -49,7 +49,7 @@ const SettingsScreen = () => {
         text: "Profile Information",
         right: "chevron",
         onPress: () => {
-          router.push(APP_ROUTES.PRIVATE.SETTINGS.PERSONAL_INFO);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS.UPDATE_INFO);
         },
         priv: true,
       },

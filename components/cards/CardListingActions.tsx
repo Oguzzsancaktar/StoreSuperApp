@@ -28,17 +28,12 @@ const CardListingActions: React.FC<IProps> = ({
   post,
   showViewCount = false,
 }) => {
-  const { authToken } = useAppAuthSession();
+  const { authToken, userTokenInfo } = useAppAuthSession();
   const {
     commonStyles,
     themedStyles,
-    themeContext: { theme, toggleTheme },
+    themeContext: { theme },
   } = useAppStyles();
-
-  const userTokenInfo = useMemo(() => {
-    const info = authToken ? jwtUtils.userJwtDecode(authToken) : undefined;
-    return info;
-  }, [authToken]);
 
   const { data: postViewData } = useGetViewCountQuery(post?.id as string);
 

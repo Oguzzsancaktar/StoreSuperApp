@@ -22,7 +22,7 @@ interface IListingPost {
   media: IListingPostMedia[]
   name: string
   negotiable: boolean
-  options: any[] // @todo
+  options: any[]
   price: { currency: "MKD", amount: 322332 }
   status: number
   tags: string[]

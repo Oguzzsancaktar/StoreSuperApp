@@ -70,7 +70,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   };
 
   const handleNextStep = () => {
-    console.log("values", values);
+    console.log("Next values", values);
     if (isLastStep) {
       onSubmit(values);
     } else {

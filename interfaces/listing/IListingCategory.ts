@@ -4,7 +4,7 @@ interface IListingCategory {
   hasChild: boolean
   icon: string
   name: string
-  parentCategoryId?: string // defpend other @todo
+  parentCategoryId?: string
   subCategoryTitle: string
 }
 

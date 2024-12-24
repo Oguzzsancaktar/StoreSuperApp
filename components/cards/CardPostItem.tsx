@@ -226,16 +226,14 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
             ]}
           >
             <IconEyeShowFilled color={theme.grayScale400} />
-            {/* @todo remove view */}
-            <View>
-              <TextStyled
-                fontSize="md"
-                fontWeight="medium"
-                customColor="grayScale900"
-              >
-                {postViewData || ""}
-              </TextStyled>
-            </View>
+            <TextStyled
+              customStyle={{ width: "auto" }}
+              fontSize="md"
+              fontWeight="medium"
+              customColor="grayScale900"
+            >
+              {postViewData || ""}
+            </TextStyled>
           </View>
           <View
             style={[
@@ -248,15 +246,14 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
               height={APP_STYLE_VALUES.WH_SIZES.xs3}
               color={theme.grayScale400}
             />
-            <View>
-              <TextStyled
-                fontSize="md"
-                fontWeight="medium"
-                customColor="grayScale900"
-              >
-                {post.favoriteCount}
-              </TextStyled>
-            </View>
+            <TextStyled
+              customStyle={{ width: "auto" }}
+              fontSize="md"
+              fontWeight="medium"
+              customColor="grayScale900"
+            >
+              {post.favoriteCount}
+            </TextStyled>
           </View>
         </View>
 

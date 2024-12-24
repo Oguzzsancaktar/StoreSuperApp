@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import { IInputProps } from "@/interfaces/app";
@@ -7,7 +5,6 @@ import {
   useGetCurrentUserInformationQuery,
   usePutUpdateUserInformationsMutation,
 } from "@/services/accountServices";
-import jwtUtils from "@/utils/jwtUtils";
 import { toastSuccess } from "@/utils/toastUtils";
 
 import { FormStyled } from ".";
@@ -19,17 +16,13 @@ const fields: Array<IInputProps> = [
 ];
 
 const FormAddressInformation = () => {
-  const { authToken } = useAppAuthSession();
+  const { userTokenInfo } = useAppAuthSession();
   const [updateUserInformations, { isLoading: updateInformationIsLoading }] =
     usePutUpdateUserInformationsMutation();
 
   const { data: currentUserData } = useGetCurrentUserInformationQuery();
 
-  const userTokenInfo = useMemo(() => {
-    const info = jwtUtils.userJwtDecode(authToken ?? "");
-    return info;
-  }, [authToken]);
-
+  // @todo check form
   const defaultValues = {
     firstName: currentUserData?.firstName || userTokenInfo?.Name,
     lastName: currentUserData?.lastName || userTokenInfo?.Surname,
@@ -39,7 +32,7 @@ const FormAddressInformation = () => {
   const handleSubmit = async (values: Record<string, any>) => {
     try {
       const tempUserInfo = {
-        id: userTokenInfo.Id,
+        id: userTokenInfo?.Id,
         firstName: values?.firstName,
         lastName: values?.lastName,
         language: values?.language?.value,
@@ -52,9 +45,9 @@ const FormAddressInformation = () => {
     }
   };
 
-  // @todo create custom scrollwiev
   return (
     <FormStyled
+      values={defaultValues}
       isLoading={updateInformationIsLoading}
       fields={fields}
       onSubmit={handleSubmit}

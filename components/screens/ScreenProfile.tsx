@@ -95,47 +95,18 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
               },
             ]}
           >
-            {/* @todo add it to button compoennt for icon */}
             {!profileId ? (
               <>
                 <View style={{ width: APP_STYLE_VALUES.WH_SIZES.xl8 }}>
                   {authToken && (
                     <ButtonStyled
+                      leftIcon="IconHeart"
+                      text="Favorites"
                       variant="badgeOutlined"
                       onPress={() =>
                         router.push(APP_ROUTES.PUBLIC.DRAWER.FAVORITES)
                       }
-                    >
-                      <View
-                        style={[
-                          commonStyles.flexStyles.rowCenterWrap,
-                          {
-                            width: "100%",
-                            gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                          },
-                        ]}
-                      >
-                        <View
-                          style={[
-                            commonStyles.flexStyles.rowStart,
-                            { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
-                          ]}
-                        >
-                          <IconHeart color={theme.grayScale900} />
-
-                          <View>
-                            <TextStyled
-                              textAlignment="left"
-                              fontSize="lg"
-                              fontWeight="semibold"
-                              customColor="grayScale900"
-                            >
-                              Favorites
-                            </TextStyled>
-                          </View>
-                        </View>
-                      </View>
-                    </ButtonStyled>
+                    ></ButtonStyled>
                   )}
                 </View>
                 <View

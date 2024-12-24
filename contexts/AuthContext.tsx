@@ -3,6 +3,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useMemo,
 } from "react";
 import { useDispatch } from "react-redux";
 
@@ -10,12 +11,15 @@ import apiClient from "@/config/axiosInstance";
 import APP_STORAGE_KEYS from "@/constants/APP_STORAGE_KEYS";
 import { useStorageState } from "@/hooks/useStorageState";
 import ILoginResult from "@/interfaces/account/ILoginResult";
+import IJwtDecodedUser from "@/interfaces/common/jwt/IJwtDecodedUser";
 import { accountApiSlice } from "@/services/accountServices";
+import jwtUtils from "@/utils/jwtUtils";
 
 const AuthContext = createContext({
   signIn: (loginResult: ILoginResult) => {},
   signOut: () => {},
   authToken: null as string | null,
+  userTokenInfo: undefined as IJwtDecodedUser | undefined,
 });
 
 export function useAppAuthSession() {
@@ -42,6 +46,11 @@ export function SessionProvider({ children }: PropsWithChildren) {
   const [refreshTokenExpiryTime, setRefreshTokenExpiryTime] = useStorageState(
     APP_STORAGE_KEYS.REFRESH_TOKEN_EXPIRY,
   );
+
+  const userTokenInfo = useMemo(() => {
+    const info = authToken ? jwtUtils.userJwtDecode(authToken) : undefined;
+    return info;
+  }, [authToken]);
 
   const signIn = ({
     token,
@@ -171,6 +180,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
         signIn,
         signOut,
         authToken,
+        userTokenInfo,
       }}
     >
       {children}

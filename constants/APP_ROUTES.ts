@@ -11,6 +11,7 @@ interface IAppRoutes {
       PERSONAL_INFO: Href,
       UPDATE_ACCOUNT: Href,
       UPDATE_PASSWORD: Href,
+      UPDATE_INFO: Href
     },
   },
   PUBLIC: {
@@ -49,6 +50,7 @@ export const APP_ROUTES: IAppRoutes = {
       CONTACT_INFO: "/(private)/settings/contactInformations",
       PERSONAL_INFO: "/(private)/settings/personalInformations",
       UPDATE_ACCOUNT: "/(private)/settings/updateAccount",
+      UPDATE_INFO: "/(private)/settings/updateInformations",
       UPDATE_PASSWORD: "/(private)/settings/updatePassword",
     },
   },

@@ -384,7 +384,7 @@ const WizardListingCreate = () => {
       negotiable,
       translations: [
         {
-          language: "en-US", // @todo
+          language: "en-US",
           description,
           title,
         },

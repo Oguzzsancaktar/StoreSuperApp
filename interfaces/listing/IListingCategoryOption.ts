@@ -18,7 +18,7 @@ export default interface IListingCategoryOption {
   | 'details'
   | 'numberOfRooms'
   | 'numberOfBathrooms';
-  optionViewingType: number //@todo - enum
+  optionViewingType: number
   propertyType: EListingOptionComponentType
   validation?: any
   values: any[]

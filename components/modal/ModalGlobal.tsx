@@ -26,11 +26,7 @@ const ModalGlobal = () => {
 
   const { isModalOpen, toggleModal } = useModalState();
 
-  const { authToken, signOut } = useAppAuthSession();
-  const userTokenInfo = useMemo(() => {
-    const info = authToken ? jwtUtils.userJwtDecode(authToken) : undefined;
-    return info;
-  }, [authToken]);
+  const { userTokenInfo, signOut } = useAppAuthSession();
 
   const [deleteUser] = useDeleteUserMutation();
 

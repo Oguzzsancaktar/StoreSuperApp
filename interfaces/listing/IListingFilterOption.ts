@@ -6,7 +6,7 @@ export default interface IListingFilterOption {
   id: string
   name: string
   propertyName: string
-  optionViewingType: number //@todo - enum
+  optionViewingType: number
   propertyType: string
   validationRules?: any
   values: any[]

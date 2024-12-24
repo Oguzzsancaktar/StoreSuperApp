@@ -2,7 +2,7 @@ import ICity from "./ICity";
 import ICountry from "./ICountry";
 
 export default interface IAddress {
-  districtId: ICountry["id"], // @todo
+  districtId: ICountry["id"],
   countryId: ICountry["id"],
   cityId: ICity["id"],
   fullAddress: string,

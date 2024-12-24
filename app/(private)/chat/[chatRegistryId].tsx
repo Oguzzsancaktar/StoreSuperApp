@@ -32,11 +32,10 @@ import {
   useGetChatMessagesQuery,
 } from "@/services/chatServices";
 import { useGetListingItemDetailsQuery } from "@/services/listingServices";
-import jwtUtils from "@/utils/jwtUtils";
 import routerUtils from "@/utils/routerUtils";
 
 const MessagesDetailScreen = () => {
-  const { authToken } = useAppAuthSession();
+  const { userTokenInfo } = useAppAuthSession();
   const {
     commonStyles,
     themedStyles,
@@ -46,8 +45,6 @@ const MessagesDetailScreen = () => {
 
   const { data: listingDetailData, isLoading: listingDetailIsLoading } =
     useGetListingItemDetailsQuery(listingId as string, { skip: !listingId });
-
-  const userJwtDecoded = jwtUtils.userJwtDecode(authToken ?? "");
 
   const { data: messagesData, isLoading: messagesIsLoading } =
     useGetChatMessagesQuery(chatRegistryId as string);
@@ -97,7 +94,7 @@ const MessagesDetailScreen = () => {
             marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp1,
             minWidth: APP_STYLE_VALUES.WH_SIZES.xl6,
           },
-          item.senderId === userJwtDecoded.Id
+          item.senderId === userTokenInfo?.Id
             ? {
                 borderColor: theme.primary,
                 backgroundColor: theme.primaryOpacity10,
@@ -125,7 +122,7 @@ const MessagesDetailScreen = () => {
       <View
         style={[
           { marginHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp1 },
-          item.senderId === userJwtDecoded.Id
+          item.senderId === userTokenInfo?.Id
             ? {
                 alignSelf: "flex-end",
               }

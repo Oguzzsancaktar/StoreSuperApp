@@ -21,7 +21,7 @@ const ScrollViewStyled: React.FC<IProps> = ({
       contentContainerStyle={[contentContainerStyle]}
     >
       <View
-        onStartShouldSetResponder={() => true} // @todo fix drag problem
+        onStartShouldSetResponder={() => true}
         style={[
           commonStyles.flexStyles.colStart,
           {

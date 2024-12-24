@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import { IInputProps } from "@/interfaces/app";
@@ -7,7 +5,6 @@ import {
   useGetCurrentUserInformationQuery,
   usePutUpdateUserInformationsMutation,
 } from "@/services/accountServices";
-import jwtUtils from "@/utils/jwtUtils";
 import { toastSuccess } from "@/utils/toastUtils";
 
 import { FormStyled } from ".";
@@ -18,16 +15,11 @@ const fields: Array<IInputProps> = [
 ];
 
 const FormContactInformation = () => {
-  const { authToken } = useAppAuthSession();
+  const { userTokenInfo } = useAppAuthSession();
   const [updateUserInformations, { isLoading: updateInformationIsLoading }] =
     usePutUpdateUserInformationsMutation();
 
   const { data: currentUserData } = useGetCurrentUserInformationQuery();
-
-  const userTokenInfo = useMemo(() => {
-    const info = jwtUtils.userJwtDecode(authToken ?? "");
-    return info;
-  }, [authToken]);
 
   const defaultValues = {
     phoneNumber: currentUserData?.phoneNumber,
@@ -37,7 +29,7 @@ const FormContactInformation = () => {
   const handleSubmit = async (values: Record<string, any>) => {
     try {
       const tempUserInfo = {
-        id: userTokenInfo.Id,
+        id: userTokenInfo?.Id,
         phoneNumber: values?.phoneNumber,
         email: values?.email,
       };
@@ -49,7 +41,6 @@ const FormContactInformation = () => {
     }
   };
 
-  // @todo create custom scrollwiev
   return (
     <FormStyled
       values={defaultValues}

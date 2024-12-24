@@ -4,7 +4,7 @@ import { Pressable, View } from "react-native";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
 import { IIconNames } from "@/interfaces/app";
-import { IButtonStylesheet } from "@/interfaces/theme";
+import { IAppTheme, IButtonStylesheet } from "@/interfaces/theme";
 
 import SvgAnimLoadingSpinner from "../svg/animation/SvgAnimLoadingSpinner";
 import { GradientBackground } from "../svg/background";
@@ -21,6 +21,7 @@ interface IProps {
   isLoading?: boolean;
   leftIcon?: IIconNames;
   rightIcon?: IIconNames;
+  customTextColor?: keyof IAppTheme;
 }
 
 const ButtonStyled: React.FC<IProps> = ({
@@ -33,6 +34,7 @@ const ButtonStyled: React.FC<IProps> = ({
   isLoading,
   leftIcon,
   rightIcon,
+  customTextColor,
 }) => {
   const {
     commonStyles,
@@ -80,16 +82,25 @@ const ButtonStyled: React.FC<IProps> = ({
             >
               {getIconWithProps(leftIcon, {
                 color:
-                  theme[variant === "primarySolid" ? "white" : "grayScale900"],
+                  theme[
+                    !!customTextColor
+                      ? customTextColor
+                      : variant === "primarySolid"
+                        ? "white"
+                        : "grayScale900"
+                  ],
               })}
             </View>
           )}
 
           {text && (
             <TextStyled
-              // @todo handle for other scenarios where the color is not white
               customColor={
-                variant === "primarySolid" ? "white" : "grayScale900"
+                !!customTextColor
+                  ? customTextColor
+                  : variant === "primarySolid"
+                    ? "white"
+                    : "grayScale900"
               }
               customStyle={{ width: "auto" }}
               textAlignment="center"
@@ -112,7 +123,13 @@ const ButtonStyled: React.FC<IProps> = ({
             >
               {getIconWithProps(rightIcon, {
                 color:
-                  theme[variant === "primarySolid" ? "white" : "grayScale900"],
+                  theme[
+                    !!customTextColor
+                      ? customTextColor
+                      : variant === "primarySolid"
+                        ? "white"
+                        : "grayScale900"
+                  ],
               })}
             </View>
           )}
