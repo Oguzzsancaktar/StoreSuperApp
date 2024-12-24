@@ -27,10 +27,11 @@ const SafeAreaContainer: React.FC<IProps> = ({
       />
 
       <SafeAreaView
-        edges={concat(
-          ["bottom", "left", "right"],
-          isTopEdgeInActive ? [] : ["top"],
-        )}
+        edges={
+          isTopEdgeInActive
+            ? ["bottom", "left", "right"]
+            : ["bottom", "left", "right", "top"]
+        }
         style={{
           flex: 1,
           backgroundColor: theme.appBackground,

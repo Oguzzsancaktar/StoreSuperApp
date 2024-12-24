@@ -31,20 +31,7 @@ const LoginScreen = () => {
 
   const [values, setValues] = useState<ILoginDTO>();
 
-  const defaultValues =
-    process.env.NODE_ENV === "development"
-      ? {
-          email: "sipsebatra@gufum.com",
-          password: "Dotnet123.",
-        }
-      : {
-          email: "",
-          password: "",
-        };
-
   const handleSubmit = async (values: ILoginDTO) => {
-    console.log(values);
-
     try {
       const result = await loginAccount(values);
       if (result?.data) {
@@ -59,22 +46,18 @@ const LoginScreen = () => {
 
   return (
     <ScreenWrapperContainer showGoBack={true}>
-      <InnerCommonContainer>
-        <FormWizard
-          submitKey="Login"
-          isLoading={loginAccountIsLoading}
-          values={values as Record<string, any>}
-          setValues={
-            setValues as React.Dispatch<
-              React.SetStateAction<Record<string, any>>
-            >
-          }
-          steps={steps}
-          onSubmit={handleSubmit}
-        />
+      <FormWizard
+        submitKey="Login"
+        isLoading={loginAccountIsLoading}
+        values={values as Record<string, any>}
+        setValues={
+          setValues as React.Dispatch<React.SetStateAction<Record<string, any>>>
+        }
+        steps={steps}
+        onSubmit={handleSubmit}
+      />
 
-        <CardAlternativeAuth authType={"LOGIN"} />
-      </InnerCommonContainer>
+      <CardAlternativeAuth authType={"LOGIN"} />
     </ScreenWrapperContainer>
   );
 };
