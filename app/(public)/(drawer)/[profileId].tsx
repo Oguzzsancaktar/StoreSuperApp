@@ -1,14 +1,13 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import ScreenProfile from '@/components/screens/ScreenProfile';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from "expo-router";
+
+import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import ScreenProfile from "@/components/screens/ScreenProfile";
 
 const UserProfilePage = () => {
   const { profileId } = useLocalSearchParams();
 
   return (
-    <ScreenWrapperContainer isTabBarActive={false}>
+    <ScreenWrapperContainer isTopEdgeInActive={true} isTabBarActive={false}>
       <ScreenProfile profileId={profileId as string} />
     </ScreenWrapperContainer>
   );

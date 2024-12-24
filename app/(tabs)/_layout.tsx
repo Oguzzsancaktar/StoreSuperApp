@@ -59,7 +59,7 @@ export default function TabLayout() {
             elevation: 0,
             borderTopWidth: 0,
             position: "absolute",
-            bottom: APP_STYLE_VALUES.SPACE_SIZES.sp2, // Adjust as needed.
+            bottom: APP_STYLE_VALUES.SPACE_SIZES.sp4,
             left: APP_STYLE_VALUES.SPACE_SIZES.sp4,
             zIndex: 9999,
           },

@@ -1,9 +1,9 @@
-import ScreenWrapperContainer from '@/components/containers/ScreenWrapperContainer';
-import ScreenProfile from '@/components/screens/ScreenProfile';
+import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import ScreenProfile from "@/components/screens/ScreenProfile";
 
 const ProfileScreen = () => {
   return (
-    <ScreenWrapperContainer>
+    <ScreenWrapperContainer isTopEdgeInActive>
       <ScreenProfile />
     </ScreenWrapperContainer>
   );

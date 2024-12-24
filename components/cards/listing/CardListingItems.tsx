@@ -34,7 +34,6 @@ const CardListingItems = () => {
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
 
-  console.log("filterValues", filterValues);
   const { data: listingItemsData, isLoading: isListingItemsLoading } =
     useGetListingItemsQuery(
       {

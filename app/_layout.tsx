@@ -67,8 +67,6 @@ function RootLayoutNav() {
     }
   }, []);
 
-  console.log("segments", segments);
-
   return (
     <Provider store={store}>
       <ThemeProvider>
@@ -78,31 +76,23 @@ function RootLayoutNav() {
               <DrawerProvider>
                 <ModalProvider>
                   <ModalGlobal />
-                  <SafeAreaContainer
-                    isTopEdgeActive={
-                      !(
-                        segments?.includes("profile" as never) ||
-                        segments?.includes("[profileId]" as never)
-                      )
-                    }
-                  >
-                    <Stack>
-                      <Stack.Screen
-                        name="(public)"
-                        options={{ headerShown: false }}
-                      />
-                      <Stack.Screen
-                        name="(private)"
-                        options={{ headerShown: false }}
-                      />
-                      <Stack.Screen
-                        name="(tabs)"
-                        options={{
-                          headerShown: false,
-                        }}
-                      />
-                    </Stack>
-                  </SafeAreaContainer>
+
+                  <Stack>
+                    <Stack.Screen
+                      name="(public)"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="(private)"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="(tabs)"
+                      options={{
+                        headerShown: false,
+                      }}
+                    />
+                  </Stack>
                 </ModalProvider>
               </DrawerProvider>
             </SessionProvider>

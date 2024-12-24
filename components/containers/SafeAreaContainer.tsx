@@ -8,16 +8,15 @@ import { useAppTheme } from "@/contexts/ThemeContext";
 
 interface IProps {
   children: React.ReactNode;
-  isTopEdgeActive?: boolean;
+  isTopEdgeInActive?: boolean;
 }
 
-const SafeAreaContainer: React.FC<IProps> = ({ children, isTopEdgeActive }) => {
+const SafeAreaContainer: React.FC<IProps> = ({
+  children,
+  isTopEdgeInActive,
+}) => {
   const { theme, isDark } = useAppTheme();
 
-  console.log(
-    "---",
-    concat(["bottom", "left", "right"], isTopEdgeActive ? ["top"] : []),
-  );
   return (
     <SafeAreaProvider>
       <StatusBar
@@ -30,7 +29,7 @@ const SafeAreaContainer: React.FC<IProps> = ({ children, isTopEdgeActive }) => {
       <SafeAreaView
         edges={concat(
           ["bottom", "left", "right"],
-          isTopEdgeActive ? ["top"] : [],
+          isTopEdgeInActive ? [] : ["top"],
         )}
         style={{
           flex: 1,

@@ -62,8 +62,8 @@ export const APP_ROUTES: IAppRoutes = {
       POST: {
         LISTING: "/(public)/(drawer)/post/[listingId]",
       },
-      PROFILE: "/(public)/(drawer)/post/settings/[profileId]",
-      FAVORITES: "/(public)/(drawer)/post/settings/favorites",
+      PROFILE: "/(public)/(drawer)/[profileId]",
+      FAVORITES: "/(public)/(drawer)/favorites",
       SUCCESS: "/(public)/(drawer)/success",
     },
     UNAUTHORIZED: {
