@@ -20,7 +20,7 @@ const WelcomeScreen = () => {
   } = useAppStyles();
 
   const handleSignButtonClick = (type: "REGISTER" | "LOGIN") => {
-    router.push(APP_ROUTES.PUBLIC[type] as Href<string | object>);
+    router.push(APP_ROUTES.PUBLIC.UNAUTHORIZED[type] as Href<string | object>);
   };
 
   return (

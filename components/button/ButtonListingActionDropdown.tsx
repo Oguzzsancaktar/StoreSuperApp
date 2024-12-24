@@ -1,18 +1,23 @@
-import ImageIconCircle from '../images/ImageIconCircle';
-import APP_STYLE_VALUES from '@/constants/APP_STYLE_VALUES';
-import IconOptions from '../svg/icon/IconOptions';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import ISelectOption from '@/interfaces/theme/ISelectOption';
-import InputSelectStyled from '../input/InputSelectStyled';
-import { View } from 'react-native';
-import IListingPost from '@/interfaces/listing/IListingPost';
-import { Href, router } from 'expo-router';
-import { useDeleteListingMutation } from '@/services/listingServices';
-import { toastSuccess } from '@/utils/toastUtils';
+import { View } from "react-native";
+
+import { Href, router } from "expo-router";
+
+import APP_ROUTES from "@/constants/APP_ROUTES";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppTheme } from "@/contexts/ThemeContext";
+import IListingPost from "@/interfaces/listing/IListingPost";
+import ISelectOption from "@/interfaces/theme/ISelectOption";
+import { useDeleteListingMutation } from "@/services/listingServices";
+import routerUtils from "@/utils/routerUtils";
+import { toastSuccess } from "@/utils/toastUtils";
+
+import ImageIconCircle from "../images/ImageIconCircle";
+import InputSelectStyled from "../input/InputSelectStyled";
+import IconOptions from "../svg/icon/IconOptions";
 
 const data = [
-  { label: 'Visit Profile', value: 'profile' },
-  { label: 'Delete Listing', value: 'delete' },
+  { label: "Visit Profile", value: "profile" },
+  { label: "Delete Listing", value: "delete" },
   // { label: 'Edit Listing', value: 'edit' },
 ];
 
@@ -25,15 +30,19 @@ const ButtonListingActionDropdown: React.FC<IProps> = ({ post }) => {
 
   const handleSelect = async (item: ISelectOption) => {
     switch (item.value) {
-      case 'profile':
-        router.push(('/(drawer)/' + post?.user?.id) as Href);
+      case "profile":
+        router.push(
+          routerUtils.buildRoute(APP_ROUTES.PUBLIC.DRAWER.PROFILE, {
+            profileId: post?.user?.id,
+          }) as Href,
+        );
         break;
-      case 'delete':
+      case "delete":
         await deleteListing(post.id);
-        toastSuccess('Listing deleted successfully.');
+        toastSuccess("Listing deleted successfully.");
         break;
-      case 'edit':
-        alert('Paylaş');
+      case "edit":
+        alert("Paylaş");
         break;
 
       default:

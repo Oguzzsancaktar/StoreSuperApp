@@ -2,11 +2,13 @@ import { TouchableOpacity, View } from "react-native";
 
 import { Href, router } from "expo-router";
 
+import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
 import IListingPost from "@/interfaces/listing/IListingPost";
 import { useGetViewCountQuery } from "@/services/listingServices";
 import dateUtils from "@/utils/dateUtils";
+import routerUtils from "@/utils/routerUtils";
 import stringUtils from "@/utils/stringUtils";
 
 import { ButtonStyled } from "../button";
@@ -31,16 +33,19 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
 
   const { data: postViewData } = useGetViewCountQuery(post.id);
 
-  const handlePress = () => {
-    // @todo create structure for dynamic route to APP_ROUTES
-    router.push(("/(drawer)/post/" + post.id) as Href);
+  const handlePostPress = () => {
+    router.push(
+      routerUtils.buildRoute(APP_ROUTES.PUBLIC.DRAWER.POST.LISTING, {
+        listingId: post.id,
+      }),
+    );
   };
 
   return (
     <View style={[themedStyles.cardStyles.default]}>
       <TouchableOpacity
         style={{ gap: APP_STYLE_VALUES.SPACE_SIZES.sp3 }}
-        onPress={handlePress}
+        onPress={handlePostPress}
       >
         <View
           style={[

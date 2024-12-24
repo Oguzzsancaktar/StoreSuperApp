@@ -3,10 +3,12 @@ import { Pressable, View } from "react-native";
 
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
+import { IIconNames } from "@/interfaces/app";
 import { IButtonStylesheet } from "@/interfaces/theme";
 
 import SvgAnimLoadingSpinner from "../svg/animation/SvgAnimLoadingSpinner";
 import { GradientBackground } from "../svg/background";
+import { getIconWithProps } from "../svg/icon";
 import { TextStyled } from "../typography";
 
 interface IProps {
@@ -17,6 +19,8 @@ interface IProps {
   variant: keyof IButtonStylesheet;
   children?: ReactNode;
   isLoading?: boolean;
+  leftIcon?: IIconNames;
+  rightIcon?: IIconNames;
 }
 
 const ButtonStyled: React.FC<IProps> = ({
@@ -27,6 +31,8 @@ const ButtonStyled: React.FC<IProps> = ({
   variant,
   children,
   isLoading,
+  leftIcon,
+  rightIcon,
 }) => {
   const {
     commonStyles,
@@ -59,13 +65,33 @@ const ButtonStyled: React.FC<IProps> = ({
           { alignContent: "center" },
         ]}
       >
-        <View style={[commonStyles.flexStyles.flexCenter, { flex: 1 }]}>
+        <View
+          style={[
+            commonStyles.flexStyles.flexCenter,
+            { flex: 1, flexDirection: "row" },
+          ]}
+        >
+          {leftIcon && (
+            <View
+              style={[
+                commonStyles.flexStyles.flexCenter,
+                { width: APP_STYLE_VALUES.WH_SIZES.md },
+              ]}
+            >
+              {getIconWithProps(leftIcon, {
+                color:
+                  theme[variant === "primarySolid" ? "white" : "grayScale900"],
+              })}
+            </View>
+          )}
+
           {text && (
             <TextStyled
               // @todo handle for other scenarios where the color is not white
               customColor={
                 variant === "primarySolid" ? "white" : "grayScale900"
               }
+              customStyle={{ width: "auto" }}
               textAlignment="center"
               textShadow="textShadowSm"
               fontSize="lg"
@@ -76,6 +102,20 @@ const ButtonStyled: React.FC<IProps> = ({
           )}
 
           {children && children}
+
+          {rightIcon && (
+            <View
+              style={[
+                commonStyles.flexStyles.flexCenter,
+                { width: APP_STYLE_VALUES.WH_SIZES.md },
+              ]}
+            >
+              {getIconWithProps(rightIcon, {
+                color:
+                  theme[variant === "primarySolid" ? "white" : "grayScale900"],
+              })}
+            </View>
+          )}
 
           {isLoading && (
             <View

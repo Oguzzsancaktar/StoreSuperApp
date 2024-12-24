@@ -16,15 +16,15 @@ const ButtonLogout: React.FC<IProps> = () => {
   const { authToken, signOut } = useAppAuthSession();
   const {
     commonStyles,
-    themeContext: { theme, toggleTheme },
+    themeContext: { theme },
   } = useAppStyles();
 
   const handlePress = () => {
     if (!authToken) {
-      router.replace(APP_ROUTES.PUBLIC.LOGIN);
+      router.replace(APP_ROUTES.PUBLIC.UNAUTHORIZED.LOGIN);
     } else {
       signOut();
-      router.push(APP_ROUTES.PUBLIC.WELCOME);
+      router.push(APP_ROUTES.PUBLIC.UNAUTHORIZED.WELCOME);
     }
   };
   return (

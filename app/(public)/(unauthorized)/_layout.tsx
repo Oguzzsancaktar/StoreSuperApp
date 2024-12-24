@@ -1,4 +1,4 @@
-import { Redirect, Stack, router } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import { useAppAuthSession } from "@/contexts/AuthContext";

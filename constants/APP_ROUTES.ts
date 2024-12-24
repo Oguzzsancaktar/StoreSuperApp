@@ -1,44 +1,82 @@
-// generic all keys must be type of Href<string | object>
-
 import { Href } from "expo-router";
 
-export interface IAppRoutes {
-  [key: string]: {
-    [subkey: string]: Href<string | object>
-  }
-}
-
-const APP_ROUTES: IAppRoutes = {
-
-
+interface IAppRoutes {
   PRIVATE: {
-    SETTINGS_UPDATE_ACCOUNT: "/(private)/settings/updateAccount",
-    SETTINGS_UPDATE_PASSWORD: "/(private)/settings/updatePassword",
-
-    SETTINGS_UPDATE_INFORMATIONS: "/(private)/settings/updateInformations",
-    SETTINGS_PERSONAL_INFORMATIONS: "/(private)/settings/personalInformations",
-    SETTINGS_CONTACT_INFORMATIONS: "/(private)/settings/contactInformations",
-    SETTINGS_ADDRESS_INFORMATIONS: "/(private)/settings/addressInformations",
+    CHAT: {
+      CHAT_REGISTRY: Href,
+    },
+    SETTINGS: {
+      ADDRESS_INFO: Href,
+      CONTACT_INFO: Href,
+      PERSONAL_INFO: Href,
+      UPDATE_ACCOUNT: Href,
+      UPDATE_PASSWORD: Href,
+    },
   },
-
   PUBLIC: {
-    LOGIN: "/(public)/login",
-    REGISTER: "/(public)/register",
-    WELCOME: "/(public)/welcome",
+    DRAWER: {
+      SETTINGS: {
+        LIST: Href,
+      },
+      POST: {
+        LISTING: Href,
+      },
+      PROFILE: Href,
+      FAVORITES: Href,
+      SUCCESS: Href,
+    },
+    UNAUTHORIZED: {
+      LOGIN: Href,
+      REGISTER: Href,
+      WELCOME: Href,
+    },
   },
-
-  DRAWER: {
-    PRIVACY_POLICY: "/(public)/(drawer)/settings/privacyPolicy",
-    SETTINGS: "/(public)/(drawer)/settings",
-    FAVORITES: "/(public)/(drawer)/favorites",
-    SUCCESS: "/(public)/(drawer)/success",
-  },
-
   TABS: {
+    ADD_POST: Href,
+    MESSAGES: Href,
+    POST_LIST: Href,
+    PROFILE: Href,
+    TIMELINE: Href,
+  },
+};
+export const APP_ROUTES: IAppRoutes = {
+  PRIVATE: {
+    CHAT: {
+      CHAT_REGISTRY: "/(private)/chat/[chatRegistryId]",
+    },
+    SETTINGS: {
+      ADDRESS_INFO: "/(private)/settings/addressInformations",
+      CONTACT_INFO: "/(private)/settings/contactInformations",
+      PERSONAL_INFO: "/(private)/settings/personalInformations",
+      UPDATE_ACCOUNT: "/(private)/settings/updateAccount",
+      UPDATE_PASSWORD: "/(private)/settings/updatePassword",
+    },
+  },
+  PUBLIC: {
+    DRAWER: {
+      SETTINGS: {
+        LIST: "/(public)/(drawer)/settings"
+      },
+      POST: {
+        LISTING: "/(public)/(drawer)/post/[listingId]",
+      },
+      PROFILE: "/(public)/(drawer)/post/settings/[profileId]",
+      FAVORITES: "/(public)/(drawer)/post/settings/favorites",
+      SUCCESS: "/(public)/(drawer)/post/settings/success",
+    },
+    UNAUTHORIZED: {
+      LOGIN: "/(public)/(unauthorized)/login",
+      REGISTER: "/(public)/(unauthorized)/register",
+      WELCOME: "/(public)/(unauthorized)/welcome",
+    },
+  },
+  TABS: {
+    ADD_POST: "/(tabs)/addPost",
+    MESSAGES: "/(tabs)/messages",
+    POST_LIST: "/(tabs)/postList",
+    PROFILE: "/(tabs)/profile",
     TIMELINE: "/(tabs)/timeline",
-    PROFILE: "/(tabs)/profile"
-  }
-} as const
-
+  },
+};
 
 export default APP_ROUTES;

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { View } from "react-native";
 
-import { router, useLocalSearchParams } from "expo-router";
+import { Href, router, useLocalSearchParams } from "expo-router";
 import { map } from "lodash";
 
 import { ButtonStyled } from "@/components/button";
@@ -21,12 +21,14 @@ import IconCalendar from "@/components/svg/icon/IconCalendar";
 import IconLocation from "@/components/svg/icon/IconLocation";
 import IconSendMessage from "@/components/svg/icon/IconSendMessage";
 import { TextStyled } from "@/components/typography";
+import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import IUser from "@/interfaces/account/IUser";
 import { useGetListingItemDetailsQuery } from "@/services/listingServices";
 import dateUtils from "@/utils/dateUtils";
+import routerUtils from "@/utils/routerUtils";
 import { toastWarning } from "@/utils/toastUtils";
 
 const ListingDetailPage = () => {
@@ -48,8 +50,9 @@ const ListingDetailPage = () => {
     }
 
     router.push({
-      // @todo fix find best practice for constant all routes
-      pathname: ("/(private)/chat/" + "new") as any,
+      pathname: routerUtils.buildRoute(APP_ROUTES.PRIVATE.CHAT.CHAT_REGISTRY, {
+        chatRegistryId: "new",
+      }),
       params: { listingId: listingId },
     });
   };
@@ -238,37 +241,12 @@ const ListingDetailPage = () => {
           size={APP_STYLE_VALUES.WH_SIZES.lg}
         /> */}
 
-        {/* @todo add it to button compoennt for icon */}
-        <View style={{ flex: 1 }}>
-          <ButtonStyled variant="primarySolid" onPress={handleSendMessageClick}>
-            <View
-              style={[
-                commonStyles.flexStyles.rowCenterWrap,
-                { width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
-              ]}
-            >
-              <View
-                style={[
-                  commonStyles.flexStyles.rowCenter,
-                  { gap: APP_STYLE_VALUES.SPACE_SIZES.sp2 },
-                ]}
-              >
-                <IconSendMessage color={theme.white} />
-
-                <View>
-                  <TextStyled
-                    textAlignment="left"
-                    fontSize="lg"
-                    fontWeight="semibold"
-                    customColor="white"
-                  >
-                    Send Message
-                  </TextStyled>
-                </View>
-              </View>
-            </View>
-          </ButtonStyled>
-        </View>
+        <ButtonStyled
+          leftIcon="IconSendMessage"
+          variant="primarySolid"
+          text="Send Message"
+          onPress={handleSendMessageClick}
+        />
       </View>
     </ScreenWrapperContainer>
   );

@@ -12,34 +12,40 @@ import FlatListStyled from "@/components/override/FlatListStyled";
 import IconBell from "@/components/svg/icon/IconBell";
 import IconTrash from "@/components/svg/icon/IconTrash";
 import { TextStyled } from "@/components/typography";
+import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import IChatConversation from "@/interfaces/chat/IChatConversation";
 import { useGetChatListQuery } from "@/services/chatServices";
+import routerUtils from "@/utils/routerUtils";
 
-const MessagesScreen = () => {
+const ConversationsScreen = () => {
   const { authToken } = useAppAuthSession();
   const {
     commonStyles,
     themedStyles,
-    themeContext: { theme, toggleTheme },
+    themeContext: { theme },
   } = useAppStyles();
   const { data: chatListData, isLoading: chatListIsLoading } =
     useGetChatListQuery();
 
   const renderItem = ({ item }: { item: IChatConversation }) => {
-    const handleClick = () => {
+    const handleConversationClick = () => {
       router.push({
-        // @todo fix find best practice for constant all routes
-        pathname: ("/(private)/chat/" + item.chatRegistryId) as any,
+        pathname: routerUtils.buildRoute(
+          APP_ROUTES.PRIVATE.CHAT.CHAT_REGISTRY,
+          {
+            chatRegistryId: item.chatRegistryId,
+          },
+        ),
         params: { listingId: item.listingId },
       });
     };
 
     return (
       <Pressable
-        onPress={handleClick}
+        onPress={handleConversationClick}
         style={[
           commonStyles.flexStyles.rowStart,
           {
@@ -166,4 +172,4 @@ const MessagesScreen = () => {
   );
 };
 
-export default MessagesScreen;
+export default ConversationsScreen;

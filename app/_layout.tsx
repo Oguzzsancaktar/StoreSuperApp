@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { Slot, Stack, router, useSegments } from "expo-router";
+import { Stack, router, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import { DismissKeyboardWrapper } from "@/components/containers";
@@ -25,7 +25,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "/(public)/welcome",
+  initialRouteName: APP_ROUTES.PUBLIC.UNAUTHORIZED.WELCOME,
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -63,7 +63,7 @@ function RootLayoutNav() {
 
   useEffect(() => {
     if (segments?.includes("+not-found" as never)) {
-      router.push(APP_ROUTES.PUBLIC.WELCOME);
+      router.push(APP_ROUTES.PUBLIC.UNAUTHORIZED.WELCOME);
     }
   }, []);
 
@@ -84,8 +84,6 @@ function RootLayoutNav() {
                       )
                     }
                   >
-                    {/* <Slot /> */}
-
                     <Stack>
                       {/* Public screens */}
                       <Stack.Screen

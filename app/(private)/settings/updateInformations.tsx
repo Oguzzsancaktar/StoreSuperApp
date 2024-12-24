@@ -35,7 +35,7 @@ const UpdateInformationScreen = () => {
         text: "Personal Information",
         right: "chevron",
         onPress: () => {
-          router.push(APP_ROUTES.PRIVATE.SETTINGS_PERSONAL_INFORMATIONS);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS.PERSONAL_INFO);
         },
       },
       {
@@ -43,17 +43,9 @@ const UpdateInformationScreen = () => {
         text: "Contact Information",
         right: "chevron",
         onPress: () => {
-          router.push(APP_ROUTES.PRIVATE.SETTINGS_CONTACT_INFORMATIONS);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS.CONTACT_INFO);
         },
       },
-      // {
-      //   icon: 'IconLocation',
-      //   text: 'Address Information',
-      //   right: 'chevron',
-      //   onPress: () => {
-      //     router.push(APP_ROUTES.PRIVATE.SETTINGS_ADDRESS_INFORMATIONS);
-      //   },
-      // },
     ],
     [toggleTheme],
   );

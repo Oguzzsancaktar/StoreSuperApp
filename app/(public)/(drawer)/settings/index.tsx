@@ -40,7 +40,7 @@ const SettingsScreen = () => {
         text: "Account Settings",
         right: "chevron",
         onPress: () => {
-          router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_ACCOUNT);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS.UPDATE_ACCOUNT);
         },
         priv: true,
       },
@@ -49,7 +49,7 @@ const SettingsScreen = () => {
         text: "Profile Information",
         right: "chevron",
         onPress: () => {
-          router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_INFORMATIONS);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS.PERSONAL_INFO);
         },
         priv: true,
       },
@@ -59,7 +59,7 @@ const SettingsScreen = () => {
         right: "chevron",
         onPress: () => {
           WebBrowser.openBrowserAsync("https://setuka24.com/policy" as string);
-
+          // @todo create policy screen
           // router.push(APP_ROUTES.DRAWER.PRIVACY_POLICY);
         },
       },

@@ -24,6 +24,7 @@ import {
   useCreateListingMutation,
   useUploadListingMediaMutation,
 } from "@/services/listingServices";
+import routerUtils from "@/utils/routerUtils";
 
 const WizardListingCreate = () => {
   const { themedStyles } = useAppStyles();
@@ -428,16 +429,20 @@ const WizardListingCreate = () => {
         const createdListingId = await createListing(listingCreateDTO).unwrap();
 
         router.push({
-          // @todo fix find best practice for constant all routes
-          pathname: APP_ROUTES.DRAWER.SUCCESS as any,
+          pathname: routerUtils.buildRoute(
+            APP_ROUTES.PUBLIC.DRAWER.SUCCESS,
+            {},
+          ),
           params: {
             title: "Listing Created",
             description: "New Listing Created Successfully",
             href: APP_ROUTES.TABS.TIMELINE as string,
             showExtraButton: "true",
             extraButtonText: "Go to listing",
-            // @todo path route
-            extraButtonHref: ("/(drawer)/post/" + createdListingId) as string,
+            extraButtonHref: routerUtils.buildRoute(
+              APP_ROUTES.PUBLIC.DRAWER.POST.LISTING,
+              { listingId: createdListingId },
+            ),
           },
         });
       } catch (error) {

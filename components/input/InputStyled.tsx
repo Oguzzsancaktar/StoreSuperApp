@@ -115,7 +115,11 @@ const InputStyled: React.FC<IProps> = ({
           commonStyles.flexStyles.rowStart,
           themedStyles.inputStyles.default,
           isFocused && themedStyles.inputStyles.inputFocused,
-          { padding: 0, margin: 0, alignItems: "center" },
+          {
+            padding: 0,
+            margin: 0,
+            alignItems: "center",
+          },
           type === "textarea" && {
             height: APP_STYLE_VALUES.WH_SIZES.xl4,
           },

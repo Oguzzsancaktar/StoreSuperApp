@@ -38,7 +38,7 @@ const UpdateAccountScreen = () => {
         text: "Change Password",
         right: "chevron",
         onPress: () => {
-          router.push(APP_ROUTES.PRIVATE.SETTINGS_UPDATE_PASSWORD);
+          router.push(APP_ROUTES.PRIVATE.SETTINGS.UPDATE_PASSWORD);
         },
       },
       {

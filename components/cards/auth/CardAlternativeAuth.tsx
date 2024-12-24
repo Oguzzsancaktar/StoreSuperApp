@@ -177,7 +177,9 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
 
         <Link
           href={
-            APP_ROUTES.PUBLIC[authType === "REGISTER" ? "LOGIN" : "REGISTER"]
+            APP_ROUTES.PUBLIC.UNAUTHORIZED[
+              authType === "REGISTER" ? "LOGIN" : "REGISTER"
+            ]
           }
         >
           <TextStyled customColor="primary" fontSize="md" fontWeight="semibold">

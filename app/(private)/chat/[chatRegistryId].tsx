@@ -21,6 +21,7 @@ import FlatListStyled from "@/components/override/FlatListStyled";
 import IconOptions from "@/components/svg/icon/IconOptions";
 import IconSendMessage from "@/components/svg/icon/IconSendMessage";
 import { TextStyled } from "@/components/typography";
+import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import useAppStyles from "@/hooks/useAppStyles";
@@ -32,6 +33,7 @@ import {
 } from "@/services/chatServices";
 import { useGetListingItemDetailsQuery } from "@/services/listingServices";
 import jwtUtils from "@/utils/jwtUtils";
+import routerUtils from "@/utils/routerUtils";
 
 const MessagesDetailScreen = () => {
   const { authToken } = useAppAuthSession();
@@ -54,7 +56,11 @@ const MessagesDetailScreen = () => {
   const [newMessage, setNewMessage] = useState("");
 
   const handleAdvertClick = () => {
-    router.push(("/(drawer)/post/" + listingId) as Href);
+    router.push({
+      pathname: routerUtils.buildRoute(APP_ROUTES.PUBLIC.DRAWER.POST.LISTING, {
+        listingId: listingId as string,
+      }),
+    });
   };
 
   const sendMessage = async () => {

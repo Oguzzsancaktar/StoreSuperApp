@@ -335,7 +335,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
 
           <ButtonStyled
             onPress={() => {
-              router.push(APP_ROUTES.PUBLIC.LOGIN);
+              router.push(APP_ROUTES.PUBLIC.UNAUTHORIZED.LOGIN);
             }}
             text={"Login"}
             variant="primaryOutlined"

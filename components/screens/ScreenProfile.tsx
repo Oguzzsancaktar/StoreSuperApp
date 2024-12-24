@@ -50,7 +50,7 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
   });
 
   const handleSettingsPress = () => {
-    router.push(APP_ROUTES.DRAWER.SETTINGS);
+    router.push(APP_ROUTES.PUBLIC.DRAWER.SETTINGS.LIST);
   };
 
   return (
@@ -102,7 +102,9 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
                   {authToken && (
                     <ButtonStyled
                       variant="badgeOutlined"
-                      onPress={() => router.push(APP_ROUTES.DRAWER.FAVORITES)}
+                      onPress={() =>
+                        router.push(APP_ROUTES.PUBLIC.DRAWER.FAVORITES)
+                      }
                     >
                       <View
                         style={[

@@ -4,9 +4,11 @@ import { Href, router } from "expo-router";
 import moment from "moment";
 
 import APP_FORMATS from "@/constants/APP_FORMATS";
+import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
 import IUser from "@/interfaces/account/IUser";
+import routerUtils from "@/utils/routerUtils";
 
 import ImageIconCircle from "../images/ImageIconCircle";
 import IconChatSupport from "../svg/icon/IconChatSupport";
@@ -30,7 +32,11 @@ const CardSellerInfo: React.FC<IProps> = ({
   } = useAppStyles();
 
   const handleCardPress = () => {
-    router.push(("/(drawer)/" + user?.id) as Href);
+    router.push(
+      routerUtils.buildRoute(APP_ROUTES.PUBLIC.DRAWER.PROFILE, {
+        profileId: user?.id,
+      }),
+    );
   };
 
   return (
