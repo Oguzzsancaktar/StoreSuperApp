@@ -82,7 +82,13 @@ function RootLayoutNav() {
 
                     <ModalGlobal />
 
-                    <Stack>
+                    <Stack
+                      screenOptions={{
+                        gestureEnabled: true,
+                        gestureDirection: "horizontal",
+                        animation: "slide_from_right",
+                      }}
+                    >
                       <Stack.Screen
                         name="(public)"
                         options={{ headerShown: false }}
