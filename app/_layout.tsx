@@ -9,11 +9,13 @@ import * as SplashScreen from "expo-splash-screen";
 
 import { DismissKeyboardWrapper } from "@/components/containers";
 import SafeAreaContainer from "@/components/containers/SafeAreaContainer";
+import DrawerGlobal from "@/components/drawer/DrawerGlobal";
 import ModalGlobal from "@/components/modal/ModalGlobal";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import { SessionProvider } from "@/contexts/AuthContext";
 import { DrawerProvider } from "@/contexts/DrawerContext";
 import { InputFocusProvider } from "@/contexts/InputFocusContext";
+import { ListingFilterProvider } from "@/contexts/ListingFilterContext";
 import { ModalProvider } from "@/contexts/ModalContext";
 import { ThemeProvider, useAppTheme } from "@/contexts/ThemeContext";
 import { store } from "@/store/store";
@@ -75,24 +77,28 @@ function RootLayoutNav() {
             <SessionProvider>
               <DrawerProvider>
                 <ModalProvider>
-                  <ModalGlobal />
+                  <ListingFilterProvider>
+                    <DrawerGlobal />
 
-                  <Stack>
-                    <Stack.Screen
-                      name="(public)"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="(private)"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="(tabs)"
-                      options={{
-                        headerShown: false,
-                      }}
-                    />
-                  </Stack>
+                    <ModalGlobal />
+
+                    <Stack>
+                      <Stack.Screen
+                        name="(public)"
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="(private)"
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="(tabs)"
+                        options={{
+                          headerShown: false,
+                        }}
+                      />
+                    </Stack>
+                  </ListingFilterProvider>
                 </ModalProvider>
               </DrawerProvider>
             </SessionProvider>
