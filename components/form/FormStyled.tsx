@@ -7,7 +7,7 @@ import { map } from "lodash";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
 import { IInputProps } from "@/interfaces/app";
-import validationUtils from "@/utils/validationUtils";
+import validationUtils, { ICommonFieldNames } from "@/utils/validationUtils";
 
 import { ButtonStyled } from "../button";
 import ScrollViewStyled from "../override/ScrollViewStyled";
@@ -130,8 +130,9 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                 searchable,
                 customStyle,
               }) => {
-                const validationRules =
-                  validationUtils.getFormRulesFromField(name);
+                const validationRules = validationUtils.getFormRulesFromField(
+                  name as ICommonFieldNames,
+                );
                 return (
                   <Fragment key={name}>
                     <Controller

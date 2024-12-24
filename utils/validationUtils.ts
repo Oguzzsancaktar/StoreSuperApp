@@ -2,9 +2,9 @@ import { filter } from 'lodash';
 import APP_VALIDATION_PATTERNS from "@/constants/APP_VALIDATION_PATTERNS";
 import { RegisterOptions } from "react-hook-form";
 
-type ICommonFiledNames = "firstname" | "email" | "password" | "password_confirm" | "price" | "zipcode" | "media"
+export type ICommonFieldNames = "firstname" | "email" | "password" | "password_confirm" | "price" | "zipcode" | "media"
 
-const getFormRulesFromField = (field: ICommonFiledNames): Omit<RegisterOptions<Record<string, any>, string>, "disabled" | "valueAsNumber" | "valueAsDate" | "setValueAs"> | undefined => {
+const getFormRulesFromField = (field: ICommonFieldNames): Omit<RegisterOptions<Record<string, any>, string>, "disabled" | "valueAsNumber" | "valueAsDate" | "setValueAs"> | undefined => {
   const formFieldRule: RegisterOptions<Record<string, any>, string> = {
     required: false,
   }

@@ -1,10 +1,10 @@
-import React from 'react';
-import APP_THEMES from '@/constants/APP_THEMES';
-import { useAppTheme } from '@/contexts/ThemeContext';
-import { StatusBar } from 'expo-status-bar';
-import { View, Platform } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { concat } from 'lodash';
+import React from "react";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+
+import { StatusBar } from "expo-status-bar";
+import { concat } from "lodash";
+
+import { useAppTheme } from "@/contexts/ThemeContext";
 
 interface IProps {
   children: React.ReactNode;
@@ -14,38 +14,30 @@ interface IProps {
 const SafeAreaContainer: React.FC<IProps> = ({ children, isTopEdgeActive }) => {
   const { theme, isDark } = useAppTheme();
 
+  console.log(
+    "---",
+    concat(["bottom", "left", "right"], isTopEdgeActive ? ["top"] : []),
+  );
   return (
     <SafeAreaProvider>
       <StatusBar
         translucent
         animated
         backgroundColor="transparent"
-        style={isDark ? 'light' : 'dark'}
+        style={isDark ? "light" : "dark"}
       />
 
       <SafeAreaView
         edges={concat(
-          ['bottom', 'left', 'right'],
-          isTopEdgeActive ? ['top'] : []
+          ["bottom", "left", "right"],
+          isTopEdgeActive ? ["top"] : [],
         )}
         style={{
           flex: 1,
           backgroundColor: theme.appBackground,
-          paddingTop: 0,
-          marginTop: 0,
         }}
       >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor:
-              Platform.OS === 'android'
-                ? 'rgba(255, 255, 255, 0.5)'
-                : 'transparent',
-          }}
-        >
-          {children}
-        </View>
+        {children}
       </SafeAreaView>
     </SafeAreaProvider>
   );

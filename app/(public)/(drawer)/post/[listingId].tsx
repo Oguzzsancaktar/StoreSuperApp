@@ -36,7 +36,7 @@ const ListingDetailPage = () => {
     commonStyles,
     themeContext: { theme },
   } = useAppStyles();
-  const { authToken } = useAppAuthSession();
+  const { authToken, userTokenInfo } = useAppAuthSession();
 
   const { listingId } = useLocalSearchParams();
 
@@ -222,17 +222,18 @@ const ListingDetailPage = () => {
         </InnerCommonContainer>
       </ScrollViewStyled>
 
-      <View
-        style={[
-          commonStyles.flexStyles.rowWrap,
-          {
-            gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-            marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-            marginHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-          },
-        ]}
-      >
-        {/* <ImageIconCircle
+      {listingItemDetailData.user.id !== userTokenInfo?.Id && (
+        <View
+          style={[
+            commonStyles.flexStyles.rowWrap,
+            {
+              gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+              marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+              marginHorizontal: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+            },
+          ]}
+        >
+          {/* <ImageIconCircle
           gradientBg={true}
           radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
           borderColor="primary"
@@ -241,13 +242,14 @@ const ListingDetailPage = () => {
           size={APP_STYLE_VALUES.WH_SIZES.lg}
         /> */}
 
-        <ButtonStyled
-          leftIcon="IconSendMessage"
-          variant="primarySolid"
-          text="Send Message"
-          onPress={handleSendMessageClick}
-        />
-      </View>
+          <ButtonStyled
+            leftIcon="IconSendMessage"
+            variant="primarySolid"
+            text="Send Message"
+            onPress={handleSendMessageClick}
+          />
+        </View>
+      )}
     </ScreenWrapperContainer>
   );
 };

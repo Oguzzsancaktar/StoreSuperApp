@@ -67,6 +67,8 @@ function RootLayoutNav() {
     }
   }, []);
 
+  console.log("segments", segments);
+
   return (
     <Provider store={store}>
       <ThemeProvider>
@@ -85,21 +87,19 @@ function RootLayoutNav() {
                     }
                   >
                     <Stack>
-                      {/* Public screens */}
                       <Stack.Screen
                         name="(public)"
                         options={{ headerShown: false }}
                       />
-
                       <Stack.Screen
                         name="(private)"
                         options={{ headerShown: false }}
                       />
-
-                      {/* Tabs screens */}
                       <Stack.Screen
                         name="(tabs)"
-                        options={{ headerShown: false }}
+                        options={{
+                          headerShown: false,
+                        }}
                       />
                     </Stack>
                   </SafeAreaContainer>

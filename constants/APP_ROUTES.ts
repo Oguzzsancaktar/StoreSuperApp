@@ -64,7 +64,7 @@ export const APP_ROUTES: IAppRoutes = {
       },
       PROFILE: "/(public)/(drawer)/post/settings/[profileId]",
       FAVORITES: "/(public)/(drawer)/post/settings/favorites",
-      SUCCESS: "/(public)/(drawer)/post/settings/success",
+      SUCCESS: "/(public)/(drawer)/success",
     },
     UNAUTHORIZED: {
       LOGIN: "/(public)/(unauthorized)/login",

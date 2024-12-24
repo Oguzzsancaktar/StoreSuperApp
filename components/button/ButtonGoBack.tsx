@@ -29,6 +29,10 @@ const ButtonGoBack: React.FC<IProps> = ({ customEvent, isCircular = true }) => {
     }
   };
 
+  if (!router.canGoBack()) {
+    return;
+  }
+
   return (
     <TouchableOpacity
       onPress={handlePress}

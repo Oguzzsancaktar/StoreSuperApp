@@ -59,8 +59,9 @@ export default function TabLayout() {
             elevation: 0,
             borderTopWidth: 0,
             position: "absolute",
+            bottom: APP_STYLE_VALUES.SPACE_SIZES.sp2, // Adjust as needed.
             left: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-            zIndex: 1,
+            zIndex: 9999,
           },
           tabBarButton: ({ accessibilityState, to, ...rest }) => {
             const isSelected = accessibilityState?.selected || false;
