@@ -1,6 +1,6 @@
 interface ISelectOption {
   label: string
-  value: string | number
+  value: string | number | undefined
 }
 
 export default ISelectOption

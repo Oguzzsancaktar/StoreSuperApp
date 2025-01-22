@@ -13,6 +13,7 @@ interface IListingQueryParams extends IQueryParams {
   countryId?: ICountry["id"]
   cityId?: ICountry["id"]
   districtId?: IDistrict["id"]
+  subCategoryId?: IListingCategorySub["id"]
   subCategoryIds?: IListingCategorySub["id"][]
   filters?: any[]
   details?: any[]

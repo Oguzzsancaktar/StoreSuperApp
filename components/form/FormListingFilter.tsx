@@ -23,10 +23,12 @@ const FormListingFilter = () => {
         categoryId: filterValues?.category,
         countryId: filterValues?.country?.value,
         cityId: filterValues?.city?.value,
-        subCategory: filterValues?.subCategoryIds?.value,
+        subCategory:
+          filterValues?.subCategoryIds?.value ||
+          filterValues?.subCategoryId?.value,
       },
       {
-        skip: !filterValues.category,
+        skip: !(filterValues.category || filterValues?.subCategoryIds?.value),
       },
     );
 

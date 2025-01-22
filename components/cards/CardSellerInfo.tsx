@@ -42,7 +42,10 @@ const CardSellerInfo: React.FC<IProps> = ({
   return (
     <Pressable
       onPress={handleCardPress}
-      style={themedStyles.cardStyles.default}
+      style={[
+        themedStyles.cardStyles.default,
+        { gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 },
+      ]}
     >
       {(allowMessaging || allowPhoneCalls) && (
         <View
@@ -68,24 +71,31 @@ const CardSellerInfo: React.FC<IProps> = ({
           </View>
 
           <View
-            style={
-              (commonStyles.flexStyles.colStart, { width: "100%", flex: 1 })
-            }
+            style={[
+              commonStyles.flexStyles.colStart,
+              { width: "100%", flex: 1 },
+            ]}
           >
+            <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
+              Contact Information
+            </TextStyled>
+            {allowPhoneCalls && user?.phoneNumber && (
+              <TextStyled
+                fontSize="h6"
+                fontWeight="medium"
+                textAlignment="left"
+                customColor="grayScale400"
+              >
+                {user?.phoneNumber || ""}
+              </TextStyled>
+            )}
+
             <TextStyled
               fontSize="h6"
               fontWeight="medium"
               customColor="grayScale400"
               textAlignment="left"
             >
-              Contact Information
-            </TextStyled>
-            <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
-              {(allowPhoneCalls && user?.phoneNumber && user?.phoneNumber) ||
-                ""}
-            </TextStyled>
-
-            <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
               {(allowMessaging && user?.email && user?.email) || ""}
             </TextStyled>
           </View>
@@ -97,7 +107,6 @@ const CardSellerInfo: React.FC<IProps> = ({
           commonStyles.flexStyles.rowStart,
           {
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-            paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp4,
           },
         ]}
       >

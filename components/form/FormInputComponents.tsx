@@ -140,6 +140,7 @@ const FormInputComponents: React.FC<IProps> = ({
               showReset={showReset}
               label={label}
               handleSelect={onChange}
+              placeholder={placeholder}
               options={options}
               variant="gray200Outlined"
               value={value}
@@ -176,6 +177,7 @@ const FormInputComponents: React.FC<IProps> = ({
             default:
               selectComponent = (
                 <InputSelectStyled
+                  placeholder={placeholder}
                   searchable={searchable}
                   showReset={showReset}
                   label={label}

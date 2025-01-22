@@ -178,6 +178,7 @@ const WizardListingCreate = () => {
             name: "subCategory",
             placeholder: "Select estate type...",
             type: "select",
+            searchable: true,
             options: subCategoryOptions,
           },
 
@@ -188,6 +189,7 @@ const WizardListingCreate = () => {
                 name: "subChildCategory",
                 placeholder: "Select subs child type...",
                 type: "select",
+                searchable: true,
                 options: subsSubCategoryOptions,
               }
             : null,
@@ -206,6 +208,7 @@ const WizardListingCreate = () => {
               placeholder: option.name + "...",
               type: EListingOptionComponentType[option.propertyType],
               options: options,
+              searchable: true,
             } as IInputProps;
           }),
         ].filter((field): field is IInputProps => field !== null),

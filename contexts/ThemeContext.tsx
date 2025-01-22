@@ -1,12 +1,5 @@
 // contexts/ThemeContext.tsx
-import React, {
-  ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import React, { ReactNode, createContext, useContext, useMemo } from "react";
 
 import ToastManager from "toastify-react-native";
 

@@ -15,6 +15,7 @@ import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContain
 import EmptyState from "@/components/feedback/EmptyState";
 import Preloader from "@/components/feedback/Preloader";
 import ImageCarousel from "@/components/images/ImageCarousel";
+import ImageIconCircle from "@/components/images/ImageIconCircle";
 import MapGeoLoaction from "@/components/map/MapGeoLoaction";
 import ScrollViewStyled from "@/components/override/ScrollViewStyled";
 import IconCalendar from "@/components/svg/icon/IconCalendar";
@@ -33,6 +34,7 @@ import { toastWarning } from "@/utils/toastUtils";
 
 const ListingDetailPage = () => {
   const {
+    themedStyles,
     commonStyles,
     themeContext: { theme },
   } = useAppStyles();
@@ -56,6 +58,8 @@ const ListingDetailPage = () => {
       params: { listingId: listingId },
     });
   };
+
+  console.log("listingItemDetailData", listingItemDetailData);
 
   const mediaUrls = useMemo(() => {
     return map(listingItemDetailData?.media, (m) => m.url);
@@ -170,7 +174,7 @@ const ListingDetailPage = () => {
               commonStyles.flexStyles.colStart,
               {
                 width: "100%",
-                gap: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+                gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
               },
             ]}
           >
@@ -210,6 +214,55 @@ const ListingDetailPage = () => {
                 }}
               />
             </View>
+
+            {listingItemDetailData?.listingAddress?.fullAddress && (
+              <View
+                style={[
+                  themedStyles.cardStyles.default,
+                  commonStyles.flexStyles.colBetween,
+                  {
+                    paddingTop: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                    paddingVertical: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                  },
+                ]}
+              >
+                <View
+                  style={[
+                    commonStyles.flexStyles.rowStart,
+                    {
+                      gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                    },
+                  ]}
+                >
+                  <View style={{ width: APP_STYLE_VALUES.WH_SIZES.sm }}>
+                    <ImageIconCircle
+                      bgColor={"grayScale300"}
+                      icon={<IconLocation color={theme.grayScale900} />}
+                    />
+                  </View>
+
+                  <View style={commonStyles.flexStyles.colStart}>
+                    <TextStyled fontSize="h4" fontWeight="bold">
+                      Full Address
+                    </TextStyled>
+                    <View>
+                      {listingItemDetailData?.listingAddress &&
+                        listingItemDetailData?.listingAddress
+                          ?.showFullAddress && (
+                          <TextStyled
+                            fontSize="sm"
+                            fontWeight="medium"
+                            customColor="grayScale500"
+                            textAlignment="left"
+                          >
+                            {listingItemDetailData?.listingAddress?.fullAddress}
+                          </TextStyled>
+                        )}
+                    </View>
+                  </View>
+                </View>
+              </View>
+            )}
 
             <View style={{ width: "100%" }}>
               <CardSellerInfo

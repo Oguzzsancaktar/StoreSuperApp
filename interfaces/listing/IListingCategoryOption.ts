@@ -9,6 +9,7 @@ export default interface IListingCategoryOption {
   name: string
   propertyName: | 'price'
   | 'address'
+  | 'subCategoryId'
   | 'subCategoryIds'
   | 'purpose'
   | 'surface'

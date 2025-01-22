@@ -53,11 +53,15 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
     watch,
   } = formInstance;
 
+  const subCategoryWatched = watch("subCategory");
   const subCategoryIdsWatched = watch("subCategoryIds");
+  const all = watch();
+
   const countryWatched = watch("country");
   const cityWatched = watch("city");
 
   const oldTriggerValues = useRef({
+    subCategory: values?.subCategory,
     subCategoryIds: values?.subCategoryIds,
     country: values?.country,
     city: values?.city,
@@ -80,7 +84,13 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
         oldTriggerValues.current.city = cityWatched;
         setValues({ ...values, city: cityWatched });
       }
-
+      if (
+        JSON.stringify(oldTriggerValues.current.subCategory) !==
+        JSON.stringify(subCategoryWatched)
+      ) {
+        oldTriggerValues.current.subCategory = subCategoryWatched;
+        setValues({ ...values, subCategory: subCategoryWatched });
+      }
       if (
         JSON.stringify(oldTriggerValues.current.subCategoryIds) !==
         JSON.stringify(subCategoryIdsWatched)
@@ -89,7 +99,13 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
         setValues({ ...values, subCategoryIds: subCategoryIdsWatched });
       }
     }
-  }, [setValues, subCategoryIdsWatched, countryWatched, cityWatched]);
+  }, [
+    setValues,
+    subCategoryIdsWatched,
+    subCategoryWatched,
+    countryWatched,
+    cityWatched,
+  ]);
 
   useEffect(() => {
     reset(values);

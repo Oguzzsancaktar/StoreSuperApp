@@ -84,8 +84,8 @@ const INPUT_SELECT_LANGUAGE: IInputProps = {
   type: 'select',
   options: [
     { label: "English", value: "English" },
-    { label: "Deutch", value: "Deutch" },
-    { label: "Turkce", value: "Turkce" },
+    { label: "Deutsch", value: "Deutsch" },
+    { label: "Türkçe", value: "Türkçe" },
     { label: "Arabic", value: "Arabic" },
   ],
   required: true,

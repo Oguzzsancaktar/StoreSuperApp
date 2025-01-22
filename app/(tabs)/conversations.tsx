@@ -146,7 +146,7 @@ const ConversationsScreen = () => {
             </TextStyled>
           </View>
 
-          <View style={[commonStyles.flexStyles.rowStart]}>
+          {/* <View style={[commonStyles.flexStyles.rowStart]}>
             <ImageIconCircle
               bgColor="transparent"
               icon={<IconBell color={theme.grayScale900} />}
@@ -155,7 +155,7 @@ const ConversationsScreen = () => {
               bgColor="transparent"
               icon={<IconTrash color={theme.grayScale900} />}
             />
-          </View>
+          </View> */}
         </View>
 
         <FlatListStyled

@@ -80,7 +80,7 @@ export default function TabLayout() {
               Icon = IconPlusCircle;
               break;
 
-            case to?.includes("messages"):
+            case to?.includes("conversations"):
               label = "Messages";
               Icon = IconMessageFilled;
               break;

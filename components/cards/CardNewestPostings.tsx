@@ -21,9 +21,11 @@ const CardNewestPostings = () => {
     useGetListingCategoriesQuery();
 
   const listingCategoryOptions = useMemo<ISelectOption[]>(() => {
-    return map(listingCategoriesData, (l) => {
+    const options: ISelectOption[] = map(listingCategoriesData, (l) => {
       return { label: l.name, value: l.id };
     });
+
+    return options;
   }, [listingCategoriesData]);
 
   const [newestCategory, setNewestCategory] = useState(

@@ -12,6 +12,7 @@ import IconUser from "@/components/svg/icon/IconUser";
 import { TextStyled } from "@/components/typography";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
 import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import { IIconNames } from "@/interfaces/app";
@@ -31,16 +32,10 @@ const UpdateAccountScreen = () => {
 
   const { isModalOpen, toggleModal } = useModalState();
 
-  const SETTING_ITEMS: ISettingItemProps[] = useMemo(
-    () => [
-      {
-        icon: "IconKey",
-        text: "Change Password",
-        right: "chevron",
-        onPress: () => {
-          router.push(APP_ROUTES.PRIVATE.SETTINGS.UPDATE_PASSWORD);
-        },
-      },
+  const { userTokenInfo } = useAppAuthSession();
+
+  const SETTING_ITEMS: ISettingItemProps[] = useMemo(() => {
+    const items = [
       {
         icon: "IconTrash",
         text: "Delete Account",
@@ -48,10 +43,22 @@ const UpdateAccountScreen = () => {
         onPress: () => {
           toggleModal();
         },
-      },
-    ],
-    [],
-  );
+      } as ISettingItemProps,
+    ];
+
+    if (userTokenInfo?.RegistrationType === "Mail") {
+      items.push({
+        icon: "IconKey",
+        text: "Change Password",
+        right: "chevron",
+        onPress: () => {
+          router.push(APP_ROUTES.PRIVATE.SETTINGS.UPDATE_PASSWORD);
+        },
+      });
+    }
+
+    return items;
+  }, [userTokenInfo]);
 
   return (
     <ScreenWrapperContainer showGoBack={true}>

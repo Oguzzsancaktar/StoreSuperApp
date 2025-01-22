@@ -63,12 +63,12 @@ const SettingsScreen = () => {
           // router.push(APP_ROUTES.DRAWER.PRIVACY_POLICY);
         },
       },
-      {
-        icon: "IconBell",
-        text: "Notifications",
-        right: "switch",
-        onPress: () => {},
-      },
+      // {
+      //   icon: "IconBell",
+      //   text: "Notifications",
+      //   right: "switch",
+      //   onPress: () => {},
+      // },
       {
         icon: "IconTheme",
         text: "Dark Mode",

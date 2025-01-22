@@ -39,6 +39,7 @@ const CardListingItems = () => {
       {
         minPrice: filterValues?.price ? filterValues?.price[0] : undefined,
         maxPrice: filterValues?.price ? filterValues?.price[1] : undefined,
+        subCategoryId: filterValues?.subCategoryId?.value,
         subCategoryIds: filterValues?.subCategoryIds?.value,
         countryId: filterValues?.country?.value || undefined,
         cityId: filterValues?.city?.value || undefined,
