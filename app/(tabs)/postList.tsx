@@ -16,7 +16,7 @@ const PostScreenActiveComponent = () => {
       <CardListingCategories
         selectedCategory={filterValues?.category || ""}
         handleSelectCategory={(categoryId) =>
-          setFilterValues({ ...filterValues, category: categoryId })
+          setFilterValues({ category: categoryId })
         }
       />
     );
@@ -27,7 +27,7 @@ const PostScreenActiveComponent = () => {
         <CardListingCategories
           selectedCategory={filterValues?.category || ""}
           handleSelectCategory={(categoryId) =>
-            setFilterValues({ ...filterValues, category: categoryId })
+            setFilterValues({ category: categoryId })
           }
         />
       );

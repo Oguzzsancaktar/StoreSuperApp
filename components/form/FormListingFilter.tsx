@@ -32,6 +32,8 @@ const FormListingFilter = () => {
       },
     );
 
+  console.log("filterOptionData", filterOptionData);
+
   const fields: Array<IInputProps> = useMemo(
     () => [
       ...(map(filterOptionData, (filter) => {

@@ -17,7 +17,14 @@ interface IListingQueryParams extends IQueryParams {
   subCategoryIds?: IListingCategorySub["id"][]
   filters?: any[]
   details?: any[]
-
+  vehicleshpae?: any
+  color?: any
+  numberofdoors?: any
+  fueltype?: any
+  transmission?: any
+  enginepower?: any
+  mileage?: any
+  registration?: any
 }
 
 

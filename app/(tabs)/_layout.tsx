@@ -14,6 +14,7 @@ import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { ListingFilterProvider } from "@/contexts/ListingFilterContext";
 import useAppStyles from "@/hooks/useAppStyles";
+import { IIconProps } from "@/interfaces/app";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -63,8 +64,8 @@ export default function TabLayout() {
         tabBarButton: ({ accessibilityState, to, ...rest }) => {
           const isSelected = accessibilityState?.selected || false;
 
-          let label = "home";
-          let Icon = IconHome;
+          let label = "";
+          let Icon: React.FC<IIconProps> = () => <></>;
 
           switch (true) {
             case to?.includes("timeline"):

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { View } from "react-native";
 
-import { find, map } from "lodash";
+import { concat, filter, find, join, map } from "lodash";
 
 import FilterSearchbar from "@/components/filters/FilterSearchbar";
 import FilterStuffType from "@/components/filters/FilterStuffType";
@@ -34,9 +34,12 @@ const CardListingItems = () => {
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
 
+  console.log("2filterValues", filterValues);
+
   const { data: listingItemsData, isLoading: isListingItemsLoading } =
     useGetListingItemsQuery(
       {
+        modelIds: [filterValues?.modelIds?.value],
         minPrice: filterValues?.price ? filterValues?.price[0] : undefined,
         maxPrice: filterValues?.price ? filterValues?.price[1] : undefined,
         subCategoryId: filterValues?.subCategoryId?.value,
@@ -48,6 +51,54 @@ const CardListingItems = () => {
         categoryId: filterValues?.category || "",
         pageSize: 100,
         pageNumber: 0,
+        enginepower: join(filterValues?.enginepower, ","),
+        mileage: join(filterValues?.mileage, ","),
+        registration: join(filterValues?.registration, ","),
+        transmission: join(
+          [
+            map(
+              filter(filterValues?.transmission, (c) => c.isChecked),
+              (col) => col.value,
+            ),
+          ],
+          ",",
+        ),
+        fueltype: join(
+          [
+            map(
+              filter(filterValues?.fueltype, (c) => c.isChecked),
+              (col) => col.value,
+            ),
+          ],
+          ",",
+        ),
+        numberofdoors: join(
+          [
+            map(
+              filter(filterValues?.numberofdoors, (c) => c.isChecked),
+              (col) => col.value,
+            ),
+          ],
+          ",",
+        ),
+        vehicleshpae: join(
+          [
+            map(
+              filter(filterValues?.vehicleshpae, (c) => c.isChecked),
+              (col) => col.value,
+            ),
+          ],
+          ",",
+        ),
+        color: join(
+          [
+            map(
+              filter(filterValues?.color, (c) => c.isChecked),
+              (col) => col.value,
+            ),
+          ],
+          ",",
+        ),
       },
       { skip: !filterValues?.category },
     );
@@ -107,7 +158,6 @@ const CardListingItems = () => {
             )}
             onChange={(option: ISelectOption) =>
               setFilterValues({
-                ...filterValues,
                 category: option.value as string,
               })
             }
