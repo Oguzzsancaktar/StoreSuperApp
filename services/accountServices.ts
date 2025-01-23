@@ -37,6 +37,7 @@ const updatePassword = (builder: IBuilder) => {
 const registerAccount = (builder: IBuilder) => {
   return builder.mutation<string[], IRegisterDTO>({
     query(data) {
+      console.log("data", data)
       return {
         url: `/account/register`,
         method: 'POST',
