@@ -1,9 +1,13 @@
+import { useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 import { BlurView } from "@react-native-community/blur";
 
 import { GradientBackground } from "@/components/svg/background";
+import { getIconWithProps } from "@/components/svg/icon";
+import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
+import { IIconNames } from "@/interfaces/app";
 import IListingCategory from "@/interfaces/listing/IListingCategory";
 
 import ImageStyled from "../../images/ImageStyled";
@@ -22,8 +26,24 @@ const CardListingCategoryItem: React.FC<IProps> = ({
   const {
     commonStyles,
     themedStyles,
-    themeContext: { isDark },
+    themeContext: { isDark, theme },
   } = useAppStyles();
+
+  const categoryIconName = useMemo(() => {
+    let iconName: IIconNames = "IconHeartFilled";
+    switch (category.name) {
+      case "Real Estate":
+        iconName = "IconRealestate";
+        break;
+      case "Electronics":
+        iconName = "IconElectronics";
+        break;
+      case "Cars":
+        iconName = "IconCars";
+        break;
+    }
+    return iconName;
+  }, [category]);
 
   return (
     <TouchableOpacity
@@ -61,6 +81,11 @@ const CardListingCategoryItem: React.FC<IProps> = ({
           },
         ]}
       >
+        {getIconWithProps(categoryIconName, {
+          color: theme.grayScale700,
+          width: APP_STYLE_VALUES.WH_SIZES.md,
+          height: APP_STYLE_VALUES.WH_SIZES.md,
+        })}
         <TextStyled fontSize="h5" fontWeight="medium">
           {category.name}
         </TextStyled>

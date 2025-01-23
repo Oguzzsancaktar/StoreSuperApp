@@ -5,6 +5,7 @@ import { Href, useRouter } from "expo-router";
 
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { COMMON_COLOURS } from "@/constants/APP_THEMES";
+import { useListingFilter } from "@/contexts/ListingFilterContext";
 import useAppStyles from "@/hooks/useAppStyles";
 
 import { TextStyled } from "../typography";
@@ -23,16 +24,22 @@ const ButtonActiveTab: React.FC<IProps> = ({ icon, text, isActive, to }) => {
   const { width } = useWindowDimensions();
 
   const router = useRouter();
+  const { filterValues, setFilterValues } = useListingFilter();
 
   const isPrimaryButton = useMemo(() => {
     return to === "/addPost";
   }, [to]);
+
   const handlePress = () => {
     // if (to === '/profile') {
     //   setUseSafeArea(false);
     // } else {
     //   setUseSafeArea(true);
     // }
+
+    if (to === "/postList" && isActive) {
+      setFilterValues({ category: undefined });
+    }
     router.push(to);
   };
 

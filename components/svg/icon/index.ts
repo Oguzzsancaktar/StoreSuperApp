@@ -96,6 +96,9 @@ import IconMessageFilled from "./filled/IconMessageFilled";
 import IconMailFill from "./filled/IconMailFilled";
 import IconPhoneFilled from "./filled/IconPhoneFilled";
 import IconThumbsUpFill from "./filled/IconThumbsUpFilled";
+import IconCars from "./IconCars";
+import IconRealestate from "./IconRealestate";
+import IconElectronics from "./IconElectronics";
 
 
 const ICONS = {
@@ -178,6 +181,9 @@ const ICONS = {
   IconUserFollow,
   IconUsers,
   IconVehicle,
+  IconCars,
+  IconRealestate,
+  IconElectronics,
   IconWeb,
   IconWorld,
   // Filled

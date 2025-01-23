@@ -1,10 +1,9 @@
-import { Text, useWindowDimensions } from "react-native";
+import { useWindowDimensions } from "react-native";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Href, Tabs } from "expo-router";
 
 import ButtonActiveTab from "@/components/button/ButtonActiveTab";
-import DrawerGlobal from "@/components/drawer/DrawerGlobal";
 import IconHome from "@/components/svg/icon/IconHome";
 import IconSearch from "@/components/svg/icon/IconSearch";
 import IconPlusCircle from "@/components/svg/icon/circle/IconPlusCircle";
@@ -12,7 +11,6 @@ import IconMessageFilled from "@/components/svg/icon/filled/IconMessageFilled";
 import IconProfileFilled from "@/components/svg/icon/filled/IconProfileFilled";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
-import { ListingFilterProvider } from "@/contexts/ListingFilterContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import { IIconProps } from "@/interfaces/app";
 
@@ -117,7 +115,9 @@ export default function TabLayout() {
         name="postList"
         options={{
           title: "Post List",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color, focused }) => {
+            return <TabBarIcon name="code" color={color} />;
+          },
         }}
       />
       <Tabs.Screen

@@ -34,12 +34,9 @@ const CardListingItems = () => {
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
 
-  console.log("2filterValues", filterValues);
-
   const { data: listingItemsData, isLoading: isListingItemsLoading } =
     useGetListingItemsQuery(
       {
-        modelIds: [filterValues?.modelIds?.value],
         minPrice: filterValues?.price ? filterValues?.price[0] : undefined,
         maxPrice: filterValues?.price ? filterValues?.price[1] : undefined,
         subCategoryId: filterValues?.subCategoryId?.value,
@@ -54,6 +51,7 @@ const CardListingItems = () => {
         enginepower: join(filterValues?.enginepower, ","),
         mileage: join(filterValues?.mileage, ","),
         registration: join(filterValues?.registration, ","),
+        modelIds: filterValues?.modelIds?.value,
         transmission: join(
           [
             map(

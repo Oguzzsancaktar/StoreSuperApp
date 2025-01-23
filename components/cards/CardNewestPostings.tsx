@@ -24,7 +24,7 @@ const CardNewestPostings = () => {
     const options: ISelectOption[] = map(listingCategoriesData, (l) => {
       return { label: l.name, value: l.id };
     });
-
+    options.push({ label: "All", value: undefined });
     return options;
   }, [listingCategoriesData]);
 
