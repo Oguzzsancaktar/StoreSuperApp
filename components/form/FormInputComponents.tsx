@@ -50,6 +50,7 @@ const FormInputComponents: React.FC<IProps> = ({
         style={{ borderWidth: 1, padding: 10 }}
         onBlur={onBlur}
         onChangeText={onChange}
+        autoCapitalize="none"
         value={value}
         placeholder={placeholder}
       />

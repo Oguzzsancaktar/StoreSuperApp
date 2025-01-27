@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Pressable, View } from "react-native";
 
 import { router } from "expo-router";
@@ -27,8 +28,13 @@ const ConversationsScreen = () => {
     themedStyles,
     themeContext: { theme },
   } = useAppStyles();
-  const { data: chatListData, isLoading: chatListIsLoading } =
-    useGetChatListQuery();
+  const {
+    data: chatListData,
+    isLoading: chatListIsLoading,
+    isFetching,
+    status,
+    refetch,
+  } = useGetChatListQuery();
 
   const renderItem = ({ item }: { item: IChatConversation }) => {
     const handleConversationClick = () => {
@@ -114,11 +120,15 @@ const ConversationsScreen = () => {
     );
   };
 
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
   if (!authToken) {
     return <Unauthorized showGoBack={false} isTabBarActive={true} />;
   }
 
-  if (chatListIsLoading) {
+  if (chatListIsLoading || isFetching) {
     return <Preloader isTabBarActive={true} />;
   }
 

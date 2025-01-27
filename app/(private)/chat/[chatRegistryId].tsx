@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -7,8 +7,9 @@ import {
   View,
 } from "react-native";
 
-import { Href, Redirect, router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
+import { ButtonStyled } from "@/components/button";
 import { InnerCommonContainer } from "@/components/containers";
 import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
 import EmptyState from "@/components/feedback/EmptyState";
@@ -17,9 +18,11 @@ import ImageIconCircle from "@/components/images/ImageIconCircle";
 import ImageStyled from "@/components/images/ImageStyled";
 import ImageUserProfile from "@/components/images/ImageUserProfile";
 import { InputStyled } from "@/components/input";
+import ModalRemoveChat from "@/components/modal/ModalRemoveChat";
 import FlatListStyled from "@/components/override/FlatListStyled";
 import IconOptions from "@/components/svg/icon/IconOptions";
 import IconSendMessage from "@/components/svg/icon/IconSendMessage";
+import IconTrash from "@/components/svg/icon/IconTrash";
 import { TextStyled } from "@/components/typography";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
@@ -27,6 +30,7 @@ import { useAppAuthSession } from "@/contexts/AuthContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import IChatCreateDTO from "@/interfaces/chat/IChatCreateDTO";
 import IChatMessage from "@/interfaces/chat/IChatMessage";
+import { useGetUserProfileQuery } from "@/services/accountServices";
 import {
   useCreateMessageMutation,
   useGetChatMessagesQuery,
@@ -41,6 +45,7 @@ const MessagesDetailScreen = () => {
     themedStyles,
     themeContext: { theme, toggleTheme },
   } = useAppStyles();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { chatRegistryId, listingId } = useLocalSearchParams();
 
   const { data: listingDetailData, isLoading: listingDetailIsLoading } =
@@ -48,6 +53,25 @@ const MessagesDetailScreen = () => {
 
   const { data: messagesData, isLoading: messagesIsLoading } =
     useGetChatMessagesQuery(chatRegistryId as string);
+
+  const opponentId = useMemo(() => {
+    let tempId = userTokenInfo?.Id;
+    if (messagesData && messagesData.length) {
+      const message = messagesData[0];
+      tempId =
+        userTokenInfo?.Id === message?.receiverId
+          ? message?.senderId
+          : message?.receiverId;
+    } else {
+      tempId = listingDetailData?.user?.id;
+    }
+    return tempId;
+  }, [messagesData, userTokenInfo]);
+
+  const { data: opponentProfiledata, isLoading: opponentProfileIsLoading } =
+    useGetUserProfileQuery(opponentId || "", {
+      skip: !opponentId,
+    });
 
   const [createMessage] = useCreateMessageMutation();
   const [newMessage, setNewMessage] = useState("");
@@ -67,13 +91,21 @@ const MessagesDetailScreen = () => {
           listingId: (listingId as string) || "",
           message: newMessage,
         };
-        const messageCreateResult = createMessage(tempMessage).unwrap();
+        const messageCreateResult = await createMessage(tempMessage).unwrap();
+
+        if (chatRegistryId === "new") {
+          router.replace(APP_ROUTES.TABS.CONVERSATIONS);
+        }
       } catch (error) {
         console.log("eeee", error);
       }
       setNewMessage("");
       Keyboard.dismiss();
     }
+  };
+
+  const handleChatRemoveClick = () => {
+    setIsModalOpen(() => true);
   };
 
   const renderMessage = ({ item }: { item: IChatMessage }) => (
@@ -145,7 +177,14 @@ const MessagesDetailScreen = () => {
     </View>
   );
 
-  if (listingDetailIsLoading || messagesIsLoading) {
+  console.log(
+    "listingDetailData",
+    opponentProfiledata,
+    messagesData,
+    listingDetailData,
+  );
+
+  if (listingDetailIsLoading || messagesIsLoading || opponentProfileIsLoading) {
     return <Preloader />;
   }
 
@@ -160,18 +199,28 @@ const MessagesDetailScreen = () => {
         <ImageUserProfile
           height={APP_STYLE_VALUES.WH_SIZES.sm}
           width={APP_STYLE_VALUES.WH_SIZES.sm}
-          url={listingDetailData?.user?.image}
+          url={opponentProfiledata?.image}
         />
       }
       headerTitle={
-        listingDetailData.user?.lastName && listingDetailData.user?.firstName
-          ? (listingDetailData.user?.firstName || "") +
+        opponentProfiledata?.lastName && opponentProfiledata?.firstName
+          ? (opponentProfiledata?.firstName || "") +
             " " +
-            (listingDetailData.user?.lastName || "")
-          : listingDetailData.user.email
+            (opponentProfiledata?.lastName || "")
+          : opponentProfiledata?.email
       }
-      rightElement={<IconOptions color={theme.grayScale900} />}
+      rightElement={
+        <ButtonStyled variant="transparent" onPress={handleChatRemoveClick}>
+          <IconTrash color={theme.grayScale900} />
+        </ButtonStyled>
+      }
     >
+      <ModalRemoveChat
+        chatRegistryId={chatRegistryId as string}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
+
       <InnerCommonContainer>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}

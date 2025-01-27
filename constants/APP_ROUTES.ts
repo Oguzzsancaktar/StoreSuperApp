@@ -34,7 +34,7 @@ interface IAppRoutes {
   },
   TABS: {
     ADD_POST: Href,
-    MESSAGES: Href,
+    CONVERSATIONS: Href,
     POST_LIST: Href,
     PROFILE: Href,
     TIMELINE: Href,
@@ -74,7 +74,7 @@ export const APP_ROUTES: IAppRoutes = {
   },
   TABS: {
     ADD_POST: "/(tabs)/addPost",
-    MESSAGES: "/(tabs)/messages",
+    CONVERSATIONS: "/(tabs)/conversations",
     POST_LIST: "/(tabs)/postList",
     PROFILE: "/(tabs)/profile",
     TIMELINE: "/(tabs)/timeline",

@@ -24,7 +24,7 @@ const getChatList = (builder: IBuilder) => {
         method: 'GET',
       }
     },
-    providesTags: [CHAT_API_TAG],
+    providesTags: [],
   })
 }
 
@@ -41,6 +41,18 @@ const getChatMessages = (builder: IBuilder) => {
       }
     },
     providesTags: [CHAT_API_TAG],
+  })
+}
+
+const deleteChat = (builder: IBuilder) => {
+  return builder.mutation<string, string>({
+    query(data) {
+      return {
+        url: `/message/chatList/${data}`,
+        method: 'DELETE',
+      }
+    },
+    invalidatesTags: [CHAT_API_TAG],
   })
 }
 
@@ -65,15 +77,16 @@ const chatApiSlice = createApi({
   tagTypes: [CHAT_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
+    deleteChat: deleteChat(builder),
     getChatList: getChatList(builder),
     getChatMessages: getChatMessages(builder),
     createMessage: createMessage(builder),
   }),
 })
 
-const { useCreateMessageMutation, useGetChatListQuery, useGetChatMessagesQuery } = chatApiSlice
+const { useCreateMessageMutation, useDeleteChatMutation, useGetChatListQuery, useGetChatMessagesQuery } = chatApiSlice
 
-export { chatApiSlice, useCreateMessageMutation, useGetChatListQuery, useGetChatMessagesQuery }
+export { chatApiSlice, useCreateMessageMutation, useDeleteChatMutation, useGetChatListQuery, useGetChatMessagesQuery }
 
 
 

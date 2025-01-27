@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { View } from "react-native";
 
-import { find, map } from "lodash";
+import { concat, find, map } from "lodash";
 
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
@@ -21,10 +21,13 @@ const CardNewestPostings = () => {
     useGetListingCategoriesQuery();
 
   const listingCategoryOptions = useMemo<ISelectOption[]>(() => {
-    const options: ISelectOption[] = map(listingCategoriesData, (l) => {
-      return { label: l.name, value: l.id };
-    });
-    options.push({ label: "All", value: undefined });
+    const options: ISelectOption[] = concat(
+      [{ label: "All", value: undefined as any }],
+      map(listingCategoriesData, (l) => {
+        return { label: l.name, value: l.id };
+      }),
+    );
+
     return options;
   }, [listingCategoriesData]);
 

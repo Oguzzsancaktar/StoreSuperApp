@@ -12,6 +12,7 @@ import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import IRegisterDTO from "@/interfaces/account/IRegisterDTO";
 import { IInputProps } from "@/interfaces/app";
 import { useRegisterAccountMutation } from "@/services/accountServices";
+import { toastSuccess } from "@/utils/toastUtils";
 
 const SignupScreen = () => {
   const [createAccount, { isLoading: registerIsLoading }] =
@@ -32,6 +33,9 @@ const SignupScreen = () => {
       console.log("values", values, registerValues);
       const result = await createAccount(values);
       console.log("result111", result.data);
+      toastSuccess(
+        "Confirmation email send successfully, please confirm your account.",
+      );
     } catch (error) {
       console.log("Error when create account");
     }
