@@ -8,7 +8,7 @@ import IChatMessage from '@/interfaces/chat/IChatMessage';
 import IChatCreateDTO from '@/interfaces/chat/IChatCreateDTO';
 
 const CHAT_API_REDUCER_PATH = 'chatAPI'
-const CHAT_API_TAG = "chatTag"
+export const CHAT_API_TAG = "chatTag"
 
 type IBuilder = EndpointBuilder<
   IAxiosBaseQueryFn,
@@ -84,9 +84,9 @@ const chatApiSlice = createApi({
   }),
 })
 
-const { useCreateMessageMutation, useDeleteChatMutation, useGetChatListQuery, useGetChatMessagesQuery } = chatApiSlice
+const { useCreateMessageMutation, useDeleteChatMutation, useGetChatListQuery, useLazyGetChatListQuery, useGetChatMessagesQuery, useLazyGetChatMessagesQuery } = chatApiSlice
 
-export { chatApiSlice, useCreateMessageMutation, useDeleteChatMutation, useGetChatListQuery, useGetChatMessagesQuery }
+export { chatApiSlice, useCreateMessageMutation, useDeleteChatMutation, useLazyGetChatListQuery, useGetChatListQuery, useGetChatMessagesQuery, useLazyGetChatMessagesQuery }
 
 
 

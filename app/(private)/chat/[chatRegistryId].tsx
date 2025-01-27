@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -34,6 +34,7 @@ import { useGetUserProfileQuery } from "@/services/accountServices";
 import {
   useCreateMessageMutation,
   useGetChatMessagesQuery,
+  useLazyGetChatMessagesQuery,
 } from "@/services/chatServices";
 import { useGetListingItemDetailsQuery } from "@/services/listingServices";
 import routerUtils from "@/utils/routerUtils";
@@ -51,8 +52,8 @@ const MessagesDetailScreen = () => {
   const { data: listingDetailData, isLoading: listingDetailIsLoading } =
     useGetListingItemDetailsQuery(listingId as string, { skip: !listingId });
 
-  const { data: messagesData, isLoading: messagesIsLoading } =
-    useGetChatMessagesQuery(chatRegistryId as string);
+  const [fetchMessages, { data: messagesData, isLoading: messagesIsLoading }] =
+    useLazyGetChatMessagesQuery();
 
   const opponentId = useMemo(() => {
     let tempId = userTokenInfo?.Id;
@@ -177,12 +178,9 @@ const MessagesDetailScreen = () => {
     </View>
   );
 
-  console.log(
-    "listingDetailData",
-    opponentProfiledata,
-    messagesData,
-    listingDetailData,
-  );
+  useEffect(() => {
+    fetchMessages(chatRegistryId as string);
+  }, [chatRegistryId, fetchMessages]);
 
   if (listingDetailIsLoading || messagesIsLoading || opponentProfileIsLoading) {
     return <Preloader />;

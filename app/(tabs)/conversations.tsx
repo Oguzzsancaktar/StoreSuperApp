@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Pressable, View } from "react-native";
+import { useDispatch } from "react-redux";
 
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 
 import { InnerCommonContainer } from "@/components/containers";
 import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
@@ -18,7 +19,12 @@ import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import IChatConversation from "@/interfaces/chat/IChatConversation";
-import { useGetChatListQuery } from "@/services/chatServices";
+import {
+  CHAT_API_TAG,
+  chatApiSlice,
+  useGetChatListQuery,
+  useLazyGetChatListQuery,
+} from "@/services/chatServices";
 import routerUtils from "@/utils/routerUtils";
 
 const ConversationsScreen = () => {
@@ -28,13 +34,12 @@ const ConversationsScreen = () => {
     themedStyles,
     themeContext: { theme },
   } = useAppStyles();
-  const {
-    data: chatListData,
-    isLoading: chatListIsLoading,
-    isFetching,
-    status,
-    refetch,
-  } = useGetChatListQuery();
+  const dispatch = useDispatch();
+
+  const [
+    fetchMessages,
+    { data: chatListData, isLoading: chatListIsLoading, isFetching, status },
+  ] = useLazyGetChatListQuery();
 
   const renderItem = ({ item }: { item: IChatConversation }) => {
     const handleConversationClick = () => {
@@ -120,9 +125,11 @@ const ConversationsScreen = () => {
     );
   };
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchMessages(); // Tab her aktif olduğunda veriyi yeniden fetch et.
+    }, [fetchMessages]),
+  );
 
   if (!authToken) {
     return <Unauthorized showGoBack={false} isTabBarActive={true} />;
