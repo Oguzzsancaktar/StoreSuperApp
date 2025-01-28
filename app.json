@@ -19,6 +19,11 @@
         "image": "./assets/images/splash.png",
         "resizeMode": "cover",
         "backgroundColor": "#FEF9B0"
+      },
+      "entitlements": {
+        "com.apple.developer.applesignin": [
+          "Default"
+        ]
       }
     },
     "android": {

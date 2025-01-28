@@ -7,6 +7,7 @@ import ILoginDTO from '@/interfaces/account/ILoginDTO';
 import ILoginResult from '@/interfaces/account/ILoginResult';
 import IUser from '@/interfaces/account/IUser';
 import IPassordUpdateDTO from '@/interfaces/account/IPassordUpdateDTO';
+import IAppleCredentials from '@/interfaces/account/IAppleCredentials';
 
 
 const ACCOUNT_API_REDUCER_PATH = 'accountAPI'
@@ -62,6 +63,18 @@ const loginAccount = (builder: IBuilder) => {
   })
 }
 
+const loginWithApple = (builder: IBuilder) => {
+  return builder.mutation<ILoginResult, IAppleCredentials>({
+    query(data) {
+      return {
+        url: `/account/login/apple`,
+        method: 'POST',
+        data
+      }
+    },
+    invalidatesTags: [ACCOUNT_API_TAG],
+  })
+}
 
 const loginWithGoogle = (builder: IBuilder) => {
   return builder.mutation<ILoginResult, string>({
@@ -174,6 +187,7 @@ const accountApiSlice = createApi({
     registerAccount: registerAccount(builder),
     loginAccount: loginAccount(builder),
     loginWithGoogle: loginWithGoogle(builder),
+    loginWithApple: loginWithApple(builder),
     getCurrentUserInformation: getCurrentUserInformation(builder),
     getCurrentUserListings: getCurrentUserListings(builder),
     addCurrentUserImage: addCurrentUserImage(builder),
@@ -188,6 +202,7 @@ const {
   useUpdatePasswordMutation,
   useRegisterAccountMutation,
   useLoginAccountMutation,
+  useLoginWithAppleMutation,
   useLoginWithGoogleMutation,
   useGetCurrentUserInformationQuery,
   useGetCurrentUserListingsQuery,
@@ -199,6 +214,7 @@ export {
   useGetUserProfileQuery,
   useDeleteUserMutation,
   useUpdatePasswordMutation,
+  useLoginWithAppleMutation,
   useRegisterAccountMutation,
   useLoginAccountMutation,
   useLoginWithGoogleMutation,

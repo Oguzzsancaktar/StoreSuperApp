@@ -1,6 +1,7 @@
 import { View } from "react-native";
 
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import * as AppleAuthentication from "expo-apple-authentication";
 import { Link } from "expo-router";
 
 import ImageIconCircle from "@/components/images/ImageIconCircle";
@@ -13,6 +14,7 @@ import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import {
+  useLoginWithAppleMutation,
   useLoginWithGoogleMutation,
   useRegisterAccountMutation,
 } from "@/services/accountServices";
@@ -29,7 +31,7 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
   const {
     commonStyles,
     themedStyles,
-    themeContext: { theme },
+    themeContext: { theme, isDark },
   } = useAppStyles();
 
   const [createAccount, { isLoading: registerIsLoading }] =
@@ -37,6 +39,9 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
 
   const [loginWithGoogle, { isLoading: loginWithGoogleIsLoading }] =
     useLoginWithGoogleMutation();
+
+  const [loginWithApple, { isLoading: loginWithAppleIsLoading }] =
+    useLoginWithAppleMutation();
 
   const signInSocial = async (type: ISocialLoginTypes) => {
     switch (type) {
@@ -149,13 +154,55 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
         />
 
         <ImageIconCircle
-          onPress={() => signInSocial("APPLE")}
           gradientBg={true}
           radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
           borderColor="primary"
           bgColor="appBackground"
           size={APP_STYLE_VALUES.WH_SIZES.lg}
-          icon={<IconSocialApple color={theme.grayScale900} />}
+          icon={
+            <AppleAuthentication.AppleAuthenticationButton
+              buttonType={
+                AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
+              }
+              buttonStyle={
+                isDark
+                  ? AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
+                  : AppleAuthentication.AppleAuthenticationButtonStyle.WHITE
+              }
+              cornerRadius={5}
+              style={{
+                width: APP_STYLE_VALUES.WH_SIZES.lg,
+                height: APP_STYLE_VALUES.WH_SIZES.lg,
+              }}
+              onPress={async () => {
+                try {
+                  const credential = await AppleAuthentication.signInAsync({
+                    requestedScopes: [
+                      AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                      AppleAuthentication.AppleAuthenticationScope.EMAIL,
+                    ],
+                  });
+                  const res = await loginWithApple({
+                    familyName: credential.fullName?.familyName || "",
+                    givenName: credential.fullName?.givenName || "",
+                    token: credential.identityToken || "",
+                  });
+
+                  signIn({
+                    token: res?.data?.token || "",
+                    refreshToken: res?.data?.token || "",
+                    refreshTokenExpiryTime: res?.data?.token || "",
+                  });
+                } catch (error: any) {
+                  if (error.code === "ERR_CANCELED") {
+                    console.log("User canceled login.");
+                  } else {
+                    console.error("Login failed:", error);
+                  }
+                }
+              }}
+            />
+          }
         />
       </View>
 
