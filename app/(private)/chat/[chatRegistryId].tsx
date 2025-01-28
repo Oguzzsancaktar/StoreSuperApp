@@ -27,6 +27,7 @@ import { TextStyled } from "@/components/typography";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
+import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import IChatCreateDTO from "@/interfaces/chat/IChatCreateDTO";
 import IChatMessage from "@/interfaces/chat/IChatMessage";
@@ -46,8 +47,9 @@ const MessagesDetailScreen = () => {
     themedStyles,
     themeContext: { theme, toggleTheme },
   } = useAppStyles();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { chatRegistryId, listingId } = useLocalSearchParams();
+
+  const { setModalContent } = useModalState();
 
   const { data: listingDetailData, isLoading: listingDetailIsLoading } =
     useGetListingItemDetailsQuery(listingId as string, { skip: !listingId });
@@ -107,7 +109,7 @@ const MessagesDetailScreen = () => {
   };
 
   const handleChatRemoveClick = () => {
-    setIsModalOpen(() => true);
+    setModalContent("ModalRemoveChat");
   };
 
   const renderMessage = ({ item }: { item: IChatMessage }) => (
@@ -214,12 +216,6 @@ const MessagesDetailScreen = () => {
         </ButtonStyled>
       }
     >
-      <ModalRemoveChat
-        chatRegistryId={chatRegistryId as string}
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      />
-
       <InnerCommonContainer>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}

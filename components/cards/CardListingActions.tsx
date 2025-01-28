@@ -1,8 +1,11 @@
 import React, { useMemo } from "react";
 import { Share, View } from "react-native";
 
+import { useGlobalSearchParams } from "expo-router";
+
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
+import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import IListingPost from "@/interfaces/listing/IListingPost";
 import {
@@ -15,6 +18,7 @@ import { toastWarning } from "@/utils/toastUtils";
 
 import ButtonListingActionDropdown from "../button/ButtonListingActionDropdown";
 import ImageIconCircle from "../images/ImageIconCircle";
+import IconBlock from "../svg/icon/IconBlock";
 import IconShare from "../svg/icon/IconShare";
 import IconEyeShowFilled from "../svg/icon/filled/IconEyeShowFilled";
 import IconHeartFilled from "../svg/icon/filled/IconHeartFilled";
@@ -34,6 +38,10 @@ const CardListingActions: React.FC<IProps> = ({
     themedStyles,
     themeContext: { theme },
   } = useAppStyles();
+
+  const { setModalContent } = useModalState();
+
+  const { listingId, profileId } = useGlobalSearchParams();
 
   const { data: postViewData } = useGetViewCountQuery(post?.id as string);
 
@@ -167,17 +175,7 @@ const CardListingActions: React.FC<IProps> = ({
           />
         }
       />
-      {/* <ImageIconCircle
-      bgColor="transparent"
-      size={APP_STYLE_VALUES.WH_SIZES.xs}
-      icon={
-        <IconBookmark
-          width={APP_STYLE_VALUES.WH_SIZES.xs2}
-          height={APP_STYLE_VALUES.WH_SIZES.xs2}
-          color={theme.grayScale500}
-        />
-      }
-    /> */}
+
       <ImageIconCircle
         onPress={handleSharePlatformSpecific}
         bgColor="transparent"
@@ -190,6 +188,20 @@ const CardListingActions: React.FC<IProps> = ({
           />
         }
       />
+      {(listingId || profileId) && (
+        <ImageIconCircle
+          onPress={() => setModalContent("ModalReportContent")}
+          bgColor="transparent"
+          size={APP_STYLE_VALUES.WH_SIZES.xs}
+          icon={
+            <IconBlock
+              width={APP_STYLE_VALUES.WH_SIZES.xs2}
+              height={APP_STYLE_VALUES.WH_SIZES.xs2}
+              color={theme.grayScale500}
+            />
+          }
+        />
+      )}
     </View>
   );
 };

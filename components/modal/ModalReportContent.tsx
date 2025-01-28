@@ -1,27 +1,24 @@
 import { View } from "react-native";
 
-import {
-  router,
-  useGlobalSearchParams,
-  useLocalSearchParams,
-  useRouter,
-} from "expo-router";
+import { router, useGlobalSearchParams } from "expo-router";
 
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import { useDeleteChatMutation } from "@/services/chatServices";
+import { toastSuccess } from "@/utils/toastUtils";
 
 import { ButtonStyled } from "../button";
 import Preloader from "../feedback/Preloader";
 import ImageIconCircle from "../images/ImageIconCircle";
+import IconBlock from "../svg/icon/IconBlock";
 import IconClose from "../svg/icon/IconClose";
 import IconMessageFilled from "../svg/icon/filled/IconMessageFilled";
 import { TextStyled } from "../typography";
 
 interface IProps {}
-const ModalRemoveChat: React.FC<IProps> = ({}) => {
+const ModalReportContent: React.FC<IProps> = ({}) => {
   const {
     commonStyles,
     themedStyles,
@@ -29,16 +26,16 @@ const ModalRemoveChat: React.FC<IProps> = ({}) => {
   } = useAppStyles();
   const { setModalContent } = useModalState();
 
+  const { listingId, profileId } = useGlobalSearchParams();
+
   const [deleteChat, { isLoading }] = useDeleteChatMutation();
 
-  const { chatRegistryId } = useGlobalSearchParams();
-
+  const contentId = listingId || profileId || "";
   const handleConfirm = async () => {
     try {
-      const result = await deleteChat((chatRegistryId as string) || "");
+      // const result = await deleteChat((contentId as string) || "");
       setModalContent(() => null);
-      router.replace(APP_ROUTES.TABS.CONVERSATIONS);
-      console.log("result chat deete", result);
+      toastSuccess("Content reported successfully");
     } catch (error) {
       console.log("error when deleteUser", error);
     }
@@ -68,7 +65,7 @@ const ModalRemoveChat: React.FC<IProps> = ({}) => {
             />
           </View>
 
-          <IconMessageFilled
+          <IconBlock
             height={APP_STYLE_VALUES.WH_SIZES.xl3}
             width={APP_STYLE_VALUES.WH_SIZES.xl3}
             color={theme.primary}
@@ -78,7 +75,7 @@ const ModalRemoveChat: React.FC<IProps> = ({}) => {
             fontWeight="semibold"
             customColor="grayScale900"
           >
-            Are you sure, to delete this chat?
+            Are you sure, to block this content?
           </TextStyled>
 
           <View
@@ -101,4 +98,4 @@ const ModalRemoveChat: React.FC<IProps> = ({}) => {
   );
 };
 
-export default ModalRemoveChat;
+export default ModalReportContent;

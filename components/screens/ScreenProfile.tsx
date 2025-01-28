@@ -6,6 +6,7 @@ import { router } from "expo-router";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
+import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import IUser from "@/interfaces/account/IUser";
 import { useGetCurrentUserListingsQuery } from "@/services/accountServices";
@@ -19,6 +20,7 @@ import Unauthorized from "../feedback/Unauthorized";
 import ImageIconCircle from "../images/ImageIconCircle";
 import ImageStyled from "../images/ImageStyled";
 import FlatListStyled from "../override/FlatListStyled";
+import IconBlock from "../svg/icon/IconBlock";
 import IconHeart from "../svg/icon/IconHeart";
 import IconSettingCog from "../svg/icon/IconSettingCog";
 import { TextStyled } from "../typography";
@@ -28,6 +30,7 @@ interface IProps {
 }
 const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
+  const { setModalContent } = useModalState();
 
   const { authToken } = useAppAuthSession();
   const {
@@ -120,6 +123,7 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
                       icon={<IconBookmark color={theme.white} />}
                     />
                   )} */}
+
                   <TouchableOpacity onPress={handleSettingsPress}>
                     <ImageIconCircle
                       icon={<IconSettingCog color={theme.white} />}
@@ -129,6 +133,21 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
               </>
             ) : (
               <ButtonGoBack />
+            )}
+
+            {profileId && (
+              <ImageIconCircle
+                onPress={() => setModalContent("ModalReportContent")}
+                bgColor="grayScale100"
+                size={APP_STYLE_VALUES.WH_SIZES.xs}
+                icon={
+                  <IconBlock
+                    width={APP_STYLE_VALUES.WH_SIZES.xs2}
+                    height={APP_STYLE_VALUES.WH_SIZES.xs2}
+                    color={theme.grayScale500}
+                  />
+                }
+              />
             )}
           </View>
         </InnerCommonContainer>

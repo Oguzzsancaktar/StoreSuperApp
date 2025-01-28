@@ -1,23 +1,27 @@
 import {
+  type PropsWithChildren,
   createContext,
   useContext,
   useState,
-  type PropsWithChildren,
-} from 'react';
+} from "react";
+
+import { MODAL_CONTENTS } from "@/components/modal/ModalGlobal";
 
 const ModalContext = createContext<{
-  toggleModal: () => void;
-  isModalOpen: boolean;
+  setModalContent: React.Dispatch<
+    React.SetStateAction<keyof typeof MODAL_CONTENTS | null>
+  >;
+  modalContent: keyof typeof MODAL_CONTENTS | null;
 }>({
-  toggleModal: () => null,
-  isModalOpen: false,
+  setModalContent: () => null,
+  modalContent: null,
 });
 
 export function useModalState() {
   const value = useContext(ModalContext);
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     if (!value) {
-      throw new Error('useModal must be wrapped in a <ModalProvider />');
+      throw new Error("useModal must be wrapped in a <ModalProvider />");
     }
   }
 
@@ -25,17 +29,15 @@ export function useModalState() {
 }
 
 export function ModalProvider({ children }: PropsWithChildren) {
-  const [isModalOpen, setIsModalIsOpen] = useState<boolean>(false);
-
-  const toggleModal = () => {
-    setIsModalIsOpen((prev) => !prev);
-  };
+  const [modalContent, setModalContent] = useState<
+    keyof typeof MODAL_CONTENTS | null
+  >(null);
 
   return (
     <ModalContext.Provider
       value={{
-        toggleModal,
-        isModalOpen,
+        setModalContent,
+        modalContent,
       }}
     >
       {children}

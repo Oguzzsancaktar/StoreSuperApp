@@ -1,44 +1,42 @@
+import React from "react";
 import { View } from "react-native";
 
-import {
-  router,
-  useGlobalSearchParams,
-  useLocalSearchParams,
-  useRouter,
-} from "expo-router";
-
-import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useAppAuthSession } from "@/contexts/AuthContext";
 import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
-import { useDeleteChatMutation } from "@/services/chatServices";
+import { useDeleteUserMutation } from "@/services/accountServices";
+import { toastWarning } from "@/utils/toastUtils";
 
 import { ButtonStyled } from "../button";
 import Preloader from "../feedback/Preloader";
 import ImageIconCircle from "../images/ImageIconCircle";
 import IconClose from "../svg/icon/IconClose";
-import IconMessageFilled from "../svg/icon/filled/IconMessageFilled";
+import IconDeleteAccount from "../svg/icon/IconDeleteAccount";
 import { TextStyled } from "../typography";
 
-interface IProps {}
-const ModalRemoveChat: React.FC<IProps> = ({}) => {
+const ModalDeleteAccount = () => {
   const {
     commonStyles,
     themedStyles,
     themeContext: { theme },
   } = useAppStyles();
+
   const { setModalContent } = useModalState();
 
-  const [deleteChat, { isLoading }] = useDeleteChatMutation();
+  const [deleteUser, { isLoading }] = useDeleteUserMutation();
 
-  const { chatRegistryId } = useGlobalSearchParams();
+  const { userTokenInfo, signOut } = useAppAuthSession();
 
   const handleConfirm = async () => {
     try {
-      const result = await deleteChat((chatRegistryId as string) || "");
+      const result = await deleteUser(userTokenInfo?.Id || "");
       setModalContent(() => null);
-      router.replace(APP_ROUTES.TABS.CONVERSATIONS);
-      console.log("result chat deete", result);
+      toastWarning("");
+      if (!result.error) {
+        signOut();
+      }
+      console.log("result", result);
     } catch (error) {
       console.log("error when deleteUser", error);
     }
@@ -65,20 +63,17 @@ const ModalRemoveChat: React.FC<IProps> = ({}) => {
               size={APP_STYLE_VALUES.WH_SIZES.sm}
               icon={<IconClose color={theme.grayScale900} />}
               bgColor="transparent"
+              onPress={() => setModalContent(null)}
             />
           </View>
 
-          <IconMessageFilled
-            height={APP_STYLE_VALUES.WH_SIZES.xl3}
-            width={APP_STYLE_VALUES.WH_SIZES.xl3}
-            color={theme.primary}
-          />
+          <IconDeleteAccount color={theme.primary} />
           <TextStyled
             fontSize="lg"
             fontWeight="semibold"
             customColor="grayScale900"
           >
-            Are you sure, to delete this chat?
+            Are you sure, to delete your account?
           </TextStyled>
 
           <View
@@ -101,4 +96,4 @@ const ModalRemoveChat: React.FC<IProps> = ({}) => {
   );
 };
 
-export default ModalRemoveChat;
+export default ModalDeleteAccount;

@@ -288,7 +288,7 @@ const WizardListingCreate = () => {
             required: true,
             label: "Terms & Conditions ",
             placeholder:
-              "Yes, I accept the Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et",
+              "Yes, I accept the terms and conditions, including the zero-tolerance policy for offensive, abusive, or objectionable content, and agree to use the platform responsibly and respectfully.",
             name: "terms",
             type: "checkbox",
           },

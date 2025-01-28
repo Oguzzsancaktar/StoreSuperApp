@@ -30,7 +30,7 @@ const UpdateAccountScreen = () => {
     themeContext: { theme, toggleTheme },
   } = useAppStyles();
 
-  const { isModalOpen, toggleModal } = useModalState();
+  const { setModalContent } = useModalState();
 
   const { userTokenInfo } = useAppAuthSession();
 
@@ -41,7 +41,7 @@ const UpdateAccountScreen = () => {
         text: "Delete Account",
         right: "chevron",
         onPress: () => {
-          toggleModal();
+          setModalContent(() => "ModalDeleteAccount");
         },
       } as ISettingItemProps,
     ];
