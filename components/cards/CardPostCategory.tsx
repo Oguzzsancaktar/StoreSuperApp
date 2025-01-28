@@ -26,6 +26,8 @@ const CardPostCategory: React.FC<IProps> = ({ tags, categories }) => {
     themeContext: { theme, toggleTheme },
   } = useAppStyles();
 
+  console.log(" tags, categories", tags, categories);
+
   const parentCategory = useMemo(() => {
     return find(categories, (c) => c.parentCategoryId === null);
   }, [categories]);
@@ -78,7 +80,7 @@ const CardPostCategory: React.FC<IProps> = ({ tags, categories }) => {
           <TextStyled customStyle={{ flex: 1 }} fontSize="h4" fontWeight="bold">
             {parentCategory?.name || ""}
           </TextStyled>
-          {tags?.length && (
+          {tags?.length ? (
             <TextStyled
               fontSize="sm"
               textAlignment="left"
@@ -89,6 +91,8 @@ const CardPostCategory: React.FC<IProps> = ({ tags, categories }) => {
                 return tag + " ";
               })}
             </TextStyled>
+          ) : (
+            ""
           )}
         </View>
       </View>

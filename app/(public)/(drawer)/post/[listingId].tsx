@@ -262,8 +262,8 @@ const ListingDetailPage = () => {
 
             <View style={{ width: "100%" }}>
               <CardSellerInfo
-                allowMessaging={listingItemDetailData.allowMessaging}
-                allowPhoneCalls={listingItemDetailData.allowPhoneCalls}
+                allowMessaging={listingItemDetailData?.allowMessaging}
+                allowPhoneCalls={listingItemDetailData?.allowPhoneCalls}
                 user={listingItemDetailData?.user || ({} as IUser)}
               />
             </View>

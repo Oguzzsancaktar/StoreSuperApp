@@ -74,7 +74,8 @@ const MessagesDetailScreen = () => {
       skip: !opponentId,
     });
 
-  const [createMessage] = useCreateMessageMutation();
+  const [createMessage, { isLoading: isMessageSendLoading }] =
+    useCreateMessageMutation();
   const [newMessage, setNewMessage] = useState("");
 
   const handleAdvertClick = () => {
@@ -86,7 +87,7 @@ const MessagesDetailScreen = () => {
   };
 
   const sendMessage = async () => {
-    if (newMessage.trim()) {
+    if (newMessage.trim() && !isMessageSendLoading) {
       try {
         const tempMessage: IChatCreateDTO = {
           listingId: (listingId as string) || "",
@@ -180,7 +181,7 @@ const MessagesDetailScreen = () => {
 
   useEffect(() => {
     fetchMessages(chatRegistryId as string);
-  }, [chatRegistryId, fetchMessages]);
+  }, [chatRegistryId, fetchMessages, isMessageSendLoading]);
 
   if (listingDetailIsLoading || messagesIsLoading || opponentProfileIsLoading) {
     return <Preloader />;
