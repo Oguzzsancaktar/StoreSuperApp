@@ -83,10 +83,10 @@ const INPUT_SELECT_LANGUAGE: IInputProps = {
   placeholder: 'Select language...',
   type: 'select',
   options: [
-    { label: "English", value: "English" },
-    { label: "Deutsch", value: "Deutsch" },
-    { label: "Türkçe", value: "Türkçe" },
-    { label: "Arabic", value: "Arabic" },
+    { label: "English", value: "en" },
+    { label: "Deutsch", value: "de" },
+    { label: "Türkçe", value: "tr" },
+    { label: "Arabic", value: "ar" },
   ],
   required: true,
 }
