@@ -93,6 +93,53 @@ const loginWithGoogle = (builder: IBuilder) => {
 
 
 // User
+
+const blockUser = (builder: IBuilder) => {
+  return builder.mutation<ILoginResult, string>({
+    query(blockedUserId) {
+      return {
+        url: `/block/block-user`,
+        method: 'POST',
+        data: {
+          blockedUserId
+        }
+      }
+    },
+    invalidatesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
+const unblockUser = (builder: IBuilder) => {
+  return builder.mutation<ILoginResult, string>({
+    query(blockedUserId) {
+      return {
+        url: `/block/unblock-user`,
+        method: 'DELETE',
+        data: {
+          blockedUserId
+        }
+      }
+    },
+    invalidatesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
+
+const getBlockedUsers = (builder: IBuilder) => {
+  return builder.query<IUser[], void>({
+    query() {
+      return {
+        url: `/block/blocked-users`,
+        method: 'GET',
+      }
+    },
+    providesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
 const getUserProfile = (builder: IBuilder) => {
   return builder.query<IUser, string>({
     query(id) {
@@ -182,6 +229,9 @@ const accountApiSlice = createApi({
   tagTypes: [ACCOUNT_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
+    unblockUser: unblockUser(builder),
+    getBlockedUsers: getBlockedUsers(builder),
+    blockUser: blockUser(builder),
     getUserProfile: getUserProfile(builder),
     updatePassword: updatePassword(builder),
     registerAccount: registerAccount(builder),
@@ -197,6 +247,9 @@ const accountApiSlice = createApi({
 })
 
 const {
+  useUnblockUserMutation,
+  useGetBlockedUsersQuery,
+  useBlockUserMutation,
   useGetUserProfileQuery,
   useDeleteUserMutation,
   useUpdatePasswordMutation,
@@ -211,6 +264,9 @@ const {
 
 export {
   accountApiSlice,
+  useUnblockUserMutation,
+  useGetBlockedUsersQuery,
+  useBlockUserMutation,
   useGetUserProfileQuery,
   useDeleteUserMutation,
   useUpdatePasswordMutation,

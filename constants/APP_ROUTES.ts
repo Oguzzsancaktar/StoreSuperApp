@@ -11,6 +11,7 @@ interface IAppRoutes {
       PERSONAL_INFO: Href,
       UPDATE_ACCOUNT: Href,
       UPDATE_PASSWORD: Href,
+      BLOCKED_USERS: Href,
       UPDATE_INFO: Href
     },
   },
@@ -46,6 +47,7 @@ export const APP_ROUTES: IAppRoutes = {
       CHAT_REGISTRY: "/(private)/chat/[chatRegistryId]",
     },
     SETTINGS: {
+      BLOCKED_USERS: "/(private)/settings/blockedUsers",
       ADDRESS_INFO: "/(private)/settings/addressInformations",
       CONTACT_INFO: "/(private)/settings/contactInformations",
       PERSONAL_INFO: "/(private)/settings/personalInformations",

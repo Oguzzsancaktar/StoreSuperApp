@@ -20,6 +20,20 @@ type IBuilder = EndpointBuilder<
   typeof LISTING_API_REDUCER_PATH
 >
 
+const blockListingItem = (builder: IBuilder) => {
+  return builder.mutation<IListingPost[], IListingPost["id"]>({
+    query(listingId) {
+      return {
+        url: `/block/block-content`,
+        method: 'POST',
+        data: {
+          listingId
+        }
+      }
+    },
+    invalidatesTags: [LISTING_API_TAG],
+  })
+}
 
 const getUsersListingItems = (builder: IBuilder) => {
   return builder.query<IListingPost[], IUser["id"]>({
@@ -195,6 +209,7 @@ const listingApiSlice = createApi({
   tagTypes: [LISTING_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
+    blockListingItem: blockListingItem(builder),
     deleteListing: deleteListing(builder),
     getUsersListingItems: getUsersListingItems(builder),
     getListingItems: getListingItems(builder),
@@ -209,9 +224,9 @@ const listingApiSlice = createApi({
   }),
 })
 
-const { useDeleteListingMutation, useGetUsersListingItemsQuery, useGetListingItemsQuery, useLazyGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery } = listingApiSlice
+const { useDeleteListingMutation, useBlockListingItemMutation, useGetUsersListingItemsQuery, useGetListingItemsQuery, useLazyGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery } = listingApiSlice
 
-export { listingApiSlice, useDeleteListingMutation, useGetUsersListingItemsQuery, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery, useLazyGetListingItemsQuery }
+export { listingApiSlice, useDeleteListingMutation, useBlockListingItemMutation, useGetUsersListingItemsQuery, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery, useLazyGetListingItemsQuery }
 
 
 

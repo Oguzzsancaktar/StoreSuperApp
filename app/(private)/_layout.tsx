@@ -17,6 +17,12 @@ export default function PrivateLayout() {
           headerShown: false,
         }}
       />
+            <Stack.Screen
+        name="settings/blockedUsers"
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="settings/updateAccount"
         options={{

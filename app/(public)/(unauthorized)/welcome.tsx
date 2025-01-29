@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { Button, View } from "react-native";
 
 import { Href, Link, router } from "expo-router";
 
@@ -9,11 +10,15 @@ import { WelcomeBackgroundPattern } from "@/components/svg/background";
 import { getIconWithProps } from "@/components/svg/icon";
 import { TextScanEffect } from "@/components/typography";
 import TextStyled from "@/components/typography/TextStyled";
+import i18n from "@/config/i18n";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
+import { changeLanguage } from "@/utils/i18nUtils";
 
 const WelcomeScreen = () => {
+  const { t } = useTranslation();
+
   const {
     commonStyles,
     themeContext: { theme },
@@ -57,7 +62,7 @@ const WelcomeScreen = () => {
                 fontWeight="regular"
                 customColor="grayScale600"
               >
-                Sell What You Have,
+                {t("welcomeUp")}
               </TextStyled>
               <View
                 style={[
@@ -71,7 +76,7 @@ const WelcomeScreen = () => {
                 fontWeight="regular"
                 customColor="grayScale600"
               >
-                What You Need
+                {t("welcomeDown")}
               </TextStyled>
             </View>
           </View>

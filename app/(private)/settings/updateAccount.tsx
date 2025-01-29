@@ -33,6 +33,7 @@ const UpdateAccountScreen = () => {
   const { setModalContent } = useModalState();
 
   const { userTokenInfo } = useAppAuthSession();
+  console.log("userTokenInfo",userTokenInfo)
 
   const SETTING_ITEMS: ISettingItemProps[] = useMemo(() => {
     const items = [
@@ -44,7 +45,16 @@ const UpdateAccountScreen = () => {
           setModalContent(() => "ModalDeleteAccount");
         },
       } as ISettingItemProps,
+      {
+        icon: "IconBlock",
+        text: "Blocked Users",
+        right: "chevron",
+        onPress: () => {
+          router.push(APP_ROUTES.PRIVATE.SETTINGS.BLOCKED_USERS);
+        },
+      } as ISettingItemProps,
     ];
+
 
     if (userTokenInfo?.RegistrationType === "Mail") {
       items.push({

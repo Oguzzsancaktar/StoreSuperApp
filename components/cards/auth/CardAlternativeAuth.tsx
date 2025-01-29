@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import * as AppleAuthentication from "expo-apple-authentication";
@@ -153,57 +153,59 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           icon={<IconSocialFacebook />}
         />
 
-        <ImageIconCircle
-          gradientBg={true}
-          radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
-          borderColor="primary"
-          bgColor="appBackground"
-          size={APP_STYLE_VALUES.WH_SIZES.lg}
-          icon={
-            <AppleAuthentication.AppleAuthenticationButton
-              buttonType={
-                AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
-              }
-              buttonStyle={
-                isDark
-                  ? AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
-                  : AppleAuthentication.AppleAuthenticationButtonStyle.WHITE
-              }
-              cornerRadius={5}
-              style={{
-                width: APP_STYLE_VALUES.WH_SIZES.lg,
-                height: APP_STYLE_VALUES.WH_SIZES.lg,
-              }}
-              onPress={async () => {
-                try {
-                  const credential = await AppleAuthentication.signInAsync({
-                    requestedScopes: [
-                      AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-                      AppleAuthentication.AppleAuthenticationScope.EMAIL,
-                    ],
-                  });
-                  const res = await loginWithApple({
-                    familyName: credential.fullName?.familyName || "",
-                    givenName: credential.fullName?.givenName || "",
-                    token: credential.identityToken || "",
-                  });
-
-                  signIn({
-                    token: res?.data?.token || "",
-                    refreshToken: res?.data?.token || "",
-                    refreshTokenExpiryTime: res?.data?.token || "",
-                  });
-                } catch (error: any) {
-                  if (error.code === "ERR_CANCELED") {
-                    console.log("User canceled login.");
-                  } else {
-                    console.error("Login failed:", error);
-                  }
+        {Platform.OS === "ios" && (
+          <ImageIconCircle
+            gradientBg={true}
+            radius={APP_STYLE_VALUES.RADIUS_SIZES.lg}
+            borderColor="primary"
+            bgColor="appBackground"
+            size={APP_STYLE_VALUES.WH_SIZES.lg}
+            icon={
+              <AppleAuthentication.AppleAuthenticationButton
+                buttonType={
+                  AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
                 }
-              }}
-            />
-          }
-        />
+                buttonStyle={
+                  isDark
+                    ? AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
+                    : AppleAuthentication.AppleAuthenticationButtonStyle.WHITE
+                }
+                cornerRadius={5}
+                style={{
+                  width: APP_STYLE_VALUES.WH_SIZES.lg,
+                  height: APP_STYLE_VALUES.WH_SIZES.lg,
+                }}
+                onPress={async () => {
+                  try {
+                    const credential = await AppleAuthentication.signInAsync({
+                      requestedScopes: [
+                        AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                        AppleAuthentication.AppleAuthenticationScope.EMAIL,
+                      ],
+                    });
+                    const res = await loginWithApple({
+                      familyName: credential.fullName?.familyName || "",
+                      givenName: credential.fullName?.givenName || "",
+                      token: credential.identityToken || "",
+                    });
+
+                    signIn({
+                      token: res?.data?.token || "",
+                      refreshToken: res?.data?.token || "",
+                      refreshTokenExpiryTime: res?.data?.token || "",
+                    });
+                  } catch (error: any) {
+                    if (error.code === "ERR_CANCELED") {
+                      console.log("User canceled login.");
+                    } else {
+                      console.error("Login failed:", error);
+                    }
+                  }
+                }}
+              />
+            }
+          />
+        )}
       </View>
 
       <View

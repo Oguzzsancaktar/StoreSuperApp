@@ -11,6 +11,7 @@ import { DismissKeyboardWrapper } from "@/components/containers";
 import SafeAreaContainer from "@/components/containers/SafeAreaContainer";
 import DrawerGlobal from "@/components/drawer/DrawerGlobal";
 import ModalGlobal from "@/components/modal/ModalGlobal";
+import "@/config/i18n";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import { SessionProvider } from "@/contexts/AuthContext";
 import { DrawerProvider } from "@/contexts/DrawerContext";

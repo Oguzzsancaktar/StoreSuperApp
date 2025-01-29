@@ -109,7 +109,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.setuka24"
+    namespace 'com.ngxmarketplace.setuka24'
     defaultConfig {
         applicationId 'com.ngxmarketplace.setuka24'
         minSdkVersion rootProject.ext.minSdkVersion

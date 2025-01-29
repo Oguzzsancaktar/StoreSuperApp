@@ -1,9 +1,12 @@
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import TextStyled from "@/components/typography/TextStyled";
 import useAppStyles from "@/hooks/useAppStyles";
 
 const TextScanEffect = () => {
+  const { t } = useTranslation();
+
   const { commonStyles } = useAppStyles();
 
   return (
@@ -16,7 +19,7 @@ const TextScanEffect = () => {
       ]}
     >
       <TextStyled fontSize="xl" fontWeight="regular" customColor="grayScale600">
-        DISCOVER
+        {t("welcomeMain")}
       </TextStyled>
       {/* <View
         style={[

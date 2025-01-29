@@ -16,6 +16,8 @@ import IconBlock from "../svg/icon/IconBlock";
 import IconClose from "../svg/icon/IconClose";
 import IconMessageFilled from "../svg/icon/filled/IconMessageFilled";
 import { TextStyled } from "../typography";
+import { useBlockListingItemMutation } from "@/services/listingServices";
+import { useBlockUserMutation } from "@/services/accountServices";
 
 interface IProps {}
 const ModalReportContent: React.FC<IProps> = ({}) => {
@@ -28,14 +30,23 @@ const ModalReportContent: React.FC<IProps> = ({}) => {
 
   const { listingId, profileId } = useGlobalSearchParams();
 
-  const [deleteChat, { isLoading }] = useDeleteChatMutation();
+  const [blockListingItem, { isLoading }] = useBlockListingItemMutation();
+  const [blockUser] = useBlockUserMutation();
 
-  const contentId = listingId || profileId || "";
+  
   const handleConfirm = async () => {
     try {
-      // const result = await deleteChat((contentId as string) || "");
+      if (listingId) {
+        const result = await blockListingItem((listingId as string) || "");
+      toastSuccess("Listing Content Blocked successfully");
+      }
+
+      if (profileId) {
+        const result = await blockUser((listingId as string) || "");
+      toastSuccess("User  Blocked successfully");
+      }
       setModalContent(() => null);
-      toastSuccess("Content reported successfully");
+      router.replace(APP_ROUTES.TABS.TIMELINE)
     } catch (error) {
       console.log("error when deleteUser", error);
     }
@@ -75,7 +86,7 @@ const ModalReportContent: React.FC<IProps> = ({}) => {
             fontWeight="semibold"
             customColor="grayScale900"
           >
-            Are you sure, to block this content?
+            Are you sure, to block this {profileId? "profile":"content"}?
           </TextStyled>
 
           <View

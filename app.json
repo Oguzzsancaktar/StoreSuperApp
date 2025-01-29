@@ -20,6 +20,9 @@
         "resizeMode": "cover",
         "backgroundColor": "#FEF9B0"
       },
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "This app requires access to your photos to upload and display images."
+      },
       "entitlements": {
         "com.apple.developer.applesignin": [
           "Default"

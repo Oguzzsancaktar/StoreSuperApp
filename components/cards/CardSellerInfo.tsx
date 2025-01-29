@@ -14,6 +14,7 @@ import ImageIconCircle from "../images/ImageIconCircle";
 import IconChatSupport from "../svg/icon/IconChatSupport";
 import IconUser from "../svg/icon/IconUser";
 import { TextStyled } from "../typography";
+import { useAppAuthSession } from "@/contexts/AuthContext";
 
 interface IProps {
   user: IUser;
@@ -30,13 +31,20 @@ const CardSellerInfo: React.FC<IProps> = ({
     themedStyles,
     themeContext: { theme },
   } = useAppStyles();
+  const {  userTokenInfo } = useAppAuthSession();
 
   const handleCardPress = () => {
-    router.push(
-      routerUtils.buildRoute(APP_ROUTES.PUBLIC.DRAWER.PROFILE, {
-        profileId: user?.id,
-      }),
-    );
+    if (user?.id !== userTokenInfo?.Id) {
+      router.push(
+      
+        routerUtils.buildRoute(APP_ROUTES.PUBLIC.DRAWER.PROFILE, {
+          profileId: user?.id,
+        }),
+      );
+    }else{
+      router.push(APP_ROUTES.TABS.PROFILE)
+    }
+  
   };
 
   return (

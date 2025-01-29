@@ -17,6 +17,8 @@ import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import { IIconNames } from "@/interfaces/app";
+import FormInputComponents from "@/components/form/FormInputComponents";
+import InputSelectStyled from "@/components/input/InputSelectStyled";
 
 export interface ISettingItemProps {
   icon: IIconNames;
@@ -69,6 +71,7 @@ const SettingsScreen = () => {
       //   right: "switch",
       //   onPress: () => {},
       // },
+      
       {
         icon: "IconTheme",
         text: "Dark Mode",
@@ -140,6 +143,10 @@ const SettingsScreen = () => {
                 );
               },
             )}
+      
+
+
+
           </View>
         </View>
         <View>
