@@ -23,6 +23,11 @@
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "This app requires access to your photos to upload and display images."
       },
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "877906952522-4t2qllnb7doo0vg09fat26ha13t8lfsq.apps.googleusercontent.com"
+        }
+      },
       "entitlements": {
         "com.apple.developer.applesignin": [
           "Default"

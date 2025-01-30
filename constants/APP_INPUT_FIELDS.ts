@@ -77,6 +77,7 @@ const INPUT_PASSWORD_CONFIRM: IInputProps = {
   type: 'password',
   required: true,
 }
+
 const INPUT_SELECT_LANGUAGE: IInputProps = {
   label: 'Language',
   name: 'language',
@@ -91,6 +92,16 @@ const INPUT_SELECT_LANGUAGE: IInputProps = {
   required: true,
 }
 
+
+const INPUT_EULA_AGREEMENT: IInputProps = {
+  label: 'Accept Terms and Conditions',
+  placeholder: "End User License Agreement By accessingor using Setuka24, you agree to be bound by the terms and conditions of this EULA.",
+  name: 'eulaAgreement',
+  type: 'checkbox',
+  required: true,
+}
+
+
 const APP_INPUT_FIELDS = {
   INPUT_EMAIL,
   INPUT_PHONE,
@@ -101,7 +112,8 @@ const APP_INPUT_FIELDS = {
   INPUT_FISTNAME,
   INPUT_LASTNAME,
   INPUT_BIRTHDAY,
-  INPUT_SELECT_LANGUAGE
+  INPUT_SELECT_LANGUAGE,
+  INPUT_EULA_AGREEMENT
 }
 
 export default APP_INPUT_FIELDS

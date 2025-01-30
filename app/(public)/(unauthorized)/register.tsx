@@ -24,6 +24,7 @@ const SignupScreen = () => {
     { ...APP_INPUT_FIELDS.INPUT_EMAIL },
     { ...APP_INPUT_FIELDS.INPUT_PASSWORD },
     { ...APP_INPUT_FIELDS.INPUT_PASSWORD_CONFIRM },
+    { ...APP_INPUT_FIELDS.INPUT_EULA_AGREEMENT },
   ];
 
   const defaultValues = {};

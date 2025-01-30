@@ -7,6 +7,7 @@ import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
 
 import ModalDeleteAccount from "./ModalDeleteAccount";
+import ModalEula from "./ModalEula";
 import ModalRemoveChat from "./ModalRemoveChat";
 import ModalReportContent from "./ModalReportContent";
 
@@ -14,6 +15,7 @@ export const MODAL_CONTENTS = {
   ModalDeleteAccount: ModalDeleteAccount,
   ModalRemoveChat: ModalRemoveChat,
   ModalReportContent: ModalReportContent,
+  ModalEula: ModalEula,
 };
 
 const ModalGlobal = () => {

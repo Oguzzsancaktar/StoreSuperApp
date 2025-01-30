@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, View } from "react-native";
 
@@ -12,8 +13,11 @@ import { TextScanEffect } from "@/components/typography";
 import TextStyled from "@/components/typography/TextStyled";
 import i18n from "@/config/i18n";
 import APP_ROUTES from "@/constants/APP_ROUTES";
+import APP_STORAGE_KEYS from "@/constants/APP_STORAGE_KEYS";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
+import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
+import { useStorageState } from "@/hooks/useStorageState";
 import { changeLanguage } from "@/utils/i18nUtils";
 
 const WelcomeScreen = () => {

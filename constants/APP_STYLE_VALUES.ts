@@ -1,5 +1,6 @@
 
 const WH_SIZES = {
+  xl20: 500,
   xl12: 300,
   xl11: 275,
   xl10: 250,
