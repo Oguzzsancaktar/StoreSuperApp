@@ -1,8 +1,11 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Animated, View } from "react-native";
 
 import { router } from "expo-router";
+import { find } from "lodash";
 
+import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
@@ -29,6 +32,7 @@ interface IProps {
   profileId?: IUser["id"];
 }
 const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
+  const { t } = useTranslation();
   const { authToken } = useAppAuthSession();
   const {
     commonStyles,
@@ -254,7 +258,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
           >
             <View style={[commonStyles.flexStyles.colCenter]}>
               <TextStyled fontSize="sm" fontWeight="medium">
-                Post Count
+                {t("common.postCount")}
               </TextStyled>
               <TextStyled
                 fontSize="md"
@@ -277,20 +281,23 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
               ]}
             >
               <TextStyled fontSize="sm" fontWeight="medium">
-                Language
+                {t("common.language")}
               </TextStyled>
               <TextStyled
                 fontSize="md"
                 fontWeight="semibold"
                 customColor="grayScale900"
               >
-                {userProfileData?.language || "English"}
+                {find(
+                  APP_INPUT_FIELDS.INPUT_SELECT_LANGUAGE.options,
+                  (op) => op.value === userProfileData?.language,
+                )?.value || "English"}
               </TextStyled>
             </View>
 
             <View style={[commonStyles.flexStyles.colCenter]}>
               <TextStyled fontSize="sm" fontWeight="medium">
-                Register Date
+                {t("common.registerationDate")}
               </TextStyled>
               <TextStyled
                 fontSize="md"
@@ -330,14 +337,14 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
       ) : (
         <View style={{ width: "100%", gap: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
           <TextStyled fontSize="h4" fontWeight="bold">
-            Sign in to see profile
+            {t("common.signForSeeProfile")}
           </TextStyled>
 
           <ButtonStyled
             onPress={() => {
               router.push(APP_ROUTES.PUBLIC.UNAUTHORIZED.LOGIN);
             }}
-            text={"Login"}
+            text={t("common.login")}
             variant="primaryOutlined"
             gradientBg
           />

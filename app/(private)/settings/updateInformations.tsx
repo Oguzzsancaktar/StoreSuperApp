@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { router } from "expo-router";
@@ -27,7 +28,7 @@ const UpdateInformationScreen = () => {
     commonStyles,
     themeContext: { theme, toggleTheme },
   } = useAppStyles();
-
+  const { t } = useTranslation();
   const SETTING_ITEMS: ISettingItemProps[] = useMemo(
     () => [
       {
@@ -73,7 +74,7 @@ const UpdateInformationScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Update information
+              {t("settings.updateInformation")}
             </TextStyled>
           </View>
 

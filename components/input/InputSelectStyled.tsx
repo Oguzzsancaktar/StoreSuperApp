@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { DropdownProps } from "react-native-element-dropdown/lib/typescript/components/Dropdown/model";
@@ -38,6 +39,7 @@ const InputSelectStyled: React.FC<IProps> = ({
   placeholder,
   containerStyle,
 }) => {
+  const { t } = useTranslation();
   const {
     commonStyles,
     themedStyles,
@@ -58,7 +60,7 @@ const InputSelectStyled: React.FC<IProps> = ({
           }}
         >
           <TextStyled textAlignment="left" fontSize="md" fontWeight="regular">
-            {label}
+            {t(label)}
           </TextStyled>
         </View>
       )}
@@ -77,7 +79,7 @@ const InputSelectStyled: React.FC<IProps> = ({
           labelField="label"
           valueField="value"
           value={value}
-          placeholder={placeholder}
+          placeholder={placeholder && t(placeholder)}
           onChange={handleSelect}
           style={[
             themedStyles.inputStyles.default,

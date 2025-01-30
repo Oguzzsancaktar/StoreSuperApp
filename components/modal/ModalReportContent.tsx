@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { router, useGlobalSearchParams } from "expo-router";
@@ -6,7 +7,9 @@ import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
+import { useBlockUserMutation } from "@/services/accountServices";
 import { useDeleteChatMutation } from "@/services/chatServices";
+import { useBlockListingItemMutation } from "@/services/listingServices";
 import { toastSuccess } from "@/utils/toastUtils";
 
 import { ButtonStyled } from "../button";
@@ -16,8 +19,6 @@ import IconBlock from "../svg/icon/IconBlock";
 import IconClose from "../svg/icon/IconClose";
 import IconMessageFilled from "../svg/icon/filled/IconMessageFilled";
 import { TextStyled } from "../typography";
-import { useBlockListingItemMutation } from "@/services/listingServices";
-import { useBlockUserMutation } from "@/services/accountServices";
 
 interface IProps {}
 const ModalReportContent: React.FC<IProps> = ({}) => {
@@ -27,26 +28,25 @@ const ModalReportContent: React.FC<IProps> = ({}) => {
     themeContext: { theme },
   } = useAppStyles();
   const { setModalContent } = useModalState();
-
+  const { t } = useTranslation();
   const { listingId, profileId } = useGlobalSearchParams();
 
   const [blockListingItem, { isLoading }] = useBlockListingItemMutation();
   const [blockUser] = useBlockUserMutation();
 
-  
   const handleConfirm = async () => {
     try {
       if (listingId) {
         const result = await blockListingItem((listingId as string) || "");
-      toastSuccess("Listing Content Blocked successfully");
+        toastSuccess(t("toast.contentBlockSuccess"));
       }
 
       if (profileId) {
         const result = await blockUser((listingId as string) || "");
-      toastSuccess("User  Blocked successfully");
+        toastSuccess(t("toast.userBlockSuccess"));
       }
       setModalContent(() => null);
-      router.replace(APP_ROUTES.TABS.TIMELINE)
+      router.replace(APP_ROUTES.TABS.TIMELINE);
     } catch (error) {
       console.log("error when deleteUser", error);
     }
@@ -86,7 +86,8 @@ const ModalReportContent: React.FC<IProps> = ({}) => {
             fontWeight="semibold"
             customColor="grayScale900"
           >
-            Are you sure, to block this {profileId? "profile":"content"}?
+            {t("common.sureToBlock")}{" "}
+            {profileId ? t("common.profile") : t("common.content")}?
           </TextStyled>
 
           <View
@@ -95,12 +96,12 @@ const ModalReportContent: React.FC<IProps> = ({}) => {
             <ButtonStyled
               onPress={handleConfirm}
               variant="primarySolid"
-              text="Yes, I'm sure."
+              text={t("common.yesSure")}
             />
             <ButtonStyled
               onPress={() => setModalContent(() => null)}
               variant="transparent"
-              text="No"
+              text={t("common.no")}
             />
           </View>
         </View>

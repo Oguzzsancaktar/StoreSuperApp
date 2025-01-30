@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Animated, Text, TouchableOpacity, View } from "react-native";
 
 import { router } from "expo-router";
@@ -21,14 +22,14 @@ import ImageIconCircle from "../images/ImageIconCircle";
 import ImageStyled from "../images/ImageStyled";
 import FlatListStyled from "../override/FlatListStyled";
 import IconBlock from "../svg/icon/IconBlock";
-import IconHeart from "../svg/icon/IconHeart";
 import IconSettingCog from "../svg/icon/IconSettingCog";
-import { TextStyled } from "../typography";
 
 interface IProps {
   profileId?: IUser["id"];
 }
 const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
+  const { t } = useTranslation();
+
   const scrollY = useRef(new Animated.Value(0)).current;
   const { setModalContent } = useModalState();
 
@@ -104,7 +105,7 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
                   {authToken && (
                     <ButtonStyled
                       leftIcon="IconHeart"
-                      text="Favorites"
+                      text={t("common.favorites")}
                       variant="badgeOutlined"
                       onPress={() =>
                         router.push(APP_ROUTES.PUBLIC.DRAWER.FAVORITES)

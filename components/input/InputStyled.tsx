@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, TextInput, View } from "react-native";
 
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
@@ -32,6 +33,7 @@ const InputStyled: React.FC<IProps> = ({
     themedStyles,
     themeContext: { theme },
   } = useAppStyles();
+  const { t } = useTranslation();
 
   const inputRef = useRef<TextInput>(null);
   const { registerInput, unregisterInput } = useInputFocus();
@@ -105,7 +107,7 @@ const InputStyled: React.FC<IProps> = ({
           }}
         >
           <TextStyled textAlignment="left" fontSize="md" fontWeight="regular">
-            {label}
+            {t(label)}
           </TextStyled>
         </View>
       )}
@@ -159,7 +161,7 @@ const InputStyled: React.FC<IProps> = ({
           secureTextEntry={hideInputValue}
           multiline={type === "textarea"}
           placeholderTextColor={theme.grayScale500}
-          placeholder={placeholder}
+          placeholder={placeholder && t(placeholder)}
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
           keyboardType={type === "number" ? "numeric" : "default"}

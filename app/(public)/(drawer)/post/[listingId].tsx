@@ -1,7 +1,8 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
-import { Href, router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { map } from "lodash";
 
 import { ButtonStyled } from "@/components/button";
@@ -20,7 +21,6 @@ import MapGeoLoaction from "@/components/map/MapGeoLoaction";
 import ScrollViewStyled from "@/components/override/ScrollViewStyled";
 import IconCalendar from "@/components/svg/icon/IconCalendar";
 import IconLocation from "@/components/svg/icon/IconLocation";
-import IconSendMessage from "@/components/svg/icon/IconSendMessage";
 import { TextStyled } from "@/components/typography";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
@@ -38,6 +38,7 @@ const ListingDetailPage = () => {
     commonStyles,
     themeContext: { theme },
   } = useAppStyles();
+  const { t } = useTranslation();
   const { authToken, userTokenInfo } = useAppAuthSession();
 
   const { listingId } = useLocalSearchParams();
@@ -47,7 +48,7 @@ const ListingDetailPage = () => {
 
   const handleSendMessageClick = () => {
     if (!authToken) {
-      toastWarning("Login For Message");
+      toastWarning(t("toast.message"));
       return;
     }
 
@@ -193,7 +194,7 @@ const ListingDetailPage = () => {
               }}
             >
               <TextStyled fontSize="h4" fontWeight="bold" textAlignment="left">
-                Description
+                {t("common.description")}
               </TextStyled>
               <TextStyled
                 fontSize="md"
@@ -243,7 +244,7 @@ const ListingDetailPage = () => {
 
                     <View style={commonStyles.flexStyles.colStart}>
                       <TextStyled fontSize="h4" fontWeight="bold">
-                        Full Address
+                        {t("common.fullAddress")}
                       </TextStyled>
                       <View>
                         <TextStyled

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { InnerCommonContainer } from "@/components/containers";
@@ -22,7 +23,7 @@ const UpdateAddressInformationScreen = () => {
     commonStyles,
     themeContext: { theme },
   } = useAppStyles();
-
+  const { t } = useTranslation();
   return (
     <ScreenWrapperContainer showGoBack={true}>
       <InnerCommonContainer>
@@ -50,7 +51,7 @@ const UpdateAddressInformationScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Address Information
+              {t("settings.addressInformation")}
             </TextStyled>
           </View>
 

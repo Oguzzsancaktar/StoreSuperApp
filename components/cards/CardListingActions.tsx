@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Share, View } from "react-native";
 
 import { useGlobalSearchParams } from "expo-router";
@@ -32,6 +33,7 @@ const CardListingActions: React.FC<IProps> = ({
   post,
   showViewCount = false,
 }) => {
+  const { t } = useTranslation();
   const { authToken, userTokenInfo } = useAppAuthSession();
   const {
     commonStyles,
@@ -51,7 +53,7 @@ const CardListingActions: React.FC<IProps> = ({
   const handleFavorite = async () => {
     try {
       if (!authToken) {
-        toastWarning("Login For Favorite");
+        toastWarning(t("toast.loginForFavorite"));
         return;
       }
 

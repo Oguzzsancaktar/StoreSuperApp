@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { concat, find, map } from "lodash";
@@ -15,6 +16,7 @@ import { TextStyled } from "../typography";
 import CardPostItem from "./CardPostItem";
 
 const CardNewestPostings = () => {
+  const { t } = useTranslation();
   const { commonStyles } = useAppStyles();
 
   const { data: listingCategoriesData, error: listingCategoriesError } =
@@ -22,14 +24,14 @@ const CardNewestPostings = () => {
 
   const listingCategoryOptions = useMemo<ISelectOption[]>(() => {
     const options: ISelectOption[] = concat(
-      [{ label: "All", value: undefined as any }],
+      [{ label: t("common.all"), value: undefined as any }],
       map(listingCategoriesData, (l) => {
         return { label: l.name, value: l.id };
       }),
     );
 
     return options;
-  }, [listingCategoriesData]);
+  }, [t, listingCategoriesData]);
 
   const [newestCategory, setNewestCategory] = useState(
     listingCategoryOptions[0]?.value,
@@ -52,7 +54,7 @@ const CardNewestPostings = () => {
       >
         <View>
           <TextStyled fontSize="h6" textAlignment="left" fontWeight="semibold">
-            Newest Postings in
+            {t("common.newestPostings")}
           </TextStyled>
         </View>
 

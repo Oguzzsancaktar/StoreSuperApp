@@ -1,6 +1,7 @@
 import { TouchableOpacity, View } from "react-native";
 
 import { Href, router } from "expo-router";
+import { t } from "i18next";
 
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
@@ -113,7 +114,7 @@ const CardPostItem: React.FC<IProps> = ({ post }) => {
                 fontWeight="semibold"
                 customColor="grayScale900"
               >
-                Price
+                {t("common.price")}
               </TextStyled>
               <TextStyled
                 customStyle={{ flex: 1 }}

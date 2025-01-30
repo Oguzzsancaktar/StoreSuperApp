@@ -1,12 +1,13 @@
 import { Redirect, Stack } from "expo-router";
 
+import APP_ROUTES from "@/constants/APP_ROUTES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 
 export default function PrivateLayout() {
   const { authToken } = useAppAuthSession();
 
   if (!authToken) {
-    return <Redirect href="/login" />;
+    return <Redirect href={APP_ROUTES.PUBLIC.UNAUTHORIZED.WELCOME} />;
   }
 
   return (
@@ -17,7 +18,7 @@ export default function PrivateLayout() {
           headerShown: false,
         }}
       />
-            <Stack.Screen
+      <Stack.Screen
         name="settings/blockedUsers"
         options={{
           headerShown: false,

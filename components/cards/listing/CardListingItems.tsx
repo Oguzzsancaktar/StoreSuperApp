@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { concat, filter, find, join, map } from "lodash";
@@ -25,7 +26,7 @@ const CardListingItems = () => {
     commonStyles,
     themeContext: { theme },
   } = useAppStyles();
-
+  const { t } = useTranslation();
   const { toggleDrawer } = useDrawerState();
 
   const { filterValues, setFilterValues } = useListingFilter();
@@ -191,7 +192,7 @@ const CardListingItems = () => {
         </View>
         <View style={{ marginTop: APP_STYLE_VALUES.SPACE_SIZES.sp4 }}>
           <TextStyled fontSize="h5" fontWeight="bold" textAlignment="left">
-            Results Found
+            {t("common.resultFound")}
           </TextStyled>
         </View>
       </View>

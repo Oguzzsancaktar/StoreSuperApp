@@ -19,7 +19,7 @@ const TextScanEffect = () => {
       ]}
     >
       <TextStyled fontSize="xl" fontWeight="regular" customColor="grayScale600">
-        {t("welcomeMain")}
+        {t("welcome.titleMain")}
       </TextStyled>
       {/* <View
         style={[

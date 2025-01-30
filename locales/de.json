@@ -1,0 +1,114 @@
+{
+  "common": {
+    "register": "Registrieren",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "or": "Oder",
+    "continueWithoutSignIn": "Ohne Anmeldung fortfahren",
+    "dontHaveAccount": "Noch kein Konto?",
+    "alreadyHaveAnAccount": "Bereits ein Konto?",
+    "home": "Startseite",
+    "search": "Suche",
+    "messages": "Nachrichten",
+    "profile": "Profil",
+    "newestPostings": "Neueste Anzeigen in",
+    "all": "Alle",
+    "price": "Preis",
+    "language": "Sprache",
+    "resultFound": "Ergebnisse gefunden",
+    "signForMore": "Melde dich an, um mehr zu sehen.",
+    "signForSeeProfile": "Melde dich an, um das Profil zu sehen",
+    "description": "Beschreibung",
+    "fullAddress": "Vollständige Adresse",
+    "sureToBlock": "Bist du sicher, dass du dieses",
+    "content": "Inhalt",
+    "yes": "Ja",
+    "no": "Nein",
+    "yesSure": "Ja, ich bin sicher.",
+    "favorites": "Favoriten",
+    "settings": "Einstellungen",
+    "postCount": "Anzahl der Beiträge",
+    "registerationDate": "Registrierungsdatum",
+    "noData": "Derzeit keine Daten gefunden"
+  },
+  "toast": {
+    "loginForMessage": "Du musst dich anmelden, um eine Nachricht zu senden.",
+    "loginForFavorite": "Du musst dich anmelden, um zu favorisieren.",
+    "contentBlockSuccess": "Anzeige erfolgreich blockiert",
+    "userBlockSuccess": "Benutzer erfolgreich blockiert"
+  },
+  "input": {
+    "firstName": {
+      "label": "Vorname",
+      "placeholder": "Gib deinen Vornamen ein..."
+    },
+    "lastName": {
+      "label": "Nachname",
+      "placeholder": "Gib deinen Nachnamen ein..."
+    },
+    "username": {
+      "label": "Benutzername",
+      "placeholder": "Gib deinen Benutzernamen ein..."
+    },
+    "email": {
+      "label": "E-Mail-Adresse",
+      "placeholder": "Gib deine E-Mail-Adresse ein..."
+    },
+    "phoneNumber": {
+      "label": "Telefonnummer",
+      "placeholder": "Gib deine Telefonnummer ein..."
+    },
+    "birthday": {
+      "label": "Geburtstag",
+      "placeholder": "Gib dein Geburtsdatum ein..."
+    },
+    "passwordOld": {
+      "label": "Altes Passwort",
+      "placeholder": "Dein altes Passwort..."
+    },
+    "passwordConfirm": {
+      "label": "Passwort bestätigen",
+      "placeholder": "Bestätige dein Passwort..."
+    },
+    "password": {
+      "label": "Passwort",
+      "placeholder": "Dein Passwort..."
+    },
+    "eula": {
+      "label": "Nutzungsbedingungen akzeptieren",
+      "placeholder": "Endbenutzer-Lizenzvereinbarung: Durch den Zugriff auf oder die Nutzung von Setuka24 stimmst du den Bedingungen dieser EULA zu."
+    },
+    "language": {
+      "label": "Sprache",
+      "placeholder": "Sprache auswählen..."
+    }
+  },
+  "welcome": {
+    "titleUp": "Verkaufe, was du hast,",
+    "titleMain": "ENTDECKE",
+    "titleDown": "was du brauchst"
+  },
+  "login": {
+    "title": "Einfach kaufen & verkaufen",
+    "description": "Melde dich an, um tolle Dinge in deiner Nähe zu finden oder selbst etwas zu verkaufen."
+  },
+  "register": {
+    "title": "Erstelle dein Konto",
+    "description": "Finde tolle Dinge in deiner Nähe oder verkaufe deine eigenen Sachen."
+  },
+  "settings": {
+    "accountSettings": "Kontoeinstellungen",
+    "personalInformation": "Persönliche Informationen",
+    "profileInformation": "Profilinformationen",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "darkMode": "Dunkelmodus",
+    "contactUs": "Kontaktiere uns",
+    "updateAccount": "Konto aktualisieren",
+    "updateInformation": "Informationen aktualisieren",
+    "deleteAccount": "Konto löschen",
+    "blockedUsers": "Blockierte Benutzer",
+    "addressInformation": "Adressinformationen",
+    "contactInformation": "Kontaktinformationen",
+    "changePassword": "Passwort ändern"
+  }
+}

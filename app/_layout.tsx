@@ -13,13 +13,16 @@ import DrawerGlobal from "@/components/drawer/DrawerGlobal";
 import ModalGlobal from "@/components/modal/ModalGlobal";
 import "@/config/i18n";
 import APP_ROUTES from "@/constants/APP_ROUTES";
-import { SessionProvider } from "@/contexts/AuthContext";
+import APP_STORAGE_KEYS from "@/constants/APP_STORAGE_KEYS";
+import { SessionProvider, useAppAuthSession } from "@/contexts/AuthContext";
 import { DrawerProvider } from "@/contexts/DrawerContext";
 import { InputFocusProvider } from "@/contexts/InputFocusContext";
 import { ListingFilterProvider } from "@/contexts/ListingFilterContext";
 import { ModalProvider } from "@/contexts/ModalContext";
 import { ThemeProvider, useAppTheme } from "@/contexts/ThemeContext";
+import { useStorageState } from "@/hooks/useStorageState";
 import { store } from "@/store/store";
+import { changeLanguage } from "@/utils/i18nUtils";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -42,8 +45,19 @@ export default function RootLayout() {
     BRShapeRegular: require("../assets/fonts/BR_Shape_Regular.otf"),
     ...FontAwesome.font,
   });
+  const [
+    [isPrefferedLanguageLoading, prefferedLanguage],
+    setPrefferedLanguage,
+  ] = useStorageState(APP_STORAGE_KEYS.PREFFRED_LANGUAGE);
+
+  useEffect(() => {
+    if (prefferedLanguage) {
+      changeLanguage(prefferedLanguage);
+    }
+  }, [prefferedLanguage]);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
+
   useEffect(() => {
     if (error) throw error;
   }, [error]);

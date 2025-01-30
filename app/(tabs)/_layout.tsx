@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useWindowDimensions } from "react-native";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -23,6 +24,7 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
+  const { t } = useTranslation();
   const { width } = useWindowDimensions();
 
   const {
@@ -67,11 +69,11 @@ export default function TabLayout() {
 
           switch (true) {
             case to?.includes("timeline"):
-              label = "Home";
+              label = "common.home";
               Icon = IconHome;
               break;
             case to?.includes("postList"):
-              label = "Search";
+              label = "common.search";
               Icon = IconSearch;
               break;
             case to?.includes("addPost"):
@@ -80,11 +82,11 @@ export default function TabLayout() {
               break;
 
             case to?.includes("conversations"):
-              label = "Messages";
+              label = "common.messages";
               Icon = IconMessageFilled;
               break;
             case to?.includes("profile"):
-              label = "Profile";
+              label = "common.profile";
               Icon = IconProfileFilled;
               break;
           }
@@ -94,7 +96,7 @@ export default function TabLayout() {
               to={(to || APP_ROUTES.TABS.TIMELINE) as Href<string | object>}
               isActive={isSelected}
               icon={Icon}
-              text={label}
+              text={t(label)}
             />
           );
         },

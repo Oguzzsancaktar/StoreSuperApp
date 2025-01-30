@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { router, useNavigation } from "expo-router";
@@ -9,7 +10,9 @@ import ButtonLogout from "@/components/button/ButtonLogout";
 import CardLinkItem from "@/components/cards/CardLinkItem";
 import { InnerCommonContainer } from "@/components/containers";
 import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import FormInputComponents from "@/components/form/FormInputComponents";
 import ImageIconCircle from "@/components/images/ImageIconCircle";
+import InputSelectStyled from "@/components/input/InputSelectStyled";
 import IconSettingCog from "@/components/svg/icon/IconSettingCog";
 import { TextStyled } from "@/components/typography";
 import APP_ROUTES from "@/constants/APP_ROUTES";
@@ -17,8 +20,6 @@ import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import { IIconNames } from "@/interfaces/app";
-import FormInputComponents from "@/components/form/FormInputComponents";
-import InputSelectStyled from "@/components/input/InputSelectStyled";
 
 export interface ISettingItemProps {
   icon: IIconNames;
@@ -34,12 +35,12 @@ const SettingsScreen = () => {
     commonStyles,
     themeContext: { theme, toggleTheme },
   } = useAppStyles();
-
+  const { t } = useTranslation();
   const SETTING_ITEMS: ISettingItemProps[] = useMemo(
     () => [
       {
         icon: "IconUser",
-        text: "Account Settings",
+        text: t("settings.accountSettings"),
         right: "chevron",
         onPress: () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS.UPDATE_ACCOUNT);
@@ -48,7 +49,7 @@ const SettingsScreen = () => {
       },
       {
         icon: "IconEdit",
-        text: "Profile Information",
+        text: t("settings.profileInformation"),
         right: "chevron",
         onPress: () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS.UPDATE_INFO);
@@ -57,7 +58,7 @@ const SettingsScreen = () => {
       },
       {
         icon: "IconPrivacy",
-        text: "Privacy Policy",
+        text: t("settings.privacyPolicy"),
         right: "chevron",
         onPress: () => {
           WebBrowser.openBrowserAsync("https://setuka24.com/policy" as string);
@@ -71,10 +72,10 @@ const SettingsScreen = () => {
       //   right: "switch",
       //   onPress: () => {},
       // },
-      
+
       {
         icon: "IconTheme",
-        text: "Dark Mode",
+        text: t("settings.darkMode"),
         right: "switch",
         onPress: () => {
           toggleTheme();
@@ -82,14 +83,14 @@ const SettingsScreen = () => {
       },
       {
         icon: "IconChatSupport",
-        text: "Contact Us",
+        text: t("settings.contactUs"),
         right: "chevron",
         onPress: () => {
           WebBrowser.openBrowserAsync("https://setuka24.com/policy" as string);
         },
       },
     ],
-    [toggleTheme],
+    [toggleTheme, t],
   );
 
   return (
@@ -115,7 +116,7 @@ const SettingsScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Settings
+              {t("common.settings")}
             </TextStyled>
           </View>
 
@@ -143,10 +144,6 @@ const SettingsScreen = () => {
                 );
               },
             )}
-      
-
-
-
           </View>
         </View>
         <View>

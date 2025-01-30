@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
@@ -17,6 +18,7 @@ const Unauthorized: React.FC<IProps> = ({
   isTabBarActive,
   showGoBack = true,
 }) => {
+  const { t } = useTranslation();
   const { commonStyles } = useAppStyles();
   return (
     <ScreenWrapperContainer
@@ -35,11 +37,11 @@ const Unauthorized: React.FC<IProps> = ({
         >
           <View style={[commonStyles.flexStyles.colCenter]}>
             <TextStyled fontSize="h4" customColor="primary" fontWeight="bold">
-              Already have an account?
+              {t("common.alreadyHaveAnAccount")}
             </TextStyled>
 
             <TextStyled fontSize="h6" fontWeight="regular">
-              Sign in into your account to see more.
+              {t("common.signForMore")}
             </TextStyled>
           </View>
 

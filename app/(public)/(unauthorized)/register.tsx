@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import CardAlternativeAuth from "@/components/cards/auth/CardAlternativeAuth";
 import { InnerCommonContainer } from "@/components/containers";
 import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
 import { FormStyled, FormWizard } from "@/components/form";
-import { IFormWizardStepProps } from "@/components/form/FormWizard";
 import { TextStyled } from "@/components/typography";
 import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
@@ -14,20 +14,20 @@ import { IInputProps } from "@/interfaces/app";
 import { useRegisterAccountMutation } from "@/services/accountServices";
 import { toastSuccess } from "@/utils/toastUtils";
 
+const fields: Array<IInputProps> = [
+  { ...APP_INPUT_FIELDS.INPUT_EMAIL },
+  { ...APP_INPUT_FIELDS.INPUT_PASSWORD },
+  { ...APP_INPUT_FIELDS.INPUT_PASSWORD_CONFIRM },
+  { ...APP_INPUT_FIELDS.INPUT_EULA_AGREEMENT },
+];
+
 const SignupScreen = () => {
+  const { t } = useTranslation();
+
   const [createAccount, { isLoading: registerIsLoading }] =
     useRegisterAccountMutation();
 
   const [registerValues, setRegisterValues] = useState<IRegisterDTO>();
-
-  const fields: Array<IInputProps> = [
-    { ...APP_INPUT_FIELDS.INPUT_EMAIL },
-    { ...APP_INPUT_FIELDS.INPUT_PASSWORD },
-    { ...APP_INPUT_FIELDS.INPUT_PASSWORD_CONFIRM },
-    { ...APP_INPUT_FIELDS.INPUT_EULA_AGREEMENT },
-  ];
-
-  const defaultValues = {};
 
   const handleSubmit = async (values: IRegisterDTO) => {
     try {
@@ -51,14 +51,14 @@ const SignupScreen = () => {
             fontWeight="bold"
             customColor="grayScale900"
           >
-            Create your account
+            {t("register.title")}
           </TextStyled>
           <TextStyled
             fontSize="md"
             fontWeight="regular"
             customColor="grayScale600"
           >
-            Find cool things in your area or sell your own stuff.
+            {t("register.description")}
           </TextStyled>
         </View>
         <FormStyled
@@ -68,7 +68,7 @@ const SignupScreen = () => {
               React.SetStateAction<Record<string, any>>
             >
           }
-          submitKey="Register"
+          submitKey={t("common.register")}
           isLoading={registerIsLoading}
           fields={fields}
           onSubmit={handleSubmit}

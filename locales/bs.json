@@ -1,0 +1,114 @@
+{
+  "common": {
+    "register": "Registracija",
+    "login": "Prijava",
+    "logout": "Odjava",
+    "or": "Ili",
+    "continueWithoutSignIn": "Nastavi bez prijave",
+    "dontHaveAccount": "Još nemaš račun?",
+    "alreadyHaveAnAccount": "Već imaš račun?",
+    "home": "Početna",
+    "search": "Pretraga",
+    "messages": "Poruke",
+    "profile": "Profil",
+    "newestPostings": "Najnoviji oglasi u",
+    "all": "Svi",
+    "price": "Cijena",
+    "language": "Jezik",
+    "resultFound": "Rezultati pronađeni",
+    "signForMore": "Prijavi se da vidiš više.",
+    "signForSeeProfile": "Prijavi se da vidiš profil",
+    "description": "Opis",
+    "fullAddress": "Puna adresa",
+    "sureToBlock": "Da li ste sigurni da želite blokirati ovaj",
+    "content": "sadržaj",
+    "yes": "Da",
+    "no": "Ne",
+    "yesSure": "Da, siguran/sigurna sam.",
+    "favorites": "Favoriti",
+    "settings": "Postavke",
+    "postCount": "Broj objava",
+    "registerationDate": "Datum registracije",
+    "noData": "Trenutno nema podataka"
+  },
+  "toast": {
+    "loginForMessage": "Morate se prijaviti da biste poslali poruku.",
+    "loginForFavorite": "Morate se prijaviti da biste dodali u favorite.",
+    "contentBlockSuccess": "Oglas je uspješno blokiran",
+    "userBlockSuccess": "Korisnik je uspješno blokiran"
+  },
+  "input": {
+    "firstName": {
+      "label": "Ime",
+      "placeholder": "Unesite svoje ime..."
+    },
+    "lastName": {
+      "label": "Prezime",
+      "placeholder": "Unesite svoje prezime..."
+    },
+    "username": {
+      "label": "Korisničko ime",
+      "placeholder": "Unesite svoje korisničko ime..."
+    },
+    "email": {
+      "label": "E-mail adresa",
+      "placeholder": "Unesite svoju e-mail adresu..."
+    },
+    "phoneNumber": {
+      "label": "Broj telefona",
+      "placeholder": "Unesite svoj broj telefona..."
+    },
+    "birthday": {
+      "label": "Datum rođenja",
+      "placeholder": "Unesite svoj datum rođenja..."
+    },
+    "passwordOld": {
+      "label": "Stara lozinka",
+      "placeholder": "Vaša stara lozinka..."
+    },
+    "passwordConfirm": {
+      "label": "Potvrda lozinke",
+      "placeholder": "Potvrdite svoju lozinku..."
+    },
+    "password": {
+      "label": "Lozinka",
+      "placeholder": "Vaša lozinka..."
+    },
+    "eula": {
+      "label": "Prihvati uslove korištenja",
+      "placeholder": "Ugovor o licenci krajnjeg korisnika: Pristupom ili korištenjem Setuka24 prihvatate uslove ovog EULA."
+    },
+    "language": {
+      "label": "Jezik",
+      "placeholder": "Izaberite jezik..."
+    }
+  },
+  "welcome": {
+    "titleUp": "Prodaj ono što imaš,",
+    "titleMain": "OTKRIJ",
+    "titleDown": "ono što ti treba"
+  },
+  "login": {
+    "title": "Kupuj i prodaj s lakoćom",
+    "description": "Prijavi se i pronađi zanimljive stvari u svojoj okolini ili prodaj svoje stvari."
+  },
+  "register": {
+    "title": "Kreiraj svoj račun",
+    "description": "Pronađi zanimljive stvari u svojoj okolini ili prodaj svoje stvari."
+  },
+  "settings": {
+    "accountSettings": "Postavke računa",
+    "personalInformation": "Lični podaci",
+    "profileInformation": "Informacije o profilu",
+    "privacyPolicy": "Pravila privatnosti",
+    "darkMode": "Tamni način",
+    "contactUs": "Kontaktirajte nas",
+    "updateAccount": "Ažuriraj račun",
+    "updateInformation": "Ažuriraj informacije",
+    "deleteAccount": "Obriši račun",
+    "blockedUsers": "Blokirani korisnici",
+    "addressInformation": "Informacije o adresi",
+    "contactInformation": "Kontakt informacije",
+    "changePassword": "Promijeni lozinku"
+  }
+}

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, View } from "react-native";
 
@@ -11,14 +10,9 @@ import { WelcomeBackgroundPattern } from "@/components/svg/background";
 import { getIconWithProps } from "@/components/svg/icon";
 import { TextScanEffect } from "@/components/typography";
 import TextStyled from "@/components/typography/TextStyled";
-import i18n from "@/config/i18n";
 import APP_ROUTES from "@/constants/APP_ROUTES";
-import APP_STORAGE_KEYS from "@/constants/APP_STORAGE_KEYS";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
-import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
-import { useStorageState } from "@/hooks/useStorageState";
-import { changeLanguage } from "@/utils/i18nUtils";
 
 const WelcomeScreen = () => {
   const { t } = useTranslation();
@@ -66,7 +60,7 @@ const WelcomeScreen = () => {
                 fontWeight="regular"
                 customColor="grayScale600"
               >
-                {t("welcomeUp")}
+                {t("welcome.titleUp")}
               </TextStyled>
               <View
                 style={[
@@ -80,7 +74,7 @@ const WelcomeScreen = () => {
                 fontWeight="regular"
                 customColor="grayScale600"
               >
-                {t("welcomeDown")}
+                {t("welcome.titleDown")}
               </TextStyled>
             </View>
           </View>
@@ -90,19 +84,23 @@ const WelcomeScreen = () => {
               onPress={() => {
                 handleSignButtonClick("LOGIN");
               }}
-              text={"Login"}
+              text={t("common.login")}
               variant="primarySolid"
             />
 
             <ButtonStyled
               gradientBg={true}
               onPress={() => handleSignButtonClick("REGISTER")}
-              text="Register"
+              text={t("common.register")}
               variant={"primaryOutlined"}
             />
 
-            <TextStyled fontSize="xl" fontWeight="regular">
-              or
+            <TextStyled
+              fontSize="xl"
+              fontWeight="regular"
+              textTransform="lowercase"
+            >
+              {t("common.or")}
             </TextStyled>
 
             <Link
@@ -115,7 +113,7 @@ const WelcomeScreen = () => {
                 customColor="grayScale600"
                 textAlignment="center"
               >
-                Continue without signin
+                {t("common.continueWithoutSignIn")}
               </TextStyled>
             </Link>
           </View>

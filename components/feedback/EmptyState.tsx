@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import SNoDataIllustration from "@/components/svg/illustrations/SNoDataIllustration";
@@ -8,6 +9,7 @@ import { InnerCommonContainer } from "../containers";
 import { TextStyled } from "../typography";
 
 const EmptyState = () => {
+  const { t } = useTranslation();
   const { commonStyles } = useAppStyles();
 
   return (
@@ -22,7 +24,7 @@ const EmptyState = () => {
         ]}
       >
         <TextStyled fontSize="h4" customColor="primary" fontWeight="bold">
-          Currently no data found
+          {t("common.noData")}
         </TextStyled>
 
         <View

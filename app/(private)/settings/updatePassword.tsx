@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { InnerCommonContainer } from "@/components/containers";
@@ -23,7 +24,7 @@ const UpdateAccountScreen = () => {
 
     themeContext: { theme },
   } = useAppStyles();
-
+  const { t } = useTranslation();
   return (
     <ScreenWrapperContainer showGoBack={true}>
       <InnerCommonContainer>
@@ -52,7 +53,7 @@ const UpdateAccountScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Change Password
+              {t("settings.changePassword")}
             </TextStyled>
           </View>
 

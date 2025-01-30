@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, View } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -26,7 +27,7 @@ const InputCheckboxStyled: React.FC<IProps> = ({
   isChecked = false,
   onToggle,
 }) => {
-  // console.log("labrl", label, isChecked);
+  const { t } = useTranslation();
   const {
     commonStyles,
     themeContext: { theme },
@@ -127,7 +128,7 @@ const InputCheckboxStyled: React.FC<IProps> = ({
               fontSize="md"
               fontWeight="semibold"
             >
-              {label}
+              {t(label)}
             </TextStyled>
           </View>
         )}
@@ -135,7 +136,7 @@ const InputCheckboxStyled: React.FC<IProps> = ({
 
       {placeholder && (
         <TextStyled textAlignment="left" fontSize="md" fontWeight="regular">
-          {placeholder}
+          {t(placeholder)}
         </TextStyled>
       )}
     </Pressable>

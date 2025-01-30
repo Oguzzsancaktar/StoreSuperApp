@@ -1,10 +1,13 @@
 import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
+import APP_STORAGE_KEYS from "@/constants/APP_STORAGE_KEYS";
 import { useAppAuthSession } from "@/contexts/AuthContext";
+import { useStorageState } from "@/hooks/useStorageState";
 import { IInputProps } from "@/interfaces/app";
 import {
   useGetCurrentUserInformationQuery,
   usePutUpdateUserInformationsMutation,
 } from "@/services/accountServices";
+import { changeLanguage } from "@/utils/i18nUtils";
 import { toastSuccess } from "@/utils/toastUtils";
 
 import { FormStyled } from ".";
@@ -28,6 +31,11 @@ const FormPersonalInformation = () => {
     language: currentUserData?.language,
   };
 
+  const [
+    [isPrefferedLanguageLoading, prefferedLanguage],
+    setPrefferedLanguage,
+  ] = useStorageState(APP_STORAGE_KEYS.PREFFRED_LANGUAGE);
+
   const handleSubmit = async (values: Record<string, any>) => {
     try {
       const tempUserInfo = {
@@ -36,6 +44,8 @@ const FormPersonalInformation = () => {
         lastName: values?.lastName,
         language: values?.language?.value,
       };
+      setPrefferedLanguage(values?.language?.value);
+      changeLanguage(values?.language?.value);
       const result = await updateUserInformations(tempUserInfo as any);
       toastSuccess("information updated successfully.");
       console.log("result", result);

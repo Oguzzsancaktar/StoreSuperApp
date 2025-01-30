@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import CardAlternativeAuth from "@/components/cards/auth/CardAlternativeAuth";
@@ -21,6 +22,8 @@ const fields: Array<IInputProps> = [
 ];
 
 const LoginScreen = () => {
+  const { t } = useTranslation();
+
   const [loginAccount, { isLoading: loginAccountIsLoading }] =
     useLoginAccountMutation();
   const { signIn } = useAppAuthSession();
@@ -49,18 +52,18 @@ const LoginScreen = () => {
             fontWeight="bold"
             customColor="grayScale900"
           >
-            List & Find with ease
+            {t("login.title")}
           </TextStyled>
           <TextStyled
             fontSize="md"
             fontWeight="regular"
             customColor="grayScale600"
           >
-            Login and find cool things in your area or sell your own stuff.
+            {t("login.description")}
           </TextStyled>
         </View>
         <FormStyled
-          submitKey="Login"
+          submitKey={t("common.login")}
           isLoading={loginAccountIsLoading}
           values={values as Record<string, any>}
           setValues={

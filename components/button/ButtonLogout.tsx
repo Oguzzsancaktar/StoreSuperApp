@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { router } from "expo-router";
@@ -13,6 +14,7 @@ import ButtonStyled from "./ButtonStyled";
 
 interface IProps {}
 const ButtonLogout: React.FC<IProps> = () => {
+  const { t } = useTranslation();
   const { authToken, signOut } = useAppAuthSession();
   const {
     commonStyles,
@@ -53,7 +55,7 @@ const ButtonLogout: React.FC<IProps> = () => {
               fontWeight="semibold"
               customColor="grayScale900"
             >
-              {authToken ? "Logout" : "Login"}
+              {authToken ? t("common.logout") : t("common.login")}
             </TextStyled>
           </View>
         </View>

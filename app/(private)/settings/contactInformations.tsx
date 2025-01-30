@@ -1,7 +1,5 @@
-import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
-
-import { router } from "expo-router";
 
 import { InnerCommonContainer } from "@/components/containers";
 import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
@@ -9,7 +7,6 @@ import FormContactInformation from "@/components/form/FormContactInformation";
 import ImageIconCircle from "@/components/images/ImageIconCircle";
 import IconSettingCog from "@/components/svg/icon/IconSettingCog";
 import { TextStyled } from "@/components/typography";
-import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
 import { IIconNames } from "@/interfaces/app";
@@ -26,7 +23,7 @@ const UpdateContactInformationScreen = () => {
     commonStyles,
     themeContext: { theme, toggleTheme },
   } = useAppStyles();
-
+  const { t } = useTranslation();
   return (
     <ScreenWrapperContainer showGoBack={true}>
       <InnerCommonContainer>
@@ -54,7 +51,7 @@ const UpdateContactInformationScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Contact information
+              {t("settings.contactInformation")}
             </TextStyled>
           </View>
 

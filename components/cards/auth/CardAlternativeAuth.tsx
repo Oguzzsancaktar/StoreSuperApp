@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Platform, View } from "react-native";
 
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
@@ -27,6 +28,8 @@ interface IProps {
 type ISocialLoginTypes = "FACEBOOK" | "APPLE" | "GOOGLE";
 
 const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
+  const { t } = useTranslation();
+
   const { signIn } = useAppAuthSession();
   const {
     commonStyles,
@@ -119,8 +122,9 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           fontSize="md"
           fontWeight="regular"
           customColor="grayScale400"
+          textTransform="lowercase"
         >
-          Or
+          {t("common.or")}
         </TextStyled>
       </View>
 
@@ -220,8 +224,8 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           customColor="grayScale400"
         >
           {authType === "REGISTER"
-            ? "Already have an account?"
-            : "Don't have an account yet?"}
+            ? t("common.alreadyHaveAnAccount")
+            : t("common.dontHaveAccount")}
         </TextStyled>
 
         <Link
@@ -232,7 +236,7 @@ const CardAlternativeAuth: React.FC<IProps> = ({ authType }) => {
           }
         >
           <TextStyled customColor="primary" fontSize="md" fontWeight="semibold">
-            {authType === "REGISTER" ? "Login" : "Register"}
+            {authType === "REGISTER" ? t("common.login") : t("common.register")}
           </TextStyled>
         </Link>
       </View>

@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { router } from "expo-router";
@@ -31,9 +32,8 @@ const UpdateAccountScreen = () => {
   } = useAppStyles();
 
   const { setModalContent } = useModalState();
-
+  const { t } = useTranslation();
   const { userTokenInfo } = useAppAuthSession();
-  console.log("userTokenInfo",userTokenInfo)
 
   const SETTING_ITEMS: ISettingItemProps[] = useMemo(() => {
     const items = [
@@ -54,7 +54,6 @@ const UpdateAccountScreen = () => {
         },
       } as ISettingItemProps,
     ];
-
 
     if (userTokenInfo?.RegistrationType === "Mail") {
       items.push({
@@ -93,7 +92,7 @@ const UpdateAccountScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Update Account
+              {t("settings.updateAccount")}
             </TextStyled>
           </View>
 

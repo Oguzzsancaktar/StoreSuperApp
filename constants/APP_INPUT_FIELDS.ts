@@ -2,104 +2,106 @@ import { IInputProps } from "@/interfaces/app"
 
 
 const INPUT_FISTNAME: IInputProps = {
-  label: 'Firstname',
+  label: "input.firstName.label",
   name: 'firstName',
-  placeholder: 'Enter your firstname...',
+  placeholder: "input.firstName.placeholder",
   type: 'text',
   required: true,
 }
 
 
 const INPUT_LASTNAME: IInputProps = {
-  label: 'Lastname',
+  label: "input.lastName.label",
   name: 'lastName',
-  placeholder: 'Enter your lastname...',
+  placeholder: "input.lastName.placeholder",
   type: 'text',
   required: true,
 }
 
 
 const INPUT_USERNNAME: IInputProps = {
-  label: 'Username',
+  label: "input.username.label",
   name: 'username',
-  placeholder: 'Enter your username...',
+  placeholder: "input.username.placeholder",
   type: 'text',
   required: true,
 }
 
 const INPUT_EMAIL: IInputProps = {
-  label: 'Email Adress',
+  label: "input.email.label",
   name: 'email',
-  placeholder: 'Enter your email address...',
+  placeholder: "input.email.placeholder",
   type: 'text',
   required: true,
 }
 
 
 const INPUT_PHONE: IInputProps = {
-  label: 'Phone Number',
+  label: "input.phoneNumber.label",
   name: 'phoneNumber',
-  placeholder: 'Enter your phone number...',
+  placeholder: "input.phoneNumber.placeholder",
   type: 'number',
   required: true,
 }
 
 const INPUT_BIRTHDAY: IInputProps = {
-  label: 'Birthday',
+  label: "input.birthday.label",
   name: 'birthday',
-  placeholder: 'Enter your birthday...',
+  placeholder: "input.birthday.placeholder",
   type: 'date',
   required: true,
 }
 
 
 const INPUT_OLD_PASSWORD: IInputProps = {
-  label: 'Old Password',
+  label: "input.passwordOld.label",
   name: 'oldPassword',
-  placeholder: 'Your old password...',
+  placeholder: "input.passwordOld.placeholder",
   type: 'password',
   required: true,
 }
 
 
 const INPUT_PASSWORD: IInputProps = {
-  label: 'Password',
+  label: "input.password.label",
   name: 'password',
-  placeholder: 'Your password...',
+  placeholder: "input.password.placeholder",
   type: 'password',
   required: true,
 }
 
 const INPUT_PASSWORD_CONFIRM: IInputProps = {
-  label: 'Password Confirm',
+  label: "input.passwordConfirm.label",
   name: 'confirmPassword',
-  placeholder: 'Confirm your password...',
+  placeholder: "input.passwordConfirm.placeholder",
   type: 'password',
-  required: true,
-}
-
-const INPUT_SELECT_LANGUAGE: IInputProps = {
-  label: 'Language',
-  name: 'language',
-  placeholder: 'Select language...',
-  type: 'select',
-  options: [
-    { label: "English", value: "en" },
-    { label: "Deutsch", value: "de" },
-    { label: "Türkçe", value: "tr" },
-    { label: "Arabic", value: "ar" },
-  ],
   required: true,
 }
 
 
 const INPUT_EULA_AGREEMENT: IInputProps = {
-  label: 'Accept Terms and Conditions',
-  placeholder: "End User License Agreement By accessingor using Setuka24, you agree to be bound by the terms and conditions of this EULA.",
+  label: "input.eula.label",
   name: 'eulaAgreement',
+  placeholder: "input.eula.placeholder",
   type: 'checkbox',
   required: true,
 }
+
+
+const INPUT_SELECT_LANGUAGE: IInputProps = {
+  label: "input.language.label",
+  name: 'language',
+  placeholder: "input.language.placeholder",
+  type: 'select',
+  options: [
+    { label: "English", value: "en" },
+    { label: "Deutsch", value: "de" },
+    { label: "Македонски", value: "mk" },
+    { label: "Bosanski", value: "bs" }
+  ],
+  required: true,
+}
+
 
 
 const APP_INPUT_FIELDS = {

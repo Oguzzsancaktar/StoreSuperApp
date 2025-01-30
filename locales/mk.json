@@ -1,0 +1,114 @@
+{
+  "common": {
+    "register": "Регистрација",
+    "login": "Најава",
+    "logout": "Одјава",
+    "or": "Или",
+    "continueWithoutSignIn": "Продолжи без најава",
+    "dontHaveAccount": "Сè уште немаш сметка?",
+    "alreadyHaveAnAccount": "Веќе имаш сметка?",
+    "home": "Дома",
+    "search": "Пребарување",
+    "messages": "Пораки",
+    "profile": "Профил",
+    "newestPostings": "Најнови објави во",
+    "all": "Сите",
+    "price": "Цена",
+    "language": "Јазик",
+    "resultFound": "Пронајдени резултати",
+    "signForMore": "Најави се за да видиш повеќе.",
+    "signForSeeProfile": "Најави се за да го видиш профилот",
+    "description": "Опис",
+    "fullAddress": "Целосна адреса",
+    "sureToBlock": "Дали си сигурен/сигурна дека сакаш да го блокираш овој",
+    "content": "содржина",
+    "yes": "Да",
+    "no": "Не",
+    "yesSure": "Да, сигурен/сигурна сум.",
+    "favorites": "Омилени",
+    "settings": "Поставки",
+    "postCount": "Број на објави",
+    "registerationDate": "Датум на регистрација",
+    "noData": "Моментално нема податоци"
+  },
+  "toast": {
+    "loginForMessage": "Мораш да се најавиш за да испратиш порака.",
+    "loginForFavorite": "Мораш да се најавиш за да додадеш во омилени.",
+    "contentBlockSuccess": "Објавата е успешно блокирана",
+    "userBlockSuccess": "Корисникот е успешно блокиран"
+  },
+  "input": {
+    "firstName": {
+      "label": "Име",
+      "placeholder": "Внеси го твоето име..."
+    },
+    "lastName": {
+      "label": "Презиме",
+      "placeholder": "Внеси го твоето презиме..."
+    },
+    "username": {
+      "label": "Корисничко име",
+      "placeholder": "Внеси го твоето корисничко име..."
+    },
+    "email": {
+      "label": "Е-пошта",
+      "placeholder": "Внеси ја твојата е-пошта..."
+    },
+    "phoneNumber": {
+      "label": "Телефонски број",
+      "placeholder": "Внеси го твојот телефонски број..."
+    },
+    "birthday": {
+      "label": "Датум на раѓање",
+      "placeholder": "Внеси го твојот датум на раѓање..."
+    },
+    "passwordOld": {
+      "label": "Стара лозинка",
+      "placeholder": "Твојата стара лозинка..."
+    },
+    "passwordConfirm": {
+      "label": "Потврди лозинка",
+      "placeholder": "Потврди ја твојата лозинка..."
+    },
+    "password": {
+      "label": "Лозинка",
+      "placeholder": "Твојата лозинка..."
+    },
+    "eula": {
+      "label": "Прифати услови за користење",
+      "placeholder": "Договор за краен корисник: Со пристапување или користење на Setuka24, се согласуваш со условите на овој договор."
+    },
+    "language": {
+      "label": "Јазик",
+      "placeholder": "Избери јазик..."
+    }
+  },
+  "welcome": {
+    "titleUp": "Продај го тоа што го имаш,",
+    "titleMain": "ОТКРИЈ",
+    "titleDown": "тоа што ти треба"
+  },
+  "login": {
+    "title": "Купувај и продавај лесно",
+    "description": "Најави се и пронајди интересни работи во твојата околина или продај ги твоите производи."
+  },
+  "register": {
+    "title": "Создај ја твојата сметка",
+    "description": "Пронајди интересни работи во твојата околина или продај ги твоите производи."
+  },
+  "settings": {
+    "accountSettings": "Поставки на сметка",
+    "personalInformation": "Лични информации",
+    "profileInformation": "Информации за профилот",
+    "privacyPolicy": "Политика за приватност",
+    "darkMode": "Темна тема",
+    "contactUs": "Контактирајте не",
+    "updateAccount": "Ажурирај ја сметката",
+    "updateInformation": "Ажурирај информации",
+    "deleteAccount": "Избриши ја сметката",
+    "blockedUsers": "Блокирани корисници",
+    "addressInformation": "Информации за адреса",
+    "contactInformation": "Контакт информации",
+    "changePassword": "Промени лозинка"
+  }
+}

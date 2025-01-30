@@ -31,14 +31,14 @@ const CardListingCategoryItem: React.FC<IProps> = ({
 
   const categoryIconName = useMemo(() => {
     let iconName: IIconNames = "IconHeartFilled";
-    switch (category.name) {
-      case "Real Estate":
+    switch (category.icon) {
+      case "https://stmarketplacedev.blob.core.windows.net/assets/real-estate.svg":
         iconName = "IconRealestate";
         break;
-      case "Electronics":
+      case "https://stmarketplacedev.blob.core.windows.net/assets/electronics.svg":
         iconName = "IconElectronics";
         break;
-      case "Cars":
+      case "https://stmarketplacedev.blob.core.windows.net/assets/cars.svg":
         iconName = "IconCars";
         break;
     }

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { InnerCommonContainer } from "@/components/containers";
@@ -18,6 +19,7 @@ export interface ISettingItemProps {
 }
 
 const PersonalInformationScreen = () => {
+  const { t } = useTranslation();
   const {
     commonStyles,
     themeContext: { theme },
@@ -51,7 +53,7 @@ const PersonalInformationScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-              Personal information
+              {t("settings.personalInformation")}
             </TextStyled>
           </View>
 

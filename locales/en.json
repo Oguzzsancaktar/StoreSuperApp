@@ -1,5 +1,114 @@
 {
-  "welcomeUp": "Sell What You Have,",
-  "welcomeMain": "DISCOVER",
-  "welcomeDown": "What You Need"
+  "common": {
+    "register": "Register",
+    "login": "Login",
+    "logout": "Logout",
+    "or": "Or",
+    "continueWithoutSignIn": "Continue without signin",
+    "dontHaveAccount": "Don't have an account yet?",
+    "alreadyHaveAnAccount": "Already have an account?",
+    "home": "Home",
+    "search": "Search",
+    "messages": "Messages",
+    "profile": "Profile",
+    "newestPostings": "Newest Postings in",
+    "all": "All",
+    "price": "Price",
+    "language": "Language",
+    "resultFound": "Results Found",
+    "signForMore": "Sign in into your account to see more.",
+    "signForSeeProfile": "Sign in to see profile",
+    "description": "Description",
+    "fullAddress": "Full Address",
+    "sureToBlock": "Are you sure, to block this",
+    "content": "content",
+    "yes": "yes",
+    "no": "no",
+    "yesSure": "Yes, I'm sure.",
+    "favorites": "Favorites",
+    "settings": "Settings",
+    "postCount": "Post Count",
+    "registerationDate": "Register Date",
+    "noData": "Currently no data found"
+  },
+  "toast": {
+    "loginForMessage": "You have to login for send message.",
+    "loginForFavorite": "You have to login for favorite.",
+    "contentBlockSuccess": "Listing Content Blocked successfully",
+    "userBlockSuccess": "User Blocked successfully"
+  },
+  "input": {
+    "firstName": {
+      "label": "Firstname",
+      "placeholder": "Enter your first name..."
+    },
+    "lastName": {
+      "label": "Lastname",
+      "placeholder": "Enter your last name..."
+    },
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter your username..."
+    },
+    "email": {
+      "label": "Email Adress",
+      "placeholder": "Enter your email address..."
+    },
+    "phoneNumber": {
+      "label": "Phone Number",
+      "placeholder": "Enter your phone number..."
+    },
+    "birthday": {
+      "label": "Birthday",
+      "placeholder": "Enter your birthday..."
+    },
+    "passwordOld": {
+      "label": "Old Password",
+      "placeholder": "Your old password..."
+    },
+    "passwordConfirm": {
+      "label": "Password Confirm",
+      "placeholder": "Confirm your password..."
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Your password..."
+    },
+    "eula": {
+      "label": "Accept Terms and Conditions",
+      "placeholder": "End User License Agreement By accessingor using Setuka24, you agree to be bound by the terms and conditions of this EULA."
+    },
+    "language": {
+      "label": "Language",
+      "placeholder": "Select language..."
+    }
+  },
+  "welcome": {
+    "titleUp": "Sell What You Have,",
+    "titleMain": "DISCOVER",
+    "titleDown": "What You Need"
+  },
+  "login": {
+    "title": "List & Find with ease",
+    "description": "Login and find cool things in your area or sell your own stuff."
+  },
+  "register": {
+    "title": "Create your account",
+    "description": "Find cool things in your area or sell your own stuff."
+  },
+  "settings": {
+    "accountSettings": "Account Settings",
+    "personalInformation": "Personal Information",
+    "profileInformation": "Profile Information",
+    "privacyPolicy": "Privacy Policy",
+    "darkMode": "Dark Mode",
+    "contactUs": "Contact Us",
+    "updateAccount": "Update Account",
+    "updateInformation": "Update Information",
+    "deleteAccount": "Delete Account",
+    "blockedUsers": "Blocked Users",
+    "addressInformation": "Address Information",
+    "contactInformation": "Contact Information",
+    "changePassword": "Change Password"
+  }
 }

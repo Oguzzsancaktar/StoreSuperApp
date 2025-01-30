@@ -1,16 +1,20 @@
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { InnerCommonContainer } from "@/components/containers";
 import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
+import Preloader from "@/components/feedback/Preloader";
 import ImageIconCircle from "@/components/images/ImageIconCircle";
+import FlatListStyled from "@/components/override/FlatListStyled";
+import IconBlock from "@/components/svg/icon/IconBlock";
 import { TextStyled } from "@/components/typography";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import useAppStyles from "@/hooks/useAppStyles";
 import { IIconNames } from "@/interfaces/app";
-import IconBlock from "@/components/svg/icon/IconBlock";
-import FlatListStyled from "@/components/override/FlatListStyled";
-import { useGetBlockedUsersQuery, useUnblockUserMutation } from "@/services/accountServices";
-import Preloader from "@/components/feedback/Preloader";
+import {
+  useGetBlockedUsersQuery,
+  useUnblockUserMutation,
+} from "@/services/accountServices";
 
 export interface ISettingItemProps {
   icon: IIconNames;
@@ -24,12 +28,13 @@ const BlockedUsersScreen = () => {
     commonStyles,
     themeContext: { theme },
   } = useAppStyles();
-
-  const { data:blockedUsersData,isLoading:blockedUsersIsLoading } = useGetBlockedUsersQuery()
-  const [unblockUser] = useUnblockUserMutation()
+  const { t } = useTranslation();
+  const { data: blockedUsersData, isLoading: blockedUsersIsLoading } =
+    useGetBlockedUsersQuery();
+  const [unblockUser] = useUnblockUserMutation();
 
   if (blockedUsersIsLoading) {
-    return <Preloader/>
+    return <Preloader />;
   }
 
   return (
@@ -59,7 +64,7 @@ const BlockedUsersScreen = () => {
             />
 
             <TextStyled fontSize="h4" fontWeight="bold">
-          Blocked Users
+              {t("settings.blockedUsers")}
             </TextStyled>
           </View>
 
@@ -71,10 +76,13 @@ const BlockedUsersScreen = () => {
           >
             <FlatListStyled
               onStartShouldSetResponder={() => true}
-            data={blockedUsersData}
-              renderItem={({ item }) => <TextStyled fontWeight="bold"  fontSize="h6">{item as string}</TextStyled>}
-          />
-              
+              data={blockedUsersData}
+              renderItem={({ item }) => (
+                <TextStyled fontWeight="bold" fontSize="h6">
+                  {item as any}
+                </TextStyled>
+              )}
+            />
           </View>
         </View>
       </InnerCommonContainer>
