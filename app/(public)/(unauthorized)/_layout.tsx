@@ -13,20 +13,20 @@ export default function PublicLayout() {
 
   const { setModalContent } = useModalState();
 
-  // const [[isEulaAcceptedLoading, eulaAccepted], setEulaAccepted] =
-  //   useStorageState(APP_STORAGE_KEYS.EULA_ACCEPTED);
+  const [[isEulaAcceptedLoading, eulaAccepted], setEulaAccepted] =
+    useStorageState(APP_STORAGE_KEYS.EULA_ACCEPTED);
 
-  // const checkEulaStatus = async () => {
-  //   if (!eulaAccepted) {
-  //     setModalContent("ModalEula");
-  //   } else {
-  //     setModalContent(null);
-  //   }
-  // };
+  const checkEulaStatus = async () => {
+    if (!!eulaAccepted) {
+      setModalContent("ModalEula");
+    } else {
+      setModalContent(null);
+    }
+  };
 
-  // useEffect(() => {
-  //   checkEulaStatus();
-  // }, [eulaAccepted]);
+  useEffect(() => {
+    checkEulaStatus();
+  }, [eulaAccepted]);
 
   if (authToken) {
     return <Redirect href={APP_ROUTES.TABS.TIMELINE} />;
