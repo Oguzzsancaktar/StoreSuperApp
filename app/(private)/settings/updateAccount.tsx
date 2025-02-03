@@ -39,7 +39,7 @@ const UpdateAccountScreen = () => {
     const items = [
       {
         icon: "IconTrash",
-        text: "Delete Account",
+        text: t("settings.deleteAccount"),
         right: "chevron",
         onPress: () => {
           setModalContent(() => "ModalDeleteAccount");
@@ -47,7 +47,7 @@ const UpdateAccountScreen = () => {
       } as ISettingItemProps,
       {
         icon: "IconBlock",
-        text: "Blocked Users",
+        text: t("settings.blockedUsers"),
         right: "chevron",
         onPress: () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS.BLOCKED_USERS);
@@ -58,7 +58,7 @@ const UpdateAccountScreen = () => {
     if (userTokenInfo?.RegistrationType === "Mail") {
       items.push({
         icon: "IconKey",
-        text: "Change Password",
+        text: t("settings.changePassword"),
         right: "chevron",
         onPress: () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS.UPDATE_PASSWORD);

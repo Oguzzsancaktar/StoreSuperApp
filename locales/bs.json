@@ -29,7 +29,14 @@
     "settings": "Postavke",
     "postCount": "Broj objava",
     "registerationDate": "Datum registracije",
-    "noData": "Trenutno nema podataka"
+    "noData": "Trenutno nema podataka",
+    "buttons": {
+      "submit": "Pošalji",
+      "cancel": "Otkaži",
+      "next": "Sledeći",
+      "reset": "Resetuj",
+      "save": "Sačuvaj"
+    }
   },
   "toast": {
     "loginForMessage": "Morate se prijaviti da biste poslali poruku.",
@@ -110,5 +117,43 @@
     "addressInformation": "Informacije o adresi",
     "contactInformation": "Kontakt informacije",
     "changePassword": "Promijeni lozinku"
+  },
+  "wizard": {
+    "listingCategory": "Izaberite kategoriju oglasa",
+    "addPhotos": "Dodaj fotografije",
+    "enterListingTitle": "Unesite naslov oglasa",
+    "enterListingTitlePlaceholder": "Unesite naslov oglasa...",
+    "enterListingDescription": "Unesite opis oglasa",
+    "enterListingDescriptionPlaceholder": "Unesite opis oglasa...",
+    "enterPrice": "Unesite cijenu",
+    "priceCurrency": "Valuta cijene",
+    "negotiable": "Tržišna",
+    "details": "Detalji",
+    "detailsDescription": "Izaberite podkategoriju i popunite podatke o oglasu...",
+    "selectEstateType": "Izaberite tip nekretnine",
+    "selectEstateTypePlaceholder": "Izaberite tip nekretnine...",
+    "selectSubsChildType": "Izaberite podkategoriju nekretnine",
+    "selectSubsChildTypePlaceholder": "Izaberite podkategoriju nekretnine...",
+    "zipCode": "Poštanski broj",
+    "enterListingZipCode": "Unesite poštanski broj oglasa",
+    "fullAddress": "Puna adresa",
+    "enterFullAddress": "Unesite puna adresu",
+    "showFullAddressInPostDetails": "Prikaži puna adresu u detaljima oglasa",
+    "allowMessaging": "Dozvoli poruke",
+    "allowPhoneCalls": "Dozvoli pozive",
+    "termsAndConditions": "Uslovi i uvjeti",
+    "termsAndConditionsPlaceholder": "Da, prihvatam uslove i uvjete, uključujući nultu toleranciju za obrazložene, nasilne ili neprikladne sadržaje, i slažem se da koristim platformu odgovorno i pošteno.",
+    "communicationTerms": "Komunikacija i uvjeti",
+    "communicationTermsDescription": "Izaberite svoje komunikacijske preference i kreirajte oglas...",
+    "next": "Dalje",
+    "back": "Nazad",
+    "skip": "Preskoči",
+    "finish": "Završi",
+    "step": "Korak {{current}} od {{total}}"
+  },
+  "success": {
+    "listingCreated": "Oglas kreiran",
+    "listingCreatedDescription": "Oglas je uspješno kreiran",
+    "goToListing": "Idi na oglas"
   }
 }

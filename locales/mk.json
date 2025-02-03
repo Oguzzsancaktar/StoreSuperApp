@@ -29,7 +29,14 @@
     "settings": "Поставки",
     "postCount": "Број на објави",
     "registerationDate": "Датум на регистрација",
-    "noData": "Моментално нема податоци"
+    "noData": "Моментално нема податоци",
+    "buttons": {
+      "submit": "Поднеси",
+      "cancel": "Откажи",
+      "next": "Следно",
+      "reset": "Ресетирај",
+      "save": "Зачувај"
+    }
   },
   "toast": {
     "loginForMessage": "Мораш да се најавиш за да испратиш порака.",
@@ -110,5 +117,44 @@
     "addressInformation": "Информации за адреса",
     "contactInformation": "Контакт информации",
     "changePassword": "Промени лозинка"
+  },
+  "wizard": {
+    "listingCategory": "Избери категорија на оглас",
+    "addPhotos": "Додај фотографии",
+    "enterListingTitle": "Внесете наслов на оглас",
+    "enterListingTitlePlaceholder": "Внесете наслов на оглас...",
+    "enterListingDescription": "Внесете опис на оглас",
+    "enterListingDescriptionPlaceholder": "Внесете опис на оглас...",
+    "enterPrice": "Внесете цена",
+    "enterPricePlaceholder": "Внесете цена...",
+    "priceCurrency": "Валута на цена",
+    "negotiable": "Търси",
+    "details": "Детали",
+    "detailsDescription": "Избери подкатегорија и пополни информации за огласот...",
+    "selectEstateType": "Избери тип на недвижност",
+    "selectEstateTypePlaceholder": "Избери тип на недвижност...",
+    "selectSubsChildType": "Избери подкатегорија на недвижност",
+    "selectSubsChildTypePlaceholder": "Избери подкатегорија на недвижност...",
+    "zipCode": "Поштенски код",
+    "enterListingZipCode": "Внесете поштенски код на огласот",
+    "fullAddress": "Целосна адреса",
+    "enterFullAddress": "Внесете целосна адреса",
+    "showFullAddressInPostDetails": "Покажи целосна адреса во детали на огласот",
+    "allowMessaging": "Дозволи пораки",
+    "allowPhoneCalls": "Дозволи повици",
+    "termsAndConditions": "Услови и услови",
+    "termsAndConditionsPlaceholder": "Да, согласувам со условите и условите, вклучително и нулата на толеранција за оскъдност, напад, или непријатен содржина, и се согласувам да користим платформата одговорно и убаво.",
+    "communicationTerms": "Комуникација и услови",
+    "communicationTermsDescription": "Избери вашите комуникациски приоритети и создај оглас...",
+    "next": "Следно",
+    "back": "Назад",
+    "skip": "Прескокни",
+    "finish": "Заврши",
+    "step": "Чекор {{current}} од {{total}}"
+  },
+  "success": {
+    "listingCreated": "Оглас создаден",
+    "listingCreatedDescription": "Нов оглас е успешно создаден",
+    "goToListing": "Оди на оглас"
   }
 }

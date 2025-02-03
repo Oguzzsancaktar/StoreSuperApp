@@ -27,21 +27,16 @@ const ModalEula = () => {
     themeContext: { theme },
   } = useAppStyles();
 
+  const { setModalContent } = useModalState();
   const [[isEulaAcceptedLoading, eulaAccepted], setEulaAccepted] =
     useStorageState(APP_STORAGE_KEYS.EULA_ACCEPTED);
-
-  console.log("sec", eulaAccepted);
-
-  const { setModalContent } = useModalState();
 
   const handleConfirm = async () => {
     try {
       await setEulaAccepted("true");
-      setModalContent(() => null);
-      router.push(APP_ROUTES.TABS.TIMELINE);
-      toastWarning("");
+      setModalContent(null);
     } catch (error) {
-      console.log("error when deleteUser", error);
+      console.error("Error when accepting EULA", error);
     }
   };
 

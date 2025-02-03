@@ -33,7 +33,7 @@ const UpdateInformationScreen = () => {
     () => [
       {
         icon: "IconUser",
-        text: "Personal Information",
+        text: t("settings.personalInformation"),
         right: "chevron",
         onPress: () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS.PERSONAL_INFO);
@@ -41,7 +41,7 @@ const UpdateInformationScreen = () => {
       },
       {
         icon: "IconPhone",
-        text: "Contact Information",
+        text: t("settings.contactInformation"),
         right: "chevron",
         onPress: () => {
           router.push(APP_ROUTES.PRIVATE.SETTINGS.CONTACT_INFO);

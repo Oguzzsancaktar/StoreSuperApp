@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { Href, router, useLocalSearchParams } from "expo-router";
@@ -28,6 +29,7 @@ const SuccessScreen: React.FC<IProps> = () => {
     extraButtonText,
     extraButtonHref,
   } = useLocalSearchParams();
+  const { t } = useTranslation();
   const { commonStyles } = useAppStyles();
   return (
     <ScreenWrapperContainer>
@@ -89,7 +91,7 @@ const SuccessScreen: React.FC<IProps> = () => {
               onPress={() => router.replace(href as Href)}
               variant="primaryOutlined"
               gradientBg={true}
-              text="Homepage"
+              text={t("common.home")}
             />
           </View>
         </View>

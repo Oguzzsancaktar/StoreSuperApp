@@ -167,26 +167,28 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
             },
           ]}
         >
-          <Animated.View
-            style={[
-              commonStyles.absolutePositionStyles.absoluteFill,
-              {
-                top: "auto",
-                left: "auto",
-                zIndex: 1,
-                marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp4,
-                width: APP_STYLE_VALUES.WH_SIZES.xs,
-                height: APP_STYLE_VALUES.WH_SIZES.xs,
-                opacity: uploadScale,
-              },
-            ]}
-          >
-            <InputImageUploader
-              isUploadButton={true}
-              maxMedia={1}
-              onChange={handleImageUpload}
-            />
-          </Animated.View>
+          {!profileId && (
+            <Animated.View
+              style={[
+                commonStyles.absolutePositionStyles.absoluteFill,
+                {
+                  top: "auto",
+                  left: "auto",
+                  zIndex: 1,
+                  marginRight: APP_STYLE_VALUES.SPACE_SIZES.sp4,
+                  width: APP_STYLE_VALUES.WH_SIZES.xs,
+                  height: APP_STYLE_VALUES.WH_SIZES.xs,
+                  opacity: uploadScale,
+                },
+              ]}
+            >
+              <InputImageUploader
+                isUploadButton={true}
+                maxMedia={1}
+                onChange={handleImageUpload}
+              />
+            </Animated.View>
+          )}
 
           <Animated.View
             style={[

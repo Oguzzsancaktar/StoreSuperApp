@@ -29,7 +29,8 @@ const ModalReportContent: React.FC<IProps> = ({}) => {
   } = useAppStyles();
   const { setModalContent } = useModalState();
   const { t } = useTranslation();
-  const { listingId, profileId } = useGlobalSearchParams();
+  const { listingId, profileId, chatRegistryId } = useGlobalSearchParams();
+  console.log("chatRegistryId", chatRegistryId);
 
   const [blockListingItem, { isLoading }] = useBlockListingItemMutation();
   const [blockUser] = useBlockUserMutation();

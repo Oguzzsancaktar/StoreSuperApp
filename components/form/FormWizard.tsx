@@ -1,4 +1,5 @@
 import { ReactNode, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { router } from "expo-router";
@@ -44,6 +45,11 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
   showReset,
   values,
 }) => {
+  const { t } = useTranslation();
+
+  const finalSubmitKey =
+    submitKey === "Submit" ? t("common.buttons.submit") : submitKey;
+
   const { commonStyles } = useAppStyles();
 
   const [activeStepIndex, setActiveStepIndex] = useState(0);
@@ -132,7 +138,7 @@ const FormWizard: React.FC<Readonly<IFormWizardProps>> = ({
           <FormStyled
             values={values}
             showReset={showReset}
-            submitKey={submitKey}
+            submitKey={finalSubmitKey}
             isLoading={isLoading}
             isNextDisabled={isNextDisabled}
             key={activeStep.id}

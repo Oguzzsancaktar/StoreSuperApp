@@ -29,7 +29,15 @@
     "settings": "Settings",
     "postCount": "Post Count",
     "registerationDate": "Register Date",
-    "noData": "Currently no data found"
+    "noData": "Currently no data found",
+    "next": "Next",
+    "buttons": {
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "next": "Next",
+      "reset": "Reset",
+      "save": "Save"
+    }
   },
   "toast": {
     "loginForMessage": "You have to login for send message.",
@@ -110,5 +118,44 @@
     "addressInformation": "Address Information",
     "contactInformation": "Contact Information",
     "changePassword": "Change Password"
+  },
+  "wizard": {
+    "listingCategory": "Select Listing Category",
+    "addPhotos": "Add Photos",
+    "enterListingTitle": "Enter Listing Title",
+    "enterListingTitlePlaceholder": "Enter listing title...",
+    "enterListingDescription": "Enter Listing Description",
+    "enterListingDescriptionPlaceholder": "Enter listing description...",
+    "enterPrice": "Enter Price",
+    "priceCurrency": "Price Currency",
+    "negotiable": "Negotiable",
+    "details": "Details",
+    "detailsDescription": "Select sub category and fill out listing details...",
+    "selectEstateType": "Select Estate Type",
+    "selectEstateTypePlaceholder": "Select estate type...",
+    "model": "Model",
+    "selectSubsChildType": "Select Type",
+    "selectSubsChildTypePlaceholder": "Select item...",
+    "zipCode": "Zip Code",
+    "enterListingZipCode": "Enter Listing Zip Code",
+    "fullAddress": "Full Address",
+    "enterFullAddress": "Enter Full Address",
+    "showFullAddressInPostDetails": "Show Full Address In Post Details",
+    "allowMessaging": "Allow Messaging",
+    "allowPhoneCalls": "Allow Phone Calls",
+    "termsAndConditions": "Terms & Conditions",
+    "termsAndConditionsPlaceholder": "Yes, I accept the terms and conditions, including the zero-tolerance policy for offensive, abusive, or objectionable content, and agree to use the platform responsibly and respectfully.",
+    "communicationTerms": "Communication & Terms",
+    "communicationTermsDescription": "Select your communication preferences & create a listing...",
+    "next": "Next",
+    "back": "Back",
+    "skip": "Skip",
+    "finish": "Finish",
+    "step": "Step {{current}} of {{total}}"
+  },
+  "success": {
+    "listingCreated": "Listing Created",
+    "listingCreatedDescription": "New Listing Created Successfully",
+    "goToListing": "Go to listing"
   }
 }

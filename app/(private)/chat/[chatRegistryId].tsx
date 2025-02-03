@@ -19,6 +19,7 @@ import ImageStyled from "@/components/images/ImageStyled";
 import ImageUserProfile from "@/components/images/ImageUserProfile";
 import { InputStyled } from "@/components/input";
 import FlatListStyled from "@/components/override/FlatListStyled";
+import IconBlock from "@/components/svg/icon/IconBlock";
 import IconSendMessage from "@/components/svg/icon/IconSendMessage";
 import IconTrash from "@/components/svg/icon/IconTrash";
 import { TextStyled } from "@/components/typography";
@@ -209,9 +210,25 @@ const MessagesDetailScreen = () => {
           : opponentProfiledata?.email
       }
       rightElement={
-        <ButtonStyled variant="transparent" onPress={handleChatRemoveClick}>
-          <IconTrash color={theme.grayScale900} />
-        </ButtonStyled>
+        <View
+          style={{
+            width: APP_STYLE_VALUES.WH_SIZES.xs,
+            display: "flex",
+            flexDirection: "row",
+            gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+            justifyContent: "flex-end",
+          }}
+        >
+          {/* <ButtonStyled
+            variant="transparent"
+            onPress={() => setModalContent("ModalReportContent")}
+          >
+            <IconBlock color={theme.grayScale900} />
+          </ButtonStyled> */}
+          <ButtonStyled variant="transparent" onPress={handleChatRemoveClick}>
+            <IconTrash color={theme.grayScale900} />
+          </ButtonStyled>
+        </View>
       }
     >
       <InnerCommonContainer>

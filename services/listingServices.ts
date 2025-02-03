@@ -1,7 +1,6 @@
-
 import { axiosBaseQuery, IAxiosBaseQueryFn } from '../config/axiosBaseQuery';
-
-import { createApi, EndpointBuilder } from '@reduxjs/toolkit/query/react'
+import { createApi, EndpointBuilder } from '@reduxjs/toolkit/query/react';
+import { ACCOUNT_API_TAG, LISTING_API_TAG } from './apiTags';
 
 import IListingPost from '@/interfaces/listing/IListingPost';
 import IListingQueryParams from '@/interfaces/listing/IListingQueryParams';
@@ -10,13 +9,15 @@ import IListingCreateDTO from '@/interfaces/listing/IListingCreateDTO';
 import { map } from 'lodash';
 import IListingFavorite from '@/interfaces/listing/IListingFavorite';
 import IUser from '@/interfaces/account/IUser';
+import { accountApiSlice } from './accountServices';
 
 const LISTING_API_REDUCER_PATH = 'listingAPI'
-const LISTING_API_TAG = "listingTag"
+
+type TagTypes = typeof LISTING_API_TAG | typeof ACCOUNT_API_TAG;
 
 type IBuilder = EndpointBuilder<
   IAxiosBaseQueryFn,
-  typeof LISTING_API_TAG,
+  TagTypes,
   typeof LISTING_API_REDUCER_PATH
 >
 
@@ -91,21 +92,31 @@ const getViewCount = (builder: IBuilder) => {
 const createListing = (builder: IBuilder) => {
   return builder.mutation<IListingPost["id"], IListingCreateDTO>({
     query(data) {
+      const options = data.options ? map(data.options, (d) => {
+        if (typeof d?.value === "boolean") {
+          return { ...d, value: d.value.toString() }
+        }
+        return d
+      }) : [];
+
       return {
         url: `/listings`,
         method: 'POST',
         data: {
           ...data,
-          options: map(data.options, (d) => {
-            if (typeof d.value === "boolean") {
-              return { ...d, value: d.value.toString() }
-            }
-            return d
-          })
+          options
         }
       }
     },
-    invalidatesTags: [LISTING_API_TAG],
+    async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      try {
+        await queryFulfilled;
+        dispatch(
+          accountApiSlice.util.invalidateTags([ACCOUNT_API_TAG, LISTING_API_TAG])
+        );
+      } catch { }
+    },
+    invalidatesTags: [LISTING_API_TAG, ACCOUNT_API_TAG],
   })
 }
 
@@ -118,7 +129,7 @@ const deleteListing = (builder: IBuilder) => {
         method: 'DELETE',
       }
     },
-    invalidatesTags: [LISTING_API_TAG],
+    invalidatesTags: [LISTING_API_TAG, ACCOUNT_API_TAG],
   })
 }
 
@@ -206,7 +217,7 @@ const getListingItemDetails = (builder: IBuilder) => {
 
 const listingApiSlice = createApi({
   reducerPath: LISTING_API_REDUCER_PATH,
-  tagTypes: [LISTING_API_TAG],
+  tagTypes: [LISTING_API_TAG, ACCOUNT_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     blockListingItem: blockListingItem(builder),

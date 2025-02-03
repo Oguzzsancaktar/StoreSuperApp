@@ -2,12 +2,15 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
+import { router } from "expo-router";
+
 import CardAlternativeAuth from "@/components/cards/auth/CardAlternativeAuth";
 import { InnerCommonContainer } from "@/components/containers";
 import ScreenWrapperContainer from "@/components/containers/ScreenWrapperContainer";
 import { FormStyled, FormWizard } from "@/components/form";
 import { TextStyled } from "@/components/typography";
 import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
+import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STYLE_VALUES from "@/constants/APP_STYLE_VALUES";
 import IRegisterDTO from "@/interfaces/account/IRegisterDTO";
 import { IInputProps } from "@/interfaces/app";
@@ -33,10 +36,12 @@ const SignupScreen = () => {
     try {
       console.log("values", values, registerValues);
       const result = await createAccount(values);
-      console.log("result111", result.data);
       toastSuccess(
-        "Confirmation email send successfully, please confirm your account.",
+        t("toast.confirmationEmailSendSuccessfullyPleaseConfirmYourAccount"),
       );
+      setTimeout(() => {
+        router.push(APP_ROUTES.PUBLIC.UNAUTHORIZED.LOGIN);
+      }, 2000);
     } catch (error) {
       console.log("Error when create account");
     }

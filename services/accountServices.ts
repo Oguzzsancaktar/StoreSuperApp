@@ -1,24 +1,22 @@
-
 import IRegisterDTO from '@/interfaces/account/IRegisterDTO';
 import { axiosBaseQuery, IAxiosBaseQueryFn } from '../config/axiosBaseQuery';
-
-import { createApi, EndpointBuilder } from '@reduxjs/toolkit/query/react'
+import { createApi, EndpointBuilder } from '@reduxjs/toolkit/query/react';
 import ILoginDTO from '@/interfaces/account/ILoginDTO';
 import ILoginResult from '@/interfaces/account/ILoginResult';
 import IUser from '@/interfaces/account/IUser';
 import IPassordUpdateDTO from '@/interfaces/account/IPassordUpdateDTO';
 import IAppleCredentials from '@/interfaces/account/IAppleCredentials';
+import { ACCOUNT_API_TAG, LISTING_API_TAG } from './apiTags';
 
+const ACCOUNT_API_REDUCER_PATH = 'accountAPI';
 
-const ACCOUNT_API_REDUCER_PATH = 'accountAPI'
-export const ACCOUNT_API_TAG = "accountTag"
+type TagTypes = typeof ACCOUNT_API_TAG | typeof LISTING_API_TAG;
 
 type IBuilder = EndpointBuilder<
   IAxiosBaseQueryFn,
-  typeof ACCOUNT_API_TAG,
+  TagTypes,
   typeof ACCOUNT_API_REDUCER_PATH
 >
-
 
 const updatePassword = (builder: IBuilder) => {
   return builder.mutation<string[], IPassordUpdateDTO>({
@@ -33,8 +31,6 @@ const updatePassword = (builder: IBuilder) => {
   })
 }
 
-
-
 const registerAccount = (builder: IBuilder) => {
   return builder.mutation<string[], IRegisterDTO>({
     query(data) {
@@ -48,7 +44,6 @@ const registerAccount = (builder: IBuilder) => {
     invalidatesTags: [ACCOUNT_API_TAG],
   })
 }
-
 
 const loginAccount = (builder: IBuilder) => {
   return builder.mutation<ILoginResult, ILoginDTO>({
@@ -91,7 +86,6 @@ const loginWithGoogle = (builder: IBuilder) => {
   })
 }
 
-
 // User
 
 const blockUser = (builder: IBuilder) => {
@@ -109,7 +103,6 @@ const blockUser = (builder: IBuilder) => {
   })
 }
 
-
 const unblockUser = (builder: IBuilder) => {
   return builder.mutation<ILoginResult, string>({
     query(blockedUserId) {
@@ -125,8 +118,6 @@ const unblockUser = (builder: IBuilder) => {
   })
 }
 
-
-
 const getBlockedUsers = (builder: IBuilder) => {
   return builder.query<IUser[], void>({
     query() {
@@ -139,20 +130,17 @@ const getBlockedUsers = (builder: IBuilder) => {
   })
 }
 
-
 const getUserProfile = (builder: IBuilder) => {
   return builder.query<IUser, string>({
     query(id) {
       return {
         url: `/users/${id}/profile`,
         method: 'GET',
-
       }
     },
     providesTags: [ACCOUNT_API_TAG],
   })
 }
-
 
 const deleteUser = (builder: IBuilder) => {
   return builder.mutation<any, string>({
@@ -169,7 +157,6 @@ const deleteUser = (builder: IBuilder) => {
   })
 }
 
-
 const putUpdateUserInformations = (builder: IBuilder) => {
   return builder.mutation<IUser, Pick<IUser, "id" | "firstName" | "language" | "lastName" | "email" | "phoneNumber">>({
     query(data) {
@@ -183,7 +170,6 @@ const putUpdateUserInformations = (builder: IBuilder) => {
   })
 }
 
-
 const getCurrentUserInformation = (builder: IBuilder) => {
   return builder.query<IUser, void>({
     query() {
@@ -195,7 +181,6 @@ const getCurrentUserInformation = (builder: IBuilder) => {
     providesTags: [ACCOUNT_API_TAG],
   })
 }
-
 
 const addCurrentUserImage = (builder: IBuilder) => {
   return builder.mutation<IUser, void>({
@@ -210,7 +195,6 @@ const addCurrentUserImage = (builder: IBuilder) => {
   })
 }
 
-
 const getCurrentUserListings = (builder: IBuilder) => {
   return builder.query<any[], void>({
     query() {
@@ -219,14 +203,13 @@ const getCurrentUserListings = (builder: IBuilder) => {
         method: 'GET',
       }
     },
-    providesTags: [ACCOUNT_API_TAG],
+    providesTags: [ACCOUNT_API_TAG, LISTING_API_TAG],
   })
 }
 
-
 const accountApiSlice = createApi({
   reducerPath: ACCOUNT_API_REDUCER_PATH,
-  tagTypes: [ACCOUNT_API_TAG],
+  tagTypes: [ACCOUNT_API_TAG, LISTING_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     unblockUser: unblockUser(builder),

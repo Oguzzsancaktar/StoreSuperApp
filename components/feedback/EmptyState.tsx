@@ -10,7 +10,10 @@ import { TextStyled } from "../typography";
 
 const EmptyState = () => {
   const { t } = useTranslation();
-  const { commonStyles } = useAppStyles();
+  const {
+    commonStyles,
+    themeContext: { theme },
+  } = useAppStyles();
 
   return (
     <InnerCommonContainer>
@@ -18,6 +21,7 @@ const EmptyState = () => {
         style={[
           commonStyles.flexStyles.colCenter,
           {
+            backgroundColor: theme.appBackground,
             gap: APP_STYLE_VALUES.SPACE_SIZES.sp6,
             height: "100%",
           },

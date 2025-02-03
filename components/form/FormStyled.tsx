@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useMemo, useRef } from "react";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
 
 import { map } from "lodash";
@@ -39,6 +40,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
   setValues,
   values,
 }) => {
+  const { t } = useTranslation();
   const { commonStyles } = useAppStyles();
 
   const formInstance = useForm({
@@ -193,7 +195,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                           fontSize="md"
                           fontWeight="regular"
                         >
-                          {label || ""} is invalid.
+                          {label || ""} {t("common.isInvalid")}.
                         </TextStyled>
                       </View>
                     )}
@@ -223,7 +225,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                     onSubmit({});
                   }}
                   variant="primaryOutlined"
-                  text={"Reset"}
+                  text={t("common.buttons.reset")}
                 />
               </View>
             )}
@@ -233,7 +235,7 @@ const FormStyled: React.FC<Readonly<IProps>> = ({
                 disabled={isNextDisabled}
                 onPress={handleSubmit(onSubmit)}
                 variant="primarySolid"
-                text={isLastStep ? submitKey : "Next"}
+                text={isLastStep ? submitKey : t("common.buttons.next")}
               />
             </View>
           </View>

@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import { IInputProps } from "@/interfaces/app";
@@ -16,6 +18,7 @@ const fields: Array<IInputProps> = [
 ];
 
 const FormAddressInformation = () => {
+  const { t } = useTranslation();
   const { userTokenInfo } = useAppAuthSession();
   const [updateUserInformations, { isLoading: updateInformationIsLoading }] =
     usePutUpdateUserInformationsMutation();
@@ -51,7 +54,7 @@ const FormAddressInformation = () => {
       isLoading={updateInformationIsLoading}
       fields={fields}
       onSubmit={handleSubmit}
-      submitKey="Save"
+      submitKey={t("common.buttons.save")}
     />
   );
 };

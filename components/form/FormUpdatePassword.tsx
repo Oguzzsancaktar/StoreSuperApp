@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
 import { useAppAuthSession } from "@/contexts/AuthContext";
@@ -17,6 +18,7 @@ const fields: Array<IInputProps> = [
 
 const FormUpdatePassword = () => {
   const { userTokenInfo } = useAppAuthSession();
+  const { t } = useTranslation();
 
   const [updatePassword, { isLoading: updatePasswordIsLoading }] =
     useUpdatePasswordMutation();
@@ -46,7 +48,7 @@ const FormUpdatePassword = () => {
       values={defaultValues}
       fields={fields}
       onSubmit={handleSubmit}
-      submitKey="Save"
+      submitKey={t("common.buttons.save")}
     />
   );
 };

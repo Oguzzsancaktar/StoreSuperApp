@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
 import APP_STORAGE_KEYS from "@/constants/APP_STORAGE_KEYS";
 import { useAppAuthSession } from "@/contexts/AuthContext";
@@ -31,6 +33,8 @@ const FormPersonalInformation = () => {
     language: currentUserData?.language,
   };
 
+  const { t } = useTranslation();
+
   const [
     [isPrefferedLanguageLoading, prefferedLanguage],
     setPrefferedLanguage,
@@ -47,7 +51,7 @@ const FormPersonalInformation = () => {
       setPrefferedLanguage(values?.language?.value);
       changeLanguage(values?.language?.value);
       const result = await updateUserInformations(tempUserInfo as any);
-      toastSuccess("information updated successfully.");
+      toastSuccess(t("toast.informationUpdatedSuccessfully"));
       console.log("result", result);
     } catch (error) {
       console.log("Error updateUserInformations", error);
@@ -60,7 +64,7 @@ const FormPersonalInformation = () => {
       isLoading={updateInformationIsLoading}
       fields={fields}
       onSubmit={handleSubmit}
-      submitKey="Save"
+      submitKey={t("common.buttons.save")}
     />
   );
 };

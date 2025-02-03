@@ -35,6 +35,7 @@ const CardListingItems = () => {
 
   const { data: listingCategoriesData } = useGetListingCategoriesQuery();
 
+  console.log("filterValues", filterValues);
   const { data: listingItemsData, isLoading: isListingItemsLoading } =
     useGetListingItemsQuery(
       {
@@ -50,9 +51,49 @@ const CardListingItems = () => {
         pageSize: 100,
         pageNumber: 0,
         enginepower: join(filterValues?.enginepower, ","),
+        surface: join(filterValues?.surface, ","),
+        numberOfFloors: join(filterValues?.numberOfFloors, ","),
+        year: join(filterValues?.year, ","),
         mileage: join(filterValues?.mileage, ","),
         registration: join(filterValues?.registration, ","),
         modelIds: filterValues?.modelIds?.value,
+        furnished: filterValues?.furnished,
+        details: join(
+          [
+            map(
+              filter(filterValues?.details, (c) => c.isChecked),
+              (col) => col.value,
+            ),
+          ],
+          ",",
+        ),
+        numberOfRooms: join(
+          [
+            map(
+              filter(filterValues?.numberOfRooms, (c) => c.isChecked),
+              (col) => col.value,
+            ),
+          ],
+          ",",
+        ),
+        numberOfBathrooms: join(
+          [
+            map(
+              filter(filterValues?.numberOfBathrooms, (c) => c.isChecked),
+              (col) => col.value,
+            ),
+          ],
+          ",",
+        ),
+        purpose: join(
+          [
+            map(
+              filter(filterValues?.purpose, (c) => c.isChecked),
+              (col) => col.value,
+            ),
+          ],
+          ",",
+        ),
         transmission: join(
           [
             map(
