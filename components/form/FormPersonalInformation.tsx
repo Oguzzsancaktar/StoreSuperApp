@@ -8,9 +8,15 @@ import { useStorageState } from "@/hooks/useStorageState";
 import { IInputProps } from "@/interfaces/app";
 import ETranslationLanguages from "@/interfaces/enums/ETranslationLanguages";
 import {
+  accountApiSlice,
   useGetCurrentUserInformationQuery,
   usePutUpdateUserInformationsMutation,
 } from "@/services/accountServices";
+import { resetApiState } from "@/services/apiTags";
+import { chatApiSlice as chatApiSliceFromChatServices } from "@/services/chatServices";
+import { listingFilterApiSlice as listingFilterApiSliceFromListingFilterServices } from "@/services/listingFilterServices";
+import { listingApiSlice } from "@/services/listingServices";
+import { store } from "@/store/store";
 import { changeLanguage } from "@/utils/i18nUtils";
 import { toastSuccess } from "@/utils/toastUtils";
 
@@ -53,9 +59,21 @@ const FormPersonalInformation = () => {
       setPrefferedLanguage(values?.language?.value);
       changeLanguage(values?.language?.value);
 
-      apiClient.defaults.headers["Accept-Language"] = values?.language._index;
+      apiClient.defaults.headers["Accept-Language"] = values?.language.value;
 
       const result = await updateUserInformations(tempUserInfo as any);
+
+      // Complete reset of API state
+      store.dispatch(resetApiState());
+
+      // Force refetch all queries
+      store.dispatch(accountApiSlice.util.resetApiState());
+      store.dispatch(listingApiSlice.util.resetApiState());
+      store.dispatch(
+        listingFilterApiSliceFromListingFilterServices.util.resetApiState(),
+      );
+      store.dispatch(chatApiSliceFromChatServices.util.resetApiState());
+
       toastSuccess(t("toast.informationUpdatedSuccessfully"));
       console.log("result", result);
     } catch (error) {

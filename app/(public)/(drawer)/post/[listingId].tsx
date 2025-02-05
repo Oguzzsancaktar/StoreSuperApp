@@ -295,7 +295,7 @@ const ListingDetailPage = () => {
           <ButtonStyled
             leftIcon="IconSendMessage"
             variant="primarySolid"
-            text="Send Message"
+            text={t("common.sendMessage")}
             onPress={handleSendMessageClick}
           />
         </View>

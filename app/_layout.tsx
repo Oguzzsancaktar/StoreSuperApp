@@ -22,6 +22,13 @@ import { ListingFilterProvider } from "@/contexts/ListingFilterContext";
 import { ModalProvider } from "@/contexts/ModalContext";
 import { ThemeProvider, useAppTheme } from "@/contexts/ThemeContext";
 import { useStorageState } from "@/hooks/useStorageState";
+import { accountApiSlice } from "@/services/accountServices";
+import { resetApiState } from "@/services/apiTags";
+import { baseApi } from "@/services/apiTags";
+import { ACCOUNT_API_TAG, LISTING_API_TAG } from "@/services/apiTags";
+import { chatApiSlice } from "@/services/chatServices";
+import { listingFilterApiSlice } from "@/services/listingFilterServices";
+import { listingApiSlice } from "@/services/listingServices";
 import { store } from "@/store/store";
 import { changeLanguage } from "@/utils/i18nUtils";
 
@@ -56,6 +63,15 @@ export default function RootLayout() {
       console.log("prefferedLanguage", prefferedLanguage);
       apiClient.defaults.headers["Accept-Language"] = prefferedLanguage;
       changeLanguage(prefferedLanguage);
+
+      // Complete reset of API state
+      store.dispatch(resetApiState());
+
+      // Force refetch all queries
+      store.dispatch(accountApiSlice.util.resetApiState());
+      store.dispatch(listingApiSlice.util.resetApiState());
+      store.dispatch(listingFilterApiSlice.util.resetApiState());
+      store.dispatch(chatApiSlice.util.resetApiState());
     }
   }, [prefferedLanguage]);
 

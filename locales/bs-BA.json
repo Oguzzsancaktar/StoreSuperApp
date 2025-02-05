@@ -36,7 +36,8 @@
       "next": "Sljedeći",
       "reset": "Resetuj",
       "save": "Sačuvaj"
-    }
+    },
+    "sendMessage": "Pošalji poruku"
   },
   "toast": {
     "loginForMessage": "Morate se prijaviti da biste poslali poruku.",
@@ -157,7 +158,35 @@
     "back": "Nazad",
     "skip": "Preskoči",
     "finish": "Završi",
-    "step": "Korak {{current}} od {{total}}"
+    "step": "Korak {{current}} od {{total}}",
+    "country": "Država",
+    "selectCountryPlaceholder": "Izaberite državu...",
+    "city": "Grad",
+    "selectCityPlaceholder": "Izaberite grad...",
+    "district": "Općina",
+    "selectDistrictPlaceholder": "Izaberite općinu...",
+    "listingLocation": "Lokacija oglasa",
+    "listingLocationDescription": "Izaberite lokaciju oglasa...",
+    "generalInformation": "Opće informacije",
+    "generalInformationDescription": "Izaberite kategoriju i popunite informacije...",
+    "listingCategoryDescription": "Izaberite kategoriju i popunite informacije...",
+    "addPhotosDescription": "Dodajte fotografije...",
+    "addMediaPlaceholder": "Dodajte fotografije...",
+    "addMediaDescription": "Dodajte do 10 fotografija da biste učinili vaš oglas atraktivnijim...",
+    "addMediaTitle": "Dodaj fotografije",
+    "addMediaTitlePlaceholder": "Dodajte fotografije...",
+    "addMediaButton": "Dodaj fotografije",
+    "addMediaError": "Greška pri učitavanju fotografija",
+    "addMediaSuccess": "Fotografije uspješno učitane",
+    "addMediaLimit": "Možete učitati maksimalno 10 fotografija",
+    "addMediaDelete": "Izbriši fotografiju",
+    "addMediaDeleteConfirm": "Jeste li sigurni da želite izbrisati ovu fotografiju?",
+    "addMediaDeleteSuccess": "Fotografija uspješno izbrisana",
+    "addMediaDeleteError": "Greška pri brisanju fotografije",
+    "title": "Naslov",
+    "titleDescription": "Unesite naslov...",
+    "titlePlaceholder": "Unesite naslov...",
+    "enterPricePlaceholder": "Unesite cijenu..."
   },
   "success": {
     "listingCreated": "Oglas kreiran",

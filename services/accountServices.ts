@@ -6,17 +6,19 @@ import ILoginResult from '@/interfaces/account/ILoginResult';
 import IUser from '@/interfaces/account/IUser';
 import IPassordUpdateDTO from '@/interfaces/account/IPassordUpdateDTO';
 import IAppleCredentials from '@/interfaces/account/IAppleCredentials';
-import { ACCOUNT_API_TAG, LISTING_API_TAG } from './apiTags';
+import { baseApi, ACCOUNT_API_TAG, LISTING_API_TAG } from './apiTags';
 
 const ACCOUNT_API_REDUCER_PATH = 'accountAPI';
 
 type TagTypes = typeof ACCOUNT_API_TAG | typeof LISTING_API_TAG;
 
+type ApiTagTypes = typeof LISTING_API_TAG | typeof ACCOUNT_API_TAG;
+
 type IBuilder = EndpointBuilder<
   IAxiosBaseQueryFn,
-  TagTypes,
-  typeof ACCOUNT_API_REDUCER_PATH
->
+  ApiTagTypes,
+  typeof baseApi.reducerPath
+>;
 
 const updatePassword = (builder: IBuilder) => {
   return builder.mutation<string[], IPassordUpdateDTO>({
@@ -224,10 +226,7 @@ const getCurrentUserListings = (builder: IBuilder) => {
   })
 }
 
-const accountApiSlice = createApi({
-  reducerPath: ACCOUNT_API_REDUCER_PATH,
-  tagTypes: [ACCOUNT_API_TAG, LISTING_API_TAG],
-  baseQuery: axiosBaseQuery(),
+const accountApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     updateUserContactPrefferences: updateUserContactPrefferences(builder),
     unblockUser: unblockUser(builder),
@@ -245,7 +244,8 @@ const accountApiSlice = createApi({
     deleteUser: deleteUser(builder),
     putUpdateUserInformations: putUpdateUserInformations(builder)
   }),
-})
+  overrideExisting: false,
+});
 
 const {
   useUpdateUserContactPrefferencesMutation,

@@ -36,7 +36,8 @@
       "next": "Следно",
       "reset": "Ресетирај",
       "save": "Зачувај"
-    }
+    },
+    "sendMessage": "Испрати порака"
   },
   "toast": {
     "loginForMessage": "Мораш да се најавиш за да испратиш порака.",
@@ -158,7 +159,35 @@
     "back": "Назад",
     "skip": "Прескокни",
     "finish": "Заврши",
-    "step": "Чекор {{current}} од {{total}}"
+    "step": "Чекор {{current}} од {{total}}",
+    "country": "Држава",
+    "selectCountryPlaceholder": "Изберете држава...",
+    "city": "Град",
+    "selectCityPlaceholder": "Изберете град...",
+    "district": "Општина",
+    "selectDistrictPlaceholder": "Изберете општина...",
+    "listingLocation": "Локација на огласот",
+    "listingLocationDescription": "Изберете локација на огласот...",
+    "generalInformation": "Општи информации",
+    "generalInformationDescription": "Изберете категорија и пополнете информации...",
+    "listingCategoryDescription": "Изберете категорија и пополнете информации...",
+    "addPhotosDescription": "Додадете фотографии...",
+    "addMediaPlaceholder": "Додадете фотографии...",
+    "addMediaDescription": "Додадете до 10 фотографии за да го направите вашиот оглас поатрактивен...",
+    "addMediaTitle": "Додади фотографии",
+    "addMediaTitlePlaceholder": "Додадете фотографии...",
+    "addMediaButton": "Додади фотографии",
+    "addMediaError": "Грешка при прикачување на фотографии",
+    "addMediaSuccess": "Фотографиите се успешно прикачени",
+    "addMediaLimit": "Можете да прикачите максимум 10 фотографии",
+    "addMediaDelete": "Избриши фотографија",
+    "addMediaDeleteConfirm": "Дали сте сигурни дека сакате да ја избришете оваа фотографија?",
+    "addMediaDeleteSuccess": "Фотографијата е успешно избришана",
+    "addMediaDeleteError": "Грешка при бришење на фотографијата",
+    "title": "Наслов",
+    "titleDescription": "Внесете наслов...",
+    "titlePlaceholder": "Внесете наслов...",
+    "enterPricePlaceholder": "Внесете цена..."
   },
   "success": {
     "listingCreated": "Оглас создаден",

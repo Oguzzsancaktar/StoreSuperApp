@@ -37,13 +37,16 @@
       "next": "Next",
       "reset": "Reset",
       "save": "Save"
-    }
+    },
+    "sendMessage": "Send Message",
+    "isInvalid": "is invalid"
   },
   "toast": {
     "loginForMessage": "You have to login for send message.",
     "loginForFavorite": "You have to login for favorite.",
     "contentBlockSuccess": "Listing Content Blocked successfully",
-    "userBlockSuccess": "User Blocked successfully"
+    "userBlockSuccess": "User Blocked successfully",
+    "informationUpdatedSuccessfully": "Information updated successfully"
   },
   "input": {
     "showEmailOnProfile": {
@@ -159,7 +162,35 @@
     "back": "Back",
     "skip": "Skip",
     "finish": "Finish",
-    "step": "Step {{current}} of {{total}}"
+    "step": "Step {{current}} of {{total}}",
+    "country": "Country",
+    "selectCountryPlaceholder": "Select country...",
+    "city": "City",
+    "selectCityPlaceholder": "Select city...",
+    "district": "District",
+    "selectDistrictPlaceholder": "Select district...",
+    "listingLocation": "Listing Location",
+    "listingLocationDescription": "Select listing location...",
+    "generalInformation": "General Information",
+    "generalInformationDescription": "Select a category and fill out information...",
+    "listingCategoryDescription": "Select a category and fill out information...",
+    "addPhotosDescription": "Add photos...",
+    "addMediaPlaceholder": "Add photos...",
+    "addMediaDescription": "Add up to 10 photos to make your listing more attractive...",
+    "addMediaTitle": "Add Photos",
+    "addMediaTitlePlaceholder": "Add photos...",
+    "addMediaButton": "Add Photos",
+    "addMediaError": "Error uploading photos",
+    "addMediaSuccess": "Photos uploaded successfully",
+    "addMediaLimit": "You can upload maximum 10 photos",
+    "addMediaDelete": "Delete photo",
+    "addMediaDeleteConfirm": "Are you sure you want to delete this photo?",
+    "addMediaDeleteSuccess": "Photo deleted successfully",
+    "addMediaDeleteError": "Error deleting photo",
+    "title": "Title",
+    "titleDescription": "Enter title...",
+    "titlePlaceholder": "Enter title...",
+    "enterPricePlaceholder": "Enter price..."
   },
   "success": {
     "listingCreated": "Listing Created",

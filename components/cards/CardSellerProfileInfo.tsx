@@ -295,7 +295,7 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
                 {find(
                   APP_INPUT_FIELDS.INPUT_SELECT_LANGUAGE.options,
                   (op) => op.value === userProfileData?.language,
-                )?.value || "English"}
+                )?.label || "English"}
               </TextStyled>
             </View>
 

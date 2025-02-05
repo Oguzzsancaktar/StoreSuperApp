@@ -37,13 +37,15 @@
       "next": "Weiter",
       "reset": "Zurücksetzen",
       "save": "Speichern"
-    }
+    },
+    "sendMessage": "Nachricht senden"
   },
   "toast": {
     "loginForMessage": "Du musst dich anmelden, um eine Nachricht zu senden.",
     "loginForFavorite": "Du musst dich anmelden, um zu favorisieren.",
     "contentBlockSuccess": "Anzeige erfolgreich blockiert",
-    "userBlockSuccess": "Benutzer erfolgreich blockiert"
+    "userBlockSuccess": "Benutzer erfolgreich blockiert",
+    "informationUpdatedSuccessfully": "Informationen erfolgreich aktualisiert"
   },
   "input": {
     "showEmailOnProfile": {
@@ -128,26 +130,26 @@
     "changePassword": "Passwort ändern"
   },
   "wizard": {
-    "listingLocation": "Anzeigelokalität",
+    "listingLocation": "Anzeigenstandort",
     "model": "Modell",
-    "listingLocationDescription": "Anzeigelokalität auswählen...",
+    "listingLocationDescription": "Anzeigenstandort auswählen...",
     "modelDescription": "Modell auswählen...",
     "generalInformation": "Allgemeine Informationen",
-    "generalInformationDescription": "Wähle eine Kategorie und fülle die Informationen aus...",
+    "generalInformationDescription": "Kategorie auswählen und Informationen ausfüllen...",
     "listingCategory": "Anzeigekategorie auswählen",
-    "listingCategoryDescription": "Wähle eine Kategorie und fülle die Informationen aus...",
+    "listingCategoryDescription": "Kategorie auswählen und Informationen ausfüllen...",
     "addPhotos": "Fotos hinzufügen",
     "addPhotosDescription": "Fotos hinzufügen...",
     "addMediaPlaceholder": "Fotos hinzufügen...",
-    "addMediaDescription": "Füge bis zu 10 Fotos hinzu, um deine Anzeige attraktiver zu machen...",
+    "addMediaDescription": "Fügen Sie bis zu 10 Fotos hinzu, um Ihre Anzeige attraktiver zu machen...",
     "addMediaTitle": "Fotos hinzufügen",
     "addMediaTitlePlaceholder": "Fotos hinzufügen...",
     "addMediaButton": "Fotos hinzufügen",
     "addMediaError": "Fehler beim Hochladen der Fotos",
     "addMediaSuccess": "Fotos erfolgreich hochgeladen",
-    "addMediaLimit": "Du kannst maximal 10 Fotos hochladen",
+    "addMediaLimit": "Sie können maximal 10 Fotos hochladen",
     "addMediaDelete": "Foto löschen",
-    "addMediaDeleteConfirm": "Möchtest du dieses Foto wirklich löschen?",
+    "addMediaDeleteConfirm": "Möchten Sie dieses Foto wirklich löschen?",
     "addMediaDeleteSuccess": "Foto erfolgreich gelöscht",
     "addMediaDeleteError": "Fehler beim Löschen des Fotos",
     "title": "Titel",
@@ -189,7 +191,13 @@
     "fullAddressDescription": "Vollständige Adresse eingeben...",
     "showFullAddressInPostDetailsDescription": "Vollständige Adresse in Anzeigendetails anzeigen...",
     "allowMessagingDescription": "Nachrichten zulassen...",
-    "allowPhoneCallsDescription": "Telefonanrufe zulassen..."
+    "allowPhoneCallsDescription": "Telefonanrufe zulassen...",
+    "country": "Land",
+    "selectCountryPlaceholder": "Land auswählen...",
+    "city": "Stadt",
+    "selectCityPlaceholder": "Stadt auswählen...",
+    "district": "Bezirk",
+    "selectDistrictPlaceholder": "Bezirk auswählen..."
   },
   "success": {
     "listingCreated": "Anzeige erstellt",
