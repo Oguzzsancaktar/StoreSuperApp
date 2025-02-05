@@ -9,7 +9,10 @@ import { useModalState } from "@/contexts/ModalContext";
 import useAppStyles from "@/hooks/useAppStyles";
 import { useBlockUserMutation } from "@/services/accountServices";
 import { useDeleteChatMutation } from "@/services/chatServices";
-import { useBlockListingItemMutation } from "@/services/listingServices";
+import {
+  useBlockFromChatMutation,
+  useBlockListingItemMutation,
+} from "@/services/listingServices";
 import { toastSuccess } from "@/utils/toastUtils";
 
 import { ButtonStyled } from "../button";
@@ -32,11 +35,18 @@ const ModalReportContent: React.FC<IProps> = ({}) => {
   const { listingId, profileId, chatRegistryId } = useGlobalSearchParams();
   console.log("chatRegistryId", chatRegistryId);
 
+  const [blockFromChat, { isLoading: isBlockFromChatLoading }] =
+    useBlockFromChatMutation();
   const [blockListingItem, { isLoading }] = useBlockListingItemMutation();
   const [blockUser] = useBlockUserMutation();
 
   const handleConfirm = async () => {
     try {
+      if (chatRegistryId) {
+        const result = await blockFromChat(chatRegistryId as string);
+        toastSuccess(t("toast.userBlockSuccess"));
+      }
+
       if (listingId) {
         const result = await blockListingItem((listingId as string) || "");
         toastSuccess(t("toast.contentBlockSuccess"));

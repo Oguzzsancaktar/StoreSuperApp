@@ -57,8 +57,6 @@ const ScreenProfile: React.FC<IProps> = ({ profileId }) => {
     router.push(APP_ROUTES.PUBLIC.DRAWER.SETTINGS.LIST);
   };
 
-  console.log("currentUserListingData", currentUserListingData);
-
   return (
     <>
       <View

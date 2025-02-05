@@ -45,49 +45,57 @@
     "userBlockSuccess": "Корисникот е успешно блокиран"
   },
   "input": {
+    "showEmailOnProfile": {
+      "label": "Покажи е-пошта на профил",
+      "placeholder": "Покажи е-пошта на профил"
+    },
+    "showPhoneNumberOnProfile": {
+      "label": "Покажи телефонски број на профил",
+      "placeholder": "Покажи телефонски број на профил"
+    },
     "firstName": {
       "label": "Име",
-      "placeholder": "Внеси го твоето име..."
+      "placeholder": "Внесете го вашето име"
     },
     "lastName": {
       "label": "Презиме",
-      "placeholder": "Внеси го твоето презиме..."
+      "placeholder": "Внесете го вашето презиме"
     },
     "username": {
       "label": "Корисничко име",
-      "placeholder": "Внеси го твоето корисничко име..."
+      "placeholder": "Внесете го вашето корисничко име"
     },
     "email": {
       "label": "Е-пошта",
-      "placeholder": "Внеси ја твојата е-пошта..."
+      "placeholder": "Внесете ја вашата е-пошта"
     },
     "phoneNumber": {
       "label": "Телефонски број",
-      "placeholder": "Внеси го твојот телефонски број..."
+      "placeholder": "Внесете го вашиот телефонски број"
     },
     "birthday": {
-      "label": "Датум на раѓање",
-      "placeholder": "Внеси го твојот датум на раѓање..."
+      "label": "Роденден",
+      "placeholder": "Изберете го вашиот роденден"
     },
     "passwordOld": {
-      "label": "Стара лозинка",
-      "placeholder": "Твојата стара лозинка..."
+      "label": "Тековна лозинка",
+      "placeholder": "Внесете ја вашата тековна лозинка"
     },
     "passwordConfirm": {
       "label": "Потврди лозинка",
-      "placeholder": "Потврди ја твојата лозинка..."
+      "placeholder": "Потврдете ја вашата лозинка"
     },
     "password": {
       "label": "Лозинка",
-      "placeholder": "Твојата лозинка..."
+      "placeholder": "Внесете лозинка"
     },
     "eula": {
-      "label": "Прифати услови за користење",
-      "placeholder": "Договор за краен корисник: Со пристапување или користење на Setuka24, се согласуваш со условите на овој договор."
+      "label": "Услови за користење",
+      "placeholder": "Се согласувам со условите за користење"
     },
     "language": {
       "label": "Јазик",
-      "placeholder": "Избери јазик..."
+      "placeholder": "Изберете јазик"
     }
   },
   "welcome": {
@@ -128,7 +136,7 @@
     "enterPrice": "Внесете цена",
     "enterPricePlaceholder": "Внесете цена...",
     "priceCurrency": "Валута на цена",
-    "negotiable": "Търси",
+    "negotiable": "Договорно",
     "details": "Детали",
     "detailsDescription": "Избери подкатегорија и пополни информации за огласот...",
     "selectEstateType": "Избери тип на недвижност",

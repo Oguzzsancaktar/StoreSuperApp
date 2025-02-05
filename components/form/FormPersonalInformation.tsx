@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
 
+import apiClient from "@/config/axiosInstance";
 import APP_INPUT_FIELDS from "@/constants/APP_INPUT_FIELDS";
 import APP_STORAGE_KEYS from "@/constants/APP_STORAGE_KEYS";
 import { useAppAuthSession } from "@/contexts/AuthContext";
 import { useStorageState } from "@/hooks/useStorageState";
 import { IInputProps } from "@/interfaces/app";
+import ETranslationLanguages from "@/interfaces/enums/ETranslationLanguages";
 import {
   useGetCurrentUserInformationQuery,
   usePutUpdateUserInformationsMutation,
@@ -50,6 +52,9 @@ const FormPersonalInformation = () => {
       };
       setPrefferedLanguage(values?.language?.value);
       changeLanguage(values?.language?.value);
+
+      apiClient.defaults.headers["Accept-Language"] = values?.language._index;
+
       const result = await updateUserInformations(tempUserInfo as any);
       toastSuccess(t("toast.informationUpdatedSuccessfully"));
       console.log("result", result);

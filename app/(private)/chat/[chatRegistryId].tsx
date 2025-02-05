@@ -219,12 +219,12 @@ const MessagesDetailScreen = () => {
             justifyContent: "flex-end",
           }}
         >
-          {/* <ButtonStyled
+          <ButtonStyled
             variant="transparent"
             onPress={() => setModalContent("ModalReportContent")}
           >
             <IconBlock color={theme.grayScale900} />
-          </ButtonStyled> */}
+          </ButtonStyled>
           <ButtonStyled variant="transparent" onPress={handleChatRemoveClick}>
             <IconTrash color={theme.grayScale900} />
           </ButtonStyled>
@@ -239,55 +239,57 @@ const MessagesDetailScreen = () => {
           }
           style={{ flex: 1 }}
         >
-          <Pressable
-            onPress={handleAdvertClick}
-            style={[
-              themedStyles.borderStyles.dashedPrimary,
-              {
-                minWidth: APP_STYLE_VALUES.WH_SIZES.xl5,
-                borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
-                marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
-                marginHorizontal: "auto",
-                padding: APP_STYLE_VALUES.SPACE_SIZES.sp3,
-              },
-            ]}
-          >
-            <View
+          {listingDetailData?.user && (
+            <Pressable
+              onPress={handleAdvertClick}
               style={[
-                commonStyles.flexStyles.rowCenter,
-
+                themedStyles.borderStyles.dashedPrimary,
                 {
-                  gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                  minWidth: APP_STYLE_VALUES.WH_SIZES.xl5,
+                  borderRadius: APP_STYLE_VALUES.RADIUS_SIZES.lg,
+                  marginBottom: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                  marginHorizontal: "auto",
+                  padding: APP_STYLE_VALUES.SPACE_SIZES.sp3,
                 },
               ]}
             >
-              <ImageStyled
-                url={listingDetailData.media[0]?.url}
-                width={APP_STYLE_VALUES.WH_SIZES.xs}
-                height={APP_STYLE_VALUES.WH_SIZES.xs}
-              />
-              <View style={[commonStyles.flexStyles.colStart]}>
-                <TextStyled
-                  textAlignment="left"
-                  fontSize="sm"
-                  fontWeight="medium"
-                  customColor="grayScale900"
-                  numberOfLines={1}
-                >
-                  {listingDetailData.name}
-                </TextStyled>
-                <TextStyled
-                  textAlignment="left"
-                  fontSize="xs"
-                  fontWeight="medium"
-                  customColor="grayScale500"
-                  numberOfLines={1}
-                >
-                  {listingDetailData.formattedPrice}
-                </TextStyled>
+              <View
+                style={[
+                  commonStyles.flexStyles.rowCenter,
+
+                  {
+                    gap: APP_STYLE_VALUES.SPACE_SIZES.sp2,
+                  },
+                ]}
+              >
+                <ImageStyled
+                  url={listingDetailData.media[0]?.url}
+                  width={APP_STYLE_VALUES.WH_SIZES.xs}
+                  height={APP_STYLE_VALUES.WH_SIZES.xs}
+                />
+                <View style={[commonStyles.flexStyles.colStart]}>
+                  <TextStyled
+                    textAlignment="left"
+                    fontSize="sm"
+                    fontWeight="medium"
+                    customColor="grayScale900"
+                    numberOfLines={1}
+                  >
+                    {listingDetailData.name}
+                  </TextStyled>
+                  <TextStyled
+                    textAlignment="left"
+                    fontSize="xs"
+                    fontWeight="medium"
+                    customColor="grayScale500"
+                    numberOfLines={1}
+                  >
+                    {listingDetailData.formattedPrice}
+                  </TextStyled>
+                </View>
               </View>
-            </View>
-          </Pressable>
+            </Pressable>
+          )}
 
           <FlatListStyled
             showGradients={false}

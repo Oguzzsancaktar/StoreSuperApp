@@ -46,49 +46,57 @@
     "userBlockSuccess": "Benutzer erfolgreich blockiert"
   },
   "input": {
+    "showEmailOnProfile": {
+      "label": "Email auf Profil anzeigen",
+      "placeholder": "Email auf Profil anzeigen"
+    },
+    "showPhoneNumberOnProfile": {
+      "label": "Telefonnummer auf Profil anzeigen",
+      "placeholder": "Telefonnummer auf Profil anzeigen"
+    },
     "firstName": {
       "label": "Vorname",
-      "placeholder": "Gib deinen Vornamen ein..."
+      "placeholder": "Geben Sie Ihren Vornamen ein"
     },
     "lastName": {
       "label": "Nachname",
-      "placeholder": "Gib deinen Nachnamen ein..."
+      "placeholder": "Geben Sie Ihren Nachnamen ein"
     },
     "username": {
       "label": "Benutzername",
-      "placeholder": "Gib deinen Benutzernamen ein..."
+      "placeholder": "Geben Sie Ihren Benutzernamen ein"
     },
     "email": {
-      "label": "E-Mail-Adresse",
-      "placeholder": "Gib deine E-Mail-Adresse ein..."
+      "label": "E-Mail",
+      "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
     },
     "phoneNumber": {
       "label": "Telefonnummer",
-      "placeholder": "Gib deine Telefonnummer ein..."
+      "placeholder": "Geben Sie Ihre Telefonnummer ein"
     },
     "birthday": {
       "label": "Geburtstag",
-      "placeholder": "Gib dein Geburtsdatum ein..."
+      "placeholder": "Wählen Sie Ihren Geburtstag"
     },
     "passwordOld": {
-      "label": "Altes Passwort",
-      "placeholder": "Dein altes Passwort..."
+      "label": "Aktuelles Passwort",
+      "placeholder": "Geben Sie Ihr aktuelles Passwort ein"
     },
     "passwordConfirm": {
       "label": "Passwort bestätigen",
-      "placeholder": "Bestätige dein Passwort..."
+      "placeholder": "Bestätigen Sie Ihr Passwort"
     },
     "password": {
       "label": "Passwort",
-      "placeholder": "Dein Passwort..."
+      "placeholder": "Geben Sie Ihr Passwort ein"
     },
     "eula": {
-      "label": "Nutzungsbedingungen akzeptieren",
-      "placeholder": "Endbenutzer-Lizenzvereinbarung: Durch den Zugriff auf oder die Nutzung von Setuka24 stimmst du den Bedingungen dieser EULA zu."
+      "label": "Nutzungsbedingungen",
+      "placeholder": "Ich stimme den Nutzungsbedingungen zu"
     },
     "language": {
       "label": "Sprache",
-      "placeholder": "Sprache auswählen..."
+      "placeholder": "Wählen Sie Ihre Sprache"
     }
   },
   "welcome": {

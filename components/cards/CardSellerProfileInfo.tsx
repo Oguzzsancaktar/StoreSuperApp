@@ -241,11 +241,13 @@ const CardSellerProfileInfo: React.FC<IProps> = ({ scrollY, profileId }) => {
                 {userProfileData?.lastName || ""}
               </TextStyled>
             </View>
-            <View style={[{ marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp1 }]}>
-              <TextStyled fontSize="md" fontWeight="medium">
-                {userProfileData.email.toLowerCase()}
-              </TextStyled>
-            </View>
+            {(currentUserData?.showEmailOnProfile || !profileId) && (
+              <View style={[{ marginTop: -APP_STYLE_VALUES.SPACE_SIZES.sp1 }]}>
+                <TextStyled fontSize="md" fontWeight="medium">
+                  {userProfileData.email.toLowerCase()}
+                </TextStyled>
+              </View>
+            )}
           </View>
 
           <Animated.View

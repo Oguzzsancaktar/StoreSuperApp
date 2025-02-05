@@ -10,6 +10,7 @@ import { map } from 'lodash';
 import IListingFavorite from '@/interfaces/listing/IListingFavorite';
 import IUser from '@/interfaces/account/IUser';
 import { accountApiSlice } from './accountServices';
+import IChatConversation from '@/interfaces/chat/IChatConversation';
 
 const LISTING_API_REDUCER_PATH = 'listingAPI'
 
@@ -20,6 +21,22 @@ type IBuilder = EndpointBuilder<
   TagTypes,
   typeof LISTING_API_REDUCER_PATH
 >
+
+
+const blockFromChat = (builder: IBuilder) => {
+  return builder.mutation<IListingPost[], IChatConversation["chatRegistryId"]>({
+    query(chatRegistryId) {
+      return {
+        url: `/block/block-chat`,
+        method: 'POST',
+        data: {
+          chatRegistryId
+        }
+      }
+    },
+    invalidatesTags: [LISTING_API_TAG],
+  })
+}
 
 const blockListingItem = (builder: IBuilder) => {
   return builder.mutation<IListingPost[], IListingPost["id"]>({
@@ -220,6 +237,7 @@ const listingApiSlice = createApi({
   tagTypes: [LISTING_API_TAG, ACCOUNT_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
+    blockFromChat: blockFromChat(builder),
     blockListingItem: blockListingItem(builder),
     deleteListing: deleteListing(builder),
     getUsersListingItems: getUsersListingItems(builder),
@@ -235,9 +253,9 @@ const listingApiSlice = createApi({
   }),
 })
 
-const { useDeleteListingMutation, useBlockListingItemMutation, useGetUsersListingItemsQuery, useGetListingItemsQuery, useLazyGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery } = listingApiSlice
+const { useBlockFromChatMutation, useDeleteListingMutation, useBlockListingItemMutation, useGetUsersListingItemsQuery, useGetListingItemsQuery, useLazyGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery } = listingApiSlice
 
-export { listingApiSlice, useDeleteListingMutation, useBlockListingItemMutation, useGetUsersListingItemsQuery, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery, useLazyGetListingItemsQuery }
+export { listingApiSlice, useBlockFromChatMutation, useDeleteListingMutation, useBlockListingItemMutation, useGetUsersListingItemsQuery, useGetListingItemsQuery, useGetNewestPostsQuery, useCreateListingMutation, useGetListingItemDetailsQuery, useUploadListingMediaMutation, useAddListingFavoriteMutation, useRemoveListingFavoriteMutation, useGetListingFavoritesQuery, useGetViewCountQuery, useLazyGetListingItemsQuery }
 
 
 

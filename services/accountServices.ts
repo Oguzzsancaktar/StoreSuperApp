@@ -88,6 +88,23 @@ const loginWithGoogle = (builder: IBuilder) => {
 
 // User
 
+const updateUserContactPrefferences = (builder: IBuilder) => {
+  return builder.mutation<any, {
+    showEmailOnProfile: boolean,
+    showPhoneNumberOnProfile: boolean
+  }>({
+    query(data) {
+      return {
+        url: `/users/updateProfileSettingsPreferences`,
+        method: 'POST',
+        data
+      }
+    },
+    invalidatesTags: [ACCOUNT_API_TAG],
+  })
+}
+
+
 const blockUser = (builder: IBuilder) => {
   return builder.mutation<ILoginResult, string>({
     query(blockedUserId) {
@@ -212,6 +229,7 @@ const accountApiSlice = createApi({
   tagTypes: [ACCOUNT_API_TAG, LISTING_API_TAG],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
+    updateUserContactPrefferences: updateUserContactPrefferences(builder),
     unblockUser: unblockUser(builder),
     getBlockedUsers: getBlockedUsers(builder),
     blockUser: blockUser(builder),
@@ -230,6 +248,7 @@ const accountApiSlice = createApi({
 })
 
 const {
+  useUpdateUserContactPrefferencesMutation,
   useUnblockUserMutation,
   useGetBlockedUsersQuery,
   useBlockUserMutation,
@@ -243,7 +262,8 @@ const {
   useGetCurrentUserInformationQuery,
   useGetCurrentUserListingsQuery,
   useAddCurrentUserImageMutation,
-  usePutUpdateUserInformationsMutation } = accountApiSlice
+  usePutUpdateUserInformationsMutation,
+} = accountApiSlice
 
 export {
   accountApiSlice,
@@ -260,7 +280,8 @@ export {
   useGetCurrentUserInformationQuery,
   useGetCurrentUserListingsQuery,
   useAddCurrentUserImageMutation,
-  usePutUpdateUserInformationsMutation
+  usePutUpdateUserInformationsMutation,
+  useUpdateUserContactPrefferencesMutation
 }
 
 

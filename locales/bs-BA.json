@@ -33,7 +33,7 @@
     "buttons": {
       "submit": "Pošalji",
       "cancel": "Otkaži",
-      "next": "Sledeći",
+      "next": "Sljedeći",
       "reset": "Resetuj",
       "save": "Sačuvaj"
     }
@@ -45,49 +45,57 @@
     "userBlockSuccess": "Korisnik je uspješno blokiran"
   },
   "input": {
+    "showEmailOnProfile": {
+      "label": "Prikaži e-mail na profil",
+      "placeholder": "Prikaži e-mail na profil"
+    },
+    "showPhoneNumberOnProfile": {
+      "label": "Prikaži broj telefona na profil",
+      "placeholder": "Prikaži broj telefona na profil"
+    },
     "firstName": {
       "label": "Ime",
-      "placeholder": "Unesite svoje ime..."
+      "placeholder": "Unesite vaše ime"
     },
     "lastName": {
       "label": "Prezime",
-      "placeholder": "Unesite svoje prezime..."
+      "placeholder": "Unesite vaše prezime"
     },
     "username": {
       "label": "Korisničko ime",
-      "placeholder": "Unesite svoje korisničko ime..."
+      "placeholder": "Unesite vaše korisničko ime"
     },
     "email": {
-      "label": "E-mail adresa",
-      "placeholder": "Unesite svoju e-mail adresu..."
+      "label": "Email",
+      "placeholder": "Unesite vaš email"
     },
     "phoneNumber": {
       "label": "Broj telefona",
-      "placeholder": "Unesite svoj broj telefona..."
+      "placeholder": "Unesite vaš broj telefona"
     },
     "birthday": {
       "label": "Datum rođenja",
-      "placeholder": "Unesite svoj datum rođenja..."
+      "placeholder": "Izaberite vaš datum rođenja"
     },
     "passwordOld": {
-      "label": "Stara lozinka",
-      "placeholder": "Vaša stara lozinka..."
+      "label": "Trenutna lozinka",
+      "placeholder": "Unesite vašu trenutnu lozinku"
     },
     "passwordConfirm": {
       "label": "Potvrda lozinke",
-      "placeholder": "Potvrdite svoju lozinku..."
+      "placeholder": "Potvrdite vašu lozinku"
     },
     "password": {
       "label": "Lozinka",
-      "placeholder": "Vaša lozinka..."
+      "placeholder": "Unesite lozinku"
     },
     "eula": {
-      "label": "Prihvati uslove korištenja",
-      "placeholder": "Ugovor o licenci krajnjeg korisnika: Pristupom ili korištenjem Setuka24 prihvatate uslove ovog EULA."
+      "label": "Uslovi korištenja",
+      "placeholder": "Slažem se sa uslovima korištenja"
     },
     "language": {
       "label": "Jezik",
-      "placeholder": "Izaberite jezik..."
+      "placeholder": "Izaberite jezik"
     }
   },
   "welcome": {
@@ -105,7 +113,7 @@
   },
   "settings": {
     "accountSettings": "Postavke računa",
-    "personalInformation": "Lični podaci",
+    "personalInformation": "Lične informacije",
     "profileInformation": "Informacije o profilu",
     "privacyPolicy": "Pravila privatnosti",
     "darkMode": "Tamni način",

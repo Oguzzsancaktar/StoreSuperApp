@@ -46,49 +46,57 @@
     "userBlockSuccess": "User Blocked successfully"
   },
   "input": {
+    "showEmailOnProfile": {
+      "label": "Show email on profile",
+      "placeholder": "Show email on profile"
+    },
+    "showPhoneNumberOnProfile": {
+      "label": "Show phone number on profile",
+      "placeholder": "Show phone number on profile"
+    },
     "firstName": {
-      "label": "Firstname",
-      "placeholder": "Enter your first name..."
+      "label": "First Name",
+      "placeholder": "Enter your first name"
     },
     "lastName": {
-      "label": "Lastname",
-      "placeholder": "Enter your last name..."
+      "label": "Last Name",
+      "placeholder": "Enter your last name"
     },
     "username": {
       "label": "Username",
-      "placeholder": "Enter your username..."
+      "placeholder": "Enter your username"
     },
     "email": {
-      "label": "Email Adress",
-      "placeholder": "Enter your email address..."
+      "label": "Email",
+      "placeholder": "Enter your email"
     },
     "phoneNumber": {
       "label": "Phone Number",
-      "placeholder": "Enter your phone number..."
+      "placeholder": "Enter your phone number"
     },
     "birthday": {
       "label": "Birthday",
-      "placeholder": "Enter your birthday..."
+      "placeholder": "Select your birthday"
     },
     "passwordOld": {
-      "label": "Old Password",
-      "placeholder": "Your old password..."
+      "label": "Current Password",
+      "placeholder": "Enter your current password"
     },
     "passwordConfirm": {
-      "label": "Password Confirm",
-      "placeholder": "Confirm your password..."
+      "label": "Confirm Password",
+      "placeholder": "Confirm your password"
     },
     "password": {
       "label": "Password",
-      "placeholder": "Your password..."
+      "placeholder": "Enter your password"
     },
     "eula": {
-      "label": "Accept Terms and Conditions",
-      "placeholder": "End User License Agreement By accessingor using Setuka24, you agree to be bound by the terms and conditions of this EULA."
+      "label": "Terms and Conditions",
+      "placeholder": "I agree to the terms and conditions"
     },
     "language": {
       "label": "Language",
-      "placeholder": "Select language..."
+      "placeholder": "Select your language"
     }
   },
   "welcome": {

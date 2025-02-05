@@ -11,4 +11,6 @@ export default interface IUser {
   listingAmount: 0
   phoneNumber: string
   language?: string
+  showEmailOnProfile?: boolean
+  showPhoneNumberOnProfile?: boolean
 }

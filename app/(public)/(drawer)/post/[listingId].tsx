@@ -272,7 +272,7 @@ const ListingDetailPage = () => {
         </InnerCommonContainer>
       </ScrollViewStyled>
 
-      {listingItemDetailData.user.id !== userTokenInfo?.Id && (
+      {listingItemDetailData?.user?.id !== userTokenInfo?.Id && (
         <View
           style={[
             commonStyles.flexStyles.rowWrap,

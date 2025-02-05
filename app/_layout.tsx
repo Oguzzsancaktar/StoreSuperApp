@@ -11,6 +11,7 @@ import { DismissKeyboardWrapper } from "@/components/containers";
 import SafeAreaContainer from "@/components/containers/SafeAreaContainer";
 import DrawerGlobal from "@/components/drawer/DrawerGlobal";
 import ModalGlobal from "@/components/modal/ModalGlobal";
+import apiClient from "@/config/axiosInstance";
 import "@/config/i18n";
 import APP_ROUTES from "@/constants/APP_ROUTES";
 import APP_STORAGE_KEYS from "@/constants/APP_STORAGE_KEYS";
@@ -52,6 +53,8 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (prefferedLanguage) {
+      console.log("prefferedLanguage", prefferedLanguage);
+      apiClient.defaults.headers["Accept-Language"] = prefferedLanguage;
       changeLanguage(prefferedLanguage);
     }
   }, [prefferedLanguage]);
